@@ -1,0 +1,1092 @@
+<resources>
+    <string name="app_name">比特股用户界面</string>
+
+    <string name="drawer_open">抽屉开启</string>
+    <string name="drawer_closed">抽屉关闭</string>
+
+    <string name="bottom_dashboard">主页</string>
+    <string name="bottom_balance">资产</string>
+    <string name="bottom_defi">交易所</string>
+    <string name="bottom_liquid">流动池</string>
+    <string name="bottom_explore">浏览</string>
+
+    <!--  titles  -->
+
+    <string name="drawer_transfer">普通转账</string>
+    <string name="drawer_settlement">资产清算</string>
+    <string name="drawer_collateral">抵押</string>
+    <string name="drawer_voting">投票</string>
+    <string name="drawer_proposed_transactions">提案</string>
+
+    <string name="drawer_membership">终身会员</string>
+
+    <string name="drawer_settings">设置</string>
+    <string name="drawer_help">帮助</string>
+    <string name="drawer_about">关于</string>
+    <string name="drawer_test_lab">实验室</string>
+
+    <string name="drawer_import">导入</string>
+
+
+    <!--  menus  -->
+    <string name="menu_add_node">添加节点</string>
+    <string name="menu_lock">锁</string>
+
+    <!--  about  -->
+    <string name="about_title">关于</string>
+    <string name="about_app_name">应用名称</string>
+    <string name="about_version">版本</string>
+    <string name="about_author">作者</string>
+    <string name="about_source_code">源代码</string>
+    <string name="about_privacy_policy">隐私策略</string>
+    <string name="about_library">运行库</string>
+
+    <!--  settings  -->
+    <string name="settings_title">设置</string>
+    <string name="settings_default_title">设置</string>
+    <string name="settings_account_title">账户设置</string>
+
+    <string name="node_settings_title">节点</string>
+    <string name="node_settings_hint">更改接入区块链接入节点</string>
+    <string name="node_settings_api_nodes_title">接入节点</string>
+    <string name="node_settings_info_title">节点信息</string>
+    <string name="node_settings_node_info_title">节点信息</string>
+    <string name="node_settings_websocket_state">连接状态</string>
+    <string name="node_settings_websocket_state_connecting">正在连接</string>
+    <string name="node_settings_websocket_state_connected">已连接</string>
+    <string name="node_settings_websocket_state_messaging">Messaging</string>
+    <string name="node_settings_websocket_state_closed">已断开</string>
+
+    <string name="node_settings_name">名称</string>
+    <string name="node_settings_name_hint">添加节点</string>
+    <string name="node_settings_url">地址</string>
+    <string name="node_settings_password">密码</string>
+    <string name="node_settings_password_hint">可选</string>
+    <string name="node_settings_username">用户名</string>
+    <string name="node_settings_username_hint">可选</string>
+
+
+    <string name="node_settings_latency">延迟</string>
+    <string name="node_settings_latency_ms">毫秒</string>
+    <string name="node_settings_timeout">超时</string>
+    <string name="node_settings_connecting">连接中…</string>
+    <string name="node_settings_connected">已连接</string>
+
+    <string name="node_settings_auto_select">自动选择节点</string>
+    <string name="node_settings_auto_select_enabled">根据连接延迟自动选择节点</string>
+    <string name="node_settings_auto_select_disabled">手动选择节点</string>
+
+    <string name="node_settings_add_node_button">添加节点</string>
+
+    <string-array name="node_types">
+        <item>登录</item>
+        <item>区块查询</item>
+        <item>交易广播</item>
+        <item>数据库</item>
+        <item>交易历史</item>
+        <item>节点信息</item>
+        <item>加密</item>
+        <item>资产</item>
+        <item>挂单查询</item>
+        <item>测试</item>
+    </string-array>
+
+    <string name="appearance_settings_title">界面和外观</string>
+    <string name="appearance_settings_theme_title">主题</string>
+    <string name="appearance_settings_hint">更改界面配色和样式</string>
+    <string name="appearance_settings_dark_mode_title">暗色模式</string>
+    <string name="appearance_settings_dark_mode">暗色模式</string>
+    <string-array name="settings_dark_mode_entries">
+        <item>跟随系统</item>
+        <item>关闭</item>
+        <item>开启</item>
+        <item>跟随节能模式</item>
+    </string-array>
+    <string name="appearance_settings_show_indicator">显示状态栏图标</string>
+    <string name="appearance_settings_show_indicator_hint">显示钱包和网络状态图标</string>
+
+
+    <string name="appearance_settings_market_and_trade_title">市场和交易</string>
+    <string name="appearance_settings_invert_trade_pair_color">反转交易颜色</string>
+    <string name="appearance_settings_fee_reserved">手续费保留</string>
+    <string name="appearance_settings_fee_reserve_auto">自动计算</string>
+    <string name="appearance_settings_price_unit">价格单位</string>
+
+
+    <string name="appearance_settings_fee_reserved_title">手续费保留</string>
+    <string name="appearance_settings_fee_reserved_amount">手续费数量</string>
+    <string name="appearance_settings_price_unit_title">价格单位</string>
+
+    <string name="language_settings_title">语言</string>
+    <string name="language_settings_default">默认</string>
+    <string name="language_settings_follow_system">跟随系统</string>
+    <string name="language_settings_english">英语 (美国)</string>
+    <string name="language_settings_russian">俄语 (俄国)</string>
+    <string name="language_settings_simplified_chinese">简体中文 (中国)</string>
+    <string name="language_settings_traditional_chinese">繁体中文 (香港)</string>
+
+
+    <string name="transfer_title">普通转账</string>
+
+    <string name="transfer_from">付款方</string>
+    <string name="transfer_from_hint"> </string>
+    <string name="transfer_to">收款方</string>
+    <string name="transfer_to_hint"> </string>
+    <string name="transfer_set_sender">选择付款方</string>
+    <string name="transfer_set_receiver">选择收款方</string>
+    <string name="transfer_set_asset">选择转账资产</string>
+    <string name="transfer_details">详细信息</string>
+    <string name="transfer_asset">转账资产</string>
+    <string name="transfer_amount">数量</string>
+    <string name="transfer_memo">备注消息</string>
+    <string name="transfer_memo_hint">可选</string>
+    <string name="transfer_send">下一步</string>
+    <string name="transfer_fee">手续费</string>
+<!--    <string name="transfer_fee_state_checking">正在检查…</string>-->
+<!--    <string name="transfer_fee_state_confirmed">已确认</string>-->
+<!--    <string name="transfer_fee_state_insufficient">手续费不足</string>-->
+<!--    <string name="transfer_fee_state_empty"> </string>-->
+    <string name="transfer_unlock_info">请解锁钱包来转账</string>
+    <string name="transfer_active_info">转账需要充足的资金权限</string>
+    <string name="transfer_memo_info">备注消息需要充足的备注权限</string>
+    <string name="transfer_amount_left">剩余</string>
+    <string name="transfer_amount_total">总计</string>
+
+
+    <string name="import_title">导入账户</string>
+    <string name="import_cloud_mode">云账户</string>
+    <string name="import_brain_key_mode">助记词</string>
+    <string name="import_private_key_mode">私钥</string>
+    <string name="import_restore_mode">二进制恢复</string>
+    <string name="import_no_account_hint">无账户</string>
+    <string name="import_no_id_hint">请轻触上方头像登录</string>
+    <string name="import_observer_mode">旁观者模式</string>
+    <string name="import_observer_mode_description">将此账户添加为旁观账户，无资金或账户权限</string>
+    <string name="import_account">账户名称</string>
+    <string name="import_password">密码</string>
+    <string name="import_brain_key">助记词</string>
+    <string name="import_private_key">私钥</string>
+    <string name="import_import_button">导入账户</string>
+    <string name="import_unlock_info">请解锁钱包来导入账户</string>
+
+    <string name="import_checking">正在检查…</string>
+    <string name="import_invalid_account_name_or_id">无效账户</string>
+    <string name="import_invalid_password">无效密码</string>
+    <string name="import_invalid_brain_key">无效助记词</string>
+    <string name="import_invalid_private_key">无效私钥</string>
+    <string name="import_no_matched_account">账户不存在</string>
+    <string name="import_network_error">无节点连接</string>
+
+
+    <string name="wallet_manager_title">钱包管理</string>
+    <string name="wallet_unlock_wallet_title">解锁钱包</string>
+    <string name="wallet_change_password_title">更改密码</string>
+
+    <string name="wallet_manager_old_password">旧密码</string>
+    <string name="wallet_manager_new_password">新密码</string>
+    <string name="wallet_manager_change_password">更改密码</string>
+    <string name="wallet_manager_wallet_password_title">钱包密码</string>
+    <string name="wallet_manager_unlock_wallet_button">解锁钱包</string>
+
+    <string name="wallet_settings_title">钱包和账户</string>
+    <string name="wallet_settings_hint">备份与恢复钱包</string>
+    <string name="wallet_settings_info_title">信息</string>
+
+    <string name="wallet_settings_wallet_status">钱包状态</string>
+    <string name="wallet_settings_reset_wallet">重置钱包</string>
+    <string name="wallet_settings_corrupted">已损坏</string>
+    <string name="wallet_settings_corrupted_message">钱包已损坏并需要重置</string>
+    <string name="wallet_settings_unlocked">已解锁</string>
+    <string name="wallet_settings_locked">已锁定</string>
+
+    <string name="wallet_settings_wallet_reset_title">重置钱包</string>
+    <string name="wallet_settings_wallet_reset_hint">删除所有账户并重新建立钱包</string>
+
+    <string name="wallet_settings_security_title">安全</string>
+    <string name="wallet_settings_passcode_lock">密码锁</string>
+    <string name="wallet_settings_passcode_lock_hint">使用密码加密钱包</string>
+    <string name="wallet_settings_fingerprint_unlock">指纹解锁</string>
+    <string name="wallet_settings_use_fingerprint_hint">使用指纹加密钱包</string>
+    <string name="wallet_settings_change_password">更改密码</string>
+    <string name="wallet_settings_reset_wallet_dialog_message">您是否确定删除所有账户并重新建立钱包? </string>
+
+    <string name="wallet_settings_user_title">本地账户</string>
+    <string name="wallet_settings_remove_user_title">移除账户</string>
+    <string name="wallet_settings_remove_user_message">您是否确定删除该账户及其所有私钥?</string>
+
+    <string name="wallet_settings_wallet_storage_tip">钱包加密存储在本地，任何在程序外对数据库的更改会导致钱包数据损坏</string>
+
+    <string name="wallet_wallet_locked">钱包已锁定</string>
+    <string name="wallet_unlock_info">请解锁钱包来控制账户</string>
+
+    <string name="wallet_settings_backup">备份钱包</string>
+    <string name="wallet_settings_backup_hint">备份钱包文件</string>
+    <string name="wallet_settings_restore">恢复钱包</string>
+    <string name="wallet_settings_restore_hint">从文件恢复钱包</string>
+
+    <string name="wallet_settings_backup_dialog">钱包备份</string>
+    <string name="wallet_settings_backup_success_dialog">钱包已备份</string>
+    <string name="wallet_settings_backup_failed_dialog">钱包备份失败</string>
+    <string name="wallet_settings_backup_dialog_message">使用密码加密钱包备份</string>
+    <string name="wallet_settings_backup_dialog_success_message">钱包备份已成功创建.</string>
+    <string name="wallet_settings_backup_dialog_failed_message">无法创建钱包备份, 请重试.</string>
+    <string name="wallet_settings_restore_dialog">钱包恢复</string>
+    <string name="wallet_settings_restore_dialog_message">使用密码解密钱包备份.</string>
+    <string name="wallet_settings_restore_dialog_failed_message">无法恢复钱包备份, 请重试.</string>
+
+    <string name="wallet_settings_backup_password">密码</string>
+    <string name="wallet_settings_backup_password_repeat">重复密码</string>
+
+
+    <string name="wallet_settings_backup_checking">检查中…</string>
+    <string name="wallet_settings_backup_complete">此钱包备份包含 %1$s 个账户和 %2$s 个私钥</string>
+
+    <string name="wallet_settings_backup_save_text_message">请保存以下加密的钱包备份文本</string>
+
+    <string name="wallet_settings_backup_save_file_button">保存为文件</string>
+    <string name="wallet_settings_backup_save_text_button">保存为文本</string>
+
+    <string name="wallet_settings_restore_from_file">从文件恢复</string>
+    <string name="wallet_settings_restore_from_text">从文本恢复</string>
+
+    <string name="wallet_settings_wallet_backup_file">钱包备份文件</string>
+    <string name="wallet_settings_wallet_backup_text">钱包备份文本</string>
+
+    <string name="wallet_corrupted_dialog_title">钱包损坏</string>
+    <string name="wallet_corrupted_dialog_message">钱包已经损坏, 请重置</string>
+
+    <string name="wallet_enter_password">输入密码</string>
+
+    <!--  fingerprint  -->
+
+    <string name="fingerprint_touch_sensor">请按下手指</string>
+    <string name="fingerprint_confirm">再次按下手指以确认</string>
+    <string name="fingerprint_unknown">未知指纹</string>
+    <string name="fingerprint_not_recognized">未能识别指纹，请重试</string>
+
+    <!--  permission  -->
+
+    <string name="permission_settings_title">权限</string>
+    <string name="permission_settings_hint">修改账户私钥和权限阈值</string>
+    <string name="permission_settings_key_unlock_info">请解锁钱包来更改账户私钥和权限阈值</string>
+    <string name="permission_settings_password_unlock_info">请解锁钱包来更改重置账户密码</string>
+    <string name="permission_settings_threshold">阈值</string>
+
+    <string name="permission_settings_new_password">新密码</string>
+    <string name="permission_settings_new_password_repeat">重复新密码</string>
+    <string name="permission_settings_generate_random_button">生成随机</string>
+    <string name="permission_settings_next_button">下一步</string>
+
+    <string name="permission_owner_authority">账户权限</string>
+    <string name="permission_active_authority">资金权限</string>
+    <string name="permission_memo_authority">备注权限</string>
+
+    <string name="permission_settings_tab_owner">账户权限</string>
+    <string name="permission_settings_tab_active">资金权限</string>
+    <string name="permission_settings_tab_memo">备注权限</string>
+    <string name="permission_settings_tab_cloud">云账户</string>
+
+    <string name="permission_settings_owner_threshold_hint">修改账户相关的各种设置和权限的最低权重</string>
+    <string name="permission_settings_active_threshold_hint">控制本账户资金用于交易及转账的最低权重</string>
+    <string name="permission_settings_memo_threshold_hint">解密交易附带的备注信息的最低权重</string>
+
+    <string name="permission_settings_owner_keys">账户密钥</string>
+    <string name="permission_settings_active_keys">资金密钥</string>
+    <string name="permission_settings_memo_keys">备注密钥</string>
+
+    <string name="permission_settings_owner_permission_tip">账户权限决定此账户密钥管理和其他所有设置</string>
+    <string name="permission_settings_active_permission_tip">资金权限决定此账户资金的流转</string>
+    <string name="permission_settings_memo_permission_tip">备注权限决定此账户交易中备注信息的解密</string>
+
+    <string name="permission_settings_account_auths">账户验证</string>
+    <string name="permission_settings_key_auths">密钥验证</string>
+    <string name="permission_settings_add_account_auths">添加账户</string>
+    <string name="permission_settings_add_key_auth">添加密钥</string>
+    <string name="permission_settings_replace_key">替换密钥</string>
+
+    <string name="permission_settings_add_owner_auth">添加账户权限</string>
+    <string name="permission_settings_add_active_auth">添加资金权限</string>
+    <string name="permission_settings_replace_memo_auth">替换备注权限</string>
+
+    <string name="permission_settings_remove_owner_auth">移除账户权限</string>
+    <string name="permission_settings_remove_active_auth">移除资金权限</string>
+    <string name="permission_settings_remove_memo_auth">移除备注权限</string>
+
+    <string name="permission_settings_unlock_info">请解锁钱包来更改权限</string>
+
+    <string name="permission_owner_threshold">新账户权限阈值</string>
+    <string name="permission_active_threshold">新资金权限阈值</string>
+    <string name="permission_memo_threshold">新备注权限阈值</string>
+
+    <string name="permission_new_threshold">新阈值</string>
+    <string name="permission_new_owner_threshold">新账户权限阈值</string>
+    <string name="permission_new_active_threshold">新资金权限阈值</string>
+    <string name="permission_new_memo_threshold">新备注权限阈值</string>
+
+    <string name="permission_import_key_title">导入密钥</string>
+
+    <string name="permission_remove_key_title">移除密钥</string>
+    <string name="permission_remove_key_message">您是否确认移除该密钥?</string>
+    <string name="permission_remove_account_title">移除账户</string>
+    <string name="permission_remove_account_message">您是否确认移除该账户?</string>
+
+    <string name="permission_replace_memo_key_message">如果你替换了备注密钥，那在你使用密码登录后，你将无法再阅读旧的信息。在你将新的备注密钥导入到旧的钱包中之前，使用旧钱包时也将无法解密查看新的备注消息。</string>
+
+    <string name="permission_invalid_weight_title">权重不足</string>
+    <string name="permission_owner_threshold_warning">账户权限的权重之和 %1$s 应不小于设定的阈值 %2$s</string>
+    <string name="permission_active_threshold_warning">资金权限的权重之和 %1$s 应不小于设定的阈值 %2$s</string>
+    <string name="permission_memo_threshold_warning">备注权限需要至少一个密钥</string>
+
+    <string name="permission_button_copy_address">复制地址</string>
+    <string name="permission_button_copy_private">复制私钥</string>
+
+
+    <string name="permission_owner_key">账户密钥</string>
+    <string name="permission_active_key">资金密钥</string>
+    <string name="permission_memo_key">备注密钥</string>
+
+    <string name="permission_cloud">云账户</string>
+    <string name="permission_password">密码</string>
+    <string name="permission_private_key">私钥</string>
+    <string name="permission_brain_key">助记词</string>
+
+    <string name="authority_threshold_unknown">未知</string>
+
+    <string name="authority_insufficient_keys_title">权限不足</string>
+    <string name="authority_insufficient_keys_hint">账户权限不足，请添加私钥获得此账户的完全控制</string>
+
+    <string name="keychain_title">钥匙串</string>
+    <string name="keychain_user_not_found_title">账户不存在</string>
+    <string name="keychain_user_not_found_hint">账户不在数据库内</string>
+    <string name="keychain_unlock_info">请解锁钱包来更改本地私钥</string>
+    <string name="keychain_import_owner_key_button">导入账户私钥</string>
+    <string name="keychain_import_active_key_button">导入资金私钥</string>
+    <string name="keychain_import_memo_key_button">导入备注私钥</string>
+    <string name="keychain_import_key_button">导入私钥</string>
+    <string name="keychain_import_add_owner_auth_button">添加账户权限</string>
+    <string name="keychain_import_add_active_auth_button">添加资金权限</string>
+    <string name="keychain_import_add_memo_auth_button">添加备注权限</string>
+    <string name="keychain_import_add_auth_button">添加权限</string>
+
+    <string name="wallet_manager_repeat_password">重复密码</string>
+    <string name="wallet_manager_password_not_match">两次密码不相符</string>
+    <string name="wallet_manager_password_incorrect">密码不正确</string>
+    <string name="wallet_manager_password_too_short">密码至少 6 位数字</string>
+
+
+    <string name="whitelist_settings_title">黑名单和白名单</string>
+    <string name="whitelist_settings_unlock_info">解解锁钱包来更改黑名单和白名单</string>
+    <string name="whitelist_settings_remove_account_title">移除账户</string>
+    <string name="whitelist_settings_changes_discard_message">黑/白名单已变更，您是否确定放弃更改?</string>
+    <string name="whitelist_settings_tab_blacklisted">黑名单</string>
+    <string name="whitelist_settings_tab_whitelisted">白名单</string>
+    <string name="whitelist_settings_tab_blacklisting">列入黑名单</string>
+    <string name="whitelist_settings_tab_whitelisting">列入白名单</string>
+
+    <string name="whitelist_settings_add_account_button">添加账户</string>
+    <string name="whitelist_settings_remove_whitelist_message">您是否确认将此账户移除黑名单?</string>
+    <string name="whitelist_settings_remove_blacklist_message">您是否确认将此账户移除白名单?</string>
+
+    <!--  storage settings  -->
+    <string name="storage_settings_title">数据和存储</string>
+    <string name="storage_settings_clear_blockchain_caches_button">清除区块链数据缓存</string>
+    <string name="storage_settings_clear_blockchain_caches_title">清除缓存</string>
+    <string name="storage_settings_clear_blockchain_caches_message">您是否确定清除所有区块链数据缓存?</string>
+
+    <!--  transactions  -->
+    <string name="operation_transfer">普通转账</string>
+    <string name="operation_account_whitelist_change">黑/白名单更改</string>
+
+    <string name="transaction_broadcast_title">交易广播</string>
+    <string name="transaction_broadcast_block_height">区块高度</string>
+    <string name="transaction_broadcast_success_title">广播成功</string>
+    <string name="transaction_broadcast_broadcasting">正在广播…</string>
+    <string name="transaction_broadcast_confirming">正在确认…</string>
+    <string name="transaction_broadcast_failed_title">广播失败</string>
+    <string name="transaction_broadcast_no_connection_title">无网络连接</string>
+    <string name="transaction_broadcast_timeout_title">广播超时</string>
+    <string name="transaction_broadcast_missing_authority">权限不足</string>
+
+    <string name="transaction_broadcast_error_code">错误代码</string>
+
+    <string name="transaction_fee_title">手续费</string>
+
+    <string name="transaction_fee_state_checking">正在检查…</string>
+    <string name="transaction_fee_state_confirmed">已确认</string>
+    <string name="transaction_fee_state_insufficient">手续费不足</string>
+    <string name="transaction_fee_state_empty">未计算</string>
+    <string name="transaction_fee_state_free_of_charge">免费</string>
+
+    <string name="transaction_discard_changes_title">放弃更改</string>
+    <string name="transaction_discard_changes_message">您是否确定放弃更改?</string>
+
+    <string name="transaction_keys_insufficient_title">私钥不足</string>
+    <string name="transaction_keys_insufficient_message">用于签名该交易的私钥数量不足</string>
+    <string name="transaction_owner_keys_insufficient_message">用于签名该交易的账户私钥数量不足</string>
+    <string name="transaction_active_keys_insufficient_message">用于签名该交易的资金私钥数量不足</string>
+
+    <!--  account browser  -->
+    <string name="account_browser_title">账户浏览</string>
+    <string name="account_browser_tab_basic_info">基本信息</string>
+    <string name="account_browser_tab_balance">资产</string>
+    <string name="account_browser_tab_activity">活动记录</string>
+    <string name="account_browser_tab_limit_order">限价单</string>
+    <string name="account_browser_tab_authority">权限</string>
+    <string name="account_browser_tab_votes">投票</string>
+    <string name="account_browser_tab_whitelist">黑名单和白名单</string>
+    <string name="account_observe">观察</string>
+    <string name="account_observe_description">添加或移除此账户至观察列表</string>
+    <string name="account_observe_tip">已添加至观察列表</string>
+    <string name="account_observe_repeat_tip">此账户已存在</string>
+    <string name="account_info_name">账户名称</string>
+    <string name="account_info_graphene_id">石墨烯唯一标识符</string>
+    <string name="account_info_member_group">账户类型</string>
+    <string name="account_info_lifetime_fee_paid">手续费总支出</string>
+    <string name="account_info_pending_fee">待结算手续费</string>
+    <string name="account_info_pending_vested_fee">待提取手续费</string>
+    <string name="account_info_total_operations">全部操作数</string>
+    <string name="account_info_removed_operations">已移除操作数</string>
+    <string name="account_info_voting_state">投票状态</string>
+    <string name="account_info_last_vote_time">上次投票时间</string>
+    <string name="account_info_statistics">统计数据</string>
+    <string name="account_info_voting">投票中</string>
+    <string name="account_info_not_voting">未投票</string>
+    <string name="account_info_fee_allocation">手续费分配</string>
+    <string name="account_info_total_balance">总资产</string>
+
+    <string name="account_info_total_votes">总票数</string>
+    <string name="account_info_committee_member_info">理事会信息</string>
+    <string name="account_info_witness_info">见证人信息</string>
+    <string name="account_info_url">网址</string>
+    <string name="account_info_last_confirmed_block">上次确认块高度</string>
+    <string name="account_info_total_missed">总丢失块数</string>
+
+    <string name="account_vote_committee_member">理事会</string>
+    <string name="account_vote_witness">见证人</string>
+    <string name="account_vote_worker_proposal">提案</string>
+
+    <string name="account_vote_proxy">代理</string>
+
+    <string name="whitelist_setting_title">黑名单和白名单</string>
+    <string name="whitelist_setting_hint">修改账户黑/白名单列表</string>
+
+
+    <string name="connection_state_connecting">正在连接…</string>
+    <string name="connection_state_connecting_info">正在建立连接至区块链节点…</string>
+    <string name="connection_state_connected">已连接</string>
+    <string name="connection_state_connected_info">已建立连接至区块链节点</string>
+    <string name="connection_state_no_connection">无连接</string>
+    <string name="connection_state_no_connection_info">区块链节点连接已丢失，请检查网络状态</string>
+
+
+
+    <!--  extras  -->
+
+    <string name="button_confirm">确认</string>
+    <string name="button_save">保存</string>
+    <string name="button_cancel">取消</string>
+    <string name="button_copy">复制</string>
+    <string name="button_clear">清除</string>
+    <string name="button_delete">删除</string>
+    <string name="button_discard">放弃</string>
+    <string name="button_reset">重置</string>
+    <string name="button_remove">移除</string>
+    <string name="button_unlock">解锁</string>
+    <string name="button_unlocking">解锁中</string>
+    <string name="button_dismiss">完成</string>
+    <string name="button_detail">详细信息</string>
+    <string name="button_broadcast">广播</string>
+    <string name="button_import">导入</string>
+    <string name="button_add">添加</string>
+    <string name="button_random">随机生成</string>
+    <string name="button_retry">重试</string>
+
+    <string name="tag_owner">账户权限</string>
+    <string name="tag_active">资金权限</string>
+    <string name="tag_memo">备注权限</string>
+
+    <string name="tag_lifetime_member">终身会员</string>
+    <string name="tag_basic_member">普通会员</string>
+    <string name="tag_blockchain_account">区块链账户</string>
+    <string name="tag_local_user">本地账户</string>
+
+    <string name="asset_type_tag_core">核心币</string>
+    <string name="asset_type_tag_user">用户发行</string>
+    <string name="asset_type_tag_prediction">预测市场</string>
+    <string name="asset_type_tag_market">智能货币</string>
+    <string name="asset_type_tag_undefined">未知</string>
+
+    <string name="tag_registrar">注册者</string>
+    <string name="tag_referrer">推荐者</string>
+    <string name="tag_lifetime_referrer">终身会员推荐者</string>
+    <string name="tag_network">网络节点</string>
+
+    <string name="tag_new">新增</string>
+    <string name="tag_remove">移除</string>
+
+    <string name="clipboard_toast">已复制至剪切板</string>
+
+    <string name="account_whitelist_tab_blacklisted">黑名单</string>
+    <string name="account_whitelist_tab_whitelisted">白名单</string>
+    <string name="account_whitelist_tab_blacklisting">列入黑名单</string>
+    <string name="account_whitelist_tab_whitelisting">列入白名单</string>
+
+    <string name="account_picker_title">选择账户</string>
+    <string name="account_picker_clear_history">清除历史</string>
+    <string name="account_picker_searching">搜索中…</string>
+    <string name="account_picker_searching_info">正在区块链上搜索账户</string>
+    <string name="account_picker_not_found">未找到</string>
+    <string name="account_picker_not_found_info">该账户在区块链上不存在</string>
+    <string name="account_picker_no_connection">@string/connection_state_no_connection</string>
+    <string name="account_picker_no_connection_info">@string/connection_state_no_connection_info</string>
+    <string name="account_picker_search_account">搜索账户</string>
+    <string name="account_picker_search">搜索账户…</string>
+
+    <string name="account_picker_local_users">本地账户</string>
+    <string name="account_picker_search_history">搜索历史</string>
+    <string name="account_picker_whitelist">白名单</string>
+
+    <string name="voting_title">投票</string>
+    <string name="voting_tab_committee_member">理事会</string>
+    <string name="voting_tab_witness">见证人</string>
+    <string name="voting_tab_worker_proposal">提案</string>
+    <string name="voting_tab_proxy">代理</string>
+
+    <string name="voting_votes">票</string>
+
+    <string name="voting_committee_member">理事会</string>
+    <string name="voting_active_committee_member">活跃理事会</string>
+    <string name="voting_standby_committee_member">预备理事会</string>
+    <string name="voting_witness">见证人</string>
+    <string name="voting_active_witness">活跃见证人</string>
+    <string name="voting_standby_witness">预备见证人</string>
+    <string name="voting_workers">提案</string>
+    <string name="voting_active_workers">活跃提案</string>
+    <string name="voting_standby_workers">预备提案</string>
+
+    <string name="voting_block_missed">丢失区块数量</string>
+
+    <string name="voting_proxy_title">代理</string>
+    <string name="voting_use_proxy">使用代理</string>
+    <string name="voting_proxy_current_proxy">Your current proxy is %1$s</string>
+    <string name="voting_proxy_change_message">You have a proxy set, change voting list will remove your current proxy.</string>
+    <string name="voting_new_proxy">新代理</string>
+    <string name="voting_no_proxy">无代理</string>
+    <string name="voting_change_proxy">更改代理</string>
+    <string name="voting_remove_proxy">移除代理</string>
+    <string name="voting_proxy_tip">Search for an account to be used as your proxy for voting. Your account will act as if you would be voting exactly the same as your proxy.</string>
+
+    <string name="worker_tag_active">活跃</string>
+    <string name="worker_tag_proposed">预备</string>
+    <string name="worker_tag_refund">退款</string>
+    <string name="worker_tag_vesting">受款</string>
+    <string name="worker_tag_burn">销毁</string>
+    <string name="worker_tag_unknown">未知</string>
+    <string name="worker_tag_bsip">改进提案</string>
+    <string name="worker_tag_poll">投票</string>
+
+    <string name="worker_type_refund">退款提案</string>
+    <string name="worker_type_vesting">受款提案</string>
+    <string name="worker_type_burn">销毁提案</string>
+    <string name="worker_type_unknown">未知提案</string>
+    <string name="worker_type_bsip">改进提案</string>
+
+
+    <string name="worker_daily_budget">每日预算</string>
+    <string name="worker_start_from">开始时间</string>
+    <string name="worker_end_to">结束时间</string>
+    <string name="worker_issuer">发布者</string>
+
+    <string name="tab_raw_data">原始数据</string>
+
+    <string name="asset_browser_title">资产浏览</string>
+    <string name="asset_browser_tab_basic_info">基本信息</string>
+    <string name="asset_browser_tab_bitasset">智能资产</string>
+    <string name="asset_browser_tab_feeds">喂价列表</string>
+
+    <string name="asset_price_feed_title">喂价数据</string>
+    <string name="asset_price_feed_feed_price">喂价</string>
+    <string name="asset_price_feed_invalid_feed_price">无效喂价</string>
+    <string name="asset_price_feed_feed_lifetime">喂价有效时限</string>
+    <string name="asset_price_feed_minimum_feeds">喂价者最少数量</string>
+    <string name="asset_price_feed_maintenance_collateral_ratio">维持抵押率 (MCR)</string>
+    <string name="asset_price_feed_maximum_short_squeeze_ratio">强平惩罚率 (MSSR)</string>
+    <string name="asset_price_feed_maximum_short_squeeze_price">强平价格 (MSSP)</string>
+    <string name="asset_price_feed_margin_call_order_price">强平订单价格 (MCOP)</string>
+    <string name="asset_price_feed_global_settlement_price">全局清算价格</string>
+    <string name="asset_price_feed_global_settlement_trigger_price">全局清算触发价格</string>
+
+    <string name="asset_feeds_feed_price">喂价</string>
+    <string name="asset_feeds_core_exchange_rate">手续费汇率</string>
+    <string name="asset_feeds_maintenance_collateral_ratio">维持抵押率</string>
+    <string name="asset_feeds_maximum_short_squeeze_ratio">强平惩罚率</string>
+    <string name="asset_feeds_maximum_short_squeeze_price">强平价格</string>
+    <string name="asset_feeds_published">发布时间</string>
+
+    <string name="asset_settlement_title">强制清算</string>
+    <string name="asset_settlement_price">强清价格</string>
+    <string name="asset_settlement_delay">强清延时</string>
+    <string name="asset_settlement_volume_current">当前已强清量</string>
+    <string name="asset_settlement_volume_maximum">剩余可强清量</string>
+    <string name="asset_settlement_remaining_percent">剩余可强清比率</string>
+    <string name="asset_settlement_settlement_funds">强清资金</string>
+    <string name="asset_settlement_settlement_funds_collateral_ratio">强清资金抵押率</string>
+    <string name="asset_settlement_settlement_price">强清价格</string>
+
+    <string name="asset_symbol">资产符号</string>
+    <string name="asset_graphene_id">石墨烯唯一标识符</string>
+    <string name="asset_issuer">资产发行人</string>
+    <string name="asset_asset_type">资产类型</string>
+    <string name="asset_units">单位</string>
+    <string name="asset_precision">精度</string>
+    <string name="asset_backing_asset">抵押物</string>
+    <string name="asset_description">简介</string>
+
+    <string name="asset_type_undefined">未定义</string>
+    <string name="asset_type_core">核心资产</string>
+    <string name="asset_type_user">用户发行资产 (UIA)</string>
+    <string name="asset_type_market">智能货币/市场锚定资产 (MPA)</string>
+    <string name="asset_type_prediction">市场预测资产 (PMA)</string>
+
+    <string name="asset_supply_title">供应量</string>
+    <string name="asset_supply_current_supply">当前供应量</string>
+    <string name="asset_supply_stealth_supply">隐私供应量</string>
+    <string name="asset_supply_max_supply">最大供应量</string>
+    <string name="asset_supply_current_supply_rate">当前供应率</string>
+
+    <string name="asset_permission_title">所有者权限</string>
+    <string name="asset_market_title">市场</string>
+    <string name="asset_market_fee_percent">市场手续费率</string>
+    <string name="asset_market_fee_referral_reward_percent">市场手续费引荐奖励率</string>
+    <string name="asset_max_market_fee">市场手续费上限</string>
+
+    <string name="asset_fee_pool_title">手续费池</string>
+    <string name="asset_core_exchange_rate">手续费汇率 (CER)</string>
+    <string name="asset_pool_balance">手续费池余额</string>
+    <string name="asset_unclaimed_owner_income">资产所有者未申领收入</string>
+
+    <string name="asset_fee_pool_hint">所有网络手续费最终将使用 %1$s 进行支付。手续费池用来承担从 %2$s 转换为 %1$s 的费用，以便用户可以使用 %2$s 来支付手续费。如果手续费池资金耗尽，手续费将会不再用 %2$s 支付，会默认采用 %1$s 来支付。\n\n手续费汇率为 %2$s 转换为 %1$s 的价格。</string>
+
+
+
+    <string name="asset_permission_charge_market_fee">收取市场手续费</string>
+    <string name="asset_permission_white_list">要求持有人预先加入白名单</string>
+    <string name="asset_permission_override_authority">发行人可将资产收回</string>
+    <string name="asset_permission_transfer_restricted">转账必须经发行人同意</string>
+    <string name="asset_permission_disable_force_settle">禁止强制清算</string>
+    <string name="asset_permission_global_settle">发起全局强制清算</string>
+    <string name="asset_permission_disable_confidential">禁止隐私交易</string>
+    <string name="asset_permission_witness_fed_asset">允许见证人喂价</string>
+    <string name="asset_permission_committee_fed_asset">允许理事会成员喂价</string>
+
+
+    <string name="operation_description_unknown">该交易尚未被支持</string>
+
+    <string name="operation_description_account_create">%1$s 注册了账户 %2$s</string>
+    <string name="operation_description_account_update">%1$s 更新了账户信息</string>
+    <string name="operation_description_account_whitelist_whitelisted">%1$s 将 %2$s 加入白名单</string>
+    <string name="operation_description_account_whitelist_blacklisted">%1$s 将 %2$s 加入黑名单</string>
+    <string name="operation_description_account_whitelist_whitelist_unlisted">%1$s 将 %2$s 移出白名单</string>
+    <string name="operation_description_account_whitelist_blacklist_unlisted">%1$s 将 %2$s 移出黑名单</string>
+
+    <string name="operation_description_account_upgrade_annual">%1$s 升级到年度会员</string>
+    <string name="operation_description_account_upgrade_lifetime">%1$s 升级到终身会员</string>
+
+    <string name="operation_description_account_transfer">%1$s 的账户权限转移给了 %2$s</string>
+
+    <string name="operation_description_asset_claim_fees">%1$s 从 %2$s 手续费池中领取了资产手续费 %3$s</string>
+    <string name="operation_description_asset_claim_pool">%1$s 从 %2$s 手续费池中申领了 %3$s</string>
+    <string name="operation_description_asset_create">%1$s 创建了资产 %2$s</string>
+    <string name="operation_description_asset_fund_fee_pool">%1$s 向 %2$s 的手续费池注资了 %3$s</string>
+    <string name="operation_description_asset_global_settle">%1$s 请求以 %3$s 的价格对 %2$s 进行全局清算</string>
+    <string name="operation_description_asset_issue">%1$s 向 %2$s 发行 %3$s</string>
+    <string name="operation_description_asset_reserve">%1$s 销毁了 %2$s</string>
+    <string name="operation_description_asset_settle">%1$s 请求强清 %2$s</string>
+    <string name="operation_description_asset_settle_cancel">%1$s 取消强清 %2$s</string>
+    <string name="operation_description_asset_settle_instant">%1$s 以 %3$s 即时强清了 %2$s</string>
+    <string name="operation_description_asset_update">%1$s 更新了资产 %2$s</string>
+    <string name="operation_description_asset_update_bitasset">%1$s 更新了资产 %2$s 的智能资产数据</string>
+    <string name="operation_description_asset_update_feed_producers">%1$s 更新了资产 %2$s 的喂价者</string>
+    <string name="operation_description_asset_update_issuer">%1$s 将 %3$s 所有者更改为 %2$s</string>
+    <string name="operation_description_balance_claim">%1$s 领取了余额 %2$s</string>
+    <string name="operation_description_bid_collateral">%1$s 投标 %2$s 竞买 %3$s</string>
+    <string name="operation_description_call_order_update">%1$s 将 %3$s 的债务调整了 %2$s，抵押物调整了 %4$s</string>
+    <string name="operation_description_committee_member_create">创建了理事会成员 %1$s</string>
+    <string name="operation_description_committee_member_update">更新了理事会成员 %1$s</string>
+    <string name="operation_description_committee_member_update_global_parameters">%1$s 更新了全局理事会参数</string>
+    <string name="operation_description_custom">%1$s 创建了自定义操作</string>
+    <string name="operation_description_assert"> </string>
+    <string name="operation_description_fba_distribute"> </string>
+    <!--    <string name="operation_description_fill_order_sell">1{account} sold 3{buyAmount} at 4{price} for order 2#%(order)s</string>-->
+    <string name="operation_description_fill_order_buy">%1$s 在 %2$s 以 %4$s 的价格购买了 %3$s </string>
+    <string name="operation_description_fill_order_sell">%1$s 在 %2$s 以 %4$s 的价格卖出了 %3$s </string>
+
+    <string name="operation_description_htlc_create">%1$s 已为 %2$s 锁定 %3$s 可以在 %4$s 之前进行兑换</string>
+    <string name="operation_description_htlc_extend">%1$s 将 %2$s 秒添加到 %3$s 的兑换周期</string>
+    <string name="operation_description_htlc_redeem">%1$s 请求兑换 %2$s</string>
+    <string name="operation_description_htlc_redeemed">%2$s 兑换了 %3$s 来自 %3$s 的 %4$s</string>
+    <string name="operation_description_htlc_refund">%1$s 获得 %2$s 的退款 </string>
+    <string name="operation_description_limit_order_buy">%1$s 提交买单 %2$s，以 %4$s 的价格买入 %3$s </string>
+    <string name="operation_description_limit_order_cancel">%1$s 已取消 %2$s</string>
+    <string name="operation_description_limit_order_sell">%1$s 提交卖单 %2$s，以 %4$s 的价格卖出 %3$s</string>
+    <string name="operation_description_no_recent">近期无交易</string>
+    <string name="operation_description_override_transfer">%1$s 从 %2$s 将 %4$s 转账给 %3$s</string>
+
+    <string name="operation_description_transfer_to_blind">%1$s 将 %2$s 转入隐私账户</string>
+    <string name="operation_description_transfer_from_blind">%1$s 将 %2$s 转出隐私账户</string>
+    <string name="operation_description_blind_transfer">隐私转账</string>
+
+    <string name="operation_description_pending"> %(blocks)s 个区块待定</string>
+    <string name="operation_description_proposal_create">%1$s 创建了交易提议 %2$s</string>
+    <string name="operation_description_proposal_delete">%1$s 删除了交易提议 %2$s</string>
+    <string name="operation_description_proposal_update">%1$s 更新了交易提议 %2$s</string>
+    <string name="operation_description_asset_publish_feed">%1$s 发布了喂价 %2$s</string>
+    <string name="operation_description_set_proxy">{account} 将 {proxy} 设置为投票代理</string>
+    <string name="operation_description_transfer">%1$s 将 %3$s 转账给 %2$s</string>
+    <string name="operation_description_vesting_balance_create">%1$s 创建待解冻余额 %3$s 至 %2$s</string>
+    <string name="operation_description_vesting_balance_withdraw">%1$s 提取了解冻金额 %2$s</string>
+    <string name="operation_description_witness_create">%1$s 升级到见证人</string>
+    <string name="operation_description_witness_pay">将见证人收入提取到账户</string>
+    <string name="operation_description_witness_receive">已从见证人处获取见证</string>
+    <string name="operation_description_witness_update">%1$s 更新了见证人信息</string>
+    <string name="operation_description_worker_create">%1$s 创建了 %2$s 请求日付工资 %3$s</string>
+
+    <string name="operation_description_withdraw_permission_claim">%1$s 行使提款授权至 %2$s</string>
+    <string name="operation_description_withdraw_permission_create">%1$s 授权提款至 %2$s</string>
+    <string name="operation_description_withdraw_permission_delete">%1$s 删除提款授权至 %2$s</string>
+    <string name="operation_description_withdraw_permission_update">%1$s 更新提款授权至 %2$s</string>
+
+
+    <string name="operation_type_unknown">未知</string>
+
+    <string name="operation_type_account_create">创建账户</string>
+    <string name="operation_type_account_transfer">账户转移</string>
+    <string name="operation_type_account_update">更新账户</string>
+    <string name="operation_type_account_upgrade">升级账户</string>
+    <string name="operation_type_account_whitelist">账户白名单</string>
+    <string name="operation_type_all">显示全部</string>
+    <string name="operation_type_assert">断言操作</string>
+    <string name="operation_type_asset_bid_collateral">投标抵押物</string>
+    <string name="operation_type_asset_claim_fee_pool">申领手续费池余额</string>
+    <string name="operation_type_asset_claim_fees">申领资产手续费</string>
+    <string name="operation_type_asset_claim_pool">申领资产手续费池</string>
+    <string name="operation_type_asset_create">创建资产</string>
+    <string name="operation_type_asset_fund_fee_pool">注资资产手续费池</string>
+    <string name="operation_type_asset_global_settle">全局资产强清</string>
+    <string name="operation_type_asset_issue">资产发行</string>
+    <string name="operation_type_asset_publish_feed">发布资产喂价</string>
+    <string name="operation_type_asset_reserve">销毁资产</string>
+    <string name="operation_type_asset_settle">资产强清</string>
+    <string name="operation_type_asset_settle_cancel">取消资产强清</string>
+    <string name="operation_type_asset_update">更新资产</string>
+    <string name="operation_type_asset_update_bitasset">更新智能货币</string>
+    <string name="operation_type_asset_update_feed_producers">更新资产喂价提供者</string>
+    <string name="operation_type_asset_update_issuer">更新资产所有者</string>
+    <string name="operation_type_balance_claim">申领余额</string>
+    <string name="operation_type_bid_collateral">抵押物竞价</string>
+    <string name="operation_type_blind_transfer">隐私转账</string>
+    <string name="operation_type_call_order_update">更新债仓</string>
+    <string name="operation_type_committee_member_create">创建理事会成员</string>
+    <string name="operation_type_committee_member_update">更新理事会成员</string>
+    <string name="operation_type_committee_member_update_global_parameters">全局参数更新</string>
+    <string name="operation_type_custom">自定义</string>
+    <string name="operation_type_execute_bid">执行竞价</string>
+    <string name="operation_type_fba_distribute">手续费由担保资产分配</string>
+    <string name="operation_type_fill_limit_order">限价单成交</string>
+    <string name="operation_type_fill_call_order">强请单成交</string>
+    <string name="operation_type_fill_order">订单成交</string>
+    <string name="operation_type_htlc_create">合约创建</string>
+    <string name="operation_type_htlc_extend">合约延长</string>
+    <string name="operation_type_htlc_redeem">合约兑换</string>
+    <string name="operation_type_htlc_redeemed">合约完成兑换</string>
+    <string name="operation_type_htlc_refund">合约退款</string>
+    <string name="operation_type_limit_order_cancel">取消限价单</string>
+    <string name="operation_type_limit_order_create">创建限价单</string>
+    <string name="operation_type_override_transfer">强制转账</string>
+    <string name="operation_type_proposal_create">创建提案</string>
+    <string name="operation_type_proposal_delete">删除提案</string>
+    <string name="operation_type_proposal_update">更新提案</string>
+    <string name="operation_type_transfer">普通转账</string>
+    <string name="operation_type_transfer_from_blind">从隐私账户转出</string>
+    <string name="operation_type_transfer_to_blind">向隐私账户转账</string>
+    <string name="operation_type_vesting_balance_create">创建冻结账目余额</string>
+    <string name="operation_type_vesting_balance_withdraw">提取解冻账户余额</string>
+    <string name="operation_type_withdraw_permission_claim">行使提款授权</string>
+    <string name="operation_type_withdraw_permission_create">授权提款</string>
+    <string name="operation_type_withdraw_permission_delete">删除提款授权</string>
+    <string name="operation_type_withdraw_permission_update">更新提款授权</string>
+    <string name="operation_type_witness_create">创建见证人</string>
+    <string name="operation_type_witness_update">更新见证人</string>
+    <string name="operation_type_witness_withdraw_pay">领取见证人报酬</string>
+    <string name="operation_type_worker_create">创建预算项目</string>
+
+    <string name="object_type_null">未知</string>
+    <string name="object_type_base">基础</string>
+    <string name="object_type_account">账户</string>
+    <string name="object_type_asset">资产</string>
+    <string name="object_type_force_settlement">强清</string>
+    <string name="object_type_committee_member">理事会</string>
+    <string name="object_type_witness">见证人</string>
+    <string name="object_type_limit_order">限价单</string>
+    <string name="object_type_call_order">强请单</string>
+    <string name="object_type_custom">自定</string>
+    <string name="object_type_proposal">提案</string>
+    <string name="object_type_operation_history">历史</string>
+    <string name="object_type_withdraw_permission">权限</string>
+    <string name="object_type_vesting_balance">余额</string>
+    <string name="object_type_worker">预算提案</string>
+    <string name="object_type_balance"></string>
+    <string name="object_type_htlc">合约</string>
+    <string name="object_type_custom_authority">Custom Authority</string>
+    <string name="object_type_ticket">Ticket</string>
+    <string name="object_type_liquidity_pool">Liquidity Pool</string>
+
+    <string name="object_type_global_property"></string>
+    <string name="object_type_dynamic_global_property"></string>
+<!--    <string name="object_type_reserved"></string>-->
+    <string name="object_type_asset_dynam"></string>
+    <string name="object_type_asset_bitass"></string>
+    <string name="object_type_account_balance"></string>
+    <string name="object_type_account_statistics"></string>
+    <string name="object_type_transaction"></string>
+    <string name="object_type_block_summary"></string>
+    <string name="object_type_account_transaction_history"></string>
+    <string name="object_type_blinded_balance"></string>
+    <string name="object_type_chain_property"></string>
+    <string name="object_type_witness_schedule"></string>
+    <string name="object_type_budget_record"></string>
+    <string name="object_type_special_authority"></string>
+    <string name="object_type_buyback"></string>
+    <string name="object_type_fba_accumulator"></string>
+    <string name="object_type_collateral_bid"></string>
+
+    <string name="object_type_order_history"></string>
+    <string name="object_type_bucket"></string>
+
+
+
+
+
+
+
+
+    <!--  universal  -->
+
+    <string name="word_owner_key">账户密钥</string>
+    <string name="word_active_key">资金密钥</string>
+    <string name="word_memo_key">备注密钥</string>
+
+    <string name="word_owner_caps">账户</string>
+    <string name="word_active_caps">资金</string>
+    <string name="word_memo_caps">备注</string>
+
+    <string name="word_owner_non_caps">账户</string>
+    <string name="word_active_non_caps">资金</string>
+    <string name="word_memo_non_caps">备注</string>
+
+    <string name="word_cloud_mode">云账户</string>
+    <string name="word_private_key_mode">私钥</string>
+    <string name="word_brain_key_mode">助记词</string>
+
+    <string name="word_password">密码</string>
+    <string name="word_new_password">新密码</string>
+    <string name="word_password_repeat">重复密码</string>
+
+    <string name="word_warning">警告</string>
+
+
+
+    <string name="chain_type_main">比特股主网络</string>
+    <string name="chain_type_test">比特股测试网络</string>
+    <string name="chain_type_unknown">未知网络</string>
+
+
+
+    <!-- market -->
+
+    <string name="market_title">市场</string>
+
+    <string name="market_tab_buy">买入</string>
+    <string name="market_tab_sell">卖出</string>
+    <string name="market_tab_orders">订单</string>
+
+    <string name="market_buy">买入</string>
+    <string name="market_sell">卖出</string>
+    <string name="market_amount">数量</string>
+    <string name="market_total">总量</string>
+    <string name="market_price">价格</string>
+    <string name="market_market_history">市场历史</string>
+
+    <!-- operation components -->
+    <string name="operation_limit_order_create_seller">卖家</string>
+    <string name="operation_limit_order_create_price">价格</string>
+    <string name="operation_limit_order_create_buy">买入</string>
+    <string name="operation_limit_order_create_sells">卖出</string>
+    <string name="operation_limit_order_create_pay">支付</string>
+    <string name="operation_limit_order_create_receives">接收</string>
+
+    <string name="operation_call_order_update_debt_changes">债务变更</string>
+    <string name="operation_call_order_update_collateral_changes">抵押物变更</string>
+    <string name="operation_call_order_call_price">当前平仓价格</string>
+    <string name="operation_call_order_collateral_ratio">抵押率</string>
+    <string name="operation_call_order_update_target_collateral_ratio">目标抵押率</string>
+    <string name="operation_call_order_update_tcr_disabled">已关闭</string>
+
+    <string name="operation_limit_order_cancel_order_to_cancel">取消订单</string>
+    <string name="operation_limit_order_cancel_seller">卖家</string>
+
+
+    <!-- ticker -->
+
+    <string name="invalid_number">NaN</string>
+    <string name="invalid_public_key">无效公钥</string>
+    <string name="invalid_private_key">无效私钥</string>
+
+    <string name="ticker_high">最高</string>
+    <string name="ticker_low">最低</string>
+    <string name="ticker_volume">数量</string>
+
+    <string name="limit_order_price">价格</string>
+    <string name="limit_order_amount">数量</string>
+    <string name="limit_order_total">总量</string>
+    <string name="limit_order_expiration">有效期</string>
+
+
+    <string name="account_balance_title">资产</string>
+    <string name="account_balance_total_balance">总资产</string>
+    <string name="account_balance_total">总量</string>
+    <string name="account_balance_balances">余额</string>
+    <string name="account_balance_in_order">挂单</string>
+    <string name="account_balance_debt">债务</string>
+    <string name="account_balance_collateral">抵押</string>
+
+
+    <string name="chain_type_tag_mainnet">主网</string>
+    <string name="chain_type_tag_testnet">测试网</string>
+    <string name="chain_type_tag_unknown">未知</string>
+
+
+    <string name="block_height_prefix">区块</string>
+    <string name="block_transaction_count">交易</string>
+
+    <string name="chain_type_bitshares_mainnet">主网</string>
+    <string name="chain_type_bitshares_testnet">测试</string>
+    <string name="chain_type_unknown_network">未知</string>
+
+    <string name="chain_explore_time">时间</string>
+    <string name="chain_explore_local_time">本地时间</string>
+    <string name="chain_explore_chain_time">区块链时间</string>
+    <string name="chain_explore_next_maintenance_time">下次维护时间</string>
+    <string name="chain_explore_last_block">最新区块</string>
+    <string name="chain_explore_last_irreversible_block">最新不可逆转区块</string>
+    <string name="chain_explore_last_block_hash">最新区块哈希</string>
+    <string name="chain_explore_block_time_now">现在</string>
+    <string name="chain_explore_block_time_ago">%1$s之前</string>
+    <string name="chain_explore_active_witnesses">活跃见证人</string>
+    <string name="chain_explore_active_committees">活跃理事会</string>
+
+
+    <string name="market_add_trade_pair">添加交易对</string>
+
+    <string name="market_add_market_dialog_title">添加市场</string>
+    <string name="market_add_market_group">添加组</string>
+    <string name="market_all_groups">全部</string>
+    <string name="market_quote">交易资产</string>
+    <string name="market_base">基础资产</string>
+    <string name="market_add_market_group_dialog_title">添加市场组</string>
+    <string name="market_group_asset_symbol">资产符号</string>
+    <string name="market_remove_market_group_dialog_title">移除市场组</string>
+    <string name="market_remove_market_group_message">你是否确认移除 %1$s 市场?</string>
+    <string name="market_market_dialog">市场</string>
+    <string name="market_remove_market_dialog">移除市场</string>
+    <string name="market_option_remove_market">移除市场</string>
+    <string name="market_option_browse_asset">@string/option_asset_detail</string>
+
+
+
+    <string name="option_account_detail">账户详细信息</string>
+    <string name="option_asset_detail">资产详细信息</string>
+    <string name="option_committee_detail">理事会详细信息</string>
+    <string name="option_worker_detail">提案详细信息</string>
+    <string name="option_operation_detail">交易详细信息</string>
+
+    <string name="option_goto_website">前往网站</string>
+    <string name="option_share">分享…</string>
+
+    <string name="account_dialog_title">账户</string>
+    <string name="account_option_account_detail">账户详情</string>
+    <string name="account_option_add_observer">添加至观察列表</string>
+    <string name="account_option_copy_account_name">复制账户名</string>
+    <string name="account_option_transfer">转账</string>
+
+
+    <string name="witness_dialog_title">见证人</string>
+    <string name="witness_option_witness_detail">见证人详情</string>
+
+
+    <string name="committee_member_dialog_title">理事会</string>
+
+    <string name="worker_dialog_title">提案</string>
+    <string name="worker_option_copy_worker_name">复制提案名称</string>
+    <string name="account_balance_dialog_title">账户资金</string>
+    <string name="operation_dialog_title">交易</string>
+
+    <string name="block_browser_tab_basic_info">基本信息</string>
+    <string name="block_browser_tab_transactions">交易</string>
+    <string name="block_browser_title">区块浏览</string>
+
+
+    <string name="operation_browser_tab_basic_info">基本信息</string>
+    <string name="operation_browser_title">交易浏览</string>
+
+    <string name="block_info_block_height">区块高度</string>
+    <string name="block_info_block_time">区块时间</string>
+    <string name="block_info_witness">见证人</string>
+    <string name="block_info_witness_signature">见证人签名</string>
+    <string name="block_info_previous_block_hash">前一区块哈希</string>
+    <string name="block_info_root_hash">根哈希</string>
+    <string name="block_info_transaction_count">交易数量</string>
+    <string name="block_info_operation_count">操作数量</string>
+    <string name="block_info_previous_block">前一个区块</string>
+    <string name="block_info_next_block">后一个区块</string>
+
+    <string name="collateral_title">抵押</string>
+    <string name="collateral_margin_asset">债务资产</string>
+    <string name="collateral_select_asset">选择资产</string>
+    <string name="collateral_margin_title">抵押债仓</string>
+    <string name="collateral_asset_margin">%1$s 抵押债仓</string>
+    <string name="collateral_feed_price">喂价</string>
+    <string name="collateral_call_price">当前平仓价格</string>
+    <string name="collateral_debt">债务</string>
+    <string name="collateral_collateral">抵押物</string>
+    <string name="collateral_collateral_ratio">抵押率</string>
+    <string name="collateral_target_collateral_ratio">目标抵押率</string>
+    <string name="collateral_tcr_disabled">已关闭</string>
+    <string name="collateral_tcr_invalid">无效</string>
+    <string name="collateral_update_position">调整债仓</string>
+
+    <string name="collateral_collateral_ratio_below_hint">您的抵押率低于允许的最低要求 %1$s</string>
+    <string name="collateral_collateral_ratio_close_hint">您的抵押率接近允许的最低要求 %1$s，如果 %2$s 价格下跌，您的债仓有可能被强制平仓</string>
+    <string name="collateral_collateral_ratio_already_below_hint">您的抵押率已经低于允许的最低抵押率 %1$s! 只允许提高抵押率，降低债务</string>
+    <string name="collateral_collateral_ratio_below_original_hint">您的抵押率已经低于你的初始抵押率 %1$s! 强制平仓单仅允许增加抵押率</string>
+
+    <string name="collateral_update_position_hint">调整和设置你的债务及抵押物(保证金)。\n\n如果调低 %1$s 债务水平，将从账户中扣除相应 %2$s 归还。\n如果调高 %1$s 债务水平，只要账户持有足够的 %2$s 可供抵押冻结，新借入的 %1$s 将存入账户中。\n保证金可以增加或减少，只要抵押率超过维持保证金率 %3$s。</string>
+
+    <string name="faucet_register_title">注册</string>
+    <string name="faucet_register_faucet">水龙头节点</string>
+    <string name="faucet_register_account">账户名</string>
+    <string name="faucet_register_password">密码</string>
+    <string name="faucet_register_password_repeat">重复密码</string>
+    <string name="faucet_register_account_exist">账户已存在</string>
+    <string name="faucet_register_random_button">随机生成</string>
+    <string name="faucet_register_next_button">下一步</string>
+    <string name="faucet_register_faucet_dialog_title">水龙头节点</string>
+    <string name="faucet_register_register_title">账户注册</string>
+    <string name="faucet_register_register_button">注册</string>
+    <string name="faucet_register_registering_account">正在注册账户…</string>
+    <string name="faucet_register_registering_button">注册中…</string>
+    <string name="faucet_register_register_success_title">注册成功</string>
+    <string name="faucet_register_register_failed_title">注册失败</string>
+    <string name="faucet_register_unknown_error_title">未知错误</string>
+
+</resources>

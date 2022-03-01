@@ -1,0 +1,110 @@
+package bitshareskit.ks_object_base
+
+import java.util.*
+
+enum class KObjectSpaceType(val space: UInt8, val type: UInt8) {
+
+    NULL_OBJECT(1U, 0U),
+    BASE_OBJECT(1U, 1U),
+    ACCOUNT_OBJECT(1U, 2U),
+    ASSET_OBJECT(1U, 3U),
+    FORCE_SETTLEMENT_OBJECT(1U, 4U),
+    COMMITTEE_MEMBER_OBJECT(1U, 5U),
+    WITNESS_OBJECT(1U, 6U),
+    LIMIT_ORDER_OBJECT(1U, 7U),
+    CALL_ORDER_OBJECT(1U, 8U),
+    CUSTOM_OBJECT(1U, 9U),
+    PROPOSAL_OBJECT(1U, 10U),
+    OPERATION_HISTORY_OBJECT(1U, 11U),
+    WITHDRAW_PERMISSION_OBJECT(1U, 12U),
+    VESTING_BALANCE_OBJECT(1U, 13U),
+    WORKER_OBJECT(1U, 14U),
+    BALANCE_OBJECT(1U, 15U),
+    HTLC_OBJECT(1U, 16U),
+    CUSTOM_AUTHORITY_OBJECT(1U, 17U),
+    TICKET_OBJECT(1U, 18U),
+    LIQUIDITY_POOL_OBJECT(1U, 19U),
+
+    GLOBAL_PROPERTY_OBJECT(2U, 0U),
+    DYNAMIC_GLOBAL_PROPERTY_OBJECT(2U, 1U),
+//    RESERVED_OBJECT_TYPE(2U),
+    ASSET_DYNAMIC_DATA(2U, 3U),
+    ASSET_BITASSET_DATA(2U, 4U),
+    ACCOUNT_BALANCE_OBJECT(2U, 5U),
+    ACCOUNT_STATISTICS_OBJECT(2U, 6U),
+    TRANSACTION_OBJECT(2U, 7U),
+    BLOCK_SUMMARY_OBJECT(2U, 8U),
+    ACCOUNT_TRANSACTION_HISTORY_OBJECT(2U, 9U),
+    BLINDED_BALANCE_OBJECT(2U, 10U),
+    CHAIN_PROPERTY_OBJECT(2U, 11U),
+    WITNESS_SCHEDULE_OBJECT(2U, 12U),
+    BUDGET_RECORD_OBJECT(2U, 13U),
+    SPECIAL_AUTHORITY_OBJECT(2U, 14U),
+    BUYBACK_OBJECT(2U, 15U),
+    FBA_ACCUMULATOR_OBJECT(2U, 16U),
+    COLLATERAL_BID_OBJECT(2U, 17U),
+
+    ORDER_HISTORY_OBJECT(2U, 0U),
+    BUCKET_OBJECT(2U, 1U);
+
+    companion object {
+//        val PROTOCOL_SPACE_ORDINAL_RANGE = NULL_OBJECT.ordinal..LIQUIDITY_POOL_OBJECT.ordinal
+//        val IMPLEMENTATION_SPACE_ORDINAL_RANGE = GLOBAL_PROPERTY_OBJECT.ordinal..COLLATERAL_BID_OBJECT.ordinal
+//        val ACCOUNT_HISTORY_SPACE_ORDINAL_RANGE = ORDER_HISTORY_OBJECT.ordinal..BUCKET_OBJECT.ordinal
+//
+//        val PROTOCOL_TYPES: Map<UInt8, KObjectSpaceId> = values().slice(PROTOCOL_SPACE_ORDINAL_RANGE).map { it.id to it }.toMap()
+//        val IMPLEMENTATION_TYPES = values().slice(IMPLEMENTATION_SPACE_ORDINAL_RANGE).map { it.id to it }.toMap()
+//        val ACCOUNT_HISTORY_TYPES = values().slice(ACCOUNT_HISTORY_SPACE_ORDINAL_RANGE).map { it.id to it }.toMap()
+
+
+        val OBJECT_TYPES = values().associateBy { it.space to it.type }
+
+
+    }
+
+//    val namespace: ObjectSpace
+//        get() = when (this) {
+//            in NULL_OBJECT..LIQUIDITY_POOL_OBJECT -> ObjectSpace.PROTOCOL_SPACE
+//            in GLOBAL_PROPERTY_OBJECT..COLLATERAL_BID_OBJECT -> ObjectSpace.IMPLEMENTATION_SPACE
+//            in ORDER_HISTORY_OBJECT..BUCKET_OBJECT -> ObjectSpace.ACCOUNT_HISTORY_SPACE
+//            else -> ObjectSpace.NULL_SPACE
+//        }
+
+    override fun toString(): String {
+        return name.lowercase(Locale.ROOT)
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

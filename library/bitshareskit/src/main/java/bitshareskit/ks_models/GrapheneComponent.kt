@@ -1,0 +1,3 @@
+package bitshareskit.ks_models
+
+interface GrapheneComponent

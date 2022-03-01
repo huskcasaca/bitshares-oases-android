@@ -1,0 +1,6 @@
+include(":app")
+include(":library:bitshareskit")
+include(":library:modulon")
+include(":library:kdenticon")
+include(":library:swirl")
+include(":external:java-json")

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <color name="operation_call_undefined">@color/dark_0</color>
+    <color name="operation_account_create">@color/light_blue_800</color>
+    <color name="operation_account_transfer">@color/red_600</color>
+    <color name="operation_account_update">@color/light_blue_800</color>
+    <color name="operation_account_upgrade">@color/blue_grey_800</color>
+    <color name="operation_account_whitelist">@color/amber_700</color>
+    <color name="operation_assert">@color/amber_700</color>
+    <color name="operation_asset_bid_collateral">@color/grey_850</color>
+    <color name="operation_asset_claim_fee_pool">@color/light_blue_800</color>
+    <color name="operation_asset_claim_fees">@color/light_blue_800</color>
+    <color name="operation_asset_claim_pool">@color/light_blue_800</color>
+    <color name="operation_asset_create">@color/light_blue_800</color>
+    <color name="operation_asset_fund_fee_pool">@color/teal_600</color>
+    <color name="operation_asset_global_settle">@color/amber_700</color>
+    <color name="operation_asset_issue">@color/light_blue_800</color>
+    <color name="operation_asset_publish_feed">@color/cyan_700</color>
+    <color name="operation_asset_reserve">@color/red_600</color>
+    <color name="operation_asset_settle">@color/amber_700</color>
+    <color name="operation_asset_settle_cancel">@color/red_600</color>
+    <color name="operation_asset_update">@color/light_blue_800</color>
+    <color name="operation_asset_update_bitasset">@color/light_blue_800</color>
+    <color name="operation_asset_update_feed_producers">@color/light_blue_800</color>
+    <color name="operation_asset_update_issuer">@color/light_blue_800</color>
+    <color name="operation_balance_claim">@color/light_blue_800</color>
+    <color name="operation_bid_collateral">@color/purple_700</color>
+    <color name="operation_blind_transfer">@color/grey_850</color>
+    <color name="operation_call_order_update">@color/light_blue_800</color>
+    <color name="operation_committee_member_create">@color/light_blue_800</color>
+    <color name="operation_committee_member_update">@color/light_blue_800</color>
+    <color name="operation_committee_member_update_global_parameters">@color/light_blue_800</color>
+    <color name="operation_custom">@color/pink_800</color>
+    <color name="operation_execute_bid">@color/light_blue_800</color>
+    <color name="operation_fba_distribute">@color/light_blue_800</color>
+    <color name="operation_fill_order">@color/green_600</color>
+    <color name="operation_htlc_create">@color/light_blue_800</color>
+    <color name="operation_htlc_extend">@color/light_blue_800</color>
+    <color name="operation_htlc_redeem">@color/teal_600</color>
+    <color name="operation_htlc_redeemed">@color/green_600</color>
+    <color name="operation_htlc_refund">@color/amber_700</color>
+    <color name="operation_limit_order_cancel">@color/red_600</color>
+    <color name="operation_limit_order_create">@color/light_blue_800</color>
+    <color name="operation_override_transfer">@color/grey_850</color>
+    <color name="operation_proposal_create">@color/light_blue_800</color>
+    <color name="operation_proposal_delete">@color/red_600</color>
+    <color name="operation_proposal_update">@color/light_blue_800</color>
+    <color name="operation_transfer">@color/teal_600</color>
+    <color name="operation_transfer_from_blind">@color/grey_850</color>
+    <color name="operation_transfer_to_blind">@color/grey_850</color>
+    <color name="operation_vesting_balance_create">@color/light_blue_800</color>
+    <color name="operation_vesting_balance_withdraw">@color/light_blue_800</color>
+    <color name="operation_withdraw_permission_claim">@color/light_blue_800</color>
+    <color name="operation_withdraw_permission_create">@color/light_blue_800</color>
+    <color name="operation_withdraw_permission_delete">@color/red_600</color>
+    <color name="operation_withdraw_permission_update">@color/light_blue_800</color>
+    <color name="operation_witness_create">@color/light_blue_800</color>
+    <color name="operation_witness_update">@color/light_blue_800</color>
+    <color name="operation_witness_withdraw_pay">@color/light_blue_800</color>
+    <color name="operation_worker_create">@color/light_blue_800</color>
+
+
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="clipboard_toast">已复制至剪切板</string>
+
+    <string name="button_confirm">确认</string>
+    <string name="button_cancel">取消</string>
+
+</resources>
+

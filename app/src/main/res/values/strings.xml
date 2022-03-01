@@ -1,0 +1,1172 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="app_name">BitShares UI</string>
+
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_closed">Drawer Closed</string>
+
+    <string name="bottom_dashboard">Dash</string>
+    <string name="bottom_balance">Balance</string>
+    <string name="bottom_defi">Market</string>
+    <string name="bottom_liquid">Liquid</string>
+    <string name="bottom_explore">Explore</string>
+    <string name="bottom_settings">Settings</string>
+
+    <!--  titles  -->
+
+    <string name="drawer_transfer">Transfer</string>
+    <string name="drawer_settlement">Settlement</string>
+    <string name="drawer_collateral">Collateral</string>
+    <string name="drawer_voting">Voting</string>
+    <string name="drawer_proposed_transactions">Proposed Transactions</string>
+
+    <string name="drawer_membership">Membership</string>
+
+    <string name="drawer_settings">Settings</string>
+    <string name="drawer_help">Help</string>
+    <string name="drawer_about">About</string>
+    <string name="drawer_test_lab">Test Lab</string>
+
+
+    <string name="drawer_import">Import</string>
+
+
+    <!--  menus  -->
+    <string name="menu_add_node">Add Node</string>
+    <string name="menu_lock">Lock</string>
+
+    <!--  about  -->
+    <string name="about_title">About</string>
+    <string name="about_app_name">App Name</string>
+    <string name="about_version">Version</string>
+    <string name="about_author">Author</string>
+    <string name="about_source_code">Source Code</string>
+    <string name="about_privacy_policy">Privacy Policy</string>
+    <string name="about_library">Library</string>
+
+    <!--  settings  -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_default_title">Settings</string>
+    <string name="settings_account_title">Account Settings</string>
+
+<!--    TODO: nodes    -->
+    <string name="node_settings_title">Nodes</string>
+    <string name="node_settings_hint">Node for blockchain access</string>
+    <string name="node_settings_api_nodes_title">API Nodes</string>
+    <string name="node_settings_info_title">Info</string>
+    <string name="node_settings_node_info_title">Node Info</string>
+    <string name="node_settings_websocket_state">Websocket State</string>
+    <string name="node_settings_websocket_state_connecting">Connecting</string>
+    <string name="node_settings_websocket_state_connected">Connected</string>
+    <string name="node_settings_websocket_state_messaging">Messaging</string>
+    <string name="node_settings_websocket_state_closed">Closed</string>
+
+    <string name="node_settings_name">Name</string>
+    <string name="node_settings_name_hint">New Node</string>
+    <string name="node_settings_url">Address</string>
+    <string name="node_settings_username">Username</string>
+    <string name="node_settings_username_hint">optional</string>
+    <string name="node_settings_password">Password</string>
+    <string name="node_settings_password_hint">optional</string>
+
+    <string name="node_settings_latency">Latency</string>
+    <string name="node_settings_latency_ms">ms</string>
+    <string name="node_settings_timeout">Timeout</string>
+    <string name="node_settings_connecting">Connecting…</string>
+    <string name="node_settings_connected">Connected</string>
+
+    <string name="node_settings_auto_select">Auto Select</string>
+    <string name="node_settings_auto_select_enabled">Select node automatically based on latency.</string>
+    <string name="node_settings_auto_select_disabled">Select node manually.</string>
+
+    <string name="node_settings_add_node_button">Add Node</string>
+
+    <string-array name="node_types">
+        <item>Login</item>
+        <item>Block</item>
+        <item>Broadcast</item>
+        <item>Database</item>
+        <item>History</item>
+        <item>Node</item>
+        <item>Crypto</item>
+        <item>Asset</item>
+        <item>Orders</item>
+        <item>Debug</item>
+    </string-array>
+
+
+    <string name="appearance_settings_title">Appearance</string>
+    <string name="appearance_settings_theme_title">Theme</string>
+    <string name="appearance_settings_hint">Colors and styles</string>
+    <string name="appearance_settings_dark_mode_title">Dark Mode</string>
+    <string name="appearance_settings_dark_mode">Dark Mode</string>
+    <string-array name="settings_dark_mode_entries">
+        <item>Follow system</item>
+        <item>Off</item>
+        <item>On</item>
+        <item>Based on battery saver</item>
+    </string-array>
+    <string name="appearance_settings_show_indicator">Show Indicator</string>
+    <string name="appearance_settings_show_indicator_hint">Show network and wallet state in action bar.</string>
+
+    <string name="appearance_settings_market_and_trade_title">Market &amp; Trade</string>
+    <string name="appearance_settings_invert_trade_pair_color">Invert Trade Pair Color</string>
+    <string name="appearance_settings_fee_reserved">Fee Reserved</string>
+    <string name="appearance_settings_fee_reserve_auto">Auto Calculate</string>
+    <string name="appearance_settings_price_unit">Price Unit</string>
+
+
+    <string name="appearance_settings_fee_reserved_title">Fee Reserved</string>
+    <string name="appearance_settings_fee_reserved_amount">Fee Amount</string>
+    <string name="appearance_settings_price_unit_title">Price Unit</string>
+
+    <string name="language_settings_title">Language</string>
+    <string name="language_settings_follow_system">Follow System</string>
+
+    <string name="language_settings_default">Default</string>
+    <string name="language_settings_english">English (United State)</string>
+    <string name="language_settings_russian">Russian (Russia)</string>
+    <string name="language_settings_simplified_chinese">Simplified Chinese (PRC)</string>
+    <string name="language_settings_traditional_chinese">Traditional Chinese (HK)</string>
+
+
+    <string name="transfer_title">Transfer</string>
+
+    <string name="transfer_from">From</string>
+    <string name="transfer_from_hint"> </string>
+    <string name="transfer_to">To</string>
+    <string name="transfer_to_hint"> </string>
+    <string name="transfer_set_sender">Set Sender</string>
+    <string name="transfer_set_receiver">Set Receiver</string>
+    <string name="transfer_set_asset">Set Asset</string>
+    <string name="transfer_details">Details</string>
+    <string name="transfer_asset">Asset</string>
+    <string name="transfer_amount">Amount</string>
+    <string name="transfer_memo">Memo</string>
+    <string name="transfer_memo_hint">optional</string>
+    <string name="transfer_send">Send</string>
+    <string name="transfer_fee">Fee</string>
+<!--    <string name="transfer_fee_state_checking">Checking…</string>-->
+<!--    <string name="transfer_fee_state_confirmed">Confirmed</string>-->
+<!--    <string name="transfer_fee_state_insufficient">Insufficient Fee</string>-->
+<!--    <string name="transfer_fee_state_empty"> </string>-->
+    <string name="transfer_unlock_info">Unlock wallet to transfer</string>
+    <string name="transfer_active_info">Transfer requires active keys.</string>
+    <string name="transfer_memo_info">Memo requires memo keys.</string>
+    <string name="transfer_amount_left">Left</string>
+    <string name="transfer_amount_total">Total</string>
+
+
+    <string name="import_title">Import</string>
+    <string name="import_cloud_mode">Cloud</string>
+    <string name="import_brain_key_mode">Brain Key</string>
+    <string name="import_private_key_mode">Private Key</string>
+    <string name="import_restore_mode">Binary Restore</string>
+    <string name="import_no_account_hint">No Account</string>
+    <string name="import_no_id_hint">Click Avatar to Login</string>
+    <string name="import_observer_mode">Observer mode</string>
+    <string name="import_observer_mode_description">Add this account for observing only without account permissions.</string>
+    <string name="import_account">Account</string>
+    <string name="import_password">Password</string>
+    <string name="import_brain_key">Brain Key</string>
+    <string name="import_private_key">Private Key</string>
+    <string name="import_import_button">Import</string>
+    <string name="import_unlock_info">Unlock wallet to import accounts</string>
+
+    <string name="import_checking">Checking…</string>
+    <string name="import_invalid_account_name_or_id">Invalid</string>
+    <string name="import_invalid_password">Invalid Password</string>
+    <string name="import_invalid_private_key">Invalid Key</string>
+    <string name="import_invalid_brain_key">Invalid Key</string>
+    <string name="import_no_matched_account">No account</string>
+    <string name="import_network_error">No Connection</string>
+
+    <string name="wallet_manager_title">Wallet Manager</string>
+    <string name="wallet_unlock_wallet_title">Unlock Wallet</string>
+    <string name="wallet_change_password_title">Change Password</string>
+
+    <string name="wallet_manager_old_password">Old Password</string>
+    <string name="wallet_manager_new_password">New Password</string>
+    <string name="wallet_manager_change_password">Change Password</string>
+    <string name="wallet_manager_wallet_password_title">Wallet Password</string>
+    <string name="wallet_manager_unlock_wallet_button">Unlock Wallet</string>
+
+    <string name="wallet_settings_title">Wallet and Users</string>
+    <string name="wallet_settings_hint">Backup and restore your wallet</string>
+    <string name="wallet_settings_info_title">Info</string>
+
+    <string name="wallet_settings_wallet_status">Wallet Status</string>
+    <string name="wallet_settings_reset_wallet">Reset Wallet</string>
+    <string name="wallet_settings_corrupted">Corrupted</string>
+    <string name="wallet_settings_corrupted_message">Wallet is corrupted and need to reset</string>
+    <string name="wallet_settings_unlocked">Unlocked</string>
+    <string name="wallet_settings_locked">Locked</string>
+
+    <string name="wallet_settings_wallet_reset_title">Wallet Reset</string>
+    <string name="wallet_settings_wallet_reset_hint">Delete all accounts and create a new wallet.</string>
+
+    <string name="wallet_settings_security_title">Security</string>
+    <string name="wallet_settings_passcode_lock">Passcode Lock</string>
+    <string name="wallet_settings_passcode_lock_hint">Encrypt wallet with passcode.</string>
+    <string name="wallet_settings_fingerprint_unlock">Unlock with Fingerprint</string>
+    <string name="wallet_settings_use_fingerprint_hint">Unlock wallet with fingerprint</string>
+    <string name="wallet_settings_change_password">Change Passcode</string>
+    <string name="wallet_settings_reset_wallet_dialog_message">Are you sure to delete all accounts and create a new wallet?</string>
+
+    <string name="wallet_settings_user_title">Local Users</string>
+    <string name="wallet_settings_remove_user_title">Remove User</string>
+    <string name="wallet_settings_remove_user_message">Are you sure to remove this user and all its keys?</string>
+
+    <string name="wallet_settings_wallet_storage_tip">Wallet is encrypted and stored in local database, any changes to it outside this app may corrupt the wallet.</string>
+
+    <string name="wallet_wallet_locked">Wallet Locked</string>
+    <string name="wallet_unlock_info">Unlock wallet to take control of accounts</string>
+
+    <string name="wallet_settings_backup">Backup Wallet</string>
+    <string name="wallet_settings_backup_hint">Save wallet as bin file</string>
+    <string name="wallet_settings_restore">Restore Wallet</string>
+    <string name="wallet_settings_restore_hint">Restore wallet from bin file</string>
+
+    <string name="wallet_settings_backup_dialog">Wallet Backup</string>
+    <string name="wallet_settings_backup_success_dialog">Wallet Backup Successfully</string>
+    <string name="wallet_settings_backup_failed_dialog">Wallet Backup Failed</string>
+    <string name="wallet_settings_backup_dialog_message">Encrypt your backup file with password.</string>
+    <string name="wallet_settings_backup_dialog_success_message">Wallet backup created successfully.</string>
+    <string name="wallet_settings_backup_dialog_failed_message">Cannot create wallet backup, please retry.</string>
+    <string name="wallet_settings_restore_dialog">Wallet Restore</string>
+    <string name="wallet_settings_restore_dialog_message">Decrypt your backup file with password.</string>
+    <string name="wallet_settings_restore_dialog_failed_message">Cannot restore from this backup, please retry.</string>
+
+    <string name="wallet_settings_backup_password">Password</string>
+    <string name="wallet_settings_backup_password_repeat">Password Repeat</string>
+
+    <string name="wallet_settings_backup_checking">Checking…</string>
+    <string name="wallet_settings_backup_complete">Contains %1$s accounts and %2$s keys</string>
+
+    <string name="wallet_settings_backup_save_text_message">Please save the text of your encrypted wallet backup.</string>
+
+    <string name="wallet_settings_backup_save_file_button">Save as File</string>
+    <string name="wallet_settings_backup_save_text_button">Save as Text</string>
+
+    <string name="wallet_settings_restore_from_file">Restore from File</string>
+    <string name="wallet_settings_restore_from_text">Restore from Text</string>
+
+    <string name="wallet_settings_wallet_backup_file">Wallet Backup File</string>
+    <string name="wallet_settings_wallet_backup_text">Wallet Backup Text</string>
+
+    <string name="wallet_corrupted_dialog_title">Wallet Corrupted</string>
+    <string name="wallet_corrupted_dialog_message">Wallet is corrupted, please reset it.</string>
+
+    <string name="wallet_enter_password">Enter Password</string>
+
+    <!--  fingerprint  -->
+
+    <string name="fingerprint_touch_sensor">Touch sensor</string>
+    <string name="fingerprint_confirm">Confirm your fingerprint</string>
+    <string name="fingerprint_unknown">Unknown finger</string>
+    <string name="fingerprint_not_recognized">Fingerprint not recognized. Try again.</string>
+
+
+
+
+    <!--  permission  -->
+    <string name="permission_settings_title">Permission</string>
+    <string name="permission_settings_hint">Keys and threshold</string>
+    <string name="permission_settings_key_unlock_info">Unlock wallet to change keys</string>
+    <string name="permission_settings_password_unlock_info">Unlock wallet to change password</string>
+    <string name="permission_settings_threshold">Threshold</string>
+
+    <string name="permission_settings_new_password">New Password</string>
+    <string name="permission_settings_new_password_repeat">New Password Repeat</string>
+    <string name="permission_settings_generate_random_button">Generate Random</string>
+    <string name="permission_settings_next_button">Next</string>
+
+    <string name="permission_owner_authority">Owner Authority</string>
+    <string name="permission_active_authority">Active Authority</string>
+    <string name="permission_memo_authority">Memo Authority</string>
+
+    <string name="permission_settings_tab_owner">Owner Authority</string>
+    <string name="permission_settings_tab_active">Active Authority</string>
+    <string name="permission_settings_tab_memo">Memo Authority</string>
+    <string name="permission_settings_tab_cloud">Cloud Account</string>
+
+    <string name="permission_settings_owner_threshold_hint">Minimal weight to take control over the account.</string>
+    <string name="permission_settings_active_threshold_hint">Minimal weight to spend funds for this account.</string>
+    <string name="permission_settings_memo_threshold_hint">Minimal weight to decrypt memo in transaction.</string>
+
+    <string name="permission_settings_owner_keys">Owner Keys</string>
+    <string name="permission_settings_active_keys">Active Keys</string>
+    <string name="permission_settings_memo_keys">Memo Keys</string>
+
+    <string name="permission_settings_owner_permission_tip">Owner permissions define who has control over the account and, overwrite all keys and change any account settings.</string>
+    <string name="permission_settings_active_permission_tip">Active permissions define who has permission to spend funds for this account.</string>
+    <string name="permission_settings_memo_permission_tip">Memo permissions define who can decrypt and check memo message in transactions.</string>
+
+    <string name="permission_settings_account_auths">Account Auths</string>
+    <string name="permission_settings_key_auths">Key Auths</string>
+    <string name="permission_settings_add_account_auths">Add Account Auth</string>
+    <string name="permission_settings_add_key_auth">Add Key Auth</string>
+    <string name="permission_settings_replace_key">Replace Key</string>
+
+    <string name="permission_settings_add_owner_auth">Add Owner Auth</string>
+    <string name="permission_settings_add_active_auth">Add Active Auth</string>
+    <string name="permission_settings_replace_memo_auth">Replace Memo Auth</string>
+
+    <string name="permission_settings_remove_owner_auth">Remove Owner Auth</string>
+    <string name="permission_settings_remove_active_auth">Remove Active Auth</string>
+    <string name="permission_settings_remove_memo_auth">Remove Memo Auth</string>
+
+    <string name="permission_settings_unlock_info">Unlock wallet to change permission</string>
+
+    <string name="permission_owner_threshold">Owner Threshold</string>
+    <string name="permission_active_threshold">Active Threshold</string>
+    <string name="permission_memo_threshold">Memo Threshold</string>
+
+    <string name="permission_new_threshold">New Threshold</string>
+    <string name="permission_new_owner_threshold">New Owner Threshold</string>
+    <string name="permission_new_active_threshold">New Active Threshold</string>
+    <string name="permission_new_memo_threshold">New Memo Threshold</string>
+
+    <string name="permission_import_key_title">Import Key</string>
+
+    <string name="permission_remove_key_title">Remove Key</string>
+    <string name="permission_remove_key_message">Are you sure to remove this active/owner/memo key auth?</string>
+    <string name="permission_remove_account_title">Remove Account</string>
+    <string name="permission_remove_account_message">Are you sure to remove this active/owner account auth?</string>
+
+    <string name="permission_replace_memo_key_message">If you replace the memo key you will be unable to read old memos when logging in with your password, and unless you import the new memo private key into your old wallet that wallet will be unable to decode new memos.</string>
+
+    <string name="permission_invalid_weight_title">Insufficient Weight</string>
+    <string name="permission_owner_threshold_warning">Owner permissions weights total of %1$s should be equal or exceed threshold of %2$s.</string>
+    <string name="permission_active_threshold_warning">Active permissions weights total of %1$s should be equal or exceed threshold of %2$s.</string>
+    <string name="permission_memo_threshold_warning">Memo permission should contain at least one key.</string>
+
+    <string name="permission_button_copy_address">Copy Address</string>
+    <string name="permission_button_copy_private">Copy Private</string>
+
+
+    <string name="permission_owner_key">Owner Key</string>
+    <string name="permission_active_key">Active Key</string>
+    <string name="permission_memo_key">Memo Key</string>
+
+    <string name="permission_cloud">Cloud</string>
+    <string name="permission_password">Password</string>
+    <string name="permission_private_key">Private Key</string>
+    <string name="permission_brain_key">Brain Key</string>
+
+
+
+    <string name="authority_threshold_unknown">NaN</string>
+
+    <string name="authority_insufficient_keys_title">Insufficient Keys</string>
+    <string name="authority_insufficient_keys_hint">User keys is insufficient, please add more keys to keychain to take full control of this account.</string>
+
+    <string name="keychain_title">Keychain</string>
+    <string name="keychain_user_not_found_title">User Not Found</string>
+    <string name="keychain_user_not_found_hint">User is not found in database</string>
+    <string name="keychain_unlock_info">Unlock wallet to change local keys</string>
+    <string name="keychain_import_owner_key_button">Import Owner Key</string>
+    <string name="keychain_import_active_key_button">Import Active Key</string>
+    <string name="keychain_import_memo_key_button">Import Memo Key</string>
+    <string name="keychain_import_key_button">Import Key</string>
+    <string name="keychain_import_add_owner_auth_button">Add Owner Authority</string>
+    <string name="keychain_import_add_active_auth_button">Add Active Authority</string>
+    <string name="keychain_import_add_memo_auth_button">Add Memo Authority</string>
+    <string name="keychain_import_add_auth_button">Add Authority</string>
+
+    <string name="wallet_manager_repeat_password">Repeat Password</string>
+    <string name="wallet_manager_password_not_match">Not Match</string>
+    <string name="wallet_manager_password_incorrect">Passcode is incorrect</string>
+    <string name="wallet_manager_password_too_short">Passcode should contain at least 6 digits</string>
+
+
+    <string name="whitelist_settings_title">Whitelist and Blacklist</string>
+    <string name="whitelist_settings_unlock_info">Unlock wallet to modify black list</string>
+    <string name="whitelist_settings_remove_account_title">Remove Account</string>
+    <string name="whitelist_settings_changes_discard_message">Name list has been changed, are you sure to leave without broadcast?</string>
+    <string name="whitelist_settings_tab_blacklisted">Blacklist</string>
+    <string name="whitelist_settings_tab_whitelisted">Whitelist</string>
+    <string name="whitelist_settings_tab_blacklisting">Blacklisting</string>
+    <string name="whitelist_settings_tab_whitelisting">Whitelisting</string>
+
+    <string name="whitelist_settings_add_account_button">Add Account</string>
+    <string name="whitelist_settings_remove_whitelist_message">Are you sure to remove this account from whitelist?</string>
+    <string name="whitelist_settings_remove_blacklist_message">Are you sure to remove this account from blacklist?</string>
+
+    <!--  storage settings  -->
+    <string name="storage_settings_title">Storage and Data</string>
+    <string name="storage_settings_clear_blockchain_caches_button">Clear Blockchain Caches</string>
+    <string name="storage_settings_clear_blockchain_caches_title">Clear Blockchain Caches</string>
+    <string name="storage_settings_clear_blockchain_caches_message">Are you sure to clear all blockchain caches?</string>
+
+
+    <!--  transactions  -->
+    <string name="operation_transfer">Transfer</string>
+    <string name="operation_account_whitelist_change">Whitelist and Blacklist Change</string>
+
+    <string name="transaction_broadcast_title">Transaction Broadcast</string>
+    <string name="transaction_broadcast_broadcasting">Broadcasting…</string>
+    <string name="transaction_broadcast_confirming">Confirming…</string>
+    <string name="transaction_broadcast_success_title">Broadcast Successfully</string>
+    <string name="transaction_broadcast_block_height">Block Height</string>
+    <string name="transaction_broadcast_failed_title">Broadcast Failed</string>
+    <string name="transaction_broadcast_no_connection_title">No Connection</string>
+    <string name="transaction_broadcast_timeout_title">Broadcast Timeout</string>
+    <string name="transaction_broadcast_missing_authority">Missing Authority</string>
+
+    <string name="transaction_broadcast_error_code">Error Code</string>
+
+
+    <string name="transaction_fee_title">Fee</string>
+
+    <string name="transaction_fee_state_checking">Checking…</string>
+    <string name="transaction_fee_state_confirmed">Confirmed</string>
+    <string name="transaction_fee_state_insufficient">Insufficient Fee</string>
+    <string name="transaction_fee_state_empty">Not Calculated</string>
+    <string name="transaction_fee_state_free_of_charge">Free of Charge</string>
+
+    <string name="transaction_discard_changes_title">Discard Changes</string>
+    <string name="transaction_discard_changes_message">Are you sure to leave without broadcast?</string>
+
+    <string name="transaction_keys_insufficient_title">Insufficient Keys</string>
+    <string name="transaction_keys_insufficient_message">Keys required to sign this transaction is insufficient.</string>
+    <string name="transaction_owner_keys_insufficient_message">Owner keys required to sign this transaction is insufficient.</string>
+    <string name="transaction_active_keys_insufficient_message">Active keys required to sign this transaction is insufficient.</string>
+
+    <string name="transaction_creator">Creator</string>
+
+
+    <!--  account browser  -->
+    <string name="account_browser_title">Account Detail</string>
+    <string name="account_browser_tab_basic_info">Basic Info</string>
+    <string name="account_browser_tab_balance">Balance</string>
+    <string name="account_browser_tab_activity">Activity</string>
+    <string name="account_browser_tab_limit_order">Limit Order</string>
+    <string name="account_browser_tab_authority">Authority</string>
+    <string name="account_browser_tab_votes">Votes</string>
+    <string name="account_browser_tab_whitelist">Blacklist &amp; Whitelist</string>
+    <string name="account_observe">Observe</string>
+    <string name="account_observe_description">Add or remove account to observe list</string>
+    <string name="account_observe_tip">Added to observing list</string>
+    <string name="account_observe_repeat_tip">Already in observing list</string>
+    <string name="account_info_name">Name</string>
+    <string name="account_info_graphene_id">Graphene ID</string>
+    <string name="account_info_member_group">Member Group</string>
+    <string name="account_info_lifetime_fee_paid">Lifetime Fee Paid</string>
+    <string name="account_info_pending_fee">Pending Fee</string>
+    <string name="account_info_pending_vested_fee">Pending Vested Fee</string>
+    <string name="account_info_total_operations">Total Operations</string>
+    <string name="account_info_removed_operations">Removed Operations</string>
+    <string name="account_info_voting_state">Voting State</string>
+    <string name="account_info_last_vote_time">Last Vote Time</string>
+    <string name="account_info_statistics">Statistics</string>
+    <string name="account_info_voting">Voting</string>
+    <string name="account_info_not_voting">Not Voting</string>
+    <string name="account_info_fee_allocation">Fee Allocation</string>
+    <string name="account_info_total_balance">Total Balance</string>
+
+    <string name="account_info_total_votes">Total Votes</string>
+    <string name="account_info_committee_member_info">Committee Member Info</string>
+    <string name="account_info_witness_info">Witness Info</string>
+    <string name="account_info_url">URL</string>
+    <string name="account_info_last_confirmed_block">Last Confirmed Block</string>
+    <string name="account_info_total_missed">Total Missed</string>
+
+    <string name="account_vote_committee_member">Committee Member</string>
+    <string name="account_vote_witness">Witness</string>
+    <string name="account_vote_worker_proposal">Worker Proposal</string>
+
+    <string name="account_vote_proxy">Proxy</string>
+
+
+    <string name="whitelist_setting_title">Whitelist</string>
+    <string name="whitelist_setting_hint">Blacklist and whitelist</string>
+
+    <string name="connection_state_connecting">Connecting…</string>
+    <string name="connection_state_connecting_info">Connecting to blockchain node…</string>
+    <string name="connection_state_connected">Connected</string>
+    <string name="connection_state_connected_info">Connected to blockchain node</string>
+    <string name="connection_state_no_connection">No Connection</string>
+    <string name="connection_state_no_connection_info">Connection to blockchain node is lost, please check your connection state</string>
+
+    <!--  extras  -->
+
+    <string name="button_confirm">Confirm</string>
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_copy">Copy</string>
+    <string name="button_clear">Clear</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_discard">Discard</string>
+    <string name="button_reset">Reset</string>
+    <string name="button_remove">Remove</string>
+    <string name="button_unlock">Unlock</string>
+    <string name="button_unlocking">Unlocking</string>
+    <string name="button_dismiss">Dismiss</string>
+    <string name="button_detail">Detail</string>
+    <string name="button_broadcast">Broadcast</string>
+    <string name="button_import">Import</string>
+    <string name="button_random">Random</string>
+    <string name="button_retry">Retry</string>
+
+    <string name="button_add">Add</string>
+
+
+    <string name="tag_owner">Owner</string>
+    <string name="tag_active">Active</string>
+    <string name="tag_memo">Memo</string>
+
+    <string name="tag_lifetime_member">Lifetime Member</string>
+    <string name="tag_basic_member">Basic Member</string>
+    <string name="tag_blockchain_account">Blockchain Account</string>
+    <string name="tag_local_user">Local User</string>
+
+
+    <string name="asset_type_tag_core">Core</string>
+    <string name="asset_type_tag_prediction">Prediction</string>
+    <string name="asset_type_tag_user">UIA</string>
+    <string name="asset_type_tag_market">SmartCoin</string>
+    <string name="asset_type_tag_undefined">Undefined</string>
+
+    <string name="tag_registrar">Registrar</string>
+    <string name="tag_referrer">Referrer</string>
+    <string name="tag_lifetime_referrer">Lifetime Referrer</string>
+    <string name="tag_network">Network</string>
+
+    <string name="tag_new">New</string>
+    <string name="tag_remove">Remove</string>
+
+    <string name="clipboard_toast">Copied to clipboard</string>
+
+    <string name="account_whitelist_tab_blacklisted">Blacklist</string>
+    <string name="account_whitelist_tab_whitelisted">Whitelist</string>
+    <string name="account_whitelist_tab_blacklisting">Blacklisting</string>
+    <string name="account_whitelist_tab_whitelisting">Whitelisting</string>
+
+
+    <string name="account_picker_title">Account Picker</string>
+    <string name="account_picker_clear_history">Clear All History</string>
+    <string name="account_picker_searching">Searching…</string>
+    <string name="account_picker_searching_info">Looking up account in blockchain</string>
+    <string name="account_picker_not_found">Not Found</string>
+    <string name="account_picker_not_found_info">Account is not found in blockchain</string>
+    <string name="account_picker_no_connection">@string/connection_state_no_connection</string>
+    <string name="account_picker_no_connection_info">@string/connection_state_no_connection_info</string>
+    <string name="account_picker_search_account">Search Account</string>
+    <string name="account_picker_search">Search…</string>
+
+    <string name="account_picker_local_users">Local Users</string>
+    <string name="account_picker_search_history">Search History</string>
+    <string name="account_picker_whitelist">Whitelist</string>
+
+
+    <string name="voting_title">Voting</string>
+    <string name="voting_tab_committee_member">Committee Member</string>
+    <string name="voting_tab_witness">Witness</string>
+    <string name="voting_tab_worker_proposal">Worker Proposal</string>
+    <string name="voting_tab_proxy">Proxy</string>
+
+    <string name="voting_votes">Votes</string>
+
+    <string name="voting_committee_member">Committees</string>
+    <string name="voting_active_committee_member">Active Committees</string>
+    <string name="voting_standby_committee_member">Standby Committees</string>
+    <string name="voting_witness">Witnesses</string>
+    <string name="voting_active_witness">Active Witnesses</string>
+    <string name="voting_standby_witness">Standby Witnesses</string>
+    <string name="voting_workers">Workers</string>
+    <string name="voting_active_workers">Active Workers</string>
+    <string name="voting_standby_workers">Standby Workers</string>
+
+    <string name="voting_block_missed">Blocks Missed</string>
+
+    <string name="voting_proxy_title">Proxy</string>
+    <string name="voting_use_proxy">Use Proxy</string>
+    <string name="voting_proxy_current_proxy">Your current proxy is %1$s</string>
+    <string name="voting_proxy_change_message">You have a proxy set, change voting list will remove your current proxy.</string>
+    <string name="voting_new_proxy">New Proxy</string>
+    <string name="voting_no_proxy">No Proxy</string>
+    <string name="voting_change_proxy">Change Proxy</string>
+    <string name="voting_remove_proxy">Remove Proxy</string>
+    <string name="voting_proxy_tip">Search for an account to be used as your proxy for voting. Your account will act as if you would be voting exactly the same as your proxy.</string>
+
+
+    <string name="worker_tag_active">Active</string>
+    <string name="worker_tag_proposed">Proposed</string>
+    <string name="worker_tag_refund">Refund</string>
+    <string name="worker_tag_vesting">Vesting</string>
+    <string name="worker_tag_burn">Burn</string>
+    <string name="worker_tag_unknown">Unknown</string>
+    <string name="worker_tag_bsip">BSIP</string>
+    <string name="worker_tag_poll">Poll</string>
+
+    <string name="worker_type_refund">Refund Worker</string>
+    <string name="worker_type_vesting">Vesting Worker</string>
+    <string name="worker_type_burn">Burn Worker</string>
+    <string name="worker_type_unknown">Unknown Worker</string>
+    <string name="worker_type_bsip">BSIP Worker</string>
+
+
+    <string name="worker_daily_budget">Daily Budget</string>
+    <string name="worker_start_from">From</string>
+    <string name="worker_end_to">To</string>
+    <string name="worker_issuer">Issuer</string>
+
+    <string name="tab_raw_data">Raw Data</string>
+
+    <string name="asset_browser_title">Asset Detail</string>
+    <string name="asset_browser_tab_basic_info">Basic Info</string>
+    <string name="asset_browser_tab_bitasset">Bitasset</string>
+    <string name="asset_browser_tab_feeds">Feeds</string>
+
+    <string name="asset_price_feed_title">Price Feed</string>
+    <string name="asset_price_feed_feed_price">Feed Price</string>
+    <string name="asset_price_feed_invalid_feed_price">Invalid</string>
+    <string name="asset_price_feed_feed_lifetime">Feed Lifetime</string>
+    <string name="asset_price_feed_minimum_feeds">Minimum Feeds</string>
+    <string name="asset_price_feed_maintenance_collateral_ratio">Maintenance Collateral Ratio (MCR)</string>
+    <string name="asset_price_feed_maximum_short_squeeze_ratio">Maximum Short Squeeze Ratio (MSSR)</string>
+    <string name="asset_price_feed_maximum_short_squeeze_price">Maximum Short Squeeze Price (MSSP)</string>
+    <string name="asset_price_feed_margin_call_order_price">Margin Call Order Price (MCOP)</string>
+    <string name="asset_price_feed_global_settlement_price">Global Settlement Price</string>
+    <string name="asset_price_feed_global_settlement_trigger_price">Global Settlement Trigger Price</string>
+
+
+    <string name="asset_feeds_feed_price">Feed Price</string>
+    <string name="asset_feeds_core_exchange_rate">Core Exchange Rate</string>
+    <string name="asset_feeds_maintenance_collateral_ratio">MCR</string>
+    <string name="asset_feeds_maximum_short_squeeze_ratio">MSSR</string>
+    <string name="asset_feeds_maximum_short_squeeze_price">MSSP</string>
+    <string name="asset_feeds_published">Published</string>
+
+    <string name="asset_settlement_title">Settlement</string>
+    <string name="asset_settlement_price">Force Settlement Price</string>
+    <string name="asset_settlement_delay">Force Settlement Delay</string>
+    <string name="asset_settlement_volume_current">Current Force Settled Volume</string>
+    <string name="asset_settlement_volume_maximum">Maximum Force Settlement Volume</string>
+    <string name="asset_settlement_remaining_percent">Remaining Settleable Percent</string>
+    <string name="asset_settlement_settlement_funds">Settlement Funds</string>
+    <string name="asset_settlement_settlement_funds_collateral_ratio">Settlement Fund Collateral Ratio</string>
+    <string name="asset_settlement_settlement_price">Force Settlement Price</string>
+
+
+    <string name="asset_symbol">Symbol</string>
+    <string name="asset_graphene_id">Graphene ID</string>
+    <string name="asset_issuer">Asset Owner</string>
+    <string name="asset_asset_type">Asset Type</string>
+    <string name="asset_units">Units</string>
+    <string name="asset_precision">Precision</string>
+    <string name="asset_backing_asset">Backing Asset</string>
+    <string name="asset_description">Description</string>
+
+    <string name="asset_type_undefined">Undefined</string>
+    <string name="asset_type_core">Core Token</string>
+    <string name="asset_type_user">User Issued Asset (UIA)</string>
+    <string name="asset_type_market">Smartcoin / Market Plugged Asset (MPA)</string>
+    <string name="asset_type_prediction">Prediction Market Asset (PMA)</string>
+
+    <string name="asset_supply_title">Supply</string>
+    <string name="asset_supply_current_supply">Current Supply</string>
+    <string name="asset_supply_stealth_supply">Stealth Supply</string>
+    <string name="asset_supply_max_supply">Max Supply</string>
+    <string name="asset_supply_current_supply_rate">Current Supply Rate</string>
+
+    <string name="asset_permission_title">Asset Owner Permission</string>
+    <string name="asset_market_title">Market</string>
+    <string name="asset_market_fee_percent">Market Fee Percent</string>
+    <string name="asset_market_fee_referral_reward_percent">Market Fee Referral Reward Percent</string>
+    <string name="asset_max_market_fee">Max Market Fee</string>
+    <string name="asset_fee_pool_title">Fee Pool</string>
+    <string name="asset_core_exchange_rate">Core Exchange Rate (CER)</string>
+    <string name="asset_pool_balance">Pool Balance</string>
+    <string name="asset_unclaimed_owner_income">Unclaimed Owner Income</string>
+
+    <string name="asset_fee_pool_hint">The fee pool is used to pay fees in %1$s by converting the fee in %2$s to %1$s. If the fee pool runs out of funds, fees may no longer be paid in %2$s and will default to %1$s.</string>
+
+
+
+    <string name="asset_permission_charge_market_fee">Enable Market Fee</string>
+    <string name="asset_permission_white_list">Require Holders White-listed</string>
+    <string name="asset_permission_override_authority">Transfer Back to Himself</string>
+    <string name="asset_permission_transfer_restricted">Issuer Must Approve All Transfers</string>
+    <string name="asset_permission_disable_force_settle">Disable Force Settling</string>
+    <string name="asset_permission_global_settle">Force a Global Settling</string>
+    <string name="asset_permission_disable_confidential">Disable Confidential Transactions</string>
+    <string name="asset_permission_witness_fed_asset">Allow Witnesses Providing Feeds</string>
+    <string name="asset_permission_committee_fed_asset">Allow Committee Members Providing Feeds</string>
+
+
+    <string name="operation_description_unknown">This operation is not supported yet</string>
+
+    <string name="operation_description_account_create">%1$s registered the account %2$s</string>
+    <!--    <string name="operation_description_account_update">%1$s updated their account data %2$s</string>-->
+    <string name="operation_description_account_update">%1$s updated their account data</string>
+    <string name="operation_description_account_whitelist_whitelisted">%1$s whitelisted %2$s</string>
+    <string name="operation_description_account_whitelist_blacklisted">%1$s blacklisted %2$s</string>
+    <string name="operation_description_account_whitelist_whitelist_unlisted">%1$s unlisted %2$s from whitelist</string>
+    <string name="operation_description_account_whitelist_blacklist_unlisted">%1$s unlisted %2$s from blacklist</string>
+
+    <string name="operation_description_account_upgrade">%1$s was upgraded to annual member</string>
+    <string name="operation_description_account_upgrade_annual">%1$s was upgraded to annual member</string>
+    <string name="operation_description_account_upgrade_lifetime">%1$s was upgraded to lifetime member</string>
+
+    <string name="operation_description_account_transfer">%1$s ownership transferred to %2$s</string>
+
+    <string name="operation_description_asset_claim_fees">%1$s claimed asset fees of %3$s from %2$s fee pool</string>
+    <string name="operation_description_asset_claim_pool">%1$s claimed %3$s from %2$s fee pool</string>
+    <string name="operation_description_asset_create">%1$s created the asset %2$s</string>
+    <string name="operation_description_asset_fund_fee_pool">%1$s funded %2$s fee pool with %3$s</string>
+    <string name="operation_description_asset_global_settle">%1$s requested global settlement of %2$s at %3$s</string>
+    <string name="operation_description_asset_issue">%1$s issued %3$s to %2$s</string>
+    <!--    <string name="operation_description_asset_reserve">%1$s burned (reserved) %2$s</string>-->
+    <string name="operation_description_asset_reserve">%1$s burned %2$s</string>
+    <string name="operation_description_asset_settle">%1$s requested settlement of %2$s</string>
+    <string name="operation_description_asset_settle_cancel">%1$s cancelled settlement of %2$s</string>
+    <string name="operation_description_asset_settle_instant">%1$s settled %2$s instantly at %3$s</string>
+    <string name="operation_description_asset_update">%1$s updated the asset %2$s</string>
+    <!--    TODO: bitasset -->
+    <string name="operation_description_asset_update_bitasset">%1$s updated the bitasset data for the asset %2$s</string>
+    <string name="operation_description_asset_update_feed_producers">%1$s updated the feed producers for the asset %2$s</string>
+    <string name="operation_description_asset_update_issuer">%1$s transferred %3$s to %2$s</string>
+    <string name="operation_description_balance_claim">%1$s claimed a balance of %2$s</string>
+    <string name="operation_description_bid_collateral">%1$s bid %2$s for %3$s</string>
+    <!--    <string name="operation_description_call_order_update">1{account} changed 3{debtSymbol} debt by 2{debt} and collateral by 4{collateral}</string>-->
+    <string name="operation_description_call_order_update">%1$s changed %3$s debt by %2$s and collateral by %4$s</string>
+    <string name="operation_description_committee_member_create">Created the committee member %1$s</string>
+    <string name="operation_description_committee_member_update">Updated the committee member %1$s</string>
+
+    <string name="operation_description_committee_member_update_global_parameters">%1$s updated the global committee parameters</string>
+    <string name="operation_description_custom">%1$s created a custom operation</string>
+    <!--    TODO: Assert </string>-->
+    <string name="operation_description_assert"> </string>
+    <string name="operation_description_fba_distribute"> </string>
+    <string name="operation_description_execute_bid"> </string>
+    <!--    <string name="operation_description_fill_order_sell">1{account} sold 3{buyAmount} at 4{price} for order 2#%(order)s</string>-->
+    <string name="operation_description_fill_order_buy">%1$s bought %3$s at %4$s for %2$s</string>
+    <string name="operation_description_fill_order_sell">%1$s sold %3$s at %4$s for %2$s</string>
+    <!--    <string name="operation_description_htlc_create">1{from} locked 3{buyAmount} for 2{to} to redeem until 4{lock_period}</string>-->
+    <string name="operation_description_htlc_create">%1$s locked %3$s for %2$s to redeem until %4$s</string>
+    <string name="operation_description_htlc_extend">%1$s added %2$s seconds to redeem period of %3$s</string>
+    <string name="operation_description_htlc_redeem">%1$s request to redeem from %2$s</string>
+    <string name="operation_description_htlc_redeemed">%2$s redeemed %3$s from %4$s of %1$s</string>
+    <string name="operation_description_htlc_refund">%1$s got refund of %2$s</string>
+    <string name="operation_description_limit_order_buy">%1$s placed %2$s to buy %3$s at %4$s</string>
+    <string name="operation_description_limit_order_cancel">%1$s cancelled %2$s</string>
+    <!-- %1$s{account} %2$s%(order) %3$s {buyAmount} %4$s{price} -->
+    <string name="operation_description_limit_order_sell">%1$s placed %2$s to sell %3$s at %4$s</string>
+    <string name="operation_description_no_recent">No recent transactions</string>
+    <string name="operation_description_override_transfer">%1$s transferred %4$s from %2$s to %3$s</string>
+
+    <string name="operation_description_transfer_to_blind">%1$s sent %2$s to blinded account</string>
+    <string name="operation_description_transfer_from_blind">%1$s receive %2$s from blinded account</string>
+    <string name="operation_description_blind_transfer">Blind transfer</string>
+
+
+    <string name="operation_description_pending">pending %(blocks)s blocks</string>
+    <string name="operation_description_proposal_create">%1$s created %2$s</string>
+    <string name="operation_description_proposal_delete">%1$s deleted %2$s</string>
+    <string name="operation_description_proposal_update">%1$s updated %2$s</string>
+    <string name="operation_description_asset_publish_feed">%1$s published feed price of %2$s</string>
+    <string name="operation_description_set_proxy">{account} set {proxy} as their voting proxy</string>
+    <!--    <string name="operation_description_transfer">1{from} sent 3{buyAmount} to 2{to}</string>-->
+    <string name="operation_description_transfer">%1$s sent %3$s to %2$s</string>
+    <string name="operation_description_vesting_balance_create">%1$s created vesting balance of %3$s to %2$s</string>
+    <string name="operation_description_vesting_balance_withdraw">%1$s withdrew vesting balance of %2$s</string>
+    <string name="operation_description_witness_create">%1$s was upgraded to become a witness</string>
+    <string name="operation_description_witness_pay">Withdrew witness pay to account</string>
+    <string name="operation_description_witness_receive">Received witness from witness</string>
+    <string name="operation_description_witness_update">%1$s update its witness info</string>
+    <string name="operation_description_worker_create">%1$s created %2$s with daily pay of %3$s</string>
+
+
+    <string name="operation_description_withdraw_permission_claim">Claimed withdrawal permission for %1$s to %2$s</string>
+    <string name="operation_description_withdraw_permission_create">Gave withdrawal permission for %1$s to %2$s</string>
+    <string name="operation_description_withdraw_permission_delete">Deleted withdrawal permissions for %1$s to %2$s</string>
+    <string name="operation_description_withdraw_permission_update">Updated withdrawal permission for %1$s to %2$s</string>
+
+
+    <string name="operation_type_unknown">Unknown</string>
+
+    <string name="operation_type_account_create">Create Account</string>
+    <string name="operation_type_account_transfer">Transfer Account</string>
+    <string name="operation_type_account_update">Update Account</string>
+    <string name="operation_type_account_upgrade">Upgrade Account</string>
+    <string name="operation_type_account_whitelist">Account Whitelist</string>
+    <string name="operation_type_all">Show all</string>
+    <string name="operation_type_assert">Assert Operation</string>
+    <string name="operation_type_asset_bid_collateral">Bid Collateral</string>
+    <string name="operation_type_asset_claim_fee_pool">Claim Fee Pool Balance</string>
+    <string name="operation_type_asset_claim_fees">Claim Asset Fees</string>
+    <string name="operation_type_asset_claim_pool">Claim Asset Fee Pool</string>
+    <string name="operation_type_asset_create">Create Asset</string>
+    <string name="operation_type_asset_fund_fee_pool">Fund Asset Fee Pool</string>
+    <string name="operation_type_asset_global_settle">Global Asset Settlement</string>
+    <string name="operation_type_asset_issue">Issue Asset</string>
+    <string name="operation_type_asset_publish_feed">Publish Feed</string>
+    <string name="operation_type_asset_reserve">Burn Asset</string>
+    <string name="operation_type_asset_settle">Asset Settlement</string>
+    <string name="operation_type_asset_settle_cancel">Cancel Asset Settlement</string>
+    <string name="operation_type_asset_update">Update Asset</string>
+    <string name="operation_type_asset_update_bitasset">Update SmartCoin</string>
+    <string name="operation_type_asset_update_feed_producers">Update Asset Feed Producers</string>
+    <string name="operation_type_asset_update_issuer">Update Asset Owner</string>
+    <string name="operation_type_balance_claim">Claim Balance</string>
+    <string name="operation_type_bid_collateral">Collateral Bid</string>
+    <string name="operation_type_blind_transfer">Blinded Transfer</string>
+    <string name="operation_type_call_order_update">Update Margin</string>
+    <string name="operation_type_committee_member_create">Create Committee Member</string>
+    <string name="operation_type_committee_member_update">Update committee Member</string>
+    <string name="operation_type_committee_member_update_global_parameters">Global Parameters Update</string>
+    <string name="operation_type_custom">Custom</string>
+    <string name="operation_type_execute_bid">Execute Bid</string>
+    <string name="operation_type_fba_distribute">Fee Backed Asset Distribution</string>
+    <string name="operation_type_fill_limit_order">Fill Limit Order</string>
+    <string name="operation_type_fill_call_order">Fill Call Order</string>
+    <string name="operation_type_fill_order">Fill Order</string>
+    <string name="operation_type_htlc_create">HTLC Create</string>
+    <string name="operation_type_htlc_extend">HTLC Extend</string>
+    <string name="operation_type_htlc_redeem">HTLC Redeem</string>
+    <string name="operation_type_htlc_redeemed">HTLC Redeemed</string>
+    <string name="operation_type_htlc_refund">HTLC Refund</string>
+    <string name="operation_type_limit_order_cancel">Cancel Order</string>
+    <string name="operation_type_limit_order_create">Place Order</string>
+    <string name="operation_type_override_transfer">Override Transfer</string>
+    <string name="operation_type_proposal_create">Create Proposal</string>
+    <string name="operation_type_proposal_delete">Delete Proposal</string>
+    <string name="operation_type_proposal_update">Update Proposal</string>
+    <string name="operation_type_transfer">Transfer</string>    <!--  Transfer  -->
+    <string name="operation_type_transfer_from_blind">Transfer from Blinded Account</string>
+    <string name="operation_type_transfer_to_blind">Transfer to Blinded Account</string>
+    <string name="operation_type_vesting_balance_create">Create Vesting Balance</string>
+    <string name="operation_type_vesting_balance_withdraw">Withdraw Vesting Balance</string>
+    <string name="operation_type_withdraw_permission_claim">Claim Withdrawal Permission</string>
+    <string name="operation_type_withdraw_permission_create">Create Withdrawal Permission</string>
+    <string name="operation_type_withdraw_permission_delete">Delete Withdrawal Permission</string>
+    <string name="operation_type_withdraw_permission_update">Update Withdrawal Permission</string>
+    <string name="operation_type_witness_create">Create Witness</string>
+    <string name="operation_type_witness_update">Update Witness</string>
+    <string name="operation_type_witness_withdraw_pay">Witness Pay Withdrawal</string>
+    <string name="operation_type_worker_create">Create Worker</string>
+    <!--  divider  -->
+
+    <string name="object_type_null">Null</string>
+    <string name="object_type_base">Base</string>
+    <string name="object_type_account">Account</string>
+    <string name="object_type_asset">Asset</string>
+    <string name="object_type_force_settlement">Settlement</string>
+    <string name="object_type_committee_member">Committee</string>
+    <string name="object_type_witness">Witness</string>
+    <string name="object_type_limit_order">Order</string>
+<!--    TODO: -->
+    <string name="object_type_call_order">Call Order</string>
+    <string name="object_type_custom">Custom</string>
+    <string name="object_type_proposal">Proposal</string>
+    <string name="object_type_operation_history">History</string>
+    <string name="object_type_withdraw_permission">Permission</string>
+    <string name="object_type_vesting_balance"></string>
+    <string name="object_type_worker">Worker</string>
+    <string name="object_type_balance"></string>
+    <string name="object_type_htlc">HTLC</string>
+    <string name="object_type_custom_authority">Custom Authority</string>
+    <string name="object_type_ticket">Ticket</string>
+    <string name="object_type_liquidity_pool">Liquidity Pool</string>
+
+    <string name="object_type_global_property"></string>
+    <string name="object_type_dynamic_global_property"></string>
+<!--    <string name="object_type_reserved"></string>-->
+
+    <string name="object_type_asset_dynam"></string>
+    <string name="object_type_asset_bitass"></string>
+    <string name="object_type_account_balance"></string>
+    <string name="object_type_account_statistics"></string>
+    <string name="object_type_transaction"></string>
+    <string name="object_type_block_summary"></string>
+    <string name="object_type_account_transaction_history"></string>
+    <string name="object_type_blinded_balance"></string>
+    <string name="object_type_chain_property"></string>
+    <string name="object_type_witness_schedule"></string>
+    <string name="object_type_budget_record"></string>
+    <string name="object_type_special_authority"></string>
+    <string name="object_type_buyback"></string>
+    <string name="object_type_fba_accumulator"></string>
+    <string name="object_type_collateral_bid"></string>
+
+    <string name="object_type_order_history"></string>
+    <string name="object_type_bucket"></string>
+
+
+    <string name="limit_order_type_buy">Buy Order</string>
+    <string name="limit_order_type_sell">Sell Order</string>
+
+    <string name="limit_order_buy">Buy</string>
+    <string name="limit_order_sell">Sell</string>
+
+
+    <!--  password  -->
+<!--    <string name="password_requirement_length_at_least_6">Contains at least 6 characters</string>-->
+<!--    <string name="password_requirement_length_at_least_8">Contains at least 8 characters</string>-->
+<!--    <string name="password_requirement_length_at_least_12">Contains at least 12 characters</string>-->
+<!--    <string name="password_requirement_contains_number">Contains at least one digit</string>-->
+<!--    <string name="password_requirement_contains_letter">Contains at least one letter</string>-->
+<!--    <string name="password_requirement_contains_upper_case">Contains at least one uppercase letter</string>-->
+<!--    <string name="password_requirement_contains_lower_case">Contains at least one lowercase letter</string>-->
+<!--    <string name="password_requirement_contains_symbol">Contains at least one symbol</string>-->
+
+
+<!--    <string name="password_requirement_description">Password should be %1$s </string>-->
+
+    <string name="password_requirement_description_normal_6_digits">Password should be at least 6 digits</string>
+    <string name="password_requirement_description_normal">Password should be %1$s including %2$s and %3$s.</string>
+
+
+    <string name="account_name_requirement_description_normal">Account name should be %1$s including %2$s and %3$s.</string>
+    <string name="account_name_requirement_dash_end">Account name should not end with a dash.</string>
+
+    <string name="password_requirement_description_triple">Password should be %1$s including %2$s, %3$s and %4$s.</string>
+    <string name="password_requirement_at_least_8_characters">at least 8 characters</string>
+    <string name="password_requirement_at_least_12_characters">at least 12 characters</string>
+    <string name="password_requirement_a_number">a number</string>
+    <string name="password_requirement_a_uppercase_letter">a uppercase letter</string>
+    <string name="password_requirement_a_lowercase_letter">a lowercase letter</string>
+    <string name="password_requirement_a_letter">a letter</string>
+
+
+    <string name="password_not_match">Not match</string>
+
+    <string name="filter_fields_not_match">Two fields not match</string>
+
+
+    <!--  universal  -->
+    <string name="word_password">Password</string>
+    <string name="word_new_password">New Password</string>
+    <string name="word_password_repeat">Password Repeat</string>
+
+    <string name="word_owner_key">Owner Key</string>
+    <string name="word_active_key">Active Key</string>
+    <string name="word_memo_key">Memo Key</string>
+
+    <string name="word_owner_caps">Owner</string>
+    <string name="word_active_caps">Active</string>
+    <string name="word_memo_caps">Memo</string>
+
+    <string name="word_owner_non_caps">owner</string>
+    <string name="word_active_non_caps">active</string>
+    <string name="word_memo_non_caps">memo</string>
+
+    <string name="word_cloud_mode">Cloud</string>
+    <string name="word_private_key_mode">Private Key</string>
+    <string name="word_brain_key_mode">Brain Key</string>
+
+    <string name="word_warning">Warning</string>
+
+
+    <string name="chain_type_main">BitShares Mainnet</string>
+    <string name="chain_type_test">BitShares Testnet</string>
+    <string name="chain_type_unknown">Unknown Network</string>
+
+
+    <!-- market -->
+
+    <string name="market_title">Market</string>
+
+    <string name="market_tab_buy">Buy</string>
+    <string name="market_tab_sell">Sell</string>
+    <string name="market_tab_orders">Orders</string>
+
+    <string name="market_buy">Buy</string>
+    <string name="market_sell">Sell</string>
+    <string name="market_amount">Amount</string>
+    <string name="market_total">Total</string>
+    <string name="market_price">Price</string>
+    <string name="market_market_history">Market History</string>
+
+    <!-- operation components -->
+    <string name="operation_limit_order_create_seller">Seller</string>
+    <string name="operation_limit_order_create_price">Price</string>
+    <string name="operation_limit_order_create_buy">Buy</string>
+    <string name="operation_limit_order_create_sells">Sells</string>
+    <string name="operation_limit_order_create_pay">Pay</string>
+    <string name="operation_limit_order_create_receives">Receives</string>
+
+    <string name="operation_call_order_update_debt_changes">Debt Changes</string>
+    <string name="operation_call_order_update_collateral_changes">Collateral Changes</string>
+    <string name="operation_call_order_call_price">Your Call Price</string>
+    <string name="operation_call_order_collateral_ratio">Collateral Ratio</string>
+    <string name="operation_call_order_update_target_collateral_ratio">Target Collateral Ratio</string>
+    <string name="operation_call_order_update_tcr_disabled">Disabled</string>
+
+    <string name="operation_limit_order_cancel_order_to_cancel">Order to Cancel</string>
+    <string name="operation_limit_order_cancel_seller">Seller</string>
+
+
+    <!-- ticker -->
+
+
+    <string name="invalid_number">NaN</string>
+    <string name="invalid_public_key">Invalid Public Key</string>
+    <string name="invalid_private_key">Invalid Private Key</string>
+
+    <string name="ticker_high">High</string>
+    <string name="ticker_low">Low</string>
+    <string name="ticker_volume">Vol</string>
+
+    <string name="limit_order_price">Price</string>
+    <string name="limit_order_amount">Amount</string>
+    <string name="limit_order_total">Total</string>
+    <string name="limit_order_expiration">Expiration</string>
+
+
+    <string name="account_balance_title">Balance</string>
+    <string name="account_balance_total_balance">Total Balance</string>
+    <string name="account_balance_total">Total</string>
+    <string name="account_balance_balances">Balance</string>
+    <string name="account_balance_in_order">In Order</string>
+    <string name="account_balance_debt">Debt</string>
+    <string name="account_balance_collateral">Collateral</string>
+
+
+    <string name="chain_type_tag_mainnet">Mainnet</string>
+    <string name="chain_type_tag_testnet">Testnet</string>
+    <string name="chain_type_tag_unknown">Unknown</string>
+
+    <string name="block_height_prefix">Block</string>
+    <string name="block_transaction_count">TX</string>
+
+    <string name="chain_type_bitshares_mainnet">Mainnet</string>
+    <string name="chain_type_bitshares_testnet">Testnet</string>
+    <string name="chain_type_unknown_network">Unknown</string>
+
+    <string name="chain_explore_time">Time</string>
+    <string name="chain_explore_local_time">Local Time</string>
+    <string name="chain_explore_chain_time">Chain Time</string>
+    <string name="chain_explore_next_maintenance_time">Next Maintenance</string>
+<!--    <string name="chain_explore_next_maintenance_time">Next Maintenance Time</string>-->
+    <string name="chain_explore_last_block">Last Block</string>
+    <string name="chain_explore_last_irreversible_block">Last Irreversible Block</string>
+    <string name="chain_explore_last_block_hash">Last Block Hash</string>
+    <string name="chain_explore_block_time_now">Now</string>
+    <string name="chain_explore_block_time_ago">%1$s Ago</string>
+    <string name="chain_explore_active_witnesses">Active Witnesses</string>
+    <string name="chain_explore_active_committees">Active Committees</string>
+
+    <string name="chain_explore_tab_blockchain">Blockchain</string>
+    <string name="chain_explore_tab_asset">Assets</string>
+    <string name="chain_explore_tab_account">Accounts</string>
+    <string name="chain_explore_tab_committee">Committee</string>
+    <string name="chain_explore_tab_witnesses">Witnesses</string>
+    <string name="chain_explore_tab_worker">Workers</string>
+    <string name="chain_explore_tab_market">Markets</string>
+    <string name="chain_explore_tab_fee_schedule">Fee Schedule</string>
+
+    <string name="balance_tab_balances">Balances</string>
+    <string name="balance_tab_limit_orders">Limit Orders</string>
+    <string name="balance_tab_margin_positions">Margin Positions</string>
+
+
+
+
+    <string name="market_add_trade_pair">Add Trade Pair</string>
+
+    <string name="market_add_market_dialog_title">Add Market</string>
+    <string name="market_add_market_group">Add Group</string>
+    <string name="market_all_groups">ALL</string>
+    <string name="market_quote">Quote</string>
+    <string name="market_base">Base</string>
+    <string name="market_add_market_group_dialog_title">Add Market Group</string>
+    <string name="market_group_asset_symbol">Asset Symbol</string>
+    <string name="market_remove_market_group_dialog_title">Remove Market Group</string>
+    <string name="market_remove_market_group_message">Are you sure to remove market %1$s?</string>
+    <string name="market_market_dialog">Market</string>
+    <string name="market_remove_market_dialog">Remove Market</string>
+    <string name="market_option_remove_market">Remove Market</string>
+    <string name="market_option_browse_asset">@string/option_asset_detail</string>
+
+
+    <string name="option_account_detail">Account Detail</string>
+    <string name="option_asset_detail">Asset Detail</string>
+    <string name="option_committee_detail">Committee Detail</string>
+    <string name="option_worker_detail">Worker Detail</string>
+    <string name="option_operation_detail">Operation Detail</string>
+
+    <string name="option_goto_website">Go to Website</string>
+    <string name="option_share">Share…</string>
+
+    <string name="account_dialog_title">Account</string>
+    <string name="account_option_account_detail">Account Detail</string>
+    <string name="account_option_add_observer">Add to Observe List</string>
+    <string name="account_option_copy_account_name">Copy Account Name</string>
+    <string name="account_option_transfer">Transfer</string>
+
+    <string name="witness_dialog_title">Witness</string>
+    <string name="witness_option_witness_detail">Witness Detail</string>
+
+    <string name="committee_member_dialog_title">Committee Member</string>
+
+    <string name="worker_dialog_title">Worker</string>
+    <string name="worker_option_copy_worker_name">Copy Worker Name</string>
+    <string name="account_balance_dialog_title">Account Balance</string>
+    <string name="operation_dialog_title">Operation</string>
+
+
+    <string name="block_browser_tab_basic_info">Basic Info</string>
+    <string name="block_browser_tab_transactions">Transactions</string>
+<!--    TODO remove all DETAIL title-->
+    <string name="block_browser_title">Block</string>
+
+    <string name="operation_browser_tab_basic_info">Basic Info</string>
+    <string name="operation_browser_title">Operation Detail</string>
+
+    <string name="block_info_block_height">Block Height</string>
+    <string name="block_info_block_time">Block Time</string>
+    <string name="block_info_witness">Witness</string>
+    <string name="block_info_witness_signature">Witness Signature</string>
+    <string name="block_info_previous_block_hash">Previous Block Hash</string>
+    <string name="block_info_root_hash">Root Hash</string>
+    <string name="block_info_transaction_count">Transaction Count</string>
+    <string name="block_info_operation_count">Operation Count</string>
+    <string name="block_info_previous_block">Previous Block</string>
+    <string name="block_info_next_block">Next Block</string>
+
+    <string name="collateral_title">Collateral</string>
+    <string name="collateral_margin_asset">Margin Asset</string>
+    <string name="collateral_select_asset">Select Asset</string>
+    <string name="collateral_margin_title">Margin</string>
+    <string name="collateral_asset_margin">%1$s Margin</string>
+    <string name="collateral_feed_price">Feed Price</string>
+    <string name="collateral_call_price">Your Call Price</string>
+    <string name="collateral_debt">Debt</string>
+    <string name="collateral_collateral">Collateral</string>
+    <string name="collateral_collateral_ratio">Collateral Ratio</string>
+    <string name="collateral_target_collateral_ratio">Target Collateral Ratio</string>
+    <string name="collateral_tcr_disabled">Disabled</string>
+    <string name="collateral_tcr_invalid">NaN</string>
+    <string name="collateral_update_position">Update Position</string>
+
+
+
+    <string name="collateral_collateral_ratio_below_hint">Your collateral ratio is below %1$s which is not allowed.</string>
+    <string name="collateral_collateral_ratio_close_hint">Your collateral ratio is close to %1$s, this position is in danger of being margin called if the price of %2$s drops.</string>
+    <string name="collateral_collateral_ratio_already_below_hint">Your collateral ratio is below required %1$s! Increasing collateral ratio is allowed, debt can only be decreased.</string>
+    <string name="collateral_collateral_ratio_below_original_hint">Your collateral ratio is below your original %1$s! Only increased ratio is allowed on margin called orders.</string>
+
+    <string name="collateral_update_position_hint">Update your %1$s margin position by adjusting the debt and collateral levels.\n\nCollateral and debt levels can be adjusted in any way you desire, as long as your collateral ratio stays above the maintenance collateral ratio of %3$s.</string>
+
+    <string name="faucet_register_title">Register</string>
+    <string name="faucet_register_faucet">Faucet</string>
+    <string name="faucet_register_account">Account</string>
+    <string name="faucet_register_password">Password</string>
+    <string name="faucet_register_password_repeat">Password Repeat</string>
+    <string name="faucet_register_account_exist">Account already exists.</string>
+    <string name="faucet_register_random_button">Generate Random</string>
+    <string name="faucet_register_next_button">Next</string>
+    <string name="faucet_register_faucet_dialog_title">Faucet</string>
+    <string name="faucet_register_register_title">Account Register</string>
+    <string name="faucet_register_register_button">Register</string>
+    <string name="faucet_register_registering_account">Registering Account…</string>
+    <string name="faucet_register_registering_button">Registering…</string>
+    <string name="faucet_register_register_success_title">Register Success</string>
+    <string name="faucet_register_register_failed_title">Register Failed</string>
+    <string name="faucet_register_unknown_error_title">Unknown Error</string>
+
+
+
+</resources>

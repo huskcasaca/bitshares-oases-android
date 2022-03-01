@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BitShares UI</string>
+
+    <string name="permission_replace_memo_key_message">Если вы замените мемо-ключ, то не сможете читать старые мемо (примечания) при входе в систему с вашим паролем, а если вы не импортируете новый приватный мемо-ключ в свой старый кошелек, этот кошелек не сможет декодировать новые мемо</string>
+
+    <string name="permission_invalid_weight_title">Insufficient Weight</string>
+    <string name="permission_active_threshold_warning">Общий вес активных прав доступа в %1$s должен быть равен или превосходить порог в %2$s</string>
+    <string name="permission_owner_threshold_warning">Общий вес прав доступа владельца в %1$s должен быть равен или превосходить порог в %2$s</string>
+    <string name="permission_memo_threshold_warning">Memo permission should contain at least one key.</string>
+
+
+    <string name="wallet_settings_passcode_lock">Код доступа</string>
+    <string name="wallet_settings_passcode_lock_hint">Encrypt wallet with passcode.</string>
+
+
+    <string name="wallet_settings_fingerprint_unlock">Разблокировка отпечатком пальца</string>
+
+    <string name="wallet_settings_change_password">Сменить код доступа</string>
+
+
+    <string name="wallet_enter_password">Введите пароль</string>
+
+
+    <!--  fingerprint  -->
+    <string name="fingerprint_touch_sensor">Touch sensor</string>
+    <string name="fingerprint_confirm">Подтвердите Ваш отпечаток пальца</string>
+    <string name="fingerprint_unknown">Неизвестный отпечаток</string>
+    <string name="fingerprint_not_recognized">Отпечаток пальца не распознан. Попробуйте ещё раз.</string>
+
+
+
+
+    <string name="operation_description_account_create">%1$s зарегистрировал аккаунт %2$s</string>
+<!--    <string name="operation_description_account_update">%1$s обновил данные своего аккаунта %2$s</string>-->
+    <string name="operation_description_account_update">%1$s обновил данные своего аккаунта</string>
+    <string name="operation_description_account_whitelist_whitelisted">%1$s добавил %2$s в белый список</string>
+    <string name="operation_description_account_whitelist_blacklisted">%1$s добавил %2$s в чёрный список</string>
+<!--    <string name="operation_description_account_whitelist_whitelist_unlisted">{lister} удалил аккаунт {listee} из списка</string>-->
+    <string name="operation_description_account_whitelist_whitelist_unlisted">%1$s удалил %2$s из белый список</string>
+    <string name="operation_description_account_whitelist_blacklist_unlisted">%1$s удалил %2$s из чёрный список</string>
+
+    <string name="operation_description_account_upgrade">%1$s обновился до годового членства</string>
+    <string name="operation_description_account_upgrade_annual">%1$s обновился до годового членства</string>
+    <string name="operation_description_account_upgrade_lifetime">%1$s обновился до пожизненного членства</string>
+
+    <string name="operation_description_account_transfer">Владение %1$s передано %2$s</string>
+
+    <string name="operation_description_asset_claim_fees">%1$s востребовал комиссии актива %3$s из пула комиссий %2$s</string>
+    <string name="operation_description_asset_claim_pool">%1$s востребовал %3$s из пула комиссий %2$s</string>
+    <string name="operation_description_asset_create">%1$s создал актив %2$s</string>
+    <string name="operation_description_asset_fund_fee_pool">%1$s финансировал пул комиссий %2$s суммой в %3$s</string>
+    <string name="operation_description_asset_global_settle">%1$s запросил глобальное погашение %2$s по цене %3$s</string>
+    <string name="operation_description_asset_issue">%1$s эмитировал %3$s на %2$s</string>
+    <string name="operation_description_asset_reserve">%1$s сжег (зарезервировал) %2$s</string>
+    <string name="operation_description_asset_settle">%1$s запросил погашение %2$s</string>
+    <string name="operation_description_asset_settle_cancel">%1$s отменил погашение %2$s</string>
+    <string name="operation_description_asset_settle_instant">%1$s провёл мгновенный расчёт %2$s по цене %3$s</string>
+    <string name="operation_description_asset_update">%1$s обновил актив %2$s</string>
+    <string name="operation_description_asset_update_bitasset">%1$s обновил актив %2$s</string>
+    <string name="operation_description_asset_update_feed_producers">%1$s обновил битактив данных для актива %2$s</string>
+    <string name="operation_description_asset_update_issuer">%1$s отправил %3$s %2$s</string>
+    <string name="operation_description_balance_claim">%1$s востребовал баланс в размере %2$s</string>
+    <string name="operation_description_bid_collateral">%1$s разместил предложение %2$s за %3$s</string>
+    <string name="operation_description_call_order_update">%1$s заменил %3$s долг на %2$s и залог на %4$s</string>
+    <string name="operation_description_committee_member_create">Создал члена комитета %1$s</string>
+    <string name="operation_description_committee_member_update">Обновил члена комитета %1$s</string>
+    <string name="operation_description_committee_member_update_global_parameters">%1$s обновил общие параметры комитета</string>
+    <string name="operation_description_custom">%1$s создал специальную операцию</string>
+
+    <string name="operation_description_assert"> </string>
+    <string name="operation_description_fba_distribute"> </string>
+    <!--    <string name="operation_description_fill_order_sell">1{account} sold 3{buyAmount} at 4{price} for order 2#%(order)s</string>-->
+    <string name="operation_description_fill_order_buy">%1$s купил %3$s по цене %4$s в %2$s</string>
+    <string name="operation_description_fill_order_sell">%1$s продал %3$s по цене %4$s в %2$s</string>
+    <string name="operation_description_htlc_create">%1$s заблокировал %3$s для %2$s для востребования до %4$s</string>
+    <string name="operation_description_htlc_extend">%1$s добавил %2$s секунд к периоду востребования %3$s</string>
+    <string name="operation_description_htlc_redeem">%1$s запросил получение с HTLC %2$s</string>
+    <string name="operation_description_htlc_redeemed">%2$s получил %3$s с %4$s от %2$s</string>
+    <string name="operation_description_htlc_refund">%1$s получил возврат средств с %2$s</string>
+    <string name="operation_description_limit_order_buy">%1$s разместил %2$s на покупку %3$s по %4$s</string>
+    <string name="operation_description_limit_order_cancel">%1$s отменил %2$s</string>
+    <!-- %1$s{account} %2$s%(order) %3$s {buyAmount} %4$s{price} -->
+<!--    <string name="operation_description_limit_order_sell">%1$s разместил ордер %2$s на продажу %3$s по %4$s</string>-->
+    <string name="operation_description_limit_order_sell">%1$s разместил %2$s на продажу %3$s по %4$s</string>
+    <string name="operation_description_no_recent">Нет недавних транзакций</string>
+    <string name="operation_description_override_transfer">%1$s перевел %4$s с %2$s на %3$s</string>
+
+    <string name="operation_description_transfer_to_blind">%1$s отправил %2$s на слепой аккаунт</string>
+    <string name="operation_description_transfer_from_blind">%1$s получите %2$s со слепой аккаунт</string>
+    <string name="operation_description_blind_transfer">Слепой перевод</string>
+
+    <string name="operation_description_pending">обрабатывается ещё %(blocks)s блоков</string>
+    <string name="operation_description_proposal_create">%1$s создал %2$s</string>
+    <string name="operation_description_proposal_delete">%1$s удалил %2$s</string>
+    <string name="operation_description_proposal_update">%1$s обновил %2$s</string>
+    <string name="operation_description_asset_publish_feed">%1$s опубликовал котировки %2$s</string>
+    <string name="operation_description_set_proxy">{account} установил {proxy} в качестве своего прокси для голосования</string>
+    <!--    <string name="operation_description_transfer">1{from} sent 3{buyAmount} to 2{to}</string>-->
+    <string name="operation_description_transfer">%1$s отправил %3$s на %2$s</string>
+    <string name="operation_description_vesting_balance_create">%1$s создал вестинговый баланс %3$s кому %2$s</string>
+    <string name="operation_description_vesting_balance_withdraw">%1$s вывел с вестингового баланса %2$s</string>
+    <string name="operation_description_witness_create">%1$s был обновлен до статуса заверителя</string>
+    <string name="operation_description_witness_pay">Вывести зарплату заверителя на аккаунт</string>
+    <string name="operation_description_witness_receive">Получен заверителем от заверителя</string>
+    <string name="operation_description_witness_update">%1$s обновил свою информацию о заверителе</string>
+    <string name="operation_description_worker_create">%1$s создал %2$s с ежедневной оплатой в размере %3$s</string>
+
+    <string name="operation_description_withdraw_permission_claim">Востребовал право доступа к выводу средств для %1$s кому %2$s</string>
+    <string name="operation_description_withdraw_permission_create">Дал право доступа к выводу средств %1$s кому %2$s</string>
+    <string name="operation_description_withdraw_permission_delete">Удалил право доступа к выводу средств для %1$s кому %2$s</string>
+    <string name="operation_description_withdraw_permission_update">Обновил право доступа к выводу средств для %1$s кому %2$s</string>
+
+
+    <string name="operation_type_unknown">Unknown</string>
+
+    <string name="operation_type_account_create">Создание Аккаунта</string>
+    <string name="operation_type_account_transfer">Передача Аккаунта</string>
+    <string name="operation_type_account_update">Обновление Аккаунта</string>
+    <string name="operation_type_account_upgrade">Улучшение Аккаунта</string>
+    <string name="operation_type_account_whitelist">Добавление в Белый Список</string>
+    <string name="operation_type_all">Показать все</string>
+    <string name="operation_type_assert">Операция Подтверждения</string>
+    <string name="operation_type_asset_bid_collateral">Обеспечение Предложения</string>
+    <string name="operation_type_asset_claim_fee_pool">Востребовать Баланс Пула Комиссий</string>
+    <string name="operation_type_asset_claim_fees">Востребовать Комиссии Актива</string>
+    <string name="operation_type_asset_claim_pool">Востребовать Пул Комиссий Актива</string>
+    <string name="operation_type_asset_create">Создать Актив</string>
+    <string name="operation_type_asset_fund_fee_pool">Пополнить Пул Комиссий Актива</string>
+    <string name="operation_type_asset_global_settle">Глобальное Погашение Актива</string>
+    <string name="operation_type_asset_issue">Выпустить Актив</string>
+    <string name="operation_type_asset_publish_feed">Опубликовать Котировки</string>
+    <string name="operation_type_asset_reserve">Сжечь Актив</string>
+    <string name="operation_type_asset_settle">Погашение Актива</string>
+    <string name="operation_type_asset_settle_cancel">Отменить Погашение Актива</string>
+    <string name="operation_type_asset_update">Обновить Актив</string>
+    <string name="operation_type_asset_update_bitasset">Обновить SmartCoin</string>
+    <string name="operation_type_asset_update_feed_producers">Обновить Производителей Котировок Актива</string>
+    <string name="operation_type_asset_update_issuer">Обновить Владельца Актива</string>
+    <string name="operation_type_balance_claim">Востребовать Баланс</string>
+    <string name="operation_type_bid_collateral">Залоговая Ставка</string>
+    <string name="operation_type_blind_transfer">Слепой Перевод</string>
+    <string name="operation_type_call_order_update">Обновить Маржу</string>
+    <string name="operation_type_committee_member_create">Создать Члена Комитета</string>
+    <string name="operation_type_committee_member_update">Обновить Члена Комитета</string>
+    <string name="operation_type_committee_member_update_global_parameters">Обновление Глобальных Параметров</string>
+    <string name="operation_type_custom">Специальная</string>
+    <string name="operation_type_execute_bid">Выполнить Ставку</string>
+    <string name="operation_type_fba_distribute">Распределение Обеспеченного Комиссией Актива</string>
+    <string name="operation_type_fill_limit_order">Выполнение Лимитный Ордер</string>
+    <string name="operation_type_fill_call_order">Выполнение Маржу Ордера</string>
+    <string name="operation_type_fill_order">Выполнение Ордера</string>
+    <string name="operation_type_htlc_create">Создать HTLC</string>
+    <string name="operation_type_htlc_extend">Продлить HTLC</string>
+    <string name="operation_type_htlc_redeem">Востребовать HTLC</string>
+    <string name="operation_type_htlc_redeemed">Востребовано HTLC</string>
+    <string name="operation_type_htlc_refund">Вернуть HTLC</string>
+    <string name="operation_type_limit_order_cancel">Отмена Ордера</string>
+    <string name="operation_type_limit_order_create">Размещение Ордера</string>
+    <string name="operation_type_override_transfer">Замена Перевода</string>
+    <string name="operation_type_proposal_create">Создание Предложения</string>
+    <string name="operation_type_proposal_delete">Удаление Предложения</string>
+    <string name="operation_type_proposal_update">Обновление Предложения</string>
+    <string name="operation_type_transfer">Перевод</string>
+    <string name="operation_type_transfer_from_blind">Перевод со Слепого Аккаунта</string>
+    <string name="operation_type_transfer_to_blind">Перевод на Слепой Аккаунт</string>
+    <string name="operation_type_vesting_balance_create">Создание Вестингового Баланса</string>
+    <string name="operation_type_vesting_balance_withdraw">Вывод Вестингового Баланса</string>
+    <string name="operation_type_withdraw_permission_claim">Востребование Прав Доступа к Выводу</string>
+    <string name="operation_type_withdraw_permission_create">Создание Прав Доступа к Выводу</string>
+    <string name="operation_type_withdraw_permission_delete">Удаление Прав Доступа к Выводу</string>
+    <string name="operation_type_withdraw_permission_update">Обновление Прав Доступа к Выводу</string>
+    <string name="operation_type_witness_create">Создание Заверителя</string>
+    <string name="operation_type_witness_update">Обновление Заверителя</string>
+    <string name="operation_type_witness_withdraw_pay">Вывод Зарплаты Заверителя</string>
+    <string name="operation_type_worker_create">Создание Работника"</string>
+
+    <string name="object_type_null"></string>
+    <string name="object_type_base"></string>
+    <string name="object_type_account">Аккаунта</string>
+    <string name="object_type_asset">Актива</string>
+    <string name="object_type_force_settlement"></string>
+    <string name="object_type_committee_member"></string>
+    <string name="object_type_witness"></string>
+    <string name="object_type_limit_order">Ордера</string>
+    <string name="object_type_call_order">Ордера</string>
+    <string name="object_type_custom"></string>
+    <string name="object_type_proposal">Предложение</string>
+    <string name="object_type_operation_history"></string>
+    <string name="object_type_withdraw_permission"></string>
+    <string name="object_type_vesting_balance"></string>
+    <string name="object_type_worker"></string>
+    <string name="object_type_balance"></string>
+    <string name="object_type_htlc">HTLC</string>
+    <string name="object_type_custom_authority">Custom Authority</string>
+    <string name="object_type_ticket">Ticket</string>
+    <string name="object_type_liquidity_pool">Liquidity Pool</string>
+
+    <string name="object_type_global_property"></string>
+    <string name="object_type_dynamic_global_property"></string>
+<!--    <string name="object_type_reserved"></string>-->
+    <string name="object_type_asset_dynam"></string>
+    <string name="object_type_asset_bitass"></string>
+    <string name="object_type_account_balance"></string>
+    <string name="object_type_account_statistics"></string>
+    <string name="object_type_transaction"></string>
+    <string name="object_type_block_summary"></string>
+    <string name="object_type_account_transaction_history"></string>
+    <string name="object_type_blinded_balance"></string>
+    <string name="object_type_chain_property"></string>
+    <string name="object_type_witness_schedule"></string>
+    <string name="object_type_budget_record"></string>
+    <string name="object_type_special_authority"></string>
+    <string name="object_type_buyback"></string>
+    <string name="object_type_fba_accumulator"></string>
+    <string name="object_type_collateral_bid"></string>
+
+    <string name="object_type_order_history"></string>
+    <string name="object_type_bucket"></string>
+
+
+    <!--  universal  -->
+    <string name="word_password">Password</string>
+    <string name="word_new_password">New Password</string>
+    <string name="word_password_repeat">Password Repeat</string>
+
+    <string name="word_owner_key">Owner Key</string>
+    <string name="word_active_key">Active Key</string>
+    <string name="word_memo_key">Memo Key</string>
+
+    <string name="word_cloud_mode">Cloud</string>
+    <string name="word_private_key_mode">Private Key</string>
+    <string name="word_brain_key_mode">Brain Key</string>
+
+    <string name="word_warning">Внимание</string>
+
+    <string name="chain_type_main">BitShares Mainnet</string>
+    <string name="chain_type_test">BitShares Testnet</string>
+    <string name="chain_type_unknown">Unknown Network</string>
+    
+</resources>

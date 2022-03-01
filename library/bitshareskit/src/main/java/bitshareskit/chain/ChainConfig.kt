@@ -1,0 +1,277 @@
+package bitshareskit.chain
+
+object ChainConfig {
+
+    object Account {
+        const val COMMITTEE_ACCOUNT_ID = "1.2.0"
+        const val WITNESS_ACCOUNT_ID = "1.2.1"
+        const val RELAXED_COMMITTEE_ACCOUNT_ID = "1.2.2"
+        const val NULL_ACCOUNT_ID = "1.2.3"
+        const val TEMP_ACCOUNT_ID = "1.2.4"
+        const val PROXY_TO_SELF_ID = "1.2.5"
+
+        const val COMMITTEE_ACCOUNT_INSTANCE = 0L
+        const val WITNESS_ACCOUNT_INSTANCE = 1L
+        const val RELAXED_COMMITTEE_ACCOUNT_INSTANCE = 2L
+        const val NULL_ACCOUNT_INSTANCE = 3L
+        const val TEMP_ACCOUNT_INSTANCE = 4L
+        const val PROXY_TO_SELF_INSTANCE = 5L
+
+    }
+
+    object Asset {
+
+        object PermissionFlags {
+            const val CHARGE_MARKET_FEE = 0x01      // an issuer-specified percentage of all market trades in this asset is paid to the issuer
+            const val WHITE_LIST = 0x02             // accounts must be whitelisted in order to hold this asset
+            const val OVERRIDE_AUTHORITY = 0x04     // issuer may transfer asset back to himself
+            const val TRANSFER_RESTRICTED = 0x08    // require the issuer to be one party to every transfer
+            const val DISABLE_FORCE_SETTLE = 0x10   // disable force settling
+            const val GLOBAL_SETTLE = 0x20          // allow the bitasset issuer to force a global settling -- this may be set in permissions, but not flags
+            const val DISABLE_CONFIDENTIAL = 0x40   // allow the asset to be used with confidential transactions
+            const val WITNESS_FED_ASSET = 0x80      // allow the asset to be fed by witnesses
+            const val COMMITTEE_FED_ASSET = 0x100   // allow the asset to be fed by the committee
+        }
+
+        const val GRAPHENE_100_PERCENT = 10000
+        const val GRAPHENE_10_PERCENT = 1000
+        const val GRAPHENE_1_PERCENT = 100
+        const val GRAPHENE_MAX_SHARE_SUPPLY = 1_000_000_000_000_000
+
+        const val CORE_ASSET_ID = "1.3.0"
+        const val CORE_ASSET_INSTANCE = 0L
+        const val CORE_ASSET_SYMBOL = "BTS"
+        const val CORE_ASSET_SYMBOL_TEST = "TEST"
+        const val CORE_ASSET_PRECISION = 5
+    }
+
+    object Chain {
+        const val CHAIN_ID_MAIN_NET: String = "4018d7844c78f6a6c41c6a552b898022310fc5dec06da467ee7905a8dad512c8"
+        const val CHAIN_ID_TEST_NET: String = "39f5e2ede1f8bc1a3a54a7914414e3779e33193f1f5693510e73cb7a87617447"
+        const val CHAIN_ID_LOCAL_NET: String = "c3807ea4b7d28da76249c6be53dc6342a12888327aab9d66ac1d53e31e797ae3"
+    }
+
+//    const val GRAPHENE_CHAIN_ID: String = "b8d1603965b3eb1acba27e62ff59f74efa3154d43a4188d381088ac7cdf35539"
+
+    const val EMPTY_INSTANCE = -1L
+    const val GLOBAL_INSTANCE = 0L
+
+    const val EMPTY_STRING_ID = ""
+
+    const val GRAPHENE_SECOND_SCALE = 1000
+    const val GRAPHENE_RATIO_SCALE = 1000
+
+    const val ONE_YEAR_MILLIS = 31556952000L
+    const val TWO_YEAR_MILLIS = 63113904000L
+
+    const val CHAIN_SYMBOL_MAIN_NET = "BTS"
+    const val CHAIN_SYMBOL_TEST_NET = "TEST"
+
+
+    const val GRAPHENE_DEFAULT_WITNESS_PAY_PER_BLOCK = 1000000
+    const val GRAPHENE_DEFAULT_WITNESS_PAY_VESTING_SECONDS = 86400
+    const val GRAPHENE_DEFAULT_WORKER_BUDGET_PER_DAY = "50000000000"
+    const val GRAPHENE_COMMITTEE_ACCOUNT = "1.2.0"
+    const val GRAPHENE_WITNESS_ACCOUNT = "1.2.1"
+    const val GRAPHENE_RELAXED_COMMITTEE_ACCOUNT = "1.2.2"
+    const val GRAPHENE_NULL_ACCOUNT = "1.2.3"
+    const val GRAPHENE_TEMP_ACCOUNT = "1.2.4"
+
+    const val GRAPHENE_SYMBOL = "BTS"
+    const val GRAPHENE_ADDRESS_PREFIX = "BTS"
+    const val GRAPHENE_MIN_ACCOUNT_NAME_LENGTH = 1
+    const val GRAPHENE_MAX_ACCOUNT_NAME_LENGTH = 63
+    const val GRAPHENE_MIN_ASSET_SYMBOL_LENGTH = 3
+    const val GRAPHENE_MAX_ASSET_SYMBOL_LENGTH = 16
+    const val GRAPHENE_MAX_SHARE_SUPPLY = "1000000000000000"
+    const val GRAPHENE_MAX_SIG_CHECK_DEPTH = 2
+    const val GRAPHENE_MIN_TRANSACTION_SIZE_LIMIT = 1024
+    const val GRAPHENE_MIN_BLOCK_INTERVAL = 1
+    const val GRAPHENE_MAX_BLOCK_INTERVAL = 30
+    const val GRAPHENE_DEFAULT_BLOCK_INTERVAL = 3
+    const val GRAPHENE_DEFAULT_MAX_TRANSACTION_SIZE = 2048
+    const val GRAPHENE_DEFAULT_MAX_BLOCK_SIZE = 2000000
+    const val GRAPHENE_DEFAULT_MAX_TIME_UNTIL_EXPIRATION = 86400
+    const val GRAPHENE_DEFAULT_MAINTENANCE_INTERVAL = 86400
+    const val GRAPHENE_DEFAULT_MAINTENANCE_SKIP_SLOTS = 3
+    const val GRAPHENE_MIN_UNDO_HISTORY = 10
+    const val GRAPHENE_MAX_UNDO_HISTORY = 10000
+    const val GRAPHENE_MIN_BLOCK_SIZE_LIMIT = 5120
+    const val GRAPHENE_BLOCKCHAIN_PRECISION = 100000
+    const val GRAPHENE_BLOCKCHAIN_PRECISION_DIGITS = 5
+    const val GRAPHENE_100_PERCENT = 10000
+    const val GRAPHENE_1_PERCENT = 100
+    const val GRAPHENE_MAX_MARKET_FEE_PERCENT = 10000
+    const val GRAPHENE_DEFAULT_FORCE_SETTLEMENT_DELAY = 86400
+    const val GRAPHENE_DEFAULT_FORCE_SETTLEMENT_OFFSET = 0
+    const val GRAPHENE_DEFAULT_FORCE_SETTLEMENT_MAX_VOLUME = 2000
+    const val GRAPHENE_DEFAULT_PRICE_FEED_LIFETIME = 86400
+    const val GRAPHENE_DEFAULT_MAX_AUTHORITY_MEMBERSHIP = 10
+    const val GRAPHENE_DEFAULT_MAX_ASSET_WHITELIST_AUTHORITIES = 10
+    const val GRAPHENE_DEFAULT_MAX_ASSET_FEED_PUBLISHERS = 10
+    const val GRAPHENE_COLLATERAL_RATIO_DENOM = 1000
+    const val GRAPHENE_MIN_COLLATERAL_RATIO = 1001
+    const val GRAPHENE_MAX_COLLATERAL_RATIO = 32000
+    const val GRAPHENE_DEFAULT_MAINTENANCE_COLLATERAL_RATIO = 1750
+    const val GRAPHENE_DEFAULT_MAX_SHORT_SQUEEZE_RATIO = 1500
+    const val GRAPHENE_DEFAULT_MAX_WITNESSES = 1001
+    const val GRAPHENE_DEFAULT_MAX_COMMITTEE = 1001
+    const val GRAPHENE_DEFAULT_MAX_PROPOSAL_LIFETIME_SEC = 2419200
+    const val GRAPHENE_DEFAULT_COMMITTEE_PROPOSAL_REVIEW_PERIOD_SEC = 1209600
+    const val GRAPHENE_DEFAULT_NETWORK_PERCENT_OF_FEE = 2000
+    const val GRAPHENE_DEFAULT_LIFETIME_REFERRER_PERCENT_OF_FEE = 3000
+    const val GRAPHENE_DEFAULT_CASHBACK_VESTING_PERIOD_SEC = 31536000
+    const val GRAPHENE_DEFAULT_CASHBACK_VESTING_THRESHOLD = 10000000
+    const val GRAPHENE_DEFAULT_BURN_PERCENT_OF_FEE = 2000
+    const val GRAPHENE_DEFAULT_MAX_ASSERT_OPCODE = 1
+    const val GRAPHENE_DEFAULT_FEE_LIQUIDATION_THRESHOLD = 10000000
+    const val GRAPHENE_DEFAULT_ACCOUNTS_PER_FEE_SCALE = 1000
+    const val GRAPHENE_DEFAULT_ACCOUNT_FEE_SCALE_BITSHIFTS = 4
+    const val GRAPHENE_MAX_WORKER_NAME_LENGTH = 63
+    const val GRAPHENE_MAX_URL_LENGTH = 127
+    const val GRAPHENE_CORE_ASSET_CYCLE_RATE = 17
+    const val GRAPHENE_CORE_ASSET_CYCLE_RATE_BITS = 32
+
+//    {
+//        "id": 8,
+//        "jsonrpc": "2.0",
+//        "result": {
+//        "id": "2.11.0",
+//        "chain_id": "4018d7844c78f6a6c41c6a552b898022310fc5dec06da467ee7905a8dad512c8",
+//        "immutable_parameters": {
+//        "min_committee_member_count": 11,
+//        "min_witness_count": 11,
+//        "num_special_accounts": 100,
+//        "num_special_assets": 100
+//    }
+//    }
+//    }
+
+//    "block_interval":3,
+//    "maintenance_interval":3600,
+//    "maintenance_skip_slots":3,
+//    "committee_proposal_review_period":3600,
+//    "maximum_transaction_size":409600,
+//    "maximum_block_size":2000000,
+//          "maximum_time_until_expiration":86400,
+//    "maximum_proposal_lifetime":2419200,
+//    "maximum_asset_whitelist_authorities":10,
+//    "maximum_asset_feed_publishers":25,
+//    "maximum_witness_count":1001,
+//    "maximum_committee_count":1001,
+//    "maximum_authority_membership":10,
+//    "reserve_percent_of_fee":2000,
+//    "network_percent_of_fee":2000,
+//    "lifetime_referrer_percent_of_fee":3000,
+//    "cashback_vesting_period_seconds":7776000,
+//    "cashback_vesting_threshold":10000000,
+//    "count_non_member_votes":true,
+//    "allow_non_member_whitelists":false,
+//    "witness_pay_per_block":100000,
+//    "worker_budget_per_day":"50000000000",
+//    "max_predicate_opcode":1,
+//    "fee_liquidation_threshold":10000000,
+//    "accounts_per_fee_scale":1000,
+//    "account_fee_scale_bitshifts":0,
+//    "max_authority_depth":2,
+//    "extensions":{            "updatable_htlc_options":{
+//     "max_timeout_secs":2592000,
+//     "max_preimage_size":10240
+
+//    "BLOCK_INTERVAL":3,
+//    "MAINTENANCE_INTERVAL":3600,
+//    "MAINTENANCE_SKIP_SLOTS":3,
+//    "COMMITTEE_PROPOSAL_REVIEW_PERIOD":3600,
+//    "MAXIMUM_TRANSACTION_SIZE":409600,
+//    "MAXIMUM_BLOCK_SIZE":2000000,
+//    "MAXIMUM_TIME_UNTIL_EXPIRATION":86400,
+//    "MAXIMUM_PROPOSAL_LIFETIME":2419200,
+//    "MAXIMUM_ASSET_WHITELIST_AUTHORITIES":10,
+//    "MAXIMUM_ASSET_FEED_PUBLISHERS":25,
+//    "MAXIMUM_WITNESS_COUNT":1001,
+//    "MAXIMUM_COMMITTEE_COUNT":1001,
+//    "MAXIMUM_AUTHORITY_MEMBERSHIP":10,
+//    "RESERVE_PERCENT_OF_FEE":2000,
+//    "NETWORK_PERCENT_OF_FEE":2000,
+//    "LIFETIME_REFERRER_PERCENT_OF_FEE":3000,
+//    "CASHBACK_VESTING_PERIOD_SECONDS":7776000,
+//    "CASHBACK_VESTING_THRESHOLD":10000000,
+//    "COUNT_NON_MEMBER_VOTES":TRUE,
+//    "ALLOW_NON_MEMBER_WHITELISTS":FALSE,
+//    "WITNESS_PAY_PER_BLOCK":100000,
+//    "WORKER_BUDGET_PER_DAY":"50000000000",
+//    "MAX_PREDICATE_OPCODE":1,
+//    "FEE_LIQUIDATION_THRESHOLD":10000000,
+//    "ACCOUNTS_PER_FEE_SCALE":1000,
+//    "ACCOUNT_FEE_SCALE_BITSHIFTS":0,
+//    "MAX_AUTHORITY_DEPTH":2,
+//    "EXTENSIONS":{            "UPDATABLE_HTLC_OPTIONS":{
+//        "MAX_TIMEOUT_SECS":2592000,
+//        "MAX_PREIMAGE_SIZE":10240
+
+//    "GRAPHENE_DEFAULT_WITNESS_PAY_PER_BLOCK":1000000,
+//    "GRAPHENE_DEFAULT_WITNESS_PAY_VESTING_SECONDS":86400,
+//    "GRAPHENE_DEFAULT_WORKER_BUDGET_PER_DAY":"50000000000",
+//    "GRAPHENE_COMMITTEE_ACCOUNT":"1.2.0",
+//    "GRAPHENE_WITNESS_ACCOUNT":"1.2.1",
+//    "GRAPHENE_RELAXED_COMMITTEE_ACCOUNT":"1.2.2",
+//    "GRAPHENE_NULL_ACCOUNT":"1.2.3",
+//    "GRAPHENE_TEMP_ACCOUNT":"1.2.4"
+
+//    "GRAPHENE_SYMBOL":"BTS",
+//    "GRAPHENE_ADDRESS_PREFIX":"BTS",
+//    "GRAPHENE_MIN_ACCOUNT_NAME_LENGTH":1,
+//    "GRAPHENE_MAX_ACCOUNT_NAME_LENGTH":63,
+//    "GRAPHENE_MIN_ASSET_SYMBOL_LENGTH":3,
+//    "GRAPHENE_MAX_ASSET_SYMBOL_LENGTH":16,
+//    "GRAPHENE_MAX_SHARE_SUPPLY":"1000000000000000",
+//    "GRAPHENE_MAX_SIG_CHECK_DEPTH":2,
+//    "GRAPHENE_MIN_TRANSACTION_SIZE_LIMIT":1024,
+//    "GRAPHENE_MIN_BLOCK_INTERVAL":1,
+//    "GRAPHENE_MAX_BLOCK_INTERVAL":30,
+//    "GRAPHENE_DEFAULT_BLOCK_INTERVAL":5,
+//    "GRAPHENE_DEFAULT_MAX_TRANSACTION_SIZE":2048,
+//    "GRAPHENE_DEFAULT_MAX_BLOCK_SIZE":2000000,
+//    "GRAPHENE_DEFAULT_MAX_TIME_UNTIL_EXPIRATION":86400,
+//    "GRAPHENE_DEFAULT_MAINTENANCE_INTERVAL":86400,
+//    "GRAPHENE_DEFAULT_MAINTENANCE_SKIP_SLOTS":3,
+//    "GRAPHENE_MIN_UNDO_HISTORY":10,
+//    "GRAPHENE_MAX_UNDO_HISTORY":10000,
+//    "GRAPHENE_MIN_BLOCK_SIZE_LIMIT":5120,
+//    "GRAPHENE_BLOCKCHAIN_PRECISION":100000,
+//    "GRAPHENE_BLOCKCHAIN_PRECISION_DIGITS":5,
+//    "GRAPHENE_100_PERCENT":10000,
+//    "GRAPHENE_1_PERCENT":100,
+//    "GRAPHENE_MAX_MARKET_FEE_PERCENT":10000,
+//    "GRAPHENE_DEFAULT_FORCE_SETTLEMENT_DELAY":86400,
+//    "GRAPHENE_DEFAULT_FORCE_SETTLEMENT_OFFSET":0,
+//    "GRAPHENE_DEFAULT_FORCE_SETTLEMENT_MAX_VOLUME":2000,
+//    "GRAPHENE_DEFAULT_PRICE_FEED_LIFETIME":86400,
+//    "GRAPHENE_DEFAULT_MAX_AUTHORITY_MEMBERSHIP":10,
+//    "GRAPHENE_DEFAULT_MAX_ASSET_WHITELIST_AUTHORITIES":10,
+//    "GRAPHENE_DEFAULT_MAX_ASSET_FEED_PUBLISHERS":10,
+//    "GRAPHENE_COLLATERAL_RATIO_DENOM":1000,
+//    "GRAPHENE_MIN_COLLATERAL_RATIO":1001,
+//    "GRAPHENE_MAX_COLLATERAL_RATIO":32000,
+//    "GRAPHENE_DEFAULT_MAINTENANCE_COLLATERAL_RATIO":1750,
+//    "GRAPHENE_DEFAULT_MAX_SHORT_SQUEEZE_RATIO":1500,
+//    "GRAPHENE_DEFAULT_MAX_WITNESSES":1001,
+//    "GRAPHENE_DEFAULT_MAX_COMMITTEE":1001,
+//    "GRAPHENE_DEFAULT_MAX_PROPOSAL_LIFETIME_SEC":2419200,
+//    "GRAPHENE_DEFAULT_COMMITTEE_PROPOSAL_REVIEW_PERIOD_SEC":1209600,
+//    "GRAPHENE_DEFAULT_NETWORK_PERCENT_OF_FEE":2000,
+//    "GRAPHENE_DEFAULT_LIFETIME_REFERRER_PERCENT_OF_FEE":3000,
+//    "GRAPHENE_DEFAULT_CASHBACK_VESTING_PERIOD_SEC":31536000,
+//    "GRAPHENE_DEFAULT_CASHBACK_VESTING_THRESHOLD":10000000,
+//    "GRAPHENE_DEFAULT_BURN_PERCENT_OF_FEE":2000,
+//    "GRAPHENE_DEFAULT_MAX_ASSERT_OPCODE":1,
+//    "GRAPHENE_DEFAULT_FEE_LIQUIDATION_THRESHOLD":10000000,
+//    "GRAPHENE_DEFAULT_ACCOUNTS_PER_FEE_SCALE":1000,
+//    "GRAPHENE_DEFAULT_ACCOUNT_FEE_SCALE_BITSHIFTS":4,
+//    "GRAPHENE_MAX_WORKER_NAME_LENGTH":63,
+//    "GRAPHENE_MAX_URL_LENGTH":127,
+//    "GRAPHENE_CORE_ASSET_CYCLE_RATE":17,
+//    "GRAPHENE_CORE_ASSET_CYCLE_RATE_BITS":32,
+
+
+}
