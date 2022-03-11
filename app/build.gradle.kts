@@ -15,8 +15,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.1")
-
-
+    
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("androidx.drawerlayout:drawerlayout:1.1.1")
@@ -54,9 +53,4 @@ dependencies {
 
 repositories {
     mavenCentral()
-}
-
-dependencies {
-    implementation(files("${rootProject.projectDir}/external/androidx/out/fragment-playground/fragment-playground/fragment/fragment/build/outputs/aar/fragment-debug.aar"))
-    implementation(files("${rootProject.projectDir}/external/androidx/out/fragment-playground/fragment-playground/fragment/fragment-ktx/build/outputs/aar/fragment-ktx-debug.aar"))
 }

@@ -1,9 +1,9 @@
 object Constants {
 
-    const val PROJECT_PACKAGE_NAME = "com.bitshares.android"
+    const val PROJECT_PACKAGE_NAME = "com.bitshares.oases"
 
-    const val PROJECT_VERSION = "0.9.9-alpha"
-    const val PROJECT_VERSION_CODE = 94
+    const val PROJECT_VERSION = "1.0.1-alpha"
+    const val PROJECT_VERSION_CODE = 101
 
 
     const val KOTLIN_VERSION = "1.6.10"

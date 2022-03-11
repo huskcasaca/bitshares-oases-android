@@ -157,20 +157,20 @@ private fun Project.dependenciesAndroidxLifecycle() {
 private fun Project.dependenciesAndroidxActivity() {
     dependencies {
 //         implementation("androidx.activity:activity:1.4.0")
-        api(files("${rootProject.projectDir}/external/androidx/out/activity-playground/activity-playground/activity/activity/build/outputs/aar/activity-debug.aar"))
+        api(files("${rootProject.projectDir}/external/androidx/activity/activity-debug.aar"))
 //         implementation("androidx.activity:activity-ktx:1.4.0")
-        api(files("${rootProject.projectDir}/external/androidx/out/activity-playground/activity-playground/activity/activity-ktx/build/outputs/aar/activity-ktx-debug.aar"))
+        api(files("${rootProject.projectDir}/external/androidx/activity/activity-ktx-debug.aar"))
         // implementation("androidx.activity:activity-ktx:1.4.0")
-        api(files("${rootProject.projectDir}/external/androidx/out/activity-playground/activity-playground/activity/activity-compose/build/outputs/aar/activity-compose-debug.aar"))
+        api(files("${rootProject.projectDir}/external/androidx/activity/activity-compose-debug.aar"))
     }
 
 }
 private fun Project.dependenciesAndroidxFragment() {
     dependencies {
         // implementation("androidx.fragment:fragment:1.4.1")
-        api(files("${rootProject.projectDir}/external/androidx/out/fragment-playground/fragment-playground/fragment/fragment/build/outputs/aar/fragment-debug.aar"))
+        api(files("${rootProject.projectDir}/external/androidx/fragment/fragment-debug.aar"))
         // implementation("androidx.fragment:fragment-ktx:1.4.1")
-        api(files("${rootProject.projectDir}/external/androidx/out/fragment-playground/fragment-playground/fragment/fragment-ktx/build/outputs/aar/fragment-ktx-debug.aar"))
+        api(files("${rootProject.projectDir}/external/androidx/fragment/fragment-ktx-debug.aar"))
     }
 }
 private fun Project.dependenciesKtor() {
@@ -214,14 +214,14 @@ private fun Project.basics() {
                     "/META-INF/native/**",
                     "/META-INF/native-image/**",
                     "/META-INF/INDEX.LIST",
-                    "**/kotlin/**",
-                    "**/javax/**",
+//                    "**/kotlin/**",
+//                    "**/javax/**",
                     "**/bouncycastle/**",
-                    "**/*.kotlin_*",
-                    "com/**",
-                    "org/**",
-                    "**/*.java",
-                    "**/*.proto"
+//                    "**/*.kotlin_*",
+//                    "com/**",
+//                    "org/**",
+//                    "**/*.java",
+//                    "**/*.proto"
                 )
             )
         }

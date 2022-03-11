@@ -45,7 +45,7 @@ open class PrivateKey(
             return PrivateKey(null, MNEMONIC, prefix)
         }
 
-        fun random(prefix: String): PrivateKey = fromSeed(nextSecureRandomBytes().toHexString(), prefix)
+        fun random(prefix: String): PrivateKey = fromSeed(nextSecureRandomBytes(64).toHexString(), prefix)
 
         fun randomPassword(prefix: String): String = "P${random(prefix).wif}"
 

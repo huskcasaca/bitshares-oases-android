@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BitShares UI</string>
+    <string name="app_name">BitShares Oases</string>
 
     <string name="permission_replace_memo_key_message">Если вы замените мемо-ключ, то не сможете читать старые мемо (примечания) при входе в систему с вашим паролем, а если вы не импортируете новый приватный мемо-ключ в свой старый кошелек, этот кошелек не сможет декодировать новые мемо</string>
 
