@@ -136,7 +136,7 @@
     <color name="drawer_background_header">#ffffffff</color>
     <color name="drawer_background_avatar">#0b000000</color>
 <!--    TODO   -->
-    <color name="drawer_background_avatar_e">#0be53935</color>
+    <color name="drawer_background_avatar_e">#33E53935</color>
 
     <color name="dialog_background">@color/background</color>
     <color name="dialog_button_normal">@color/component</color>

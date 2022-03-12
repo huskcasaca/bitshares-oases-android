@@ -11,11 +11,11 @@ import bitshareskit.ks_chain.Authority
 import bitshareskit.models.BrainKey
 import bitshareskit.models.PrivateKey
 import com.bitshares.oases.R
-import com.bitshares.oases.applicationWalletSecurityManager
 import com.bitshares.oases.chain.BrainKeyDict
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.extensions.viewbinder.bindPrivateKey
 import com.bitshares.oases.extensions.viewbinder.bindPublicKey
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.ui.account.permission.PermissionViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
@@ -159,7 +159,7 @@ class KeychainFragment : ContainerFragment() {
             viewModel.user.observe(viewLifecycleOwner) {
                 doOnClick {
                     blockchainDatabaseScope.launch {
-                        if (it != null) LocalUserRepository.removeKey(applicationWalletSecurityManager, it, key, type)
+                        if (it != null) LocalUserRepository.removeKey(globalWalletManager, it, key, type)
                     }
                 }
             }

@@ -66,9 +66,6 @@ class ActionBarBehavior(var scrollEnabled: Boolean = true) : HeaderBehavior<Acti
     }
 
     override fun onNestedScroll(coordinatorLayout: CoordinatorLayout, child: ActionBarLayout, target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, type: Int, consumed: IntArray) {
-
-        logcatUI("onNestedScroll", target.translationY, dyConsumed, dyUnconsumed, type, consumed.toString())
-
     }
 
     override fun onStopNestedScroll(coordinatorLayout: CoordinatorLayout, child: ActionBarLayout, target: View, type: Int) {

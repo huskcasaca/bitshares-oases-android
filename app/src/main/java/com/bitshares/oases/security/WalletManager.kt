@@ -1,21 +1,23 @@
 package com.bitshares.oases.security
 
+import android.content.Context
 import android.os.Build
 import bitshareskit.extensions.aesDecrypt
 import bitshareskit.extensions.aesEncrypt
 import bitshareskit.extensions.nextSecureRandomBytes
 import bitshareskit.extensions.sha256
-import com.bitshares.oases.MainApplication
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.database.LocalDatabase
+import com.bitshares.oases.globalPreferenceManager
 import kotlinx.coroutines.launch
 import modulon.extensions.livedata.NonNullMutableLiveData
+import modulon.union.UnionContext
 import java.util.*
 
 
-class WalletSecurityManager(
-    private val application: MainApplication
-) {
+class WalletManager(
+    override val context: Context
+): UnionContext {
 
     companion object {
         fun calculateUuid(): UUID {
@@ -33,31 +35,31 @@ class WalletSecurityManager(
 
     private val uuid: UUID = calculateUuid()
 
-    var provider = WalletSecurityProvider(
-        application.settingsManager.N_KEY_UUID.value,
-        application.settingsManager.N_KEY_WALLET_SECURE.value,
-        application.settingsManager.N_KEY_FINGERPRINT_SECURE.value,
+    var provider = SecurityProvider(
+        globalPreferenceManager.SECURITY_UUID.value,
+        globalPreferenceManager.SECURITY_WALLET_ENC.value,
+        globalPreferenceManager.SECURITY_BIO_ENC.value,
     )
 
     private fun resetProvider() {
-        provider = WalletSecurityProvider(
-            application.settingsManager.N_KEY_UUID.value,
-            application.settingsManager.N_KEY_WALLET_SECURE.value,
-            application.settingsManager.N_KEY_FINGERPRINT_SECURE.value,
+        provider = SecurityProvider(
+            globalPreferenceManager.SECURITY_UUID.value,
+            globalPreferenceManager.SECURITY_WALLET_ENC.value,
+            globalPreferenceManager.SECURITY_BIO_ENC.value,
         )
     }
 
     fun enableFingerprint() {
         val sec = secret ?: return
         val secResult = provider.bioEncOrNull(sec) ?: return
-        application.settingsManager.N_KEY_FINGERPRINT_SECURE.value = secResult
-        application.settingsManager.N_KEY_USE_FINGERPRINT.value = true
+        globalPreferenceManager.SECURITY_BIO_ENC.value = secResult
+        globalPreferenceManager.USE_BIO.value = true
         resetProvider()
     }
 
     fun disableFingerprint() {
-        application.settingsManager.N_KEY_FINGERPRINT_SECURE.reset()
-        application.settingsManager.N_KEY_USE_FINGERPRINT.reset()
+        globalPreferenceManager.SECURITY_BIO_ENC.reset()
+        globalPreferenceManager.USE_BIO.reset()
         provider.initBioProvider()
         resetProvider()
     }
@@ -69,7 +71,7 @@ class WalletSecurityManager(
     }
 
     var bioAuth: Boolean
-        get() = application.settingsManager.N_KEY_USE_FINGERPRINT.value
+        get() = globalPreferenceManager.USE_BIO.value
         set(value) {
             if (value) enableFingerprint() else disableFingerprint()
         }
@@ -85,14 +87,14 @@ class WalletSecurityManager(
     fun initialize() {
         isUnlocked.value = false
         secret = null
-        application.settingsManager.apply {
-            N_KEY_USE_PASSWORD.reset()
-            N_KEY_USE_FINGERPRINT.reset()
-            N_KEY_WALLET_SECURE.reset()
-            N_KEY_FINGERPRINT_SECURE.reset()
+        globalPreferenceManager.apply {
+            USE_PASSWORD.reset()
+            USE_BIO.reset()
+            SECURITY_WALLET_ENC.reset()
+            SECURITY_BIO_ENC.reset()
+            SECURITY_UUID.value = uuid
 //            N_KEY_CURRENT_ACCOUNT_ID.reset()
         }
-        application.settingsManager.N_KEY_UUID.value = uuid
         resetProvider()
         secret = nextSecureRandomBytes(64)
 
@@ -107,9 +109,9 @@ class WalletSecurityManager(
         val seed = generateSeed(provider.uuid, new)
         val result = runCatching { aesEncrypt(seed, key) }.getOrNull() ?: return false
 
-        application.settingsManager.N_KEY_WALLET_SECURE.value = result + key.sha256().copyOfRange(0, 16)
+        globalPreferenceManager.SECURITY_WALLET_ENC.value = result + key.sha256().copyOfRange(0, 16)
         resetProvider()
-        application.settingsManager.N_KEY_USE_PASSWORD.value = new != DEFAULT_PASSWORD
+        globalPreferenceManager.USE_PASSWORD.value = new != DEFAULT_PASSWORD
         return true
     }
 
@@ -128,12 +130,11 @@ class WalletSecurityManager(
     }
 
 
-
-
     fun lock() {
         secret = null
         isUnlocked.value = false
     }
+
     fun unlock(code: String = DEFAULT_PASSWORD): Boolean {
         if (isUnlocked.value && secret != null) return true
         val seed = generateSeed(provider.uuid, code)
@@ -144,6 +145,7 @@ class WalletSecurityManager(
         isUnlocked.value = secret != null
         return secret != null
     }
+
     fun encrypt(message: ByteArray?): ByteArray? {
         val seed = secret
         if (seed == null || message == null) return null
@@ -156,6 +158,7 @@ class WalletSecurityManager(
             null
         }
     }
+
     fun decrypt(message: ByteArray?): ByteArray? {
         val seed = secret
         if (seed == null || message == null) return null

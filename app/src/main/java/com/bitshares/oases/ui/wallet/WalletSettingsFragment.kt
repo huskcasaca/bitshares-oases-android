@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import com.bitshares.oases.MainApplication
 import com.bitshares.oases.R
-import com.bitshares.oases.applicationWalletSecurityManager
 import com.bitshares.oases.database.entities.User
 import com.bitshares.oases.database.entities.uidOrEmpty
 import com.bitshares.oases.extensions.compat.startKeychain
 import com.bitshares.oases.extensions.viewbinder.bindUserV3
 import com.bitshares.oases.extensions.viewbinder.logo
+import com.bitshares.oases.globalPreferenceManager
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.security.fingerprint.FingerprintAuthentication
 import com.bitshares.oases.ui.base.ContainerFragment
@@ -68,10 +68,10 @@ class WalletSettingsFragment : ContainerFragment() {
                 cell {
                     updatePaddingVerticalHalf()
                     title = context.getString(R.string.wallet_settings_wallet_status)
-                    applicationWalletSecurityManager.isUnlocked.observe(viewLifecycleOwner) {
+                    globalWalletManager.isUnlocked.observe(viewLifecycleOwner) {
                         // TODO: 21/1/2022 textColor
-                        subtextView.setTextColor(context.getColor(if (applicationWalletSecurityManager.isCorrupted) R.color.component_error else modulon.R.color.component))
-                        subtitle = context.getString(if (applicationWalletSecurityManager.isCorrupted) R.string.wallet_settings_corrupted else if (it) R.string.wallet_settings_unlocked else R.string.wallet_settings_locked)
+                        subtextView.setTextColor(context.getColor(if (globalWalletManager.isCorrupted) R.color.component_error else modulon.R.color.component))
+                        subtitle = context.getString(if (globalWalletManager.isCorrupted) R.string.wallet_settings_corrupted else if (it) R.string.wallet_settings_unlocked else R.string.wallet_settings_locked)
                     }
                 }
                 cell {
@@ -86,7 +86,7 @@ class WalletSettingsFragment : ContainerFragment() {
                     doOnClick {
                         lifecycleScope.launch {
                             if (viewModel.usePassword.value) {
-                                if (startWalletUnlock()) applicationWalletSecurityManager.removePassword()
+                                if (startWalletUnlock()) globalWalletManager.removePassword()
                             } else {
                                 startWalletPasswordChange()
                             }
@@ -102,13 +102,13 @@ class WalletSettingsFragment : ContainerFragment() {
                         isVisible = it && FingerprintAuthentication.canAuthenticate(context)
                     }
                     toggleEnd {
-                        viewModel.useFingerprint.observe(viewLifecycleOwner) {
+                        viewModel.useBio.observe(viewLifecycleOwner) {
                             setChecked(it, true)
                         }
                     }
                     doOnClick {
-                        if (viewModel.useFingerprint.value) {
-                            applicationWalletSecurityManager.disableFingerprint()
+                        if (viewModel.useBio.value) {
+                            globalWalletManager.disableFingerprint()
                         } else {
                             lifecycleScope.launch {
                                 if (startWalletUnlock()) showWalletBiometricSetupDialog()
@@ -127,16 +127,16 @@ class WalletSettingsFragment : ContainerFragment() {
                             }
                         }
                     }
-                    Settings.KEY_USE_PASSWORD.observe(viewLifecycleOwner) { isExpanded = it }
+                    globalPreferenceManager.USE_PASSWORD.observe(viewLifecycleOwner) { isExpanded = it }
                 }
                 cell {
                     updatePaddingVerticalHalf()
                     buttonStyle()
                     title = "Unlock Wallet"
-                    applicationWalletSecurityManager.isUnlocked.observe { isUnlocked ->
+                    globalWalletManager.isUnlocked.observe { isUnlocked ->
                         title = if (isUnlocked) "Lock Wallet" else "Unlock Wallet"
                         doOnClick {
-                            if (isUnlocked) applicationWalletSecurityManager.lock() else lifecycleScope.launch { startWalletUnlock() }
+                            if (isUnlocked) globalWalletManager.lock() else lifecycleScope.launch { startWalletUnlock() }
                         }
                     }
                 }

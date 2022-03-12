@@ -40,6 +40,7 @@ inline fun <T> T?.ifNull(block: () -> T): T = this ?: block.invoke()
 
 fun logcat(message: Any?) = Log.i("*** ***", message.toString())
 fun logcat(vararg message: Any?) = Log.i("*** ***", message.toList().toString())
+fun Any?.logloglog() = if (this == null) Log.i("logloglog", "NULL") else Log.i("logloglog", this::class.simpleName + " " + this.toString())
 
 fun ViewGroup.printAllChildren() = printAllChildrenInternal(0)
 

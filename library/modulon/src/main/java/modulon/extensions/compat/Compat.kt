@@ -1,6 +1,7 @@
 package modulon.extensions.compat
 
 import android.app.Activity
+import android.app.Application
 import android.content.*
 import android.content.res.Configuration
 import android.net.Uri
@@ -126,6 +127,15 @@ val Context.activity: UnionActivity
             context = context.baseContext
         }
         throw NullPointerException("Activity not found")
+    }
+
+val Context.application: Application
+    get() {
+        return if (this is Application) {
+            this
+        } else {
+            activity.application
+        }
     }
 
 // TODO: 2022/2/19 remove

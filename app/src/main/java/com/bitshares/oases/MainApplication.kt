@@ -2,7 +2,6 @@ package com.bitshares.oases
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.view.Display
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.getSystemService
 import androidx.lifecycle.AndroidViewModel
@@ -13,40 +12,41 @@ import com.bitshares.oases.netowrk.java_websocket.SocketConnectionManager
 import com.bitshares.oases.preference.ChainPreferenceManager
 import com.bitshares.oases.preference.PreferenceManager
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
-import com.bitshares.oases.security.WalletSecurityManager
+import com.bitshares.oases.security.WalletManager
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.Job
+import modulon.extensions.compat.application
 import modulon.union.ModulonApplication
 import modulon.union.Union
+import modulon.union.UnionContext
 
 class MainApplication : ModulonApplication() {
 
     companion object {
-        lateinit var context: Context
 
+        // TODO: 2022/3/11 remove
+        lateinit var context: Context
+        // TODO: 2022/3/11 remove
         fun requireContext() = context
 
         val applicationJob: CompletableJob = Job()
+
 //        val applicationScope: CoroutineScope = CoroutineScope(Dispatchers.IO + applicationJob)
 
-
-        lateinit var WALLET: WalletSecurityManager
     }
 
-    val settingsManager by lazy { PreferenceManager(this) }
-    val chainSettingsManager by lazy { ChainPreferenceManager(this) }
-    val walletSecurityManager: WalletSecurityManager by lazy { WalletSecurityManager(this) }
+    val preferenceManager by lazy { PreferenceManager(this) }
+    val chainPreferenceManager by lazy { ChainPreferenceManager(this) }
+    val walletManager: WalletManager by lazy { WalletManager(this) }
 
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
-        WALLET = walletSecurityManager
         LocalDatabase.initialize(applicationContext)
         BlockchainDatabase.initialize(applicationContext)
 
-
-        AppCompatDelegate.setDefaultNightMode(settingsManager.KEY_DARK_MODE.value.mode)
-        settingsManager.KEY_DARK_MODE.observeForever {
+        AppCompatDelegate.setDefaultNightMode(preferenceManager.DARK_MODE.value.mode)
+        preferenceManager.DARK_MODE.observeForever {
             AppCompatDelegate.setDefaultNightMode(it.mode)
         }
 
@@ -62,19 +62,24 @@ class MainApplication : ModulonApplication() {
         applicationJob.cancel()
     }
 
-    override fun createDisplayContext(display: Display): Context {
-        return super.createDisplayContext(display)
-    }
-
     val connectivityManager by lazy { getSystemService<ConnectivityManager>() }
     val socketConnectionManager by lazy { getSystemService<SocketConnectionManager>() }
 
 }
 
-val Union.applicationSettingsManager get() = (activity.application as MainApplication).settingsManager
-val Union.applicationConnectivityManager get() = (activity.application as MainApplication).connectivityManager
-val Union.applicationWalletSecurityManager get() = (activity.application as MainApplication).walletSecurityManager
+val Union.globalPreferenceManager get() = (activity.application as MainApplication).preferenceManager
+val Union.globalWalletManager get() = (activity.application as MainApplication).walletManager
 
-val AndroidViewModel.applicationSettingsManager get() = getApplication<MainApplication>().settingsManager
-val AndroidViewModel.applicationConnectivityManager get() = getApplication<MainApplication>().connectivityManager
-val AndroidViewModel.applicationWalletSecurityManager get() = getApplication<MainApplication>().walletSecurityManager
+val UnionContext.globalPreferenceManager get() = (context.application as MainApplication).preferenceManager
+val UnionContext.globalWalletManager get() = (context.application as MainApplication).walletManager
+
+val AndroidViewModel.globalPreferenceManager get() = getApplication<MainApplication>().preferenceManager
+val AndroidViewModel.globalConnectivityManager get() = getApplication<MainApplication>().connectivityManager
+val AndroidViewModel.globalWalletManager get() = getApplication<MainApplication>().walletManager
+
+val UnionContext.localPreferenceManager get() = PreferenceManager(context)
+
+
+
+
+

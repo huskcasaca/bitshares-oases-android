@@ -15,12 +15,14 @@ import modulon.R
 import modulon.extensions.graphics.tint
 
 interface UnionContext {
+
     val context: Context
         @Suppress("INAPPLICABLE_JVM_NAME")
         @JvmName("getContextUnion")
         get() = throw RuntimeException("Not implemented!")
 
     fun Int.contextDrawable(): Drawable = context.getDrawable( this)!!.apply { tint(R.color.component_dark_gray.contextColor()) }
+    fun Int.contextDrawableNoTint(): Drawable = context.getDrawable( this)!!
     fun Int.contextColor(): Int = context.getColor( this)
     fun Int.contextString(): String = context.getString(this)
     fun Int.contextString(vararg formatArgs: Any): String = context.getString(this, formatArgs)
@@ -79,6 +81,8 @@ interface UnionResult {
 interface UnionSavedStates {
     val savedStateRegistry: SavedStateRegistryOwner
 }
+
+
 
 interface Union: UnionContext, UnionLifecycle, UnionFragmentManager, UnionResult {
     val activity: Activity

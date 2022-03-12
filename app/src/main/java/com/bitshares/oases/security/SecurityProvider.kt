@@ -3,7 +3,7 @@ package com.bitshares.oases.security
 import java.util.*
 
 
-class WalletSecurityProvider(
+class SecurityProvider(
     val uuid: UUID,
     ws: ByteArray,
     fs: ByteArray

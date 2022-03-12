@@ -12,10 +12,10 @@ import bitshareskit.objects.AccountObject
 import bitshareskit.operations.AccountUpdateOperation
 import bitshareskit.serializer.grapheneInstanceComparator
 import bitshareskit.serializer.publicKeyComparator
-import com.bitshares.oases.applicationWalletSecurityManager
 import com.bitshares.oases.chain.BrainKeyDict
 import com.bitshares.oases.chain.KeyCreator
 import com.bitshares.oases.chain.blockchainDatabaseScope
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.netowrk.java_websocket.TransactionBuilder
 import com.bitshares.oases.netowrk.java_websocket.buildTransaction
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
@@ -371,7 +371,7 @@ open class PermissionViewModel(application: Application) : AuthorityViewModel(ap
             val memo = memoKeyAuthsToAppend.keys.toSet()
             blockchainDatabaseScope.launch {
                 LocalUserRepository.add(
-                    applicationWalletSecurityManager,
+                    globalWalletManager,
                     user.copy(
                         ownerKeys = owner,
                         activeKeys = active,
@@ -391,7 +391,7 @@ open class PermissionViewModel(application: Application) : AuthorityViewModel(ap
         if (generated && user != null) {
             blockchainDatabaseScope.launch {
                 LocalUserRepository.add(
-                    applicationWalletSecurityManager,
+                    globalWalletManager,
                     user.copy(
                         ownerKeys = if (authority.contains(Authority.OWNER)) dialogKeyGenerated.value else emptySet(),
                         activeKeys = if (authority.contains(Authority.ACTIVE)) dialogKeyGenerated.value else emptySet(),

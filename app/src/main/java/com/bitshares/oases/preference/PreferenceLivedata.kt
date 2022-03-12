@@ -14,17 +14,17 @@ import kotlinx.serialization.modules.SerializersModule
 import modulon.extensions.charset.toUnicodeByteArray
 import modulon.extensions.charset.toUnicodeString
 import modulon.extensions.livedata.NonNullMutableLiveData
-import modulon.union.ModulonApplication
 
 class EncryptedPreference(
-    application: ModulonApplication,
-    preference: SharedPreferences = application.requireContext().getSharedPreferences(application.sharedPreferenceName, Context.MODE_PRIVATE)
+    context: Context,
+    preference: SharedPreferences = context.getSharedPreferences(context.sharedPreferenceName, Context.MODE_PRIVATE)
 ): SharedPreferences by preference {
 
     companion object {
-        private val ModulonApplication.sharedPreferenceName get() = "${requireContext().packageName}_preferences"
+        private val Context.sharedPreferenceName get() = "${packageName}_preferences"
     }
-    val secureProvider: SecureKeyProvider = SecureKeyProvider(application.sharedPreferenceName, false)
+    val secureProvider: SecureKeyProvider = SecureKeyProvider(context.sharedPreferenceName, false)
+
 }
 
 private val preferenceJsonConverter = Json { ignoreUnknownKeys = true }

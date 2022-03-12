@@ -8,7 +8,6 @@ import bitshareskit.extensions.logcat
 import bitshareskit.ks_chain.Authority
 import bitshareskit.models.PrivateKey
 import bitshareskit.objects.AccountObject
-import com.bitshares.oases.MainApplication
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.chain.toBackupUser
 import com.bitshares.oases.database.LocalDatabase
@@ -20,7 +19,7 @@ import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.provider.chain_repo.AccountRepository
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.security.BinaryRestore
-import com.bitshares.oases.security.WalletSecurityManager
+import com.bitshares.oases.security.WalletManager
 import kotlinx.coroutines.launch
 import modulon.extensions.livedata.combineLatest
 import modulon.extensions.livedata.combineNonNull
@@ -30,11 +29,11 @@ object LocalUserRepository {
 
     private val userDao = LocalDatabase.INSTANCE.userDao()
 
-    fun decryptedList(manager: WalletSecurityManager) = userDao.getListLive().map { it.map { decrypt(manager, it) }.toSortedSet(userInstanceComparator) }
+    fun decryptedList(manager: WalletManager) = userDao.getListLive().map { it.map { decrypt(manager, it) }.toSortedSet(userInstanceComparator) }
 
-    suspend fun add(manager: WalletSecurityManager, user: User) = userDao.add(appendFromDatabase(manager, user))
-    suspend fun add(manager: WalletSecurityManager, account: AccountObject) = add(manager, account.toUser())
-    suspend fun add(manager: WalletSecurityManager, users: List<User>) = userDao.add(users.map { appendFromDatabase(manager, it) })
+    suspend fun add(manager: WalletManager, user: User) = userDao.add(appendFromDatabase(manager, user))
+    suspend fun add(manager: WalletManager, account: AccountObject) = add(manager, account.toUser())
+    suspend fun add(manager: WalletManager, users: List<User>) = userDao.add(users.map { appendFromDatabase(manager, it) })
 
 
     suspend fun addForObserve(user: User) = userDao.addForObserve(user)
@@ -47,7 +46,7 @@ object LocalUserRepository {
     fun getListLive() = userDao.getListLive()
     fun getListLive(chainId: String) = userDao.getListLive(chainId)
 
-    private suspend fun appendFromDatabase(manager: WalletSecurityManager, user: User): User {
+    private suspend fun appendFromDatabase(manager: WalletManager, user: User): User {
         val owner = mutableSetOf<PrivateKey>()
         val active = mutableSetOf<PrivateKey>()
         val memo = mutableSetOf<PrivateKey>()
@@ -68,7 +67,7 @@ object LocalUserRepository {
     }
 
     // TODO: 2022/3/11 move to extension
-    fun encrypt(manager: WalletSecurityManager, user: User): User {
+    fun encrypt(manager: WalletManager, user: User): User {
         if (!manager.isUnlocked.value) return user.copy(activeKeys = emptySet(), ownerKeys = emptySet(), memoKeys = emptySet())
         return user.copy(
             activeKeys = user.activeKeys.map { encryptPrivateKey(manager, it) }.toSet(),
@@ -78,7 +77,7 @@ object LocalUserRepository {
     }
 
     // TODO: 2022/3/11 move to extension
-    fun decrypt(manager: WalletSecurityManager, user: User): User {
+    fun decrypt(manager: WalletManager, user: User): User {
         if (!manager.isUnlocked.value) return user.copy(activeKeys = emptySet(), ownerKeys = emptySet(), memoKeys = emptySet())
         return user.copy(
             activeKeys = user.activeKeys.map { decryptPrivateKey(manager, it) }.toSet(),
@@ -87,21 +86,21 @@ object LocalUserRepository {
         )
     }
 
-    private fun decryptPrivateKey(manager: WalletSecurityManager, key: PrivateKey): PrivateKey {
+    private fun decryptPrivateKey(manager: WalletManager, key: PrivateKey): PrivateKey {
         return if (key.isEncrypted) PrivateKey(manager.decrypt(key.keyBytes), key.type, key.prefix).apply { isEncrypted = false } else key
     }
 
-    private fun encryptPrivateKey(manager: WalletSecurityManager, key: PrivateKey): PrivateKey {
+    private fun encryptPrivateKey(manager: WalletManager, key: PrivateKey): PrivateKey {
         return PrivateKey(manager.encrypt(key.keyBytes), key.type, key.prefix).apply { isEncrypted = true }
     }
 
-    private suspend fun getDecryptedUser(manager: WalletSecurityManager, user: User): User? {
+    private suspend fun getDecryptedUser(manager: WalletManager, user: User): User? {
         val result = get(user.uid, user.chainId)
         if (result != null) return decrypt(manager, result)
         return result
     }
 
-    private suspend fun getDecryptedUserList(manager: WalletSecurityManager): List<User> = userDao.getList().map { decrypt(manager, it) }
+    private suspend fun getDecryptedUserList(manager: WalletManager): List<User> = userDao.getList().map { decrypt(manager, it) }
 
     fun switch(user: User) {
         if (user.chainId == ChainPropertyRepository.chainId) {
@@ -123,8 +122,8 @@ object LocalUserRepository {
         }
     }
 
-    suspend fun removeKey(manager: WalletSecurityManager, user: User, key: PrivateKey, type: Authority) {
-        if (!MainApplication.WALLET.isUnlocked.value) return
+    suspend fun removeKey(manager: WalletManager, user: User, key: PrivateKey, type: Authority) {
+        if (!manager.isUnlocked.value) return
         getDecryptedUser(manager, user)?.let { decrypted ->
             when (type) {
                 Authority.OWNER -> decrypted.ownerKeys = decrypted.ownerKeys.filter { it != key }.toSet()
@@ -135,9 +134,9 @@ object LocalUserRepository {
         }
     }
 
-    fun getUserLive(manager: WalletSecurityManager, uid: Long, chainId: String) = getUserLive(manager, User.generateUUID(uid, chainId))
+    fun getUserLive(manager: WalletManager, uid: Long, chainId: String) = getUserLive(manager, User.generateUUID(uid, chainId))
 
-    fun getUserLive(manager: WalletSecurityManager, uuid: String): LiveData<User?> = combineLatest(userDao.getLive(uuid), manager.isUnlocked) { user, unlocked ->
+    fun getUserLive(manager: WalletManager, uuid: String): LiveData<User?> = combineLatest(userDao.getLive(uuid), manager.isUnlocked) { user, unlocked ->
         when {
             user == null -> null
             unlocked == true -> decrypt(manager, user)
@@ -149,14 +148,14 @@ object LocalUserRepository {
     val currentUserAccount: LiveData<AccountObject?> = Settings.KEY_CURRENT_ACCOUNT_ID.switchMap { AccountRepository.getAccountLive(it) }.distinctUntilChanged()
 
     // TODO: 2022/3/11 remove
-    fun decryptCurrentUser(manager: WalletSecurityManager): LiveData<User?> = combineNonNull(Settings.KEY_CURRENT_ACCOUNT_ID, Graphene.KEY_CHAIN_ID).switchMap { (uid, chainId) -> getUserLive(manager, uid, chainId) }
+    fun decryptCurrentUser(manager: WalletManager): LiveData<User?> = combineNonNull(Settings.KEY_CURRENT_ACCOUNT_ID, Graphene.KEY_CHAIN_ID).switchMap { (uid, chainId) -> getUserLive(manager, uid, chainId) }
     // TODO: 2022/3/11 remove
-    fun decryptCurrentUserOnly(manager: WalletSecurityManager): LiveData<User?> = decryptCurrentUser(manager).map { if (it != null) removeAllKeys(it) else null }.distinctUntilChangedBy { it?.uid }
+    fun decryptCurrentUserOnly(manager: WalletManager): LiveData<User?> = decryptCurrentUser(manager).map { if (it != null) removeAllKeys(it) else null }.distinctUntilChangedBy { it?.uid }
 
 
     private fun removeAllKeys(user: User): User = user.copy(activeKeys = emptySet(), ownerKeys = emptySet(), memoKeys = emptySet())
 
-    suspend fun createBackup(manager: WalletSecurityManager): BinaryRestore {
+    suspend fun createBackup(manager: WalletManager): BinaryRestore {
         val users = getDecryptedUserList(manager)
         val keys = users.flatMap { it.ownerKeys + it.activeKeys + it.memoKeys }.toSet()
         return BinaryRestore(users.map { it.toBackupUser() }, keys, true)

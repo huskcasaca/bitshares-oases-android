@@ -6,9 +6,8 @@ import androidx.fragment.app.activityViewModels
 import bitshareskit.extensions.formatAssetBalance
 import bitshareskit.models.AssetAmount
 import com.bitshares.oases.R
-import com.bitshares.oases.applicationSettingsManager
 import com.bitshares.oases.extensions.text.createAssetName
-import com.bitshares.oases.preference.old.Settings
+import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.settings.SettingsViewModel
 import com.bitshares.oases.ui.settings.showDarkModeSelectDialog
@@ -40,7 +39,7 @@ class AppearanceSettingsFragment : ContainerFragment() {
                     updatePaddingVerticalHalf()
                     title = context.getString(R.string.appearance_settings_dark_mode)
                     val modeString = context.resources.getStringArray(R.array.settings_dark_mode_entries)
-                    applicationSettingsManager.KEY_DARK_MODE.observe(viewLifecycleOwner) {
+                    globalPreferenceManager.DARK_MODE.observe(viewLifecycleOwner) {
                         subtitle = modeString.getOrElse(it.ordinal) { EMPTY_SPACE }
                     }
                     doOnClick { showDarkModeSelectDialog() }
@@ -49,10 +48,10 @@ class AppearanceSettingsFragment : ContainerFragment() {
                     text = context.getString(R.string.appearance_settings_show_indicator)
                     subtext = context.getString(R.string.appearance_settings_show_indicator_hint)
                     toggleEnd {
-                        setChecked(Settings.KEY_SHOW_INDICATOR.value, false)
-                        Settings.KEY_SHOW_INDICATOR.observe(viewLifecycleOwner) { setChecked(it, true) }
+                        setChecked(globalPreferenceManager.INDICATOR.value, false)
+                        globalPreferenceManager.INDICATOR.observe(viewLifecycleOwner) { setChecked(it, true) }
                     }
-                    doOnClick { Settings.KEY_SHOW_INDICATOR.value = !Settings.KEY_SHOW_INDICATOR.value }
+                    doOnClick { globalPreferenceManager.INDICATOR.value = !globalPreferenceManager.INDICATOR.value }
                 }
             }
             section {
@@ -61,10 +60,10 @@ class AppearanceSettingsFragment : ContainerFragment() {
                     text = context.getString(R.string.appearance_settings_invert_trade_pair_color)
 //                subtext = context.getString(R.string.appearance_settings_show_indicator_hint)
                     toggleEnd {
-                        setChecked(Settings.KEY_INVERT_COLOR.value, false)
-                        Settings.KEY_INVERT_COLOR.observe(viewLifecycleOwner) { setChecked(it, true) }
+                        setChecked(globalPreferenceManager.INVERT_COLOR.value, false)
+                        globalPreferenceManager.INVERT_COLOR.observe(viewLifecycleOwner) { setChecked(it, true) }
                     }
-                    doOnClick { Settings.KEY_INVERT_COLOR.value = !Settings.KEY_INVERT_COLOR.value }
+                    doOnClick { globalPreferenceManager.INVERT_COLOR.value = !globalPreferenceManager.INVERT_COLOR.value }
                 }
                 cell {
                     updatePaddingVerticalHalf()

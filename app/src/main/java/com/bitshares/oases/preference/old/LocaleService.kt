@@ -11,19 +11,12 @@ enum class I18N(val locale: Locale, val localizedName: String) {
     TRADITIONAL_CHINESE(Locale.TRADITIONAL_CHINESE, "繁体中文 (中国)"),
 }
 
-object LocaleService {
-
-    fun updateLocale(context: Context, locale: Locale): Context {
-        Locale.setDefault(locale)
-        val conf = context.resources.configuration.apply {
-            setLocale(locale)
-            setLayoutDirection(locale)
-        }
-        return context.createConfigurationContext(conf)
+fun Context.createLocalContext(locale: Locale): Context {
+    Locale.setDefault(locale)
+    val conf = resources.configuration.apply {
+        setLocale(locale)
+        setLayoutDirection(locale)
     }
-
-    fun setLocale(locale: Int) {
-        Settings.KEY_LANGUAGE.value = locale
-    }
+    return createConfigurationContext(conf)
 
 }

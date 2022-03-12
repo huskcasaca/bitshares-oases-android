@@ -10,26 +10,10 @@ import java.util.*
 
 object Settings {
 
-    val KEY_IS_INITIALIZED = livePreference("pref_is_initialized", false)
-
     // node
     val KEY_AUTO_SELECT_NODE = livePreference("pref_auto_select_node", true)
     val KEY_CURRENT_NODE_ID = liveEncryptedPreference("pref_current_node_id", 1)
 
-    // wallet
-    val KEY_UUID = liveEncryptedPreference("pref_uuid", UUID.fromString("00000000-0000-0000-0000-000000000000"))
-    val KEY_WALLET_SECURE = liveEncryptedPreference("pref_wallet_secure", ByteArray(96))
-    val KEY_FINGERPRINT_SECURE = liveEncryptedPreference("pref_fingerprint_secure", ByteArray(96))
-    val KEY_USE_PASSWORD = livePreference("pref_use_password", false)
-    val KEY_USE_FINGERPRINT = livePreference("pref_use_fingerprint", false)
-
-
-
-    // appearance1
-    val KEY_DARK_MODE = livePreference("pref_dark_mode", DarkMode.ON)
-    val KEY_SHOW_INDICATOR = livePreference("pref_show_indicator", true)
-    val KEY_INVERT_COLOR = livePreference("pref_invert_color", false)
-    val KEY_LANGUAGE = livePreference("pref_language", 0)
 
     val KEY_CURRENT_ACCOUNT_ID = liveEncryptedPreference("pref_current_account_id", ChainConfig.EMPTY_INSTANCE)
 

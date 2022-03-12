@@ -1,8 +1,8 @@
 package com.bitshares.oases.ui.wallet
 
 import android.app.Application
-import com.bitshares.oases.applicationWalletSecurityManager
-import com.bitshares.oases.preference.old.Settings
+import com.bitshares.oases.globalPreferenceManager
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.ui.base.BaseViewModel
 
@@ -10,11 +10,11 @@ class WalletViewModel(application: Application) : BaseViewModel(application) {
 
 
     val account = LocalUserRepository.currentUserAccount
-    val userList = LocalUserRepository.decryptedList(applicationWalletSecurityManager)
-    val currentUser = LocalUserRepository.decryptCurrentUser(applicationWalletSecurityManager)
+    val userList = LocalUserRepository.decryptedList(globalWalletManager)
+    val currentUser = LocalUserRepository.decryptCurrentUser(globalWalletManager)
 
-    val usePassword = Settings.KEY_USE_PASSWORD
-    val useFingerprint = Settings.KEY_USE_FINGERPRINT
+    val usePassword = globalPreferenceManager.USE_PASSWORD
+    val useBio = globalPreferenceManager.USE_BIO
 
 
 }
