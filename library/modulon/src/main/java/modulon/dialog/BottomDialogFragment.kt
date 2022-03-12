@@ -289,7 +289,7 @@ open class BottomDialogFragment : UnionDialogFragment() {
     private fun showProgressIcon(currentState: DialogState) {
         when (currentState) {
             DialogState.PENDING -> {
-                val loadingIcon = R.drawable.ic_dialog_loading.contextDrawable() as AnimatedVectorDrawable
+                val loadingIcon = R.drawable.ic_dialog_loading.contextDrawableNoTint() as AnimatedVectorDrawable
                 loadingIcon.setTint(context.getColor(R.color.title))
                 val rotateAnimation = RotateAnimation(0f, 360f, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f).apply {
                     duration = 1000
@@ -309,14 +309,14 @@ open class BottomDialogFragment : UnionDialogFragment() {
                 loadingIcon.start()
             }
             DialogState.SUCCESS -> {
-                val successIcon = R.drawable.ic_dialog_success.contextDrawable() as AnimatedVectorDrawable
+                val successIcon = R.drawable.ic_dialog_success.contextDrawableNoTint() as AnimatedVectorDrawable
                 successIcon.setTint(context.getColor(R.color.title))
                 progressView.clearAnimation()
                 progressView.setImageDrawable(successIcon)
                 successIcon.start()
             }
             DialogState.FAILURE -> {
-                val failedIcon = R.drawable.ic_dialog_failed.contextDrawable() as AnimatedVectorDrawable
+                val failedIcon = R.drawable.ic_dialog_failed.contextDrawableNoTint() as AnimatedVectorDrawable
                 failedIcon.setTint(context.getColor(R.color.title))
                 progressView.clearAnimation()
                 progressView.setImageDrawable(failedIcon)

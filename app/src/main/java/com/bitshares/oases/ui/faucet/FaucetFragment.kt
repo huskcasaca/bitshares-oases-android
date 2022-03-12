@@ -8,7 +8,6 @@ import androidx.fragment.app.activityViewModels
 import bitshareskit.chain.ChainConfig
 import bitshareskit.extensions.createAccountObject
 import com.bitshares.oases.R
-import com.bitshares.oases.applicationWalletSecurityManager
 import com.bitshares.oases.chain.accountNameFilter
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.chain.blockchainNetworkScope
@@ -16,6 +15,7 @@ import com.bitshares.oases.database.entities.toUser
 import com.bitshares.oases.extensions.text.StringFilter
 import com.bitshares.oases.extensions.text.createAccountSpan
 import com.bitshares.oases.extensions.text.createStringFilterHint
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.netowrk.faucets.*
 import com.bitshares.oases.provider.chain_repo.AccountRepository
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
@@ -231,7 +231,7 @@ fun Union.showFaucetRegisterDialog(info: FaucetRegister) = showBottomDialog {
                                                 activeKeys = setOf(info.activeKey),
                                                 memoKeys = setOf(info.memoKey),
                                             )
-                                            blockchainDatabaseScope.launch { LocalUserRepository.add(applicationWalletSecurityManager, user) }
+                                            blockchainDatabaseScope.launch { LocalUserRepository.add(globalWalletManager, user) }
                                         }
                                         finish()
                                         dismiss()

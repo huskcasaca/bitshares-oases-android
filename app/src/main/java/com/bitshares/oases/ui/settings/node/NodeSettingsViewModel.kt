@@ -5,6 +5,7 @@ import androidx.lifecycle.distinctUntilChanged
 import bitshareskit.chain.ChainConfig
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.database.entities.Node
+import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.provider.local_repo.NodeRepository
@@ -25,7 +26,7 @@ class NodeSettingsViewModel(application: Application) : BaseViewModel(applicatio
 
     val connectionState = NetworkService.connectionState.distinctUntilChanged().filterNotNull()
 
-    val autoSelect = Settings.KEY_AUTO_SELECT_NODE
+    val autoSelect = globalPreferenceManager.AUTO_SELECT_NODE
 
     fun addNode(node: Node) {
         blockchainDatabaseScope.launch {
@@ -50,8 +51,8 @@ class NodeSettingsViewModel(application: Application) : BaseViewModel(applicatio
         Settings.KEY_CURRENT_NODE_ID.value = node.id
     }
 
-    fun setAutoSelect(enabled: Boolean = !Settings.KEY_AUTO_SELECT_NODE.value) {
-        Settings.KEY_AUTO_SELECT_NODE.value = enabled
+    fun setAutoSelect(enabled: Boolean = !globalPreferenceManager.AUTO_SELECT_NODE.value) {
+        globalPreferenceManager.AUTO_SELECT_NODE.value = enabled
     }
 
     val isUriFieldError = NonNullMutableLiveData(false)

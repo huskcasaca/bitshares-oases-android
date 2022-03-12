@@ -6,11 +6,11 @@ import bitshareskit.extensions.symbolOrId
 import bitshareskit.objects.*
 import bitshareskit.operations.Operation
 import com.bitshares.oases.R
-import com.bitshares.oases.applicationWalletSecurityManager
 import com.bitshares.oases.chain.IntentParameters
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.chain.operationNameStringResMap
 import com.bitshares.oases.extensions.text.createAssetName
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import kotlinx.coroutines.launch
 import modulon.dialog.*
@@ -73,7 +73,7 @@ fun Union.showAccountBrowserDialog(account: AccountObject) = showBottomDialog {
                 dismiss()
             }
             isVisible = false
-            LocalUserRepository.decryptCurrentUserOnly(applicationWalletSecurityManager).observe(lifecycleOwner) {
+            LocalUserRepository.decryptCurrentUserOnly(globalWalletManager).observe(lifecycleOwner) {
                 isVisible = it?.uid != account.uid
             }
         }
@@ -125,7 +125,7 @@ fun Union.showWitnessBrowserDialog(witness: WitnessObject) = showBottomDialog {
                 dismiss()
             }
             isVisible = false
-            LocalUserRepository.decryptCurrentUserOnly(applicationWalletSecurityManager).observe(lifecycleOwner) {
+            LocalUserRepository.decryptCurrentUserOnly(globalWalletManager).observe(lifecycleOwner) {
                 isVisible = it?.uid != witness.witnessAccount.uid
             }
         }
@@ -188,7 +188,7 @@ fun Union.showCommitteeBrowserDialog(committee: CommitteeMemberObject) = showBot
                 dismiss()
             }
             isVisible = false
-            LocalUserRepository.decryptCurrentUserOnly(applicationWalletSecurityManager).observe(lifecycleOwner) {
+            LocalUserRepository.decryptCurrentUserOnly(globalWalletManager).observe(lifecycleOwner) {
                 isVisible = it != null && it.uid != committee.committeeMemberAccount.uid
             }
         }
@@ -269,7 +269,7 @@ fun Union.showAccountBalanceBrowserDialog(accountBalance: AccountBalanceObject) 
                 startTransferBalance(accountBalance)
                 dismiss()
             }
-            LocalUserRepository.decryptCurrentUserOnly(applicationWalletSecurityManager).observe(lifecycleOwner) {
+            LocalUserRepository.decryptCurrentUserOnly(globalWalletManager).observe(lifecycleOwner) {
                 isVisible = it != null && it.uid == accountBalance.ownerUid
             }
         }

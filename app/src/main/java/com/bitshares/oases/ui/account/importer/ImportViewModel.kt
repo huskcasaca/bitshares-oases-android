@@ -10,11 +10,11 @@ import bitshareskit.ks_chain.Authority
 import bitshareskit.ks_chain.Authority.*
 import bitshareskit.models.PrivateKey
 import bitshareskit.objects.AccountObject
-import com.bitshares.oases.applicationWalletSecurityManager
 import com.bitshares.oases.chain.KeyCreator
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.database.entities.User
 import com.bitshares.oases.database.entities.toUser
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.provider.chain_repo.AccountRepository
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
@@ -179,7 +179,7 @@ class ImportViewModel(application: Application) : BaseViewModel(application) {
 
     fun import(): Boolean {
         if (users.isNotEmpty()) blockchainDatabaseScope.launch {
-            LocalUserRepository.add(applicationWalletSecurityManager, users.toList())
+            LocalUserRepository.add(globalWalletManager, users.toList())
             withContext(Dispatchers.Main) { LocalUserRepository.switch(users.random()) }
         }
         return users.isNotEmpty()

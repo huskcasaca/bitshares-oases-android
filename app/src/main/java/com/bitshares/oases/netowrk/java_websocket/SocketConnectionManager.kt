@@ -70,8 +70,8 @@ class SocketConnectionManager(private val application: MainApplication) : Activi
         currentNodeId.value = it.id
     }
 
-    private val currentNodeId = application.settingsManager.KEY_CURRENT_NODE_ID
-    private val autoSelectNode = application.settingsManager.KEY_AUTO_SELECT_NODE
+    private val currentNodeId = application.preferenceManager.CURRENT_NODE_ID
+    private val autoSelectNode = application.preferenceManager.AUTO_SELECT_NODE
     private val nodeList = NodeRepository.getLiveList()
 
     val connectionLive = MutableLiveData<GrapheneSocket>()
@@ -86,7 +86,7 @@ class SocketConnectionManager(private val application: MainApplication) : Activi
         pingTask.run()
     }
 
-    private val autoSelect get() = application.settingsManager.KEY_AUTO_SELECT_NODE.valueSafe
+    private val autoSelect get() = application.preferenceManager.AUTO_SELECT_NODE.valueSafe
 
     private val socketEmpty = GrapheneSocket(Node.EMPTY)
 
@@ -117,13 +117,13 @@ class SocketConnectionManager(private val application: MainApplication) : Activi
                     if (!autoSelect || (autoSelect && chainId == ChainConfig.Chain.CHAIN_ID_MAIN_NET)) {
                         if (currentNodeId.value == node.id && !isPreSwitching) {
                             isPreSwitching = true
-                            if (application.chainSettingsManager.KEY_CHAIN_ID.value != chainId) {
+                            if (application.chainPreferenceManager.KEY_CHAIN_ID.value != chainId) {
                                 BlockchainDatabase.INSTANCE.clearAllTables()
                             }
-                            application.chainSettingsManager.KEY_CHAIN_ID.value = chainId
+                            application.chainPreferenceManager.KEY_CHAIN_ID.value = chainId
                             LocalUserRepository.switchChain(chainId)
-                            application.chainSettingsManager.KEY_SYMBOL.value = coreAsset.symbol
-                            application.chainSettingsManager.KEY_CORE_ASSET.value = coreAsset
+                            application.chainPreferenceManager.KEY_SYMBOL.value = coreAsset.symbol
+                            application.chainPreferenceManager.KEY_CORE_ASSET.value = coreAsset
                             lastConnection = socket
                             isPending = false
                             isPreSwitching = false

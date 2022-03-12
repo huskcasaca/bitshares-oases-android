@@ -10,9 +10,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import bitshareskit.extensions.ifNull
 import bitshareskit.ks_chain.Authority
-import com.bitshares.oases.MainApplication
 import com.bitshares.oases.R
-import com.bitshares.oases.applicationWalletSecurityManager
 import com.bitshares.oases.chain.Clipboard
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.chain.walletPasswordFilter
@@ -22,6 +20,8 @@ import com.bitshares.oases.extensions.text.createStringFilterHint
 import com.bitshares.oases.extensions.text.validateStringFilter
 import com.bitshares.oases.extensions.viewbinder.bindUserV1
 import com.bitshares.oases.extensions.viewbinder.bindUserV3
+import com.bitshares.oases.globalPreferenceManager
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
@@ -40,14 +40,11 @@ import modulon.extensions.livedata.NonNullMutableLiveData
 import modulon.extensions.text.formatBinaryPrefix
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
-import modulon.extensions.viewbinder.cell
-import modulon.extensions.viewbinder.frameLayout
-import modulon.extensions.viewbinder.isTextError
-import modulon.extensions.viewbinder.verticalLayout
+import modulon.extensions.viewbinder.*
 import modulon.union.Union
 
-suspend fun Union.showWalletPasswordUnlockDialog() = showBooleanSuspendedBottomDialog {
-    if (applicationWalletSecurityManager.unlock()) dismissWith(true)
+suspend fun Union.showWalletPasswordUnlockDialog1() = showBooleanSuspendedBottomDialog {
+    if (globalWalletManager.unlock()) dismissWith(true)
     val viewModel: WalletManagerViewModel by viewModels()
     title = context.getString(R.string.wallet_unlock_wallet_title)
     section {
@@ -84,7 +81,7 @@ suspend fun Union.showWalletPasswordUnlockDialog() = showBooleanSuspendedBottomD
     showSoftKeyboard()
 }
 
-suspend fun Union.showWalletBiometricUnlockDialog() = if (applicationWalletSecurityManager.unlock()) true else showBooleanSuspendedBottomDialog {
+suspend fun Union.showWalletBiometricUnlockDialog() = if (globalWalletManager.unlock()) true else showBooleanSuspendedBottomDialog {
     val bioManager = FingerprintAuthentication(context)
     val service = getSystemService<FingerprintManager>() ?: return@showBooleanSuspendedBottomDialog dismissWith(false)
     title = context.getString(R.string.wallet_unlock_wallet_title)
@@ -111,9 +108,9 @@ suspend fun Union.showWalletBiometricUnlockDialog() = if (applicationWalletSecur
         text = context.getString(R.string.button_cancel)
     }
     val cipher = try {
-        applicationWalletSecurityManager.provider.bioSecureProvider.initDecryptionCipher(applicationWalletSecurityManager.provider.fingerprintNonceBytes)
+        globalWalletManager.provider.bioSecureProvider.initDecryptionCipher(globalWalletManager.provider.fingerprintNonceBytes)
     } catch (e: RuntimeException) {
-        applicationWalletSecurityManager.disableFingerprint()
+        globalWalletManager.disableFingerprint()
         lifecycleScope.launch { dismissWith(this@showWalletBiometricUnlockDialog.showWalletPasswordUnlockDialog()) }
         return@showBooleanSuspendedBottomDialog
     }
@@ -123,7 +120,7 @@ suspend fun Union.showWalletBiometricUnlockDialog() = if (applicationWalletSecur
             fingerprint.setState(SwirlView.State.ON)
         }
         doOnAuthenticationSucceeded {
-            dismissWith(applicationWalletSecurityManager.unlockFingerprint())
+            dismissWith(globalWalletManager.unlockFingerprint())
         }
         doOnAuthenticationError { errorCode, errString ->
             message = errString.toString()
@@ -151,7 +148,7 @@ suspend fun Union.showWalletBiometricUnlockDialog() = if (applicationWalletSecur
 }
 
 suspend fun Union.showWalletBiometricSetupDialog() = showBooleanSuspendedBottomDialog {
-    if (!applicationWalletSecurityManager.unlock()) dismissWith(false)
+    if (!globalWalletManager.unlock()) dismissWith(false)
     val bioManager = FingerprintAuthentication(context)
     val service = getSystemService<FingerprintManager>() ?: return@showBooleanSuspendedBottomDialog dismissWith(false)
     title = context.getString(R.string.wallet_unlock_wallet_title)
@@ -171,11 +168,11 @@ suspend fun Union.showWalletBiometricSetupDialog() = showBooleanSuspendedBottomD
     }
     button { text = context.getString(R.string.button_cancel) }
     val cipher = try {
-        applicationWalletSecurityManager.provider.bioSecureProvider.initEncryptionCipher()
+        globalWalletManager.provider.bioSecureProvider.initEncryptionCipher()
     } catch (e: RuntimeException) {
-        applicationWalletSecurityManager.disableFingerprint()
+        globalWalletManager.disableFingerprint()
         try {
-            applicationWalletSecurityManager.provider.bioSecureProvider.initEncryptionCipher()
+            globalWalletManager.provider.bioSecureProvider.initEncryptionCipher()
         } catch (e: RuntimeException) {
             dismissWith(false)
             return@showBooleanSuspendedBottomDialog
@@ -187,7 +184,7 @@ suspend fun Union.showWalletBiometricSetupDialog() = showBooleanSuspendedBottomD
             fingerprint.setState(SwirlView.State.ON)
         }
         doOnAuthenticationSucceeded {
-            applicationWalletSecurityManager.enableFingerprint()
+            globalWalletManager.enableFingerprint()
             dismissWith(true)
         }
         doOnAuthenticationError { errorCode, errString ->
@@ -219,7 +216,7 @@ suspend fun Union.showWalletCorruptedResetDialog() = showBooleanSuspendedBottomD
         text = context.getString(R.string.button_reset)
         textColor = context.getColor(R.color.component_error)
         doOnClick {
-            applicationWalletSecurityManager.reset()
+            globalWalletManager.reset()
             dismissWith(true)
         }
     }
@@ -231,97 +228,15 @@ suspend fun Union.showWalletCorruptedResetDialog() = showBooleanSuspendedBottomD
     doOnDismiss { resumeWith(false) }
 }
 
-suspend fun Union.showWalletChangePasswordDialog() = showBooleanSuspendedBottomDialog {
-    val viewModel: WalletManagerViewModel by viewModels()
-    title = context.getString(R.string.wallet_change_password_title)
-    section {
-        cell {
-            updatePaddingVerticalV6()
-            title = context.getString(R.string.wallet_manager_old_password)
-            field {
-                typeface = typefaceMonoRegular
-                inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
-                filters = arrayOf(walletPasswordFilter)
-                doAfterTextChanged {
-                    viewModel.changePasswordField(it.toStringOrEmpty())
-                }
-                viewModel.isPasswordFieldError.observe(viewLifecycleOwner) {
-                    isError = it
-                }
-            }
-            subtextView.isVisible = false
-            viewModel.isPasswordFieldError.observe(viewLifecycleOwner) {
-                subtextView.isVisible = it
-                subtext = if (viewModel.password.length < 6) context.getString(R.string.wallet_manager_password_too_short) else context.getString(R.string.wallet_manager_password_incorrect)
-            }
-            viewModel.isWalletUnlocked.observe(viewLifecycleOwner) {
-                isVisible = !it
-            }
-        }
-        cell {
-            updatePaddingVerticalV6()
-            title = context.getString(R.string.wallet_manager_new_password)
-            field {
-                typeface = typefaceMonoRegular
-                inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
-                filters = arrayOf(walletPasswordFilter)
-                doAfterTextChanged {
-                    viewModel.changeNewPasswordField(it.toStringOrEmpty())
-                }
-                viewModel.isNewPasswordFieldError.observe(viewLifecycleOwner) {
-                    isError = it
-                }
-            }
-            subtextView.isVisible = false
-            viewModel.isNewPasswordFieldError.observe(viewLifecycleOwner) {
-                subtextView.isVisible = it
-                subtext = if (viewModel.newPassword.length < 6) context.getString(R.string.wallet_manager_password_too_short) else EMPTY_SPACE
-            }
-        }
-        cell {
-            updatePaddingVerticalV6()
-            title = context.getString(R.string.wallet_manager_repeat_password)
-            field {
-                typeface = typefaceMonoRegular
-                inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
-                filters = arrayOf(walletPasswordFilter)
-                doAfterTextChanged {
-                    viewModel.changeRepeatPasswordField(it.toStringOrEmpty())
-                }
-                viewModel.isRepeatPasswordFieldError.observe(viewLifecycleOwner) {
-                    isError = it
-                }
-            }
-            subtextView.isVisible = false
-            viewModel.isRepeatPasswordFieldError.observe(viewLifecycleOwner) {
-                subtextView.isVisible = it
-                subtext = when {
-                    viewModel.newPassword.length < 6 -> context.getString(R.string.wallet_manager_password_too_short)
-                    viewModel.password != viewModel.newPassword -> context.getString(R.string.wallet_manager_password_not_match)
-                    else -> EMPTY_SPACE
-                }
-            }
-        }
-        button {
-            text = context.getString(R.string.wallet_manager_change_password)
-            textColor = context.getColor(R.color.component_error)
-            doOnClick { if (viewModel.change()) dismissWith(true) }
-        }
-        button {
-            text = context.getString(R.string.button_cancel)
-            doOnClick { dismissWith(false) }
-        }
-    }
-    doOnDismiss { resumeWith(false) }
-}
+// showWalletChangePasswordDialog
 
-suspend fun Union.startWalletUnlock() = when {
-    applicationWalletSecurityManager.isCorrupted -> showWalletCorruptedResetDialog()
-    !applicationWalletSecurityManager.unlock() -> if (Settings.KEY_USE_FINGERPRINT.value) showWalletBiometricUnlockDialog() else showWalletPasswordUnlockDialog()
+suspend fun Union.startWalletUnlock(changePassword: Boolean = false) = when {
+    globalWalletManager.isCorrupted -> showWalletCorruptedResetDialog()
+    !globalWalletManager.unlock() -> if (globalPreferenceManager.USE_BIO.value) showWalletBiometricUnlockDialog() else showWalletPasswordUnlockDialog(changePassword)
     else -> true
 }
 
-suspend fun Union.startWalletPasswordChange() = if (!startWalletUnlock()) false else showWalletChangePasswordDialog()
+suspend fun Union.startWalletPasswordChange() = startWalletUnlock(true) && showWalletChangePasswordDialog()
 
 // TODO: 2/10/2021 replace with operation and specify permission for each operation
 // TODO: 30/10/2021 removed
@@ -459,7 +374,7 @@ fun Union.showWalletResetDialog() = showBottomDialog {
     button {
         text = context.getString(R.string.button_reset)
         textColor = context.getColor(R.color.component_error)
-        doOnClick { applicationWalletSecurityManager.reset() }
+        doOnClick { globalWalletManager.reset() }
     }
     button { text = context.getString(R.string.button_cancel) }
 }

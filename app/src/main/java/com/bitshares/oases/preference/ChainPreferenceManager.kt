@@ -1,11 +1,10 @@
 package com.bitshares.oases.preference
 
+import android.content.Context
 import bitshareskit.chain.ChainConfig
 import bitshareskit.objects.AssetObject
-import com.bitshares.oases.MainApplication
-import modulon.union.ModulonApplication
 
-class ChainPreferenceManager(application: MainApplication): AbstractPreferenceManager(application) {
+class ChainPreferenceManager(context: Context): AbstractPreferenceManager(context) {
 
     val KEY_SYMBOL = liveEncryptedPreference("graphene_symbol", ChainConfig.GRAPHENE_SYMBOL)
 

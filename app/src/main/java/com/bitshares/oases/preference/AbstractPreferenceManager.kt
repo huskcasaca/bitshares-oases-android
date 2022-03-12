@@ -1,19 +1,18 @@
 package com.bitshares.oases.preference
 
+import android.content.Context
 import bitshareskit.serializer.UUIDSerializer
-import com.bitshares.oases.MainApplication
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.SetSerializer
 import kotlinx.serialization.serializer
-import modulon.union.ModulonApplication
 import java.util.*
 import kotlin.reflect.KClass
 
-abstract class AbstractPreferenceManager(application: MainApplication) {
+abstract class AbstractPreferenceManager(context: Context) {
 
-    protected val sharedPreferences: EncryptedPreference = EncryptedPreference(application)
+    protected val sharedPreferences: EncryptedPreference = EncryptedPreference(context)
 
     protected inline fun <reified T : Any> livePreferenceInternal(key: String, defaultValue: T): AbstractPreferenceLiveData<T> =
         DefaultPreferenceLiveData(sharedPreferences, key, defaultValue, T::class.extendedSerializerInternal())

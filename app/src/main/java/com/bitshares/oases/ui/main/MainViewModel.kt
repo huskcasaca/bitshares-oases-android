@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.bitshares.oases.applicationWalletSecurityManager
-import com.bitshares.oases.preference.old.Settings
+import com.bitshares.oases.globalPreferenceManager
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.ui.base.BaseViewModel
 import com.bitshares.oases.ui.main.balance.BalanceFragment
@@ -29,8 +29,8 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
     val isUsersExpanded = NonNullMutableLiveData(false)
 
-    val users = LocalUserRepository.decryptedList(applicationWalletSecurityManager)
-    val userCurrent = LocalUserRepository.decryptCurrentUserOnly(applicationWalletSecurityManager)
+    val users = LocalUserRepository.decryptedList(globalWalletManager)
+    val userCurrent = LocalUserRepository.decryptCurrentUserOnly(globalWalletManager)
     val userAccount = LocalUserRepository.currentUserAccount
 
 
@@ -113,7 +113,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     }
 
     val isInitialized: Boolean
-        get() = (Settings.KEY_IS_INITIALIZED.value)
+        get() = (globalPreferenceManager.IS_INITIALIZED.value)
 //            .also {
 //            if (!it) MainApplication.WALLET.initialize()
 //            Settings.KEY_IS_INITIALIZED.value = true

@@ -9,9 +9,9 @@ import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
-import com.bitshares.oases.MainApplication
 import com.bitshares.oases.R
-import com.bitshares.oases.applicationWalletSecurityManager
+import com.bitshares.oases.globalPreferenceManager
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.ui.account.AccountViewModel
@@ -272,13 +272,14 @@ class MainFragment : ContainerFragment() {
             }
         }
 
-        Settings.KEY_LANGUAGE.skipFirst().observe { recreate() }
+        globalPreferenceManager.LANGUAGE.skipFirst().observe { recreate() }
         Settings.KEY_CURRENT_ACCOUNT_ID.observe { accountViewModel.setAccountUid(it) }
         if (!mainViewModel.isInitialized) {
             startFragment<IntroFragment>()
-            Settings.KEY_IS_INITIALIZED.value = true
-            applicationWalletSecurityManager.reset()
+            globalPreferenceManager.IS_INITIALIZED.value = true
+            globalWalletManager.reset()
         }
+
     }
 
     private fun showWelcomeDialog() = showBottomDialog {

@@ -28,9 +28,9 @@ fun ByteArray?.sha512(): ByteArray = sha512Digest.digest(this.orEmpty())
 fun ByteArray.ripemd160(): ByteArray = Utils.ripemd160(this)
 
 
-fun String?.sha256(times: Int): ByteArray {
+fun String?.sha256(iteration: Int): ByteArray {
     var holder = this.toByteArrayOrEmpty()
-    repeat(times) {
+    repeat(iteration) {
         holder = sha256Digest.digest(holder.orEmpty())
     }
     return holder.orEmpty()
@@ -38,9 +38,9 @@ fun String?.sha256(times: Int): ByteArray {
 
 
 
-fun ByteArray?.sha256(times: Int): ByteArray {
+fun ByteArray?.sha256(iteration: Int): ByteArray {
     var holder = this
-    repeat(times) {
+    repeat(iteration) {
         holder = sha256Digest.digest(holder.orEmpty())
     }
     return holder.orEmpty()

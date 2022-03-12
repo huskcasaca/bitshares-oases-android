@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import bitshareskit.extensions.formatAssetBigDecimal
 import bitshareskit.extensions.symbolOrId
 import com.bitshares.oases.R
-import com.bitshares.oases.applicationSettingsManager
+import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.preference.DarkMode
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.preference.old.Settings
@@ -50,13 +50,13 @@ fun Union.showDarkModeSelectDialog() = showBottomDialog {
                         height = context.resources.getDimensionPixelSize(modulon.R.dimen.icon_size_tiny)
                         gravity = Gravity.START or Gravity.CENTER_VERTICAL
                     }
-                    applicationSettingsManager.KEY_DARK_MODE.observe(viewLifecycleOwner) {
+                    globalPreferenceManager.DARK_MODE.observe(viewLifecycleOwner) {
                         setChecked(index == it.ordinal, true)
                     }
                 }
                 text = name
                 doOnClick {
-                    applicationSettingsManager.KEY_DARK_MODE.value = DarkMode.values()[index]
+                    globalPreferenceManager.DARK_MODE.value = DarkMode.values()[index]
                     dismissNow()
                 }
             }

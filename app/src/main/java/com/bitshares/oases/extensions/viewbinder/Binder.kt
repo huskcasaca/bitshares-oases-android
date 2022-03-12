@@ -21,6 +21,7 @@ import com.bitshares.oases.database.entities.Node
 import com.bitshares.oases.database.entities.User
 import com.bitshares.oases.database.entities.toAccount
 import com.bitshares.oases.extensions.text.*
+import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.preference.old.Settings
 import com.caverock.androidsvg.SVG
@@ -262,7 +263,7 @@ fun ComponentCell.bindBlock(block: Block) {
 
 // ticker
 fun ComponentCell.bindTicker(ticker: Ticker) {
-    val invert = Settings.KEY_INVERT_COLOR.value
+    val invert = globalPreferenceManager.INVERT_COLOR.value
     val componentColor = when {
         ticker.percentChange > 0 -> if (invert) context.getColor(R.color.component_error) else context.getColor(R.color.component_active)
         ticker.percentChange < 0 -> if (invert) context.getColor(R.color.component_active) else context.getColor(R.color.component_error)

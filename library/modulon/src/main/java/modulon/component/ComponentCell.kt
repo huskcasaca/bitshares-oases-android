@@ -14,6 +14,7 @@ import modulon.extensions.viewbinder.*
 import modulon.layout.frame.FrameLayout
 import modulon.layout.linear.HorizontalLayout
 import modulon.layout.linear.VerticalLayout
+import modulon.union.Union
 import modulon.widget.*
 
 class ComponentCell(context: Context) : ComponentPaddingCell(context) {

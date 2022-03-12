@@ -12,13 +12,12 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.map
 import androidx.lifecycle.observe
-import com.bitshares.oases.MainApplication
 import com.bitshares.oases.R
-import com.bitshares.oases.applicationWalletSecurityManager
+import com.bitshares.oases.globalPreferenceManager
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.netowrk.java_websocket.WebSocketState
 import com.bitshares.oases.preference.DarkMode
-import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.ui.settings.node.NodeSettingsFragment
 import com.bitshares.oases.ui.wallet.WalletSettingsFragment
 import com.bitshares.oases.ui.wallet.startWalletUnlock
@@ -69,7 +68,7 @@ abstract class BaseFragment : UnionFragment() {
     fun ActionBarLayout.networkStateMenuInternal() = menu {
         text = "Network State"
         isVisible = false
-        Settings.KEY_SHOW_INDICATOR.observe(viewLifecycleOwner) { isVisible = it }
+        globalPreferenceManager.INDICATOR.observe(viewLifecycleOwner) { isVisible = it }
         val connected = R.drawable.ic_menu_network_connected.contextDrawable() as AnimatedVectorDrawable
         val closed = R.drawable.ic_menu_network_closed.contextDrawable() as AnimatedVectorDrawable
         val connecting = R.drawable.ic_menu_network_connecting.contextDrawable() as AnimatedVectorDrawable
@@ -123,32 +122,32 @@ abstract class BaseFragment : UnionFragment() {
     fun ActionBarLayout.walletStateMenu() = menu {
         text = "Network State"
         isVisible = false
-        Settings.KEY_SHOW_INDICATOR.observe(viewLifecycleOwner) { isVisible = it }
+        globalPreferenceManager.INDICATOR.observe(viewLifecycleOwner) { isVisible = it }
         val locked = R.drawable.ic_menu_wallet_locked.contextDrawable() as AnimatedVectorDrawable
         val unlocked = R.drawable.ic_menu_wallet_unlocked.contextDrawable() as AnimatedVectorDrawable
-        icon = if (applicationWalletSecurityManager.isUnlocked.value) unlocked else locked
+        icon = if (globalWalletManager.isUnlocked.value) unlocked else locked
         locked.doOnAnimationEnd {
             icon = unlocked
             locked.reset()
-            if (!applicationWalletSecurityManager.isUnlocked.value) unlocked.start()
+            if (!globalWalletManager.isUnlocked.value) unlocked.start()
         }
         unlocked.doOnAnimationEnd {
             icon = locked
             unlocked.reset()
-            if (applicationWalletSecurityManager.isUnlocked.value) locked.start()
+            if (globalWalletManager.isUnlocked.value) locked.start()
         }
-        applicationWalletSecurityManager.isUnlocked.observe { isUnlocked ->
+        globalWalletManager.isUnlocked.observe { isUnlocked ->
             if (!(icon as AnimatedVectorDrawable).isRunning && (isUnlocked != (icon == unlocked))) {
                 icon = if (isUnlocked) locked else unlocked
                 (icon as AnimatedVectorDrawable).start()
             }
         }
-        doOnClick { if (applicationWalletSecurityManager.isUnlocked.value) applicationWalletSecurityManager.lock() else lifecycleScope.launch(Dispatchers.Main.immediate) { startWalletUnlock() } }
+        doOnClick { if (globalWalletManager.isUnlocked.value) globalWalletManager.lock() else lifecycleScope.launch(Dispatchers.Main.immediate) { startWalletUnlock() } }
         doOnLongClick { startFragment<WalletSettingsFragment>() }
     } to menu {
         icon = R.drawable.ic_cell_appearance.contextDrawable()
         doOnClick {
-            Settings.KEY_DARK_MODE.value = when(Settings.KEY_DARK_MODE.value) {
+            globalPreferenceManager.DARK_MODE.value = when(globalPreferenceManager.DARK_MODE.value) {
                 DarkMode.FOLLOW_SYSTEM -> DarkMode.ON
                 DarkMode.OFF -> DarkMode.ON
                 DarkMode.ON -> DarkMode.OFF

@@ -28,6 +28,8 @@ import com.bitshares.oases.ui.transfer.ScannerFragment
 import com.bitshares.oases.ui.transfer.TransferFragment
 import modulon.UI
 import modulon.component.*
+import modulon.dialog.DialogState
+import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.font.typefaceBold
 import modulon.extensions.graphics.createSelectorDrawable
 import modulon.extensions.temp.drawShaders
@@ -169,3 +171,5 @@ class DashboardFragment : ContainerFragment() {
 
 
 }
+
+

@@ -10,6 +10,7 @@ import bitshareskit.chain.ChainConfig.EMPTY_INSTANCE
 import bitshareskit.models.Market
 import bitshareskit.models.Ticker
 import bitshareskit.objects.AssetObject
+import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.provider.chain_repo.AssetRepository
@@ -51,7 +52,7 @@ class MarketViewModel(application: Application) : BaseViewModel(application) {
 
     fun getFilteredTickers(uid: Long?) = if (uid == null || uid == EMPTY_INSTANCE) tickers else tickers.filterChild { it.base.uid == uid }
 
-    val invertColor = Settings.KEY_INVERT_COLOR.distinctUntilChanged()
+    val invertColor = globalPreferenceManager.INVERT_COLOR.distinctUntilChanged()
 
     fun addMarket(market: Market) {
         Settings.KEY_MARKETS.value = Settings.KEY_MARKETS.value + market

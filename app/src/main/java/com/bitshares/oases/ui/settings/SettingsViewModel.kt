@@ -8,6 +8,7 @@ import bitshareskit.models.AssetAmount
 import com.bitshares.oases.MainApplication
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.database.BlockchainDatabase
+import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.preference.old.Settings
@@ -23,7 +24,7 @@ import modulon.extensions.livedata.*
 class SettingsViewModel(application: Application) : BaseViewModel(application) {
 
     val account = LocalUserRepository.currentUserAccount
-    val language = Settings.KEY_LANGUAGE
+    val language = globalPreferenceManager.LANGUAGE
 
     // fee reserve dialog
     val feeReserved = combineNonNull(Settings.KEY_RESERVED_FEE, Graphene.KEY_CORE_ASSET) { amount, asset -> AssetAmount(amount, asset) }

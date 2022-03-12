@@ -16,7 +16,7 @@ object AppConfig {
     const val HELP_URL = "https://how.bitshares.works/en/master"
 
     const val ENABLE_BLOCKCHAIN_NETWORK = true
-    const val ENABLE_MESSAGE_LOG = true
+    const val ENABLE_MESSAGE_LOG = false
 
     const val ENABLE_MARKET_GROUP_MODIFICATION = false
     const val ENABLE_MARKET_MODIFICATION = true

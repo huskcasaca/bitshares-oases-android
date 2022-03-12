@@ -5,12 +5,11 @@ import bitshareskit.errors.ErrorCode
 import bitshareskit.errors.GrapheneException
 import bitshareskit.errors.TransactionBroadcastException
 import bitshareskit.ks_chain.Authority
-import com.bitshares.oases.MainApplication
 import com.bitshares.oases.R
-import com.bitshares.oases.applicationWalletSecurityManager
 import com.bitshares.oases.chain.operationNameStringResMap
 import com.bitshares.oases.extensions.compat.startBlockBrowser
 import com.bitshares.oases.extensions.compat.startKeychain
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.netowrk.java_websocket.TransactionBuilder
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.wallet.startWalletUnlock
@@ -98,7 +97,7 @@ fun BottomDialogFragment.bindTransaction(builder: TransactionBuilder, accountVie
                 }
             }
         }
-        combineNonNull(accountViewModel.accountUid, isAuthorized, applicationWalletSecurityManager.isUnlocked).observe(viewLifecycleOwner) { (uid, isAuthorized, isUnlocked) ->
+        combineNonNull(accountViewModel.accountUid, isAuthorized, globalWalletManager.isUnlocked).observe(viewLifecycleOwner) { (uid, isAuthorized, isUnlocked) ->
             if (!builder.isBroadcast) {
                 isEnabled = true
                 text = when {

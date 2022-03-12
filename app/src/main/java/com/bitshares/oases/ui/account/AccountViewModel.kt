@@ -9,11 +9,11 @@ import bitshareskit.models.FullAccount
 import bitshareskit.models.PrivateKey
 import bitshareskit.models.PublicKey
 import bitshareskit.objects.*
-import com.bitshares.oases.applicationWalletSecurityManager
 import com.bitshares.oases.chain.AccountBalance
 import com.bitshares.oases.chain.IntentParameters
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.chain.resolveAccountPath
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.provider.chain_repo.*
@@ -132,14 +132,14 @@ open class AccountViewModel(application: Application) : BaseViewModel(applicatio
     private val chainId = combineFirst(chainIdManual, chainIdCurrent) { manual, current -> manual ?: current }.filterNotNull()
 
     protected val userUid = NonNullMutableLiveData(ChainConfig.EMPTY_INSTANCE)
-    private val userInternal = combineNonNull(userUid, chainId).switchMap { (userUid, chainId) -> LocalUserRepository.getUserLive(applicationWalletSecurityManager, userUid, chainId) }
+    private val userInternal = combineNonNull(userUid, chainId).switchMap { (userUid, chainId) -> LocalUserRepository.getUserLive(globalWalletManager, userUid, chainId) }
     val user = combineFirst(chainId, userInternal) { chainId, user -> if (user != null && chainId != null && user.chainId == chainId) user else null }.sources(account)
 
     val ownerKeyAuthsLocal = user.map { it?.ownerKeys.orEmpty() }.distinctUntilChanged()
     val activeKeyAuthsLocal = user.map { it?.activeKeys.orEmpty() }.distinctUntilChanged()
     val memoKeyAuthsLocal = user.map { it?.memoKeys.orEmpty() }.distinctUntilChanged()
 
-    val currentUser = LocalUserRepository.decryptCurrentUser(applicationWalletSecurityManager)
+    val currentUser = LocalUserRepository.decryptCurrentUser(globalWalletManager)
 
     val ownerRequiredAuths = combineFirst(ownerKeyAuths, ownerKeyAuthsLocal, ownerMinThreshold) { keyAuths, keyAuthsLocal, threshold -> createKeySet(keyAuths, keyAuthsLocal, threshold) }.withDefault { emptySet() }
     val activeRequiredAuths = combineFirst(activeKeyAuths, activeKeyAuthsLocal, activeMinThreshold) { keyAuths, keyAuthsLocal, threshold -> createKeySet(keyAuths, keyAuthsLocal, threshold) }.withDefault { emptySet() }
@@ -205,7 +205,7 @@ open class AccountViewModel(application: Application) : BaseViewModel(applicatio
         balanceSortOptions.value = method
     }
 
-    val isAccountObservable = accountUid.switchMap { LocalUserRepository.getUserLive(applicationWalletSecurityManager, it, ChainPropertyRepository.chainId) }.map { it == null }
+    val isAccountObservable = accountUid.switchMap { LocalUserRepository.getUserLive(globalWalletManager, it, ChainPropertyRepository.chainId) }.map { it == null }
 
     val activities = accountUid.switchMap { AccountRepository.getAccountOperationHistory(it) }.mapChildParallel(viewModelScope) {
         TransactionRepository.getOperationDetail(it.operation).apply { blockHeight = it.blockNum }

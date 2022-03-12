@@ -11,8 +11,8 @@ import com.bitshares.oases.extensions.compat.startAccountBrowser
 import com.bitshares.oases.extensions.compat.startPermission
 import com.bitshares.oases.extensions.compat.startWhitelist
 import com.bitshares.oases.extensions.viewbinder.bindAccountV3
+import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.preference.old.I18N
-import com.bitshares.oases.preference.old.LocaleService
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.startFragment
@@ -139,7 +139,9 @@ fun Union.showLanguageSettingDialog() = showBottomDialog {
                         height = context.resources.getDimensionPixelSize(modulon.R.dimen.icon_size_tiny)
                         gravity = Gravity.START or Gravity.CENTER_VERTICAL
                     }
-                    viewModel.language.observe(viewLifecycleOwner) { setChecked(it == locale.ordinal, true) }
+                    viewModel.language.observe(viewLifecycleOwner) {
+                        setChecked(it == locale, true)
+                    }
                 }
                 updatePaddingVerticalHalf()
                 text = when (locale) {
@@ -154,7 +156,7 @@ fun Union.showLanguageSettingDialog() = showBottomDialog {
                     I18N.TRADITIONAL_CHINESE    -> context.getString(R.string.language_settings_traditional_chinese)
                 }
                 doOnClick {
-                    LocaleService.setLocale(locale.ordinal)
+                    globalPreferenceManager.LANGUAGE.value = locale
                     dismissNow()
                     recreate()
                 }

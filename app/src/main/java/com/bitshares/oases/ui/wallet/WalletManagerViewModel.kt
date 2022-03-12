@@ -9,12 +9,11 @@ import androidx.lifecycle.viewModelScope
 import bitshareskit.extensions.decodeBase64OrEmpty
 import bitshareskit.extensions.encodeBase64OrEmpty
 import bitshareskit.extensions.logcat
-import com.bitshares.oases.MainApplication
-import com.bitshares.oases.applicationWalletSecurityManager
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.database.entities.User
 import com.bitshares.oases.extensions.text.StringFilter
 import com.bitshares.oases.extensions.text.validateStringFilter
+import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.provider.chain_repo.AccountRepository
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
@@ -85,20 +84,20 @@ class WalletManagerViewModel(application: Application) : BaseViewModel(applicati
     val newPasswordField = NonNullMutableLiveData(EMPTY_SPACE)
     val repeatPasswordField = NonNullMutableLiveData(EMPTY_SPACE)
 
-    val isWalletUnlocked = applicationWalletSecurityManager.isUnlocked
+    val isWalletUnlocked = globalWalletManager.isUnlocked
 
     val password get() = passwordField.value
     val newPassword get() = newPasswordField.value
     val repeatPassword get() = repeatPasswordField.value
 
     fun unlock(): Boolean {
-        return (applicationWalletSecurityManager.unlock(password)).also {
+        return (globalWalletManager.unlock(password)).also {
             isPasswordFieldError.value = !it
         }
     }
 
     fun change(): Boolean {
-        return (unlock() && (newPassword.length >= PASSWORD_LENGTH_MIN).also { isNewPasswordFieldError.value = !it } && (repeatPassword.length >= PASSWORD_LENGTH_MIN && newPassword == repeatPassword).also { isRepeatPasswordFieldError.value = !it } && applicationWalletSecurityManager.changePassword(newPassword))
+        return (unlock() && (newPassword.length >= PASSWORD_LENGTH_MIN).also { isNewPasswordFieldError.value = !it } && (repeatPassword.length >= PASSWORD_LENGTH_MIN && newPassword == repeatPassword).also { isRepeatPasswordFieldError.value = !it } && globalWalletManager.changePassword(newPassword))
     }
 
     fun changePasswordField(text: String) {
@@ -142,7 +141,7 @@ class WalletManagerViewModel(application: Application) : BaseViewModel(applicati
 
     fun importBackup() {
         blockchainDatabaseScope.launch {
-            LocalUserRepository.add(applicationWalletSecurityManager, users.value)
+            LocalUserRepository.add(globalWalletManager, users.value)
         }
     }
 
@@ -202,7 +201,7 @@ class WalletManagerViewModel(application: Application) : BaseViewModel(applicati
 
     fun buildBackup() {
         viewModelScope.launch(Dispatchers.IO) {
-            val block = LocalUserRepository.createBackup(applicationWalletSecurityManager)
+            val block = LocalUserRepository.createBackup(globalWalletManager)
             val name = "$filePrefix$fileSuffix"
             withContext(Dispatchers.Main) {
                 file.value = BackupFile(name, 0L, null, block)

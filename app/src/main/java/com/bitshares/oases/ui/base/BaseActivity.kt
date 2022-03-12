@@ -9,13 +9,13 @@ import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import com.bitshares.oases.R
-import com.bitshares.oases.preference.old.I18N
-import com.bitshares.oases.preference.old.LocaleService
-import com.bitshares.oases.preference.old.Settings
+import com.bitshares.oases.localPreferenceManager
+import com.bitshares.oases.preference.old.createLocalContext
 import modulon.extensions.compat.isNightModeOn
 import modulon.extensions.view.backgroundTintColor
 import modulon.extensions.view.ensureViewId
 import modulon.union.UnionActivity
+import modulon.union.toUnion
 
 abstract class BaseActivity : UnionActivity() {
 
@@ -45,13 +45,7 @@ abstract class BaseActivity : UnionActivity() {
     }
 
     override fun attachBaseContext(newBase: Context) {
-        val locale = I18N.values().getOrNull(Settings.KEY_LANGUAGE.value)?.locale
-        if (locale == null) {
-            if (!Settings.KEY_LANGUAGE.isDefault()) Settings.KEY_LANGUAGE.reset()
-            super.attachBaseContext(newBase)
-        } else {
-            super.attachBaseContext(LocaleService.updateLocale(newBase, locale))
-        }
+        super.attachBaseContext(newBase.createLocalContext(newBase.toUnion().localPreferenceManager.LANGUAGE.value.locale))
     }
 
     override fun finish() {

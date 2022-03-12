@@ -64,7 +64,6 @@ class FieldTextView(context: Context) : EditText(context), UnionContext by conte
             isClickable = value
             isContextClickable = value
             isLongClickable = value
-            isCursorVisible = value
             isEnabled = value
             field = value
         }
