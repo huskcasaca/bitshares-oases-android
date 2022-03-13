@@ -1,6 +1,6 @@
 package bitshareskit.ks_exntended
 
-import bitshareskit.ks_objects.K103AssetType
+import bitshareskit.ks_object_type.K103AssetType
 
 data class KAssetAmountType(
     val amount: Long,

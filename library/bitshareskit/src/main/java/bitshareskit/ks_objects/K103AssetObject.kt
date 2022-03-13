@@ -3,6 +3,9 @@ package bitshareskit.ks_objects
 import bitshareskit.chain.ChainConfig
 import bitshareskit.ks_models.GrapheneComponent
 import bitshareskit.ks_object_base.*
+import bitshareskit.ks_object_type.K102AccountType
+import bitshareskit.ks_object_type.K103AssetType
+import bitshareskit.ks_object_type.K203AssetDynamicType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

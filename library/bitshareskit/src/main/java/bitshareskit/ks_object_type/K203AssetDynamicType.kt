@@ -1,11 +1,10 @@
-package bitshareskit.ks_objects
+package bitshareskit.ks_object_type
 
 import bitshareskit.ks_object_base.K203AssetDynamicId
-import bitshareskit.ks_object_base.K204AssetBitassetId
 import bitshareskit.ks_object_base.UInt64
 
-interface K204AssetBitassetType: K000AbstractType {
-    override val id: K204AssetBitassetId    get() = this as K204AssetBitassetId
+interface K203AssetDynamicType: K000AbstractType {
+    override val id: K203AssetDynamicId     get() = this as K203AssetDynamicId
     val currentSupply: UInt64               get() = 0U
     val confidentialSupply: UInt64          get() = 0U
     val accumulatedFees: UInt64             get() = 0U

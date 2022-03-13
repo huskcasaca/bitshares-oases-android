@@ -2,6 +2,7 @@ package bitshareskit.ks_objects
 
 import androidx.room.Ignore
 import bitshareskit.ks_object_base.K204AssetBitassetId
+import bitshareskit.ks_object_type.K204AssetBitassetType
 import bitshareskit.ks_object_base.emptyIdType
 import kotlinx.serialization.SerialName
 

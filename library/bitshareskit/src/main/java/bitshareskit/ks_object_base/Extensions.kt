@@ -2,8 +2,8 @@ package bitshareskit.ks_object_base
 
 import bitshareskit.extensions.EMPTY_SPACE
 import bitshareskit.ks_models.*
-import bitshareskit.ks_objects.K000AbstractType
-import bitshareskit.ks_objects.K102AccountType
+import bitshareskit.ks_object_type.K000AbstractType
+import bitshareskit.ks_object_type.K102AccountType
 import bitshareskit.ks_objects.K103AssetObject
 import kotlin.reflect.KClass
 

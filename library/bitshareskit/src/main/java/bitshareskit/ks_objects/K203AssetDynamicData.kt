@@ -1,9 +1,7 @@
 package bitshareskit.ks_objects
 
-import bitshareskit.ks_object_base.K103AssetId
-import bitshareskit.ks_object_base.K203AssetDynamicId
-import bitshareskit.ks_object_base.UInt64
-import bitshareskit.ks_object_base.emptyIdType
+import bitshareskit.ks_object_base.*
+import bitshareskit.ks_object_type.K203AssetDynamicType
 import kotlinx.serialization.SerialName
 
 data class KAssetDynamicData(

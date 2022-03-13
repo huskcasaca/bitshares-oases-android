@@ -1,4 +1,4 @@
-package bitshareskit.ks_objects
+package bitshareskit.ks_object_type
 
 import bitshareskit.ks_models.KAuthority
 import bitshareskit.ks_models.KGrapheneDateTime

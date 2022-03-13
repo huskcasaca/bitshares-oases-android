@@ -2,17 +2,14 @@ package com.bitshares.oases.ui.testlab
 
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import bitshareskit.ks_object_base.ImplementationType
-import bitshareskit.ks_object_base.ObjectType
 import bitshareskit.ks_object_base.ProtocolType
 import bitshareskit.ks_objects.K102AccountObject
 import bitshareskit.ks_objects.K103AssetObject
 import bitshareskit.objects.AccountObject
 import bitshareskit.objects.AssetObject
-import bitshareskit.objects.ProposalObject
 import com.bitshares.oases.netowrk.rpc.GrapheneClient
 import com.bitshares.oases.netowrk.rpc.GrapheneNode
 import com.bitshares.oases.provider.chain_repo.GrapheneRepository

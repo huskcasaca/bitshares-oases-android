@@ -4,6 +4,7 @@ import bitshareskit.ks_models.KAuthority
 import bitshareskit.ks_models.KGrapheneDateTime
 import bitshareskit.ks_models.KOptions
 import bitshareskit.ks_object_base.*
+import bitshareskit.ks_object_type.K102AccountType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
