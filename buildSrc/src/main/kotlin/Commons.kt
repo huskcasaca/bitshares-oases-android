@@ -68,6 +68,7 @@ fun Project.libraryModulon() {
     dependenciesAndroidxActivity()
     dependenciesAndroidxFragment()
     dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-reflect:${Constants.KOTLIN_VERSION}")
         implementation("androidx.constraintlayout:constraintlayout:2.0.1")
         implementation("androidx.recyclerview:recyclerview:1.2.0-beta01")
         implementation("androidx.drawerlayout:drawerlayout:1.1.0")

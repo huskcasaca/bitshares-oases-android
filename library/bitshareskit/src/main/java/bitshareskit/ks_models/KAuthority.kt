@@ -2,7 +2,6 @@ package bitshareskit.ks_models
 
 import bitshareskit.ks_models.KPublicKeySerializer.Companion.toPublicKey
 import bitshareskit.ks_object_base.*
-import bitshareskit.ks_object_base.KGrapheneIdSerializer.Companion.toObjectId
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -45,7 +44,7 @@ class AccountAuthSerializer : KSerializer<AccountAuth> {
     override fun deserialize(decoder: Decoder): AccountAuth {
         return if (decoder is JsonDecoder) {
             val element = decoder.decodeJsonElement() as JsonArray
-            val account: K102AccountId = (element[0] as JsonPrimitive).content.toObjectId()
+            val account: K102AccountId = (element[0] as JsonPrimitive).content.toGrapheneObjectId()
             val threshold: UInt16 = (element[1] as JsonPrimitive).content.toUInt16()
             AccountAuth(account, threshold)
         } else TODO()

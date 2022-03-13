@@ -2,7 +2,9 @@ package com.bitshares.oases.ui.testlab
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
-import bitshareskit.ks_object_base.KObjectSpaceType
+import bitshareskit.ks_object_base.ObjectType
+import bitshareskit.ks_object_base.ProtocolType
+import bitshareskit.objects.ProposalObject
 import com.bitshares.oases.ui.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +20,7 @@ class TestLabViewModel(application: Application) : BaseViewModel(application) {
     val order2 = NonNullMutableLiveData(EMPTY_SPACE)
 
 
-    val objectType = NonNullMutableLiveData(KObjectSpaceType.ACCOUNT_OBJECT)
+    val objectType: NonNullMutableLiveData<out ObjectType> = NonNullMutableLiveData(ProtocolType.ACCOUNT)
 
 
     val consoleFlowHeader = NonNullMutableLiveData(listOf(EMPTY_SPACE to EMPTY_SPACE))

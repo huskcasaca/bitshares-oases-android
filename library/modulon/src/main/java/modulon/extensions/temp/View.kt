@@ -4,7 +4,6 @@ import android.graphics.Paint
 import android.graphics.Rect
 import modulon.R
 import modulon.component.BaseCell
-import modulon.extensions.stdlib.logcatUI
 import modulon.extensions.view.dpf
 import modulon.layout.recycler.decorations.drawAllShaders
 import modulon.layout.tab.TabLayout

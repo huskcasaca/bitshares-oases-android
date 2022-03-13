@@ -7,7 +7,6 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
-import modulon.extensions.stdlib.logcatUI
 import modulon.extensions.view.*
 import modulon.extensions.view.isOnTop
 import modulon.layout.actionbar.ActionBarLayout

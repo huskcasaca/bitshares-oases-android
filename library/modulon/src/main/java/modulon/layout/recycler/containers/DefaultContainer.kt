@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import modulon.extensions.view.addDefaultFill
 import modulon.extensions.view.addDefaultRow
+import modulon.extensions.view.create
 import modulon.extensions.view.parentViewGroupOrNull
 import modulon.layout.recycler.ViewSize
 import modulon.layout.recycler.RecyclerLayout
@@ -35,5 +36,5 @@ class DefaultContainer(private val view: View, private val fill: ViewSize, priva
 
 
 inline fun <reified V: View> RecyclerLayout.addViewDec(block: V.() -> Unit = {} ) {
-    addContainer(DefaultContainer((V::class.java.constructors.first().newInstance(context) as V).apply(block), ViewSize.ROW))
+    addContainer(DefaultContainer(create(block), ViewSize.ROW))
 }

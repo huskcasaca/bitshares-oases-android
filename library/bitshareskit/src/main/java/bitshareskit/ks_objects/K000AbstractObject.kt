@@ -1,8 +1,6 @@
 package bitshareskit.ks_objects
 
-import bitshareskit.ks_object_base.K000AbstractId
-import bitshareskit.ks_object_base.UInt64
-import bitshareskit.ks_object_base.UInt8
+import bitshareskit.ks_object_base.*
 
 abstract class K000AbstractObject : Cloneable, K000AbstractType {
 
@@ -18,10 +16,4 @@ abstract class K000AbstractObject : Cloneable, K000AbstractType {
 
     abstract override val id: K000AbstractId
 
-    final override val space: UInt8 get() = id.space
-    final override val type: UInt8 get() = id.type
-    final override val instance: UInt64 get() = id.instance
-
 }
-
-
