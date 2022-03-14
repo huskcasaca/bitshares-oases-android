@@ -1,5 +1,9 @@
 package graphene.chain
 
+import graphene.protocol.K203AssetDynamicId
+import graphene.protocol.K203AssetDynamicType
+import graphene.protocol.UInt64
+import graphene.protocol.emptyIdType
 import graphene.protocol.*
 import kotlinx.serialization.SerialName
 

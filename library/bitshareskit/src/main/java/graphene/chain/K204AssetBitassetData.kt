@@ -1,5 +1,8 @@
 package graphene.chain
 
+import graphene.protocol.K204AssetBitassetId
+import graphene.protocol.K204AssetBitassetType
+import graphene.protocol.emptyIdType
 import graphene.protocol.*
 import kotlinx.serialization.SerialName
 

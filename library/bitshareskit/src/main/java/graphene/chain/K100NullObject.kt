@@ -1,5 +1,8 @@
 package graphene.chain
 
+import graphene.protocol.K100NullId
+import graphene.protocol.K100NullType
+import graphene.protocol.emptyIdType
 import graphene.protocol.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

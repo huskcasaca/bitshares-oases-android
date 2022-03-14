@@ -14,6 +14,7 @@ import java.util.*
  * @see [Blockchain API(s)](https://dev.bitshares.works/en/master/api/blockchain_api.html)
  */
 
+@Deprecated("")
 enum class CallMethod {
 
     /** Login API */

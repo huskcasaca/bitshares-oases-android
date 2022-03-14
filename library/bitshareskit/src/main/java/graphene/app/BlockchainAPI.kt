@@ -1,5 +1,6 @@
 package graphene.app
 
+@Deprecated("")
 enum class BlockchainAPI {
     EMPTY,                  // 0x00
     LOGIN,                  // 0x01

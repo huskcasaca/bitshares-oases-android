@@ -2,6 +2,8 @@ package com.bitshares.oases.ui.testlab
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
+import graphene.protocol.ObjectType
+import graphene.protocol.ProtocolType
 import com.bitshares.oases.ui.base.BaseViewModel
 import graphene.protocol.*
 import kotlinx.coroutines.Dispatchers

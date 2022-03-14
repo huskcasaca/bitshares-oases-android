@@ -1,5 +1,7 @@
 package graphene.chain
 
+import graphene.protocol.K000AbstractId
+import graphene.protocol.K000AbstractType
 import graphene.protocol.*
 
 abstract class K000AbstractObject(
