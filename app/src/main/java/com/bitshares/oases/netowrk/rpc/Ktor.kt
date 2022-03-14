@@ -1,8 +1,8 @@
 package com.bitshares.oases.netowrk.rpc
 
 import bitshareskit.extensions.logcat
-import bitshareskit.ks_chain.BlockchainAPI
-import bitshareskit.ks_chain.CallMethod
+import graphene.app.BlockchainAPI
+import graphene.app.CallMethod
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
 import io.ktor.client.plugins.*

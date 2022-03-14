@@ -1,7 +1,6 @@
-package bitshareskit.ks_objects
+package graphene.chain
 
-import bitshareskit.ks_object_base.*
-import bitshareskit.ks_object_type.K101BaseType
+import graphene.protocol.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

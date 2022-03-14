@@ -1,10 +1,9 @@
-package bitshareskit.ks_objects
+package graphene.chain
 
-import bitshareskit.ks_object_base.*
-import bitshareskit.ks_object_type.K203AssetDynamicType
+import graphene.protocol.*
 import kotlinx.serialization.SerialName
 
-data class KAssetDynamicData(
+data class K203AssetDynamicData(
     @SerialName(KEY_ID) override val id: K203AssetDynamicId = emptyIdType(),
     @SerialName(KEY_CURRENT_SUPPLY) override val currentSupply: UInt64,
     @SerialName(KEY_CONFIDENTIAL_SUPPLY) override val confidentialSupply: UInt64,

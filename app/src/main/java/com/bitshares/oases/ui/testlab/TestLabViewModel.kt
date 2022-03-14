@@ -2,10 +2,8 @@ package com.bitshares.oases.ui.testlab
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
-import bitshareskit.ks_object_base.ObjectType
-import bitshareskit.ks_object_base.ProtocolType
-import bitshareskit.objects.ProposalObject
 import com.bitshares.oases.ui.base.BaseViewModel
+import graphene.protocol.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import modulon.extensions.charset.EMPTY_SPACE

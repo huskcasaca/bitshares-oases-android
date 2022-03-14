@@ -1,10 +1,10 @@
 package com.bitshares.oases.provider.chain_repo
 
 import androidx.lifecycle.LiveData
-import bitshareskit.ks_chain.CallMethod
 import bitshareskit.objects.WitnessObject
 import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
+import graphene.app.CallMethod
 
 object WitnessRepository {
 

@@ -1,6 +1,5 @@
 package bitshareskit.operations
 
-import bitshareskit.ks_chain.Authority
 import bitshareskit.extensions.*
 import bitshareskit.models.AssetAmount
 import bitshareskit.models.SimplePrice
@@ -10,6 +9,7 @@ import bitshareskit.serializer.writeGrapheneBoolean
 import bitshareskit.serializer.writeGrapheneSet
 import bitshareskit.serializer.writeGrapheneTime
 import bitshareskit.serializer.writeSerializable
+import graphene.app.Authority
 import kotlinx.io.core.buildPacket
 import kotlinx.io.core.readBytes
 import org.java_json.JSONArray

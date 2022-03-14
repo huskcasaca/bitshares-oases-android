@@ -12,7 +12,6 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import bitshareskit.ks_chain.Authority
 import com.bitshares.oases.R
 import com.bitshares.oases.chain.accountNameFilter
 import com.bitshares.oases.extensions.compat.startImport
@@ -27,6 +26,7 @@ import com.bitshares.oases.ui.faucet.showFaucetRegisterDialog
 import com.bitshares.oases.ui.faucet.showFaucetSelectDialog
 import com.bitshares.oases.ui.settings.showLanguageSettingDialog
 import com.bitshares.oases.ui.wallet.startWalletUnlock
+import graphene.app.Authority
 import kotlinx.coroutines.launch
 import modulon.component.IconSize
 import modulon.dialog.button

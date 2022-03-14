@@ -13,7 +13,6 @@ import bitshareskit.chain.ChainConfig
 import bitshareskit.extensions.asOrNull
 import bitshareskit.extensions.formatIdentifier
 import bitshareskit.extensions.logcat
-import bitshareskit.ks_chain.CallMethod
 import bitshareskit.objects.AssetObject
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.chain.blockchainNetworkScope
@@ -24,6 +23,7 @@ import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.provider.local_repo.NodeRepository
+import graphene.app.CallMethod
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

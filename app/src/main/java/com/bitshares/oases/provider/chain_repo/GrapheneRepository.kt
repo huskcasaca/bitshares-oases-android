@@ -3,9 +3,6 @@ package com.bitshares.oases.provider.chain_repo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import bitshareskit.extensions.*
-import bitshareskit.ks_chain.CallMethod
-import bitshareskit.ks_object_base.K102AccountId
-import bitshareskit.ks_object_base.KGrapheneIdSerializer
 import bitshareskit.objects.GrapheneObject
 import bitshareskit.objects.ObjectType.*
 import com.bitshares.oases.chain.blockchainDatabaseScope
@@ -15,6 +12,7 @@ import com.bitshares.oases.netowrk.java_websocket.GrapheneSocketLiveData
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.provider.Source
+import graphene.app.CallMethod
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
@@ -175,7 +173,8 @@ object GrapheneRepository {
         } else null
     }
 
-    suspend inline fun <reified T : GrapheneObject> getObjectFromChain(uidList: List<Long>): List<T> = NetworkService.sendOrNull(CallMethod.GET_OBJECTS, listOf(formatIdentifier<T>(uidList), false)) {
+    suspend inline fun <reified T : GrapheneObject> getObjectFromChain(uidList: List<Long>): List<T> = NetworkService.sendOrNull(
+        CallMethod.GET_OBJECTS, listOf(formatIdentifier<T>(uidList), false)) {
         runCatching { (it as JSONArray).mapNotNull { runCatching { GrapheneObject.fromJson<T>(it as JSONObject) }.getOrNull() } }.onSuccess { blockchainDatabaseScope.launch { addObjectToDatabase(it) } }.onFailure { it.printStackTrace() }.getOrNull()
     }.orEmpty()
 
@@ -192,13 +191,6 @@ object GrapheneRepository {
         Source.NONE -> null
     }
 
-    val config1 = Json {
-        ignoreUnknownKeys = true
-        serializersModule = SerializersModule {
-            contextual(K102AccountId::class, KGrapheneIdSerializer())
-//            contextual(UInt::class, UIntSerializer)
-        }
-    }
 
 //    suspend inline fun <reified K : AbstractObject> getKObjectFromChain(uid: Long): K {
 //        return NetworkService.sendOrNull(CallMethod.GET_OBJECTS, listOf(listOf(("1.2.$uid")), false)) {

@@ -1,11 +1,11 @@
 package com.bitshares.oases.provider.chain_repo
 
 import bitshareskit.extensions.logcat
-import bitshareskit.ks_chain.CallMethod
 import bitshareskit.models.Transaction
 import bitshareskit.models.TransactionBlock
 import bitshareskit.operations.*
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
+import graphene.app.CallMethod
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope

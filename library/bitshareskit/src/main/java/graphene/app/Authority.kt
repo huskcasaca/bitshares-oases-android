@@ -1,4 +1,4 @@
-package bitshareskit.ks_chain
+package graphene.app
 
 enum class Authority {
     OWNER,

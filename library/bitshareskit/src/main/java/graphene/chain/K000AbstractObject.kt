@@ -1,7 +1,6 @@
-package bitshareskit.ks_objects
+package graphene.chain
 
-import bitshareskit.ks_object_base.*
-import bitshareskit.ks_object_type.K000AbstractType
+import graphene.protocol.*
 
 abstract class K000AbstractObject(
 ) : Cloneable, K000AbstractType {
