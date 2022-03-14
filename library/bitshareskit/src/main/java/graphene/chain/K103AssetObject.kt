@@ -11,7 +11,7 @@ data class K103AssetObject(
     @SerialName(KEY_ISSUER) @Serializable(with = KGrapheneIdSerializer::class) @Suppress("SERIALIZER_TYPE_INCOMPATIBLE") override val issuerId: K102_AccountType = emptyIdType(),
     @SerialName(KEY_PRECISION) override val precision: UByte = 0U,
     @SerialName(KEY_OPTIONS) override val options: AssetOptions = emptyComponent(),
-    @SerialName(KEY_DYNAMIC_ASSET_DATA_ID) @Serializable(with = KGrapheneIdSerializer::class) @Suppress("SERIALIZER_TYPE_INCOMPATIBLE") override val dynamicDataId: K203AssetDynamicType = emptyIdType(),
+    @SerialName(KEY_DYNAMIC_ASSET_DATA_ID) @Serializable(with = KGrapheneIdSerializer::class) @Suppress("SERIALIZER_TYPE_INCOMPATIBLE") override val dynamicDataId: K203_AssetDynamicType = emptyIdType(),
 //    @SerialName(KEY_BITASSET_DATA_ID) var bitassetDataId: KAssetBitassetIdType = emptyIdType(),
 ) : K000AbstractObject(), K103_AssetType {
 

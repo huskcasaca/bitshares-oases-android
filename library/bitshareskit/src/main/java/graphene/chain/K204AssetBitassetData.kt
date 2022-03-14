@@ -1,14 +1,13 @@
 package graphene.chain
 
-import graphene.protocol.K204AssetBitassetId
-import graphene.protocol.K204AssetBitassetType
+import graphene.protocol.K204_AssetBitassetIdType
+import graphene.protocol.K204_AssetBitassetType
 import graphene.protocol.emptyIdType
-import graphene.protocol.*
 import kotlinx.serialization.SerialName
 
 data class K204AssetBitassetData(
-    @SerialName(KEY_ID) override val id: K204AssetBitassetId = emptyIdType(),
-) : K000AbstractObject(), K204AssetBitassetType {
+    @SerialName(KEY_ID) override val id: K204_AssetBitassetIdType = emptyIdType(),
+) : K000AbstractObject(), K204_AssetBitassetType {
 
     companion object {
 

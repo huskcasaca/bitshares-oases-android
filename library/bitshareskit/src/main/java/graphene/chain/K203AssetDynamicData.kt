@@ -1,20 +1,19 @@
 package graphene.chain
 
-import graphene.protocol.K203AssetDynamicId
-import graphene.protocol.K203AssetDynamicType
+import graphene.protocol.K203_AssetDynamicIdType
+import graphene.protocol.K203_AssetDynamicType
 import graphene.protocol.UInt64
 import graphene.protocol.emptyIdType
-import graphene.protocol.*
 import kotlinx.serialization.SerialName
 
 data class K203AssetDynamicData(
-    @SerialName(KEY_ID) override val id: K203AssetDynamicId = emptyIdType(),
+    @SerialName(KEY_ID) override val id: K203_AssetDynamicIdType = emptyIdType(),
     @SerialName(KEY_CURRENT_SUPPLY) override val currentSupply: UInt64,
     @SerialName(KEY_CONFIDENTIAL_SUPPLY) override val confidentialSupply: UInt64,
     @SerialName(KEY_ACCUMULATED_FEES) override val accumulatedFees: UInt64,
     @SerialName(KEY_ACCUMULATED_COLLATERAL_FEES) override val accumulatedCollateralFees: UInt64,
     @SerialName(KEY_FEE_POOL) override val feePool: UInt64,
-) : K000AbstractObject(), K203AssetDynamicType {
+) : K000AbstractObject(), K203_AssetDynamicType {
 
     companion object {
         const val TABLE_NAME = "asset_dynamic_data"
