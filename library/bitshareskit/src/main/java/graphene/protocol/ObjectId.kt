@@ -6,12 +6,12 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
 
 enum class ObjectSpace(val id: UInt8) {
-    RELATIVE_PROTOCOL(0U),
-    PROTOCOL(1U),
-    IMPLEMENTATION(2U),
-    ACCOUNT_HISTORY(4U),
-    MARKET_HISTORY_SPACE(5U),
-    CUSTOM_OPERATIONS(7U)
+    /* 0.x.x  */ RELATIVE_PROTOCOL           (0U),
+    /* 1.x.x  */ PROTOCOL                    (1U),
+    /* 2.x.x  */ IMPLEMENTATION              (2U),
+    /* 4.x.x  */ ACCOUNT_HISTORY             (4U),
+    /* 5.x.x  */ MARKET_HISTORY_SPACE        (5U),
+    /* 7.x.x  */ CUSTOM_OPERATIONS           (7U);
 }
 
 interface ObjectType {
@@ -47,7 +47,7 @@ enum class ProtocolType(override val id: UInt8): ObjectType {
 enum class ImplementationType(override val id: UInt8): ObjectType {
     /* 2.0.x  */ GLOBAL_PROPERTY             (0U),
     /* 2.1.x  */ DYNAMIC_GLOBAL_PROPERTY     (1U),
-    /* 2.2.x  */ RESERVED_OBJECT             (2U), // unused
+    /* 2.2.x  */ RESERVED0                   (2U), // unused
     /* 2.3.x  */ ASSET_DYNAMIC_DATA          (3U),
     /* 2.4.x  */ ASSET_BITASSET_DATA         (4U),
     /* 2.5.x  */ ACCOUNT_BALANCE             (5U),
@@ -89,63 +89,63 @@ val GRAPHENE_SPACE_TO_TYPE = mapOf(
     ObjectSpace.IMPLEMENTATION to GRAPHENE_ID_TO_IMPLEMENTATION_TYPE,
 )
 
-val GRAPHENE_TYPE_TO_ID_CONSTRUCTOR: Map<ObjectType, KFunction<K000AbstractId>> = mapOf(
-    ProtocolType.NULL to K100NullId::class,
-    ProtocolType.BASE to K101BaseId::class,
-    ProtocolType.ACCOUNT to K102AccountId::class,
-    ProtocolType.ASSET to K103AssetId::class,
-    ProtocolType.FORCE_SETTLEMENT to K000AbstractId::class,
-    ProtocolType.COMMITTEE_MEMBER to K000AbstractId::class,
-    ProtocolType.WITNESS to K000AbstractId::class,
-    ProtocolType.LIMIT_ORDER to K000AbstractId::class,
-    ProtocolType.CALL_ORDER to K000AbstractId::class,
-    ProtocolType.CUSTOM to K000AbstractId::class,
-    ProtocolType.PROPOSAL to K000AbstractId::class,
-    ProtocolType.OPERATION_HISTORY to K000AbstractId::class,
-    ProtocolType.WITHDRAW_PERMISSION to K000AbstractId::class,
-    ProtocolType.VESTING_BALANCE to K000AbstractId::class,
-    ProtocolType.WORKER to K000AbstractId::class,
-    ProtocolType.BALANCE to K000AbstractId::class,
-    ProtocolType.HTLC to K000AbstractId::class,
-    ProtocolType.CUSTOM_AUTHORITY to K000AbstractId::class,
-    ProtocolType.TICKET to K000AbstractId::class,
-    ProtocolType.LIQUIDITY_POOL to K000AbstractId::class,
-    ProtocolType.SAMET_FUND to K000AbstractId::class,
-    ProtocolType.CREDIT_OFFER to K000AbstractId::class,
-    ProtocolType.CREDIT_DEAL to K000AbstractId::class,
+val GRAPHENE_TYPE_TO_ID_CONSTRUCTOR: Map<ObjectType, KFunction<AbstractIdType>> = mapOf(
+    ProtocolType.NULL to K100_NullIdType::class,
+    ProtocolType.BASE to K101_BaseIdType::class,
+    ProtocolType.ACCOUNT to K102_AccountIdType::class,
+    ProtocolType.ASSET to K103_AssetIdType::class,
+    ProtocolType.FORCE_SETTLEMENT to AbstractIdType::class,
+    ProtocolType.COMMITTEE_MEMBER to AbstractIdType::class,
+    ProtocolType.WITNESS to AbstractIdType::class,
+    ProtocolType.LIMIT_ORDER to AbstractIdType::class,
+    ProtocolType.CALL_ORDER to AbstractIdType::class,
+    ProtocolType.CUSTOM to AbstractIdType::class,
+    ProtocolType.PROPOSAL to AbstractIdType::class,
+    ProtocolType.OPERATION_HISTORY to AbstractIdType::class,
+    ProtocolType.WITHDRAW_PERMISSION to AbstractIdType::class,
+    ProtocolType.VESTING_BALANCE to AbstractIdType::class,
+    ProtocolType.WORKER to AbstractIdType::class,
+    ProtocolType.BALANCE to AbstractIdType::class,
+    ProtocolType.HTLC to AbstractIdType::class,
+    ProtocolType.CUSTOM_AUTHORITY to AbstractIdType::class,
+    ProtocolType.TICKET to AbstractIdType::class,
+    ProtocolType.LIQUIDITY_POOL to AbstractIdType::class,
+    ProtocolType.SAMET_FUND to AbstractIdType::class,
+    ProtocolType.CREDIT_OFFER to AbstractIdType::class,
+    ProtocolType.CREDIT_DEAL to AbstractIdType::class,
 
-    ImplementationType.GLOBAL_PROPERTY to K000AbstractId::class,
-    ImplementationType.DYNAMIC_GLOBAL_PROPERTY to K000AbstractId::class,
-    ImplementationType.RESERVED_OBJECT to K000AbstractId::class,
-    ImplementationType.ASSET_DYNAMIC_DATA to K000AbstractId::class,
-    ImplementationType.ASSET_BITASSET_DATA to K000AbstractId::class,
-    ImplementationType.ACCOUNT_BALANCE to K000AbstractId::class,
-    ImplementationType.ACCOUNT_STATISTICS to K000AbstractId::class,
-    ImplementationType.TRANSACTION_HISTORY to K000AbstractId::class,
-    ImplementationType.BLOCK_SUMMARY to K000AbstractId::class,
-    ImplementationType.ACCOUNT_TRANSACTION_HISTORY to K000AbstractId::class,
-    ImplementationType.BLINDED_BALANCE to K000AbstractId::class,
-    ImplementationType.CHAIN_PROPERTY to K000AbstractId::class,
-    ImplementationType.WITNESS_SCHEDULE to K000AbstractId::class,
-    ImplementationType.BUDGET_RECORD to K000AbstractId::class,
-    ImplementationType.SPECIAL_AUTHORITY to K000AbstractId::class,
-    ImplementationType.BUYBACK to K000AbstractId::class,
-    ImplementationType.FBA_ACCUMULATOR to K000AbstractId::class,
-    ImplementationType.COLLATERAL_BID to K000AbstractId::class,
-    ImplementationType.CREDIT_DEAL_SUMMARY to K000AbstractId::class,
+    ImplementationType.GLOBAL_PROPERTY to AbstractIdType::class,
+    ImplementationType.DYNAMIC_GLOBAL_PROPERTY to AbstractIdType::class,
+    ImplementationType.RESERVED0 to AbstractIdType::class,
+    ImplementationType.ASSET_DYNAMIC_DATA to AbstractIdType::class,
+    ImplementationType.ASSET_BITASSET_DATA to AbstractIdType::class,
+    ImplementationType.ACCOUNT_BALANCE to AbstractIdType::class,
+    ImplementationType.ACCOUNT_STATISTICS to AbstractIdType::class,
+    ImplementationType.TRANSACTION_HISTORY to AbstractIdType::class,
+    ImplementationType.BLOCK_SUMMARY to AbstractIdType::class,
+    ImplementationType.ACCOUNT_TRANSACTION_HISTORY to AbstractIdType::class,
+    ImplementationType.BLINDED_BALANCE to AbstractIdType::class,
+    ImplementationType.CHAIN_PROPERTY to AbstractIdType::class,
+    ImplementationType.WITNESS_SCHEDULE to AbstractIdType::class,
+    ImplementationType.BUDGET_RECORD to AbstractIdType::class,
+    ImplementationType.SPECIAL_AUTHORITY to AbstractIdType::class,
+    ImplementationType.BUYBACK to AbstractIdType::class,
+    ImplementationType.FBA_ACCUMULATOR to AbstractIdType::class,
+    ImplementationType.COLLATERAL_BID to AbstractIdType::class,
+    ImplementationType.CREDIT_DEAL_SUMMARY to AbstractIdType::class,
 
     ).mapValues { it.value.constructors.first() }
 
 
 
-val idTypes: Map<KClass<out K000AbstractType>, K000AbstractId> =
+val idTypes: Map<KClass<out AbstractType>, AbstractIdType> =
     mapOf(
-        K102AccountType::class to K102AccountId(),
+        K102_AccountType::class to K102_AccountIdType(),
     ) + mapOf(
-        K102AccountId::class to K102AccountId(),
+        K102_AccountIdType::class to K102_AccountIdType(),
     )
 
-inline fun <reified K: K000AbstractType> emptyIdType(): K = idTypes[K::class] as K
+inline fun <reified K: AbstractType> emptyIdType(): K = idTypes[K::class] as K
 
 val components: Map<KClass<out GrapheneComponent>, GrapheneComponent> =
     mapOf(
@@ -189,12 +189,12 @@ fun String.toGrapheneInstance(): ObjectInstance {
     return ObjectInstance(uid)
 }
 
-fun <T: K000AbstractId> String.toGrapheneObjectId(): T {
+fun <T: AbstractIdType> String.toGrapheneObjectId(): T {
     logloglog()
     return GRAPHENE_TYPE_TO_ID_CONSTRUCTOR[toGrapheneType()]!!.call(toGrapheneSpace(),toGrapheneType(), toGrapheneInstance()) as T
 }
 
-val K000AbstractType.standardId: String
+val AbstractType.standardId: String
     get() = "${id.space}$GRAPHENE_ID_SEPARATOR${id.type}$GRAPHENE_ID_SEPARATOR${id.instance}"
 
 

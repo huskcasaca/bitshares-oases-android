@@ -33,7 +33,7 @@ data class AssetOptions(
 
 data class KAssetAmountType(
     val amount: Long,
-    val asset: K103AssetType
+    val asset: K103_AssetType
 ) {
     companion object {
         private const val KEY_AMOUNT = "amount"

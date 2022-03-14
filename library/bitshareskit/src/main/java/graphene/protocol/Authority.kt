@@ -33,7 +33,7 @@ data class Authority constructor(
 
 @Serializable(with = AccountAuthSerializer::class)
 data class AccountAuth(
-    val account: K102AccountId,
+    val account: K102_AccountIdType,
     val threshold: UInt16
 )
 
@@ -42,7 +42,7 @@ class AccountAuthSerializer : KSerializer<AccountAuth> {
     override fun deserialize(decoder: Decoder): AccountAuth {
         return if (decoder is JsonDecoder) {
             val element = decoder.decodeJsonElement() as JsonArray
-            val account: K102AccountId = (element[0] as JsonPrimitive).content.toGrapheneObjectId()
+            val account: K102_AccountIdType = (element[0] as JsonPrimitive).content.toGrapheneObjectId()
             val threshold: UInt16 = (element[1] as JsonPrimitive).content.toUInt16()
             AccountAuth(account, threshold)
         } else TODO()

@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AccountOptions(
     @SerialName(KEY_MEMO_KEY) val memoKey: KPublicKey = KPublicKey.EMPTY,
-    @SerialName(KEY_VOTING_ACCOUNT) @Serializable(with = KGrapheneIdSerializer::class) @Suppress("SERIALIZER_TYPE_INCOMPATIBLE") val votingAccount: K102AccountId = emptyIdType(),
+    @SerialName(KEY_VOTING_ACCOUNT) @Serializable(with = KGrapheneIdSerializer::class) @Suppress("SERIALIZER_TYPE_INCOMPATIBLE") val votingAccount: K102_AccountIdType = emptyIdType(),
     @SerialName(KEY_NUM_WITNESS) val witnessNumber: UInt16 = 0U,
     @SerialName(KEY_NUM_COMMITTEE) val committeeNumber: UInt16 = 0U,
     @SerialName(KEY_VOTES) val vote: Set<VoteType> = emptySet(),
