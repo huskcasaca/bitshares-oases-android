@@ -7,7 +7,7 @@ interface AbstractType: Comparable<AbstractType> {
     val id: AbstractIdType                                  get() = this as AbstractIdType
 
     override fun compareTo(other: AbstractType): Int {
-        return id.instance.id.compareTo(other.id.instance.id)
+        return id.instance.compareTo(other.id.instance)
     }
 }
 

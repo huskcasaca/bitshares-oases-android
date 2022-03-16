@@ -66,14 +66,10 @@ enum class ImplementationType(override val id: UInt8): ObjectType {
     /* 2.18.x */ CREDIT_DEAL_SUMMARY         (18U),
 }
 
-@JvmInline
-value class ObjectInstance(
-    val id: UInt64
-) {
-    companion object {
-        val INVALID_ID = ObjectInstance(UInt64.MAX_VALUE)
-    }
-}
+typealias ObjectInstance = UInt64
+
+val INVALID_ID: ULong = UInt64.MAX_VALUE
+
 
 val GRAPHENE_ID_TO_SPACE: Map<UInt8, ObjectSpace> =
     ObjectSpace.values().associateBy { it.id }
@@ -230,7 +226,7 @@ fun String.toGrapheneType(): ObjectType {
 fun String.toGrapheneInstance(): ObjectInstance {
     if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id!")
     val uid = split(GRAPHENE_ID_SEPARATOR)[2].toUInt64()
-    return ObjectInstance(uid)
+    return uid
 }
 
 fun <T: AbstractIdType> String.toGrapheneObjectId(): T {
