@@ -5,19 +5,21 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import graphene.chain.K102AccountObject
-import graphene.chain.K103AssetObject
+import graphene.chain.K103_AssetObject
 import bitshareskit.objects.AccountObject
 import bitshareskit.objects.AssetObject
 import com.bitshares.oases.netowrk.rpc.GrapheneClient
 import com.bitshares.oases.netowrk.rpc.GrapheneNode
 import com.bitshares.oases.provider.chain_repo.GrapheneRepository
 import com.bitshares.oases.ui.base.ContainerFragment
+import graphene.protocol.GRAPHENE_JSON_PLATFORM_SERIALIZER
 import graphene.protocol.ImplementationType
 import graphene.protocol.ProtocolType
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
 import modulon.component.ComponentCell
 import modulon.dialog.section
 import modulon.extensions.compat.showBottomDialog
@@ -30,6 +32,7 @@ import modulon.layout.actionbar.title
 import modulon.layout.recycler.*
 import modulon.layout.recycler.containers.submitList
 import modulon.layout.tab.tab
+import java.util.*
 
 class TestLabFragment : ContainerFragment() {
 
@@ -97,7 +100,6 @@ class TestLabFragment : ContainerFragment() {
                             }
                         }
                         cell {
-                            val decoder = Json { ignoreUnknownKeys = true }
                             title = "Instance to Fetch"
                             var fieldtext = ""
                             field {
@@ -113,7 +115,7 @@ class TestLabFragment : ContainerFragment() {
                                             val o1 = GrapheneRepository.getObjectOrEmpty<AccountObject>(fieldtext.toLong())
                                             viewModel.console(o1.rawJson.toString(4))
                                             runCatching {
-                                                val ko = decoder.decodeFromString<K102AccountObject>(o1.rawJson.toString())
+                                                val ko = GRAPHENE_JSON_PLATFORM_SERIALIZER.decodeFromString<K102AccountObject>(o1.rawJson.toString())
                                                 viewModel.console(ko.toString())
                                                 subtext = ko.toString()
                                             }.onFailure { it.printStackTrace() }
@@ -122,13 +124,13 @@ class TestLabFragment : ContainerFragment() {
                                             val o1 = GrapheneRepository.getObjectOrEmpty<AssetObject>(fieldtext.toLong())
                                             viewModel.console(o1.rawJson.toString(4))
                                             runCatching {
-                                                val ko = decoder.decodeFromString<K103AssetObject>(o1.rawJson.toString())
+                                                val ko = GRAPHENE_JSON_PLATFORM_SERIALIZER.decodeFromString<K103_AssetObject>(o1.rawJson.toString())
                                                 viewModel.console(ko.toString())
                                                 subtext = ko.toString()
                                             }.onFailure { it.printStackTrace() }
                                         }
                                         else -> TODO()
-                                    }
+                                    }.getOrThrow()
                                 }
                             }
                         }

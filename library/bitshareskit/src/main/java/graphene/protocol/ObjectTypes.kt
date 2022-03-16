@@ -1,7 +1,14 @@
 package graphene.protocol
 
-interface AbstractType {
+import graphene.chain.K102AccountObject
+import kotlinx.serialization.SerialName
+
+interface AbstractType: Comparable<AbstractType> {
     val id: AbstractIdType                                  get() = this as AbstractIdType
+
+    override fun compareTo(other: AbstractType): Int {
+        return id.instance.id.compareTo(other.id.instance.id)
+    }
 }
 
 interface K100_NullType: AbstractType {
@@ -18,17 +25,25 @@ interface K102_AccountType: AbstractType {
     val registrar: K102_AccountType                         get() = emptyIdType()
     val referrer: K102_AccountType                          get() = emptyIdType()
     val lifetimeReferrer: K102_AccountType                  get() = emptyIdType()
-    val networkFeePercentage: UInt                          get() = 0U
-    val lifetimeReferrerFeePercentage: UInt                 get() = 0U
-    val referrerRewardsFeePercentage: UInt                  get() = 0U
+    val networkFeePercentage: UInt16                        get() = 0U
+    val lifetimeReferrerFeePercentage: UInt16               get() = 0U
+    val referrerRewardsFeePercentage: UInt16                get() = 0U
     val name: String                                        get() = emptyString()
     val owner: Authority                                    get() = emptyComponent()
     val active: Authority                                   get() = emptyComponent()
     val options: AccountOptions                             get() = emptyComponent()
+
+    val numCommitteeVoted: UInt16                           get() = 0U
+    val statistics: K206_AccountStatisticsType              get() = emptyIdType()
     val whiteListingAccounts: Set<K102_AccountType>         get() = emptySet()
     val blackListingAccounts: Set<K102_AccountType>         get() = emptySet()
     val whiteListedAccounts: Set<K102_AccountType>          get() = emptySet()
     val blackListedAccounts: Set<K102_AccountType>          get() = emptySet()
+
+    val ownerSpecialAuthority: SpecialAuthority             get() = emptyComponent()
+    val activeSpecialAuthority: SpecialAuthority            get() = emptyComponent()
+    val topNControlFlags: UInt8                             get() = 0U
+
 }
 
 interface K103_AssetType: AbstractType {
@@ -157,6 +172,7 @@ interface K204_AssetBitassetType: AbstractType {
 interface K205_AccountBalanceType: AbstractType {
     override val id: K205_AccountBalanceIdType              get() = this as K205_AccountBalanceIdType
 }
+
 
 interface K206_AccountStatisticsType: AbstractType {
     override val id: K206_AccountStatisticsIdType           get() = this as K206_AccountStatisticsIdType

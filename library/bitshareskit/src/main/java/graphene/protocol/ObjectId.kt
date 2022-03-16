@@ -75,16 +75,16 @@ value class ObjectInstance(
     }
 }
 
-val GRAPHENE_ID_TO_SPACE =
+val GRAPHENE_ID_TO_SPACE: Map<UInt8, ObjectSpace> =
     ObjectSpace.values().associateBy { it.id }
 
-val GRAPHENE_ID_TO_PROTOCOL_TYPE =
+val GRAPHENE_ID_TO_PROTOCOL_TYPE: Map<UInt8, ProtocolType> =
     ProtocolType.values().associateBy { it.id }
 
-val GRAPHENE_ID_TO_IMPLEMENTATION_TYPE =
+val GRAPHENE_ID_TO_IMPLEMENTATION_TYPE: Map<UInt8, ObjectType> =
     ImplementationType.values().associateBy { it.id }
 
-val GRAPHENE_SPACE_TO_TYPE = mapOf(
+val GRAPHENE_SPACE_TO_TYPE: Map<ObjectSpace, Map<UInt8, ObjectType>> = mapOf(
     ObjectSpace.PROTOCOL to GRAPHENE_ID_TO_PROTOCOL_TYPE,
     ObjectSpace.IMPLEMENTATION to GRAPHENE_ID_TO_IMPLEMENTATION_TYPE,
 )
@@ -195,8 +195,8 @@ val components: Map<KClass<out GrapheneComponent>, GrapheneComponent> =
     mapOf(
         Authority::class        to Authority(),
         AccountOptions::class   to AccountOptions(),
-        KPublicKey::class       to KPublicKey(),
-        KPrivateKey::class      to KPrivateKey(),
+        PublicKeyType::class       to PublicKeyType(),
+        PrivateKeyType::class      to PrivateKeyType(),
         AssetOptions::class     to AssetOptions(),
     )
 
@@ -224,7 +224,7 @@ fun String.toGrapheneSpace(): ObjectSpace {
 fun String.toGrapheneType(): ObjectType {
     if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id!")
     val uid = split(GRAPHENE_ID_SEPARATOR)[1].toUInt8()
-    return GRAPHENE_ID_TO_PROTOCOL_TYPE[uid] ?: throw IllegalArgumentException("Invalid graphene id!")
+    return GRAPHENE_SPACE_TO_TYPE[toGrapheneSpace()]?.get(uid) ?: throw IllegalArgumentException("Invalid graphene id!")
 }
 
 fun String.toGrapheneInstance(): ObjectInstance {
@@ -235,7 +235,7 @@ fun String.toGrapheneInstance(): ObjectInstance {
 
 fun <T: AbstractIdType> String.toGrapheneObjectId(): T {
     logloglog()
-    return GRAPHENE_TYPE_TO_ID_CONSTRUCTOR[toGrapheneType()]!!.call(toGrapheneSpace(),toGrapheneType(), toGrapheneInstance()) as T
+    return GRAPHENE_TYPE_TO_ID_CONSTRUCTOR[toGrapheneType()]!!.call(toGrapheneInstance()) as T
 }
 
 val AbstractType.standardId: String

@@ -5,9 +5,9 @@ import graphene.protocol.K204_AssetBitassetType
 import graphene.protocol.emptyIdType
 import kotlinx.serialization.SerialName
 
-data class K204AssetBitassetData(
+data class K204_AssetBitassetData(
     @SerialName(KEY_ID) override val id: K204_AssetBitassetIdType = emptyIdType(),
-) : K000AbstractObject(), K204_AssetBitassetType {
+) : K000_AbstractObject(), K204_AssetBitassetType {
 
     companion object {
 

@@ -3,7 +3,7 @@ package graphene.chain
 import graphene.protocol.AbstractIdType
 import graphene.protocol.AbstractType
 
-abstract class K000AbstractObject(
+abstract class K000_AbstractObject(
 ) : Cloneable, AbstractType {
 
     companion object {
