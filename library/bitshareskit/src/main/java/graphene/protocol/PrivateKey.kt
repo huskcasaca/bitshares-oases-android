@@ -13,7 +13,7 @@ import kotlinx.serialization.encoding.Encoder
 
 @Serializable(with = KPrivateKeySerializer::class)
 data class PrivateKeyType(
-    override val wif: String = "BTS111111111111111111111111111111111111111111114T1Anm",
+    override val wif: String = "BTS111111111111111111111111111111111111111111114T1Anm", // TODO
     override val prefix: String = ChainConfig.CHAIN_SYMBOL_MAIN_NET,
     override val type: KeyType = KeyType.UNDEFINED,
 ) : Key, GrapheneComponent {
@@ -23,7 +23,7 @@ data class PrivateKeyType(
     private val checksumBytes = keyBytes.copyOfRange(keyBytes.size - 4, keyBytes.size)
     val ecKey: ECKey? = runCatching { ECKey.fromPrivate(privateBytes) }.getOrNull()
 
-    val publicKey = if (ecKey != null) PublicKeyType.fromECKey(ECKey.fromPublicOnly(ecKey.pubKey), prefix, type) else PublicKeyType(prefix = prefix, type = type)
+    val publicKey = if (ecKey != null) PublicKeyType.fromECKey(ECKey.fromPublicOnly(ecKey.pubKey), prefix) else PublicKeyType(prefix = prefix, type = type)
     override val address: String = publicKey.address
 
     val isValid: Boolean = keyBytes.copyOfRange(0, keyBytes.size - 4).sha256().sha256().copyOfRange(0, 4).contentEquals(checksumBytes)

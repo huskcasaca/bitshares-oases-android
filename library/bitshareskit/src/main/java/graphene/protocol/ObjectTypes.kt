@@ -1,7 +1,6 @@
 package graphene.protocol
 
-import graphene.chain.K102AccountObject
-import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 interface AbstractType: Comparable<AbstractType> {
     val id: AbstractIdType                                  get() = this as AbstractIdType
@@ -43,7 +42,6 @@ interface K102_AccountType: AbstractType {
     val ownerSpecialAuthority: SpecialAuthority             get() = emptyComponent()
     val activeSpecialAuthority: SpecialAuthority            get() = emptyComponent()
     val topNControlFlags: UInt8                             get() = 0U
-
 }
 
 interface K103_AssetType: AbstractType {

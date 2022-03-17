@@ -1,9 +1,9 @@
 package graphene.protocol
 
 import bitshareskit.extensions.EMPTY_SPACE
-import bitshareskit.extensions.logloglog
-import kotlin.reflect.KClass
-import kotlin.reflect.KFunction
+import bitshareskit.extensions.info
+import kotlinx.coroutines.*
+import java.util.concurrent.atomic.AtomicInteger
 
 enum class ObjectSpace(val id: UInt8) {
     /* 0.x.x  */ RELATIVE_PROTOCOL           (0U),
@@ -68,170 +68,75 @@ enum class ImplementationType(override val id: UInt8): ObjectType {
 
 typealias ObjectInstance = UInt64
 
-val INVALID_ID: ULong = UInt64.MAX_VALUE
+const val INVALID_ID: ULong = UInt64.MAX_VALUE
+const val GRAPHENE_ID_SEPARATOR: String = "."
 
 
-val GRAPHENE_ID_TO_SPACE: Map<UInt8, ObjectSpace> =
-    ObjectSpace.values().associateBy { it.id }
+inline fun <reified K: AbstractType> emptyIdType(): K {
+//    return K::class.members.first { it.name == "id" }.returnType.jvmErasure.constructors.first().call(0U.toULong()) as K
+    return GRAPHENE_ID_TYPE_FAST_ALOC[K::class] as K
+}
 
-val GRAPHENE_ID_TO_PROTOCOL_TYPE: Map<UInt8, ProtocolType> =
-    ProtocolType.values().associateBy { it.id }
+fun opsLaunch(block: () -> Unit): String {
+    var times = 0
+    val time = System.currentTimeMillis()
 
-val GRAPHENE_ID_TO_IMPLEMENTATION_TYPE: Map<UInt8, ObjectType> =
-    ImplementationType.values().associateBy { it.id }
-
-val GRAPHENE_SPACE_TO_TYPE: Map<ObjectSpace, Map<UInt8, ObjectType>> = mapOf(
-    ObjectSpace.PROTOCOL to GRAPHENE_ID_TO_PROTOCOL_TYPE,
-    ObjectSpace.IMPLEMENTATION to GRAPHENE_ID_TO_IMPLEMENTATION_TYPE,
-)
-
-val GRAPHENE_TYPE_TO_ID_CONSTRUCTOR: Map<ObjectType, KFunction<AbstractIdType>> = mapOf(
-    ProtocolType.NULL                               to K100_NullIdType::class,
-    ProtocolType.BASE                               to K101_BaseIdType::class,
-    ProtocolType.ACCOUNT                            to K102_AccountIdType::class,
-    ProtocolType.ASSET                              to K103_AssetIdType::class,
-    ProtocolType.FORCE_SETTLEMENT                   to K104_ForceSettlementIdType::class,
-    ProtocolType.COMMITTEE_MEMBER                   to K105_CommitteeMemberIdType::class,
-    ProtocolType.WITNESS                            to K106_WitnessIdType::class,
-    ProtocolType.LIMIT_ORDER                        to K107_LimitOrderIdType::class,
-    ProtocolType.CALL_ORDER                         to K108_CallOrderIdType::class,
-    ProtocolType.CUSTOM                             to K109_CustomIdType::class,
-    ProtocolType.PROPOSAL                           to K110_ProposalIdType::class,
-    ProtocolType.OPERATION_HISTORY                  to K111_OperationHistoryIdType::class,
-    ProtocolType.WITHDRAW_PERMISSION                to K112_WithdrawPermissionIdType::class,
-    ProtocolType.VESTING_BALANCE                    to K113_VestingBalanceIdType::class,
-    ProtocolType.WORKER                             to K114_WorkerIdType::class,
-    ProtocolType.BALANCE                            to K115_BalanceIdType::class,
-    ProtocolType.HTLC                               to K116_HtlcIdType::class,
-    ProtocolType.CUSTOM_AUTHORITY                   to K117_CustomAuthorityIdType::class,
-    ProtocolType.TICKET                             to K118_TicketIdType::class,
-    ProtocolType.LIQUIDITY_POOL                     to K119_LiquidityPoolIdType::class,
-    ProtocolType.SAMET_FUND                         to K120_SametFundIdType::class,
-    ProtocolType.CREDIT_OFFER                       to K121_CreditOfferIdType::class,
-    ProtocolType.CREDIT_DEAL                        to K122_CreditDealIdType::class,
-
-    ImplementationType.GLOBAL_PROPERTY              to K200_GlobalPropertyIdType::class,
-    ImplementationType.DYNAMIC_GLOBAL_PROPERTY      to K201_DynamicGlobalPropertyIdType::class,
-    ImplementationType.RESERVED                     to K202_ReservedIdType::class,
-    ImplementationType.ASSET_DYNAMIC_DATA           to K203_AssetDynamicIdType::class,
-    ImplementationType.ASSET_BITASSET_DATA          to K204_AssetBitassetIdType::class,
-    ImplementationType.ACCOUNT_BALANCE              to K205_AccountBalanceIdType::class,
-    ImplementationType.ACCOUNT_STATISTICS           to K206_AccountStatisticsIdType::class,
-    ImplementationType.TRANSACTION_HISTORY          to K207_TransactionHistoryIdType::class,
-    ImplementationType.BLOCK_SUMMARY                to K208_BlockSummaryIdType::class,
-    ImplementationType.ACCOUNT_TRANSACTION_HISTORY  to K209_AccountTransactionHistoryIdType::class,
-    ImplementationType.BLINDED_BALANCE              to K210_BlindedBalanceIdType::class,
-    ImplementationType.CHAIN_PROPERTY               to K211_ChainPropertyIdType::class,
-    ImplementationType.WITNESS_SCHEDULE             to K212_WitnessScheduleIdType::class,
-    ImplementationType.BUDGET_RECORD                to K213_BudgetRecordIdType::class,
-    ImplementationType.SPECIAL_AUTHORITY            to K214_SpecialAuthorityIdType::class,
-    ImplementationType.BUYBACK                      to K215_BuybackIdType::class,
-    ImplementationType.FBA_ACCUMULATOR              to K216_FbaAccumulatorIdType::class,
-    ImplementationType.COLLATERAL_BID               to K217_CollateralBidIdType::class,
-    ImplementationType.CREDIT_DEAL_SUMMARY          to K218_CreditDealSummaryIdType::class,
-
-    ).mapValues { it.value.constructors.first() }
-
-//    ProtocolType.NULL                               to K100_NullIdType::class,
-//    ProtocolType.BASE                               to K101_BaseIdType::class,
-//    ProtocolType.ACCOUNT                            to K102_AccountIdType::class,
-//    ProtocolType.ASSET                              to K103_AssetIdType::class,
-//    ProtocolType.FORCE_SETTLEMENT                   to K104_ForceSettlementIdType::class,
-//    ProtocolType.COMMITTEE_MEMBER                   to K105_CommitteeMemberIdType::class,
-//    ProtocolType.WITNESS                            to K106_WitnessIdType::class,
-//    ProtocolType.LIMIT_ORDER                        to K107_LimitOrderIdType::class,
-//    ProtocolType.CALL_ORDER                         to K108_CallOrderIdType::class,
-//    ProtocolType.CUSTOM                             to K109_CustomIdType::class,
-//    ProtocolType.PROPOSAL                           to K110_ProposalIdType::class,
-//    ProtocolType.OPERATION_HISTORY                  to K111_OperationHistoryIdType::class,
-//    ProtocolType.WITHDRAW_PERMISSION                to K112_WithdrawPermissionIdType::class,
-//    ProtocolType.VESTING_BALANCE                    to K113_VestingBalanceIdType::class,
-//    ProtocolType.WORKER                             to K114_WorkerIdType::class,
-//    ProtocolType.BALANCE                            to K115_BalanceIdType::class,
-//    ProtocolType.HTLC                               to K116_HtlcIdType::class,
-//    ProtocolType.CUSTOM_AUTHORITY                   to K117_CustomAuthorityIdType::class,
-//    ProtocolType.TICKET                             to K118_TicketIdType::class,
-//    ProtocolType.LIQUIDITY_POOL                     to K119_LiquidityPoolIdType::class,
-//    ProtocolType.SAMET_FUND                         to K120_SametFundIdType::class,
-//    ProtocolType.CREDIT_OFFER                       to K121_CreditOfferIdType::class,
-//    ProtocolType.CREDIT_DEAL                        to K122_CreditDealIdType::class,
-//
-//    ImplementationType.GLOBAL_PROPERTY              to K200_GlobalPropertyIdType::class,
-//    ImplementationType.DYNAMIC_GLOBAL_PROPERTY      to K201_DynamicGlobalPropertyIdType::class,
-//    ImplementationType.RESERVED                     to K202_ReservedIdType::class,
-//    ImplementationType.ASSET_DYNAMIC_DATA           to K203_AssetDynamicIdType::class,
-//    ImplementationType.ASSET_BITASSET_DATA          to K204_AssetBitassetIdType::class,
-//    ImplementationType.ACCOUNT_BALANCE              to K205_AccountBalanceIdType::class,
-//    ImplementationType.ACCOUNT_STATISTICS           to K206_AccountStatisticsIdType::class,
-//    ImplementationType.TRANSACTION_HISTORY          to K207_TransactionHistoryIdType::class,
-//    ImplementationType.BLOCK_SUMMARY                to K208_BlockSummaryIdType::class,
-//    ImplementationType.ACCOUNT_TRANSACTION_HISTORY  to K209_AccountTransactionHistoryIdType::class,
-//    ImplementationType.BLINDED_BALANCE              to K210_BlindedBalanceIdType::class,
-//    ImplementationType.CHAIN_PROPERTY               to K211_ChainPropertyIdType::class,
-//    ImplementationType.WITNESS_SCHEDULE             to K212_WitnessScheduleIdType::class,
-//    ImplementationType.BUDGET_RECORD                to K213_BudgetRecordIdType::class,
-//    ImplementationType.SPECIAL_AUTHORITY            to K214_SpecialAuthorityIdType::class,
-//    ImplementationType.BUYBACK                      to K215_BuybackIdType::class,
-//    ImplementationType.FBA_ACCUMULATOR              to K216_FbaAccumulatorIdType::class,
-//    ImplementationType.COLLATERAL_BID               to K217_CollateralBidIdType::class,
-//    ImplementationType.CREDIT_DEAL_SUMMARY          to K218_CreditDealSummaryIdType::class,
+    while (System.currentTimeMillis() - time < 3000) {
+        block()
+        times++
+    }
+    "${times / 3f} ops/s".info()
+    return "${times / 3f} ops/s"
+}
 
 
+suspend fun opsSuspend(block: () -> Unit): String {
+    val time = System.currentTimeMillis()
+    coroutineScope {
+        (0..1000).map {
+            launch(Dispatchers.IO) {
+                block()
+            }
+        }.joinAll()
+    }
+    return "${1000 * 1000 / (System.currentTimeMillis() - time).toFloat()} ops/s"
+}
 
-val idTypes: Map<KClass<out AbstractType>, AbstractIdType> =
-    mapOf(
-        K102_AccountType::class to K102_AccountIdType(),
-    ) + mapOf(
-        K102_AccountIdType::class to K102_AccountIdType(),
-    )
-
-inline fun <reified K: AbstractType> emptyIdType(): K = idTypes[K::class] as K
-
-val components: Map<KClass<out GrapheneComponent>, GrapheneComponent> =
-    mapOf(
-        Authority::class        to Authority(),
-        AccountOptions::class   to AccountOptions(),
-        PublicKeyType::class       to PublicKeyType(),
-        PrivateKeyType::class      to PrivateKeyType(),
-        AssetOptions::class     to AssetOptions(),
-    )
-
-inline fun <reified K: GrapheneComponent> emptyComponent(): K = components[K::class] as K
+inline fun <reified K: GrapheneComponent> emptyComponent(): K {
+    return GRAPHENE_COMPONENTS_FAST_ALOC[K::class] as K
+}
 
 fun emptyString(): String = EMPTY_SPACE
-
-private const val GRAPHENE_ID_SEPARATOR = "."
 
 val String.isValidGrapheneId: Boolean
     get() = matches(Regex("[0-9]+\\$GRAPHENE_ID_SEPARATOR[0-9]+\\$GRAPHENE_ID_SEPARATOR[0-9]+")) &&
             split(GRAPHENE_ID_SEPARATOR).let {
-                GRAPHENE_ID_TO_SPACE[it[0].toUInt8OrNull() ?: return@let false] ?: return@let false
-                GRAPHENE_ID_TO_PROTOCOL_TYPE[it[1].toUInt8OrNull() ?: return@let false] ?: return@let false
+                GRAPHENE_SPACE_ENUM_INDEX[it[0].toUInt8OrNull() ?: return@let false] ?: return@let false
+                GRAPHENE_PROTOCOL_TYPE_ENUM_INDEX[it[1].toUInt8OrNull() ?: return@let false] ?: return@let false
                 it[0].toUInt64OrNull() ?: return@let false
                 true
             }
 
 fun String.toGrapheneSpace(): ObjectSpace {
-    if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id!")
+//    if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id!")
     val uid = split(GRAPHENE_ID_SEPARATOR)[0].toUInt8()
-    return GRAPHENE_ID_TO_SPACE[uid] ?: throw IllegalArgumentException("Invalid graphene id!")
+    return GRAPHENE_SPACE_ENUM_INDEX[uid] ?: throw IllegalArgumentException("Invalid graphene id!")
 }
 
 fun String.toGrapheneType(): ObjectType {
-    if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id!")
+//    if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id!")
     val uid = split(GRAPHENE_ID_SEPARATOR)[1].toUInt8()
-    return GRAPHENE_SPACE_TO_TYPE[toGrapheneSpace()]?.get(uid) ?: throw IllegalArgumentException("Invalid graphene id!")
+    return GRAPHENE_SPACE_TYPE_INDEX[toGrapheneSpace()]?.get(uid) ?: throw IllegalArgumentException("Invalid graphene id!")
 }
 
 fun String.toGrapheneInstance(): ObjectInstance {
-    if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id!")
+//    if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id!")
     val uid = split(GRAPHENE_ID_SEPARATOR)[2].toUInt64()
     return uid
 }
 
 fun <T: AbstractIdType> String.toGrapheneObjectId(): T {
-    logloglog()
-    return GRAPHENE_TYPE_TO_ID_CONSTRUCTOR[toGrapheneType()]!!.call(toGrapheneInstance()) as T
+    return GRAPHENE_TYPE_TO_CONSTRUCTOR[toGrapheneType()]!!.call(toGrapheneInstance()) as T
 }
 
 val AbstractType.standardId: String

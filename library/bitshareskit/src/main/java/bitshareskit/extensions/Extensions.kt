@@ -7,6 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.slf4j.LoggerFactory
 import java.math.BigDecimal
 import kotlin.contracts.contract
 
@@ -40,7 +41,12 @@ inline fun <T> T?.ifNull(block: () -> T): T = this ?: block.invoke()
 
 fun logcat(message: Any?) = Log.i("*** ***", message.toString())
 fun logcat(vararg message: Any?) = Log.i("*** ***", message.toList().toString())
-fun Any?.logloglog() = if (this == null) Log.i("logloglog", "NULL") else Log.i("logloglog", this::class.simpleName + " " + this.toString())
+fun Any?.logloglog() {
+    if (this == null) Log.i("logloglog", "NULL") else Log.i("logloglog", this::class.simpleName + " " + this.toString())
+}
+fun Any?.info() = LoggerFactory.getLogger("BitSharesKit Log").info(toString())
+
+
 
 fun ViewGroup.printAllChildren() = printAllChildrenInternal(0)
 

@@ -14,6 +14,11 @@ abstract class AbstractIdType(
     val type: ObjectType
 ) : Cloneable, AbstractType {
     abstract val instance: ObjectInstance
+
+    override fun toString(): String {
+        return "${space.id}${type.id}$instance"
+    }
+
 }
 
 // PROTOCOL_IDS

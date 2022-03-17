@@ -5,7 +5,8 @@ import kotlinx.serialization.Serializable
 import java.util.*
 
 @Serializable
-data class Authority constructor(
+@Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
+data class Authority (
     @SerialName(KEY_WEIGHT_THRESHOLD)
     val weightThreshold: UInt32 = 0U,
     @SerialName(KEY_ACCOUNT_AUTHS) @Serializable(with = SortedMapSerializer::class)

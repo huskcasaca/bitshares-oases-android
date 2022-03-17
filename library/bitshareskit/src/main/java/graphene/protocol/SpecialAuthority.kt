@@ -1,26 +1,27 @@
 package graphene.protocol
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
+@Serializable(with = SpecialAuthoritySerializer::class)
+@Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 data class SpecialAuthority(
-    val tagType: Int64 = 0,
-    val list: List<BaseSpecialAuthority> = emptyList()
-) : GrapheneComponent
+    override val tagType: Int64 = 0,
+    override val storage: BaseSpecialAuthority = NoSpecialAuthority()
+) : StaticVariant<BaseSpecialAuthority>(), GrapheneComponent
 
-
-
-@Serializable
+@Serializable(with = BaseSpecialAuthoritySerializer::class)
 sealed class BaseSpecialAuthority : GrapheneComponent
 
 @Serializable
-class NoSpecialAuthority(
-
-) : BaseSpecialAuthority()
+class NoSpecialAuthority : BaseSpecialAuthority()
 
 @Serializable
+@Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 data class TopHoldersSpecialAuthority (
+    @SerialName("asset") @Serializable(with = ObjectIdTypeSerializer::class)
     val asset: K103_AssetType = emptyIdType(),
+    @SerialName("num_top_holders")
     val numTopHolders: UInt8 = 1U
 ) : BaseSpecialAuthority()
 

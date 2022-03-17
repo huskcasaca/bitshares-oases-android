@@ -20,4 +20,7 @@ fun String.toUInt16(radix: Int = 10): UInt16 = toUShort(radix)
 fun String.toUInt32(radix: Int = 10): UInt32 = toUInt(radix)
 fun String.toUInt64(radix: Int = 10): UInt64 = toULong(radix)
 
-typealias Weight = UInt16
+
+
+
+

@@ -7,7 +7,7 @@ import java.util.*
 
 @Serializable
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
-data class K102AccountObject(
+data class K102_AccountObject(
     @SerialName(KEY_ID)
     override val id: K102_AccountIdType = emptyIdType(),
     @SerialName(KEY_MEMBERSHIP_EXPIRATION_DATE)
@@ -51,15 +51,14 @@ data class K102AccountObject(
     @SerialName(KEY_BLACKLISTED_ACCOUNTS)
     override val blackListedAccounts: Set<@Serializable(with = ObjectIdTypeSerializer::class) K102_AccountType> = emptySet(),
 
-//    @SerialName(KEY_OWNER_SPECIAL_AUTHORITY)
-//    override val ownerSpecialAuthority: SpecialAuthority = emptyComponent(),
-//    @SerialName(KEY_ACTIVE_SPECIAL_AUTHORITY)
-//    override val activeSpecialAuthority: SpecialAuthority = emptyComponent(),
-//    @SerialName(KEY_TOP_N_CONTROL_FLAGS)
-//    override val topNControlFlags: UInt8 = 0U,
+    @SerialName(KEY_OWNER_SPECIAL_AUTHORITY)
+    override val ownerSpecialAuthority: SpecialAuthority = emptyComponent(),
+    @SerialName(KEY_ACTIVE_SPECIAL_AUTHORITY)
+    override val activeSpecialAuthority: SpecialAuthority = emptyComponent(),
+    @SerialName(KEY_TOP_N_CONTROL_FLAGS)
+    override val topNControlFlags: UInt8 = 0U,
 
-
-    ) : K000_AbstractObject(), K102_AccountType {
+) : K000_AbstractObject(), K102_AccountType {
 
     companion object {
         const val TABLE_NAME = "account_object"
