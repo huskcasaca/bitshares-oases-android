@@ -13,11 +13,11 @@ data class K102_AccountObject(
     @SerialName(KEY_MEMBERSHIP_EXPIRATION_DATE)
     override val membershipExpirationDate: ChainTimePoint = ChainTimePoint.STANDARD_EXPIRATION_DATE_TIME,
 
-    @SerialName(KEY_REGISTRAR) @Serializable(with = ObjectIdTypeSerializer::class)
+    @SerialName(KEY_REGISTRAR)
     override val registrar: K102_AccountType = emptyIdType(),
-    @SerialName(KEY_REFERRER) @Serializable(with = ObjectIdTypeSerializer::class)
+    @SerialName(KEY_REFERRER)
     override val referrer: K102_AccountType = emptyIdType(),
-    @SerialName(KEY_LIFETIME_REFERRER) @Serializable(with = ObjectIdTypeSerializer::class)
+    @SerialName(KEY_LIFETIME_REFERRER)
     override val lifetimeReferrer: K102_AccountType = emptyIdType(),
 
     @SerialName(KEY_NETWORK_FEE_PERCENTAGE)
@@ -39,17 +39,17 @@ data class K102_AccountObject(
 
     @SerialName(KEY_NUM_COMMITTEE_VOTED)
     override val numCommitteeVoted: UInt16 = 0U,
-    @SerialName(KEY_STATISTICS) @Serializable(with = ObjectIdTypeSerializer::class)
+    @SerialName(KEY_STATISTICS)
     override val statistics: K206_AccountStatisticsType = emptyIdType(),
 
-    @SerialName(KEY_WHITELISTING_ACCOUNTS) @Serializable(with = SortedSetSerializer::class)
-    override val whiteListingAccounts: SortedSet<@Serializable(with = ObjectIdTypeSerializer::class) K102_AccountType> = sortedSetOf(),
-    @SerialName(KEY_BLACKLISTING_ACCOUNTS) @Serializable(with = SortedSetSerializer::class)
-    override val blackListingAccounts: SortedSet<@Serializable(with = ObjectIdTypeSerializer::class) K102_AccountType> = sortedSetOf(),
+    @SerialName(KEY_WHITELISTING_ACCOUNTS)
+    override val whiteListingAccounts: TypeSet<K102_AccountType> = sortedSetOf(),
+    @SerialName(KEY_BLACKLISTING_ACCOUNTS)
+    override val blackListingAccounts: TypeSet<K102_AccountType> = sortedSetOf(),
     @SerialName(KEY_WHITELISTED_ACCOUNTS)
-    override val whiteListedAccounts: Set<@Serializable(with = ObjectIdTypeSerializer::class) K102_AccountType> = emptySet(),
+    override val whiteListedAccounts: Set<K102_AccountType> = emptySet(),
     @SerialName(KEY_BLACKLISTED_ACCOUNTS)
-    override val blackListedAccounts: Set<@Serializable(with = ObjectIdTypeSerializer::class) K102_AccountType> = emptySet(),
+    override val blackListedAccounts: Set<K102_AccountType> = emptySet(),
 
     @SerialName(KEY_OWNER_SPECIAL_AUTHORITY)
     override val ownerSpecialAuthority: SpecialAuthority = emptyComponent(),
@@ -61,31 +61,29 @@ data class K102_AccountObject(
 ) : K000_AbstractObject(), K102_AccountType {
 
     companion object {
-        const val TABLE_NAME = "account_object"
+        private const val KEY_MEMBERSHIP_EXPIRATION_DATE = "membership_expiration_date"
+        private const val KEY_REGISTRAR = "registrar"
+        private const val KEY_REFERRER = "referrer"
+        private const val KEY_LIFETIME_REFERRER = "lifetime_referrer"
+        private const val KEY_NETWORK_FEE_PERCENTAGE = "network_fee_percentage"
+        private const val KEY_LIFETIME_REFERRER_FEE_PERCENTAGE = "lifetime_referrer_fee_percentage"
+        private const val KEY_REFERRER_REWARD_PERCENTAGE = "referrer_rewards_percentage"
+        private const val KEY_NAME = "name"
+        private const val KEY_OWNER = "owner"
+        private const val KEY_ACTIVE = "active"
+        private const val KEY_OPTIONS = "options"
 
-        const val KEY_MEMBERSHIP_EXPIRATION_DATE = "membership_expiration_date"
-        const val KEY_REGISTRAR = "registrar"
-        const val KEY_REFERRER = "referrer"
-        const val KEY_LIFETIME_REFERRER = "lifetime_referrer"
-        const val KEY_NETWORK_FEE_PERCENTAGE = "network_fee_percentage"
-        const val KEY_LIFETIME_REFERRER_FEE_PERCENTAGE = "lifetime_referrer_fee_percentage"
-        const val KEY_REFERRER_REWARD_PERCENTAGE = "referrer_rewards_percentage"
-        const val KEY_NAME = "name"
-        const val KEY_OWNER = "owner"
-        const val KEY_ACTIVE = "active"
-        const val KEY_OPTIONS = "options"
+        private const val KEY_NUM_COMMITTEE_VOTED = "num_committee_voted"
 
-        const val KEY_NUM_COMMITTEE_VOTED = "num_committee_voted"
+        private const val KEY_STATISTICS = "statistics"
+        private const val KEY_WHITELISTING_ACCOUNTS = "whitelisting_accounts"
+        private const val KEY_BLACKLISTING_ACCOUNTS = "blacklisting_accounts"
+        private const val KEY_WHITELISTED_ACCOUNTS = "whitelisted_accounts"
+        private const val KEY_BLACKLISTED_ACCOUNTS = "blacklisted_accounts"
 
-        const val KEY_STATISTICS = "statistics"
-        const val KEY_WHITELISTING_ACCOUNTS = "whitelisting_accounts"
-        const val KEY_BLACKLISTING_ACCOUNTS = "blacklisting_accounts"
-        const val KEY_WHITELISTED_ACCOUNTS = "whitelisted_accounts"
-        const val KEY_BLACKLISTED_ACCOUNTS = "blacklisted_accounts"
-
-        const val KEY_OWNER_SPECIAL_AUTHORITY = "owner_special_authority"
-        const val KEY_ACTIVE_SPECIAL_AUTHORITY = "active_special_authority"
-        const val KEY_TOP_N_CONTROL_FLAGS = "top_n_control_flags"
+        private const val KEY_OWNER_SPECIAL_AUTHORITY = "owner_special_authority"
+        private const val KEY_ACTIVE_SPECIAL_AUTHORITY = "active_special_authority"
+        private const val KEY_TOP_N_CONTROL_FLAGS = "top_n_control_flags"
 
     }
 

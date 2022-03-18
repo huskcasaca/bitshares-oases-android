@@ -16,13 +16,11 @@ data class K203_AssetDynamicData(
 ) : K000_AbstractObject(), K203_AssetDynamicType {
 
     companion object {
-        const val TABLE_NAME = "asset_dynamic_data"
-
-        const val KEY_CURRENT_SUPPLY = "current_supply"
-        const val KEY_CONFIDENTIAL_SUPPLY = "confidential_supply"
-        const val KEY_ACCUMULATED_FEES = "accumulated_fees"
-        const val KEY_ACCUMULATED_COLLATERAL_FEES = "accumulated_collateral_fees"
-        const val KEY_FEE_POOL = "fee_pool"
+        private const val KEY_CURRENT_SUPPLY = "current_supply"
+        private const val KEY_CONFIDENTIAL_SUPPLY = "confidential_supply"
+        private const val KEY_ACCUMULATED_FEES = "accumulated_fees"
+        private const val KEY_ACCUMULATED_COLLATERAL_FEES = "accumulated_collateral_fees"
+        private const val KEY_FEE_POOL = "fee_pool"
     }
 
 }

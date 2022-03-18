@@ -16,6 +16,7 @@ enum class ObjectSpace(val id: UInt8) {
 
 interface ObjectType {
     val id: UInt8
+//    val ordinal: Int
 }
 
 enum class ProtocolType(override val id: UInt8): ObjectType {
@@ -140,6 +141,6 @@ fun <T: AbstractIdType> String.toGrapheneObjectId(): T {
 }
 
 val AbstractType.standardId: String
-    get() = "${id.space}$GRAPHENE_ID_SEPARATOR${id.type}$GRAPHENE_ID_SEPARATOR${id.instance}"
+    get() = "${id.space.id}$GRAPHENE_ID_SEPARATOR${id.type.id}$GRAPHENE_ID_SEPARATOR${id.instance}"
 
 

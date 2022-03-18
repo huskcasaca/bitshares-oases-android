@@ -13,3 +13,4 @@ class AddressType: GrapheneComponent, Comparable<AddressType> {
         return TODO()
     }
 }
+

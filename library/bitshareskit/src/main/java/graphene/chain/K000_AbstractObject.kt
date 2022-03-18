@@ -1,7 +1,6 @@
 package graphene.chain
 
-import graphene.protocol.AbstractIdType
-import graphene.protocol.AbstractType
+import graphene.protocol.*
 
 abstract class K000_AbstractObject(
 ) : Cloneable, AbstractType {
