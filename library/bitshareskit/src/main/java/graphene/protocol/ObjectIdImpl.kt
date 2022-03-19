@@ -9,6 +9,7 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+@Serializable(with = ObjectIdTypeSerializer::class)
 abstract class AbstractIdType(
     val space: ObjectSpace,
     val type: ObjectType

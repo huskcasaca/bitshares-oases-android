@@ -21,7 +21,7 @@ import com.bitshares.oases.database.entities.TickerEntity
 import com.bitshares.oases.netowrk.java_websocket.GrapheneSocketLiveData
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.provider.chain_repo.AssetRepository.awaitPriceDetailWithExtraData
-import graphene.app.CallMethod
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import modulon.extensions.livedata.emptyLiveData

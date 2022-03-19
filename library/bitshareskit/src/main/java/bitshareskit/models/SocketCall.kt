@@ -3,8 +3,8 @@ package bitshareskit.models
 import bitshareskit.extensions.buildJsonArray
 import bitshareskit.extensions.buildJsonObject
 import bitshareskit.objects.JsonSerializable
-import graphene.app.BlockchainAPI
-import graphene.app.CallMethod
+import bitshareskit.chain.BlockchainAPI
+import bitshareskit.chain.CallMethod
 import org.java_json.JSONArray
 import org.java_json.JSONObject
 

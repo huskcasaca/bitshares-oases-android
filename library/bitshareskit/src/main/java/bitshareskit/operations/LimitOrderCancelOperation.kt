@@ -5,7 +5,7 @@ import bitshareskit.objects.AccountObject
 import bitshareskit.objects.LimitOrderObject
 import bitshareskit.serializer.writeGrapheneSet
 import bitshareskit.serializer.writeSerializable
-import graphene.app.Authority
+import bitshareskit.chain.Authority
 import kotlinx.io.core.buildPacket
 import kotlinx.io.core.readBytes
 import org.java_json.JSONArray

@@ -5,7 +5,7 @@ import bitshareskit.models.AssetAmount
 import bitshareskit.objects.AssetObject
 import bitshareskit.objects.GrapheneSortSerializable
 import bitshareskit.serializer.grapheneGlobalComparator
-import graphene.app.Authority
+import bitshareskit.chain.Authority
 import org.java_json.JSONArray
 import org.java_json.JSONObject
 import java.io.Serializable

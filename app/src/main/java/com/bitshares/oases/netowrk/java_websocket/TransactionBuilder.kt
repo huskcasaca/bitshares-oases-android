@@ -12,7 +12,7 @@ import com.bitshares.oases.chain.blockchainNetworkScope
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.provider.chain_repo.TransactionRepository
-import graphene.app.CallMethod
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -12,10 +12,8 @@ import com.bitshares.oases.netowrk.java_websocket.GrapheneSocketLiveData
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.provider.Source
-import graphene.app.CallMethod
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.modules.SerializersModule
 import modulon.extensions.livedata.emptyLiveData
 import org.java_json.JSONArray
 import org.java_json.JSONObject

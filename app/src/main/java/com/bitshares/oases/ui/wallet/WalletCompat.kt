@@ -27,7 +27,7 @@ import com.bitshares.oases.security.fingerprint.FingerprintAuthentication
 import com.bitshares.oases.ui.base.startFragment
 import com.bitshares.oases.ui.settings.node.NodeSettingsFragment
 import com.mattprecious.swirl.SwirlView
-import graphene.app.Authority
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
 import modulon.component.IconSize
 import modulon.dialog.*

@@ -3,7 +3,6 @@ package graphene.chain
 import graphene.protocol.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.util.*
 
 @Serializable
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
@@ -58,7 +57,7 @@ data class K102_AccountObject(
     @SerialName(KEY_TOP_N_CONTROL_FLAGS)
     override val topNControlFlags: UInt8 = 0U,
 
-) : K000_AbstractObject(), K102_AccountType {
+) : AbstractObject(), K102_AccountType {
 
     companion object {
         private const val KEY_MEMBERSHIP_EXPIRATION_DATE = "membership_expiration_date"

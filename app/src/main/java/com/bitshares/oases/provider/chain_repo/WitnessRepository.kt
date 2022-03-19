@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import bitshareskit.objects.WitnessObject
 import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
-import graphene.app.CallMethod
+import bitshareskit.chain.CallMethod
 
 object WitnessRepository {
 

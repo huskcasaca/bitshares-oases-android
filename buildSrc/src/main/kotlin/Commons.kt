@@ -101,6 +101,8 @@ fun Project.libraryKit() {
         implementation("org.bouncycastle:bcpkix-jdk15on:1.65")
 
         // test libs
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+        testImplementation("com.github.bilthon:graphenej:0.4.2")
         testImplementation("com.github.bilthon:graphenej:0.4.2")
         testImplementation("junit:junit:4.13")
         testImplementation("org.bouncycastle:bcpkix-jdk15on:1.65")

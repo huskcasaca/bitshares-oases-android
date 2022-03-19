@@ -1,12 +1,15 @@
 package graphene.protocol
 
-import bitshareskit.extensions.info
+import graphene.chain.AbstractObject
+import graphene.chain.K102_AccountObject
+import kotlinx.serialization.DeserializationStrategy
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.*
-import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.serializer
 import java.util.*
 
 
@@ -33,6 +36,26 @@ class ObjectIdTypeSerializer<T: AbstractIdType> : KSerializer<T> {
     override fun deserialize(decoder: Decoder): T = decoder.decodeString().toGrapheneObjectId()
     override fun serialize(encoder: Encoder, value: T) = encoder.encodeString(value.standardId)
 }
+// id serializer
+@OptIn(InternalSerializationApi::class)
+class AbstractObjectSerializer<T: AbstractObject> : KSerializer<T> {
+    override val descriptor: SerialDescriptor = ObjectIdTypeDescriptor
+    override fun deserialize(decoder: Decoder): T {
+        decoder as JsonDecoder
+        val element = decoder.decodeJsonElement().jsonObject
+        val serializer = element[AbstractObject.KEY_ID]!!.jsonPrimitive.content.toGrapheneType().toObjectClass().serializer()
+        return decoder.json.decodeFromJsonElement(serializer, element) as T
+    }
+    override fun serialize(encoder: Encoder, value: T) = TODO()
+}
+//class AbstractObjectSerializer : JsonContentPolymorphicSerializer<AbstractObject>(AbstractObject::class) {
+//    override fun selectDeserializer(element: JsonElement): DeserializationStrategy<out AbstractObject> {
+//        return element.jsonObject[AbstractObject.KEY_ID]!!.jsonPrimitive.content.toGrapheneType().toObjectClass().serializer()
+//    }
+//}
+
+
+
 
 class SortedMapSerializer<K: Comparable<K>, V>(
     private val keySerializer: KSerializer<K>, private val valueSerializer: KSerializer<V>) : KSerializer<SortedMap<K, V>> {

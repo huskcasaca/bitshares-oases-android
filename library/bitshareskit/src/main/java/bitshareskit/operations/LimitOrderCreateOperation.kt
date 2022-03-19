@@ -9,7 +9,7 @@ import bitshareskit.serializer.writeGrapheneBoolean
 import bitshareskit.serializer.writeGrapheneSet
 import bitshareskit.serializer.writeGrapheneTime
 import bitshareskit.serializer.writeSerializable
-import graphene.app.Authority
+import bitshareskit.chain.Authority
 import kotlinx.io.core.buildPacket
 import kotlinx.io.core.readBytes
 import org.java_json.JSONArray

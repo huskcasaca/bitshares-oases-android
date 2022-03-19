@@ -2,8 +2,9 @@ package graphene.protocol
 
 import bitshareskit.extensions.EMPTY_SPACE
 import bitshareskit.extensions.info
+import graphene.chain.AbstractObject
 import kotlinx.coroutines.*
-import java.util.concurrent.atomic.AtomicInteger
+import kotlin.reflect.KClass
 
 enum class ObjectSpace(val id: UInt8) {
     /* 0.x.x  */ RELATIVE_PROTOCOL           (0U),
@@ -136,8 +137,10 @@ fun String.toGrapheneInstance(): ObjectInstance {
     return uid
 }
 
+fun ObjectType.toObjectClass(): KClass<out AbstractObject> = GRAPHENE_TYPE_TO_OBJ_CLASS[this]!!
+
 fun <T: AbstractIdType> String.toGrapheneObjectId(): T {
-    return GRAPHENE_TYPE_TO_CONSTRUCTOR[toGrapheneType()]!!.call(toGrapheneInstance()) as T
+    return GRAPHENE_TYPE_TO_IDT_CONSTRUCTOR[toGrapheneType()]!!.call(toGrapheneInstance()) as T
 }
 
 val AbstractType.standardId: String

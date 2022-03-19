@@ -7,5 +7,5 @@ import kotlinx.serialization.*
 data class K101_BaseObject(
     @SerialName(KEY_ID)
     override val id: K101_BaseIdType = emptyIdType(),
-) : K000_AbstractObject(), K101_BaseType
+) : AbstractObject(), K101_BaseType
 

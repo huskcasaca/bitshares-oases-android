@@ -9,8 +9,8 @@ import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.database.entities.Node
 import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.provider.local_repo.NodeRepository
-import graphene.app.BlockchainAPI
-import graphene.app.CallMethod
+import bitshareskit.chain.BlockchainAPI
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

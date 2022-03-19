@@ -6,7 +6,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
-import graphene.app.Authority.*
+import bitshareskit.chain.Authority.*
 import bitshareskit.models.PublicKey
 import bitshareskit.objects.AccountObject
 import com.bitshares.oases.R
@@ -17,7 +17,7 @@ import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.ui.account.permission.PermissionFragment.Tabs
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.startAccountPicker
-import graphene.app.Authority
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import modulon.component.ComponentCell

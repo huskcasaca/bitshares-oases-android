@@ -1,7 +1,7 @@
 package com.bitshares.oases
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.bitshares.oases.netowrk.rpc.GrapheneClient
+import graphene.rpc.GrapheneClient
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.decodeFromJsonElement

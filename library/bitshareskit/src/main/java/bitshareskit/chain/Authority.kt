@@ -1,4 +1,4 @@
-package graphene.app
+package bitshareskit.chain
 
 @Deprecated("")
 enum class Authority {

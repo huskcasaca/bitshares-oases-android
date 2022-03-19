@@ -15,7 +15,7 @@ import com.bitshares.oases.extensions.viewbinder.bindPublicKey
 import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
-import graphene.app.Authority
+import bitshareskit.chain.Authority
 import modulon.component.ComponentCell
 import modulon.component.IconSize
 import modulon.extensions.compat.setClipboardToast

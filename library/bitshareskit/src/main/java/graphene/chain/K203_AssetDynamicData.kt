@@ -13,7 +13,7 @@ data class K203_AssetDynamicData(
     @SerialName(KEY_ACCUMULATED_FEES) override val accumulatedFees: UInt64,
     @SerialName(KEY_ACCUMULATED_COLLATERAL_FEES) override val accumulatedCollateralFees: UInt64,
     @SerialName(KEY_FEE_POOL) override val feePool: UInt64,
-) : K000_AbstractObject(), K203_AssetDynamicType {
+) : AbstractObject(), K203_AssetDynamicType {
 
     companion object {
         private const val KEY_CURRENT_SUPPLY = "current_supply"

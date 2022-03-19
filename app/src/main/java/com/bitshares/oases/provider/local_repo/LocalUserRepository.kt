@@ -19,7 +19,7 @@ import com.bitshares.oases.provider.chain_repo.AccountRepository
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.security.BinaryRestore
 import com.bitshares.oases.security.WalletManager
-import graphene.app.Authority
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
 import modulon.extensions.livedata.combineLatest
 import modulon.extensions.livedata.combineNonNull

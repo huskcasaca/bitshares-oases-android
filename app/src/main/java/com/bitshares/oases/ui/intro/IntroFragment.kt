@@ -26,7 +26,7 @@ import com.bitshares.oases.ui.faucet.showFaucetRegisterDialog
 import com.bitshares.oases.ui.faucet.showFaucetSelectDialog
 import com.bitshares.oases.ui.settings.showLanguageSettingDialog
 import com.bitshares.oases.ui.wallet.startWalletUnlock
-import graphene.app.Authority
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
 import modulon.component.IconSize
 import modulon.dialog.button

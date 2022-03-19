@@ -1,13 +1,8 @@
-package com.bitshares.oases.netowrk.rpc
+package graphene.rpc
 
-import com.bitshares.oases.netowrk.rpc.WebsocketRpc.Companion.JSON_RPC_VERSION
-import com.bitshares.oases.netowrk.rpc.WebsocketRpc.Companion.KEY_ERROR
-import com.bitshares.oases.netowrk.rpc.WebsocketRpc.Companion.KEY_ID
-import com.bitshares.oases.netowrk.rpc.WebsocketRpc.Companion.KEY_JSON_RPC
-import com.bitshares.oases.netowrk.rpc.WebsocketRpc.Companion.KEY_METHOD
-import com.bitshares.oases.netowrk.rpc.WebsocketRpc.Companion.KEY_PARAMS
-import com.bitshares.oases.netowrk.rpc.WebsocketRpc.Companion.KEY_RESULT
-import com.bitshares.oases.netowrk.rpc.WebsocketRpc.Companion.METHOD_UNDEFINED
+import graphene.rpc.SocketResult.Companion.KEY_ERROR
+import graphene.rpc.SocketResult.Companion.KEY_ID
+import graphene.rpc.SocketResult.Companion.KEY_PARAMS
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -17,7 +12,28 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.jsonObject
 
 @Serializable(with = SocketResultSerializer::class)
-sealed class SocketResult : WebsocketRpc
+sealed class SocketResult {
+    open val id: Int = 0
+    open val jsonrpc: String = JSON_RPC_VERSION
+    open val method: String = METHOD_UNDEFINED
+
+    companion object {
+        const val KEY_ID = "id"
+        const val KEY_JSON_RPC = "jsonrpc"
+        const val KEY_METHOD = "method"
+        const val KEY_RESULT = "result"
+        const val KEY_NOTICE = "notice"
+        const val KEY_ERROR = "error"
+        const val KEY_PARAMS = "params"
+
+
+        const val JSON_RPC_VERSION = "2.0"
+
+        const val METHOD_CALL = "call"
+        const val METHOD_NOTICE = "notice"
+        const val METHOD_UNDEFINED = ""
+    }
+}
 
 @Serializable
 data class SocketCallback(
@@ -42,6 +58,7 @@ data class SocketError(
 //    @SerialName(KEY_METHOD)     override val method: String = METHOD_UNDEFINED,
     @SerialName(KEY_ERROR)      val error: JsonElement,
 ) : SocketResult()
+
 
 // TODO: 2022/2/13 make all serializer objects
 object SocketResultSerializer : JsonContentPolymorphicSerializer<SocketResult>(SocketResult::class) {

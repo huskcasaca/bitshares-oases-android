@@ -20,7 +20,7 @@ import com.bitshares.oases.netowrk.java_websocket.buildTransaction
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.ui.account.AuthorityViewModel
-import graphene.app.Authority
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
 import modulon.extensions.charset.BLANK_SPACE
 import modulon.extensions.charset.EMPTY_SPACE

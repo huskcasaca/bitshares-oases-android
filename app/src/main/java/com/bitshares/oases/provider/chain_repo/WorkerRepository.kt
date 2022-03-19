@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import bitshareskit.objects.WorkerObject
 import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
-import graphene.app.CallMethod
+import bitshareskit.chain.CallMethod
 import org.java_json.JSONArray
 import org.java_json.JSONObject
 

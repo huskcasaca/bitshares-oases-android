@@ -1,6 +1,11 @@
 package graphene.protocol
 
+import graphene.chain.*
+import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.serializer
 import kotlin.reflect.KClass
+import kotlin.reflect.KFunction
 
 val GRAPHENE_SPACE_ENUM_INDEX: Map<UInt8, ObjectSpace> =
     ObjectSpace.values().associateBy { it.id }
@@ -15,11 +20,12 @@ val GRAPHENE_SPACE_TYPE_INDEX: Map<ObjectSpace, Map<UInt8, ObjectType>> = mapOf(
 )
 
 val GRAPHENE_SPACE_ENUMS: List<ObjectSpace> = ObjectSpace.values().toList()
-val GRAPHENE_PROTOCOL_TYPE_ENUMS: List<ProtocolType> = ProtocolType.values().toList()
-val GRAPHENE_IMPLEMENTATION_TYPE_ENUMS: List<ImplementationType> = ImplementationType.values().toList()
-val GRAPHENE_OBJECT_TYPE_ENUMS: List<ObjectType> = GRAPHENE_PROTOCOL_TYPE_ENUMS + GRAPHENE_IMPLEMENTATION_TYPE_ENUMS
 
-val GRAPHENE_TYPES: List<KClass<out AbstractType>> = listOf(
+val GRAPHENE_PRO_TYP_ENUMS: List<ProtocolType> = ProtocolType.values().toList()
+val GRAPHENE_IMP_TYP_ENUMS: List<ImplementationType> = ImplementationType.values().toList()
+val GRAPHENE_OBJ_TYP_ENUMS: List<ObjectType> = GRAPHENE_PRO_TYP_ENUMS + GRAPHENE_IMP_TYP_ENUMS
+
+val GRAPHENE_TYP_CLASS: List<KClass<out AbstractType>> = listOf(
     K100_NullType::class,
     K101_BaseType::class,
     K102_AccountType::class,
@@ -63,7 +69,7 @@ val GRAPHENE_TYPES: List<KClass<out AbstractType>> = listOf(
     K217_CollateralBidType::class,
     K218_CreditDealSummaryType::class,
 )
-val GRAPHENE_ID_TYPES: List<KClass<out AbstractIdType>> = listOf(
+val GRAPHENE_IDT_CLASS: List<KClass<out AbstractIdType>> = listOf(
     K100_NullIdType::class,
     K101_BaseIdType::class,
     K102_AccountIdType::class,
@@ -106,6 +112,51 @@ val GRAPHENE_ID_TYPES: List<KClass<out AbstractIdType>> = listOf(
     K216_FbaAccumulatorIdType::class,
     K217_CollateralBidIdType::class,
     K218_CreditDealSummaryIdType::class,
+)
+val GRAPHENE_OBJ_CLASS: List<KClass<out AbstractObject>> = listOf(
+    K100_NullObject::class,
+    K101_BaseObject::class,
+    K102_AccountObject::class,
+    K103_AssetObject::class,
+
+    AbstractObject::class, //    K104_ForceSettlementObject::class,
+    AbstractObject::class, //    K105_CommitteeMemberObject::class,
+    AbstractObject::class, //    K106_WitnessObject::class,
+    AbstractObject::class, //    K107_LimitOrderObject::class,
+    AbstractObject::class, //    K108_CallOrderObject::class,
+    AbstractObject::class, //    K109_CustomObject::class,
+    AbstractObject::class, //    K110_ProposalObject::class,
+    AbstractObject::class, //    K111_OperationHistoryObject::class,
+    AbstractObject::class, //    K112_WithdrawPermissionObject::class,
+    AbstractObject::class, //    K113_VestingBalanceObject::class,
+    AbstractObject::class, //    K114_WorkerObject::class,
+    AbstractObject::class, //    K115_BalanceObject::class,
+    AbstractObject::class, //    K116_HtlcObject::class,
+    AbstractObject::class, //    K117_CustomAuthorityObject::class,
+    AbstractObject::class, //    K118_TicketObject::class,
+    AbstractObject::class, //    K119_LiquidityPoolObject::class,
+    AbstractObject::class, //    K120_SametFundObject::class,
+    AbstractObject::class, //    K121_CreditOfferObject::class,
+    AbstractObject::class, //    K122_CreditDealObject::class,
+    AbstractObject::class, //    K200_GlobalPropertyObject::class,
+    AbstractObject::class, //    K201_DynamicGlobalPropertyObject::class,
+    AbstractObject::class, //    K202_ReservedObject::class,
+    AbstractObject::class, //    K203_AssetDynamicObject::class,
+    AbstractObject::class, //    K204_AssetBitassetObject::class,
+    AbstractObject::class, //    K205_AccountBalanceObject::class,
+    AbstractObject::class, //    K206_AccountStatisticsObject::class,
+    AbstractObject::class, //    K207_TransactionHistoryObject::class,
+    AbstractObject::class, //    K208_BlockSummaryObject::class,
+    AbstractObject::class, //    K209_AccountTransactionHistoryObject::class,
+    AbstractObject::class, //    K210_BlindedBalanceObject::class,
+    AbstractObject::class, //    K211_ChainPropertyObject::class,
+    AbstractObject::class, //    K212_WitnessScheduleObject::class,
+    AbstractObject::class, //    K213_BudgetRecordObject::class,
+    AbstractObject::class, //    K214_SpecialAuthorityObject::class,
+    AbstractObject::class, //    K215_BuybackObject::class,
+    AbstractObject::class, //    K216_FbaAccumulatorObject::class,
+    AbstractObject::class, //    K217_CollateralBidObject::class,
+    AbstractObject::class, //    K218_CreditDealSummaryObject::class,
 )
 
 val GRAPHENE_ID_TYPE_INSTANCES: List<AbstractIdType> = listOf(
@@ -155,56 +206,21 @@ val GRAPHENE_ID_TYPE_INSTANCES: List<AbstractIdType> = listOf(
 
 
 // maps
-val GRAPHENE_TYPE_TO_CLASS: Map<ObjectType, KClass<out AbstractIdType>> = mapOf(
-    ProtocolType.NULL                               to K100_NullIdType::class,
-    ProtocolType.BASE                               to K101_BaseIdType::class,
-    ProtocolType.ACCOUNT                            to K102_AccountIdType::class,
-    ProtocolType.ASSET                              to K103_AssetIdType::class,
-    ProtocolType.FORCE_SETTLEMENT                   to K104_ForceSettlementIdType::class,
-    ProtocolType.COMMITTEE_MEMBER                   to K105_CommitteeMemberIdType::class,
-    ProtocolType.WITNESS                            to K106_WitnessIdType::class,
-    ProtocolType.LIMIT_ORDER                        to K107_LimitOrderIdType::class,
-    ProtocolType.CALL_ORDER                         to K108_CallOrderIdType::class,
-    ProtocolType.CUSTOM                             to K109_CustomIdType::class,
-    ProtocolType.PROPOSAL                           to K110_ProposalIdType::class,
-    ProtocolType.OPERATION_HISTORY                  to K111_OperationHistoryIdType::class,
-    ProtocolType.WITHDRAW_PERMISSION                to K112_WithdrawPermissionIdType::class,
-    ProtocolType.VESTING_BALANCE                    to K113_VestingBalanceIdType::class,
-    ProtocolType.WORKER                             to K114_WorkerIdType::class,
-    ProtocolType.BALANCE                            to K115_BalanceIdType::class,
-    ProtocolType.HTLC                               to K116_HtlcIdType::class,
-    ProtocolType.CUSTOM_AUTHORITY                   to K117_CustomAuthorityIdType::class,
-    ProtocolType.TICKET                             to K118_TicketIdType::class,
-    ProtocolType.LIQUIDITY_POOL                     to K119_LiquidityPoolIdType::class,
-    ProtocolType.SAMET_FUND                         to K120_SametFundIdType::class,
-    ProtocolType.CREDIT_OFFER                       to K121_CreditOfferIdType::class,
-    ProtocolType.CREDIT_DEAL                        to K122_CreditDealIdType::class,
 
-    ImplementationType.GLOBAL_PROPERTY              to K200_GlobalPropertyIdType::class,
-    ImplementationType.DYNAMIC_GLOBAL_PROPERTY      to K201_DynamicGlobalPropertyIdType::class,
-    ImplementationType.RESERVED                     to K202_ReservedIdType::class,
-    ImplementationType.ASSET_DYNAMIC_DATA           to K203_AssetDynamicIdType::class,
-    ImplementationType.ASSET_BITASSET_DATA          to K204_AssetBitassetIdType::class,
-    ImplementationType.ACCOUNT_BALANCE              to K205_AccountBalanceIdType::class,
-    ImplementationType.ACCOUNT_STATISTICS           to K206_AccountStatisticsIdType::class,
-    ImplementationType.TRANSACTION_HISTORY          to K207_TransactionHistoryIdType::class,
-    ImplementationType.BLOCK_SUMMARY                to K208_BlockSummaryIdType::class,
-    ImplementationType.ACCOUNT_TRANSACTION_HISTORY  to K209_AccountTransactionHistoryIdType::class,
-    ImplementationType.BLINDED_BALANCE              to K210_BlindedBalanceIdType::class,
-    ImplementationType.CHAIN_PROPERTY               to K211_ChainPropertyIdType::class,
-    ImplementationType.WITNESS_SCHEDULE             to K212_WitnessScheduleIdType::class,
-    ImplementationType.BUDGET_RECORD                to K213_BudgetRecordIdType::class,
-    ImplementationType.SPECIAL_AUTHORITY            to K214_SpecialAuthorityIdType::class,
-    ImplementationType.BUYBACK                      to K215_BuybackIdType::class,
-    ImplementationType.FBA_ACCUMULATOR              to K216_FbaAccumulatorIdType::class,
-    ImplementationType.COLLATERAL_BID               to K217_CollateralBidIdType::class,
-    ImplementationType.CREDIT_DEAL_SUMMARY          to K218_CreditDealSummaryIdType::class,
+val GRAPHENE_TYPE_TO_IDT_CLASS: Map<ObjectType, KClass<out AbstractIdType>> = GRAPHENE_OBJ_TYP_ENUMS.zip(GRAPHENE_IDT_CLASS).toMap()
+val GRAPHENE_TYPE_TO_IDT_CONSTRUCTOR: Map<ObjectType, KFunction<AbstractIdType>> = GRAPHENE_TYPE_TO_IDT_CLASS.mapValues { it.value.constructors.first() }
 
-    )
-val GRAPHENE_TYPE_TO_CONSTRUCTOR = GRAPHENE_TYPE_TO_CLASS.mapValues { it.value.constructors.first() }
+val GRAPHENE_TYPE_TO_OBJ_CLASS: Map<ObjectType, KClass<out AbstractObject>> = GRAPHENE_OBJ_TYP_ENUMS.zip(GRAPHENE_OBJ_CLASS).toMap()
+
+@OptIn(InternalSerializationApi::class)
+val GRAPHENE_TYPE_TO_OBJ_SERIALIZER: Map<ObjectType, KSerializer<out AbstractObject>> = GRAPHENE_OBJ_TYP_ENUMS.zip(GRAPHENE_OBJ_CLASS.map { it.serializer() }).toMap()
+
+
+
+
 
 val GRAPHENE_ID_TYPE_FAST_ALOC: Map<KClass<out AbstractType>, AbstractIdType> =
-    GRAPHENE_TYPES.zip(GRAPHENE_ID_TYPE_INSTANCES).toMap() + GRAPHENE_ID_TYPES.zip(GRAPHENE_ID_TYPE_INSTANCES).toMap()
+    GRAPHENE_TYP_CLASS.zip(GRAPHENE_ID_TYPE_INSTANCES).toMap() + GRAPHENE_IDT_CLASS.zip(GRAPHENE_ID_TYPE_INSTANCES).toMap()
 
 val GRAPHENE_COMPONENTS_FAST_ALOC: Map<KClass<out GrapheneComponent>, GrapheneComponent> =
     mapOf(

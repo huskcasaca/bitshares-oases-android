@@ -75,10 +75,10 @@ class TestLabViewModel(application: Application) : BaseViewModel(application) {
         jobs[ProtocolType.ACCOUNT]?.cancel()
     }
 
-    fun testK103() {
+    fun testK103(instance: ULong = 0U) {
         jobs[ProtocolType.ASSET]?.cancel()
         jobs[ProtocolType.ASSET] = viewModelScope.launch(Dispatchers.IO) {
-            var instance = 0UL
+            var instance = instance
             while (true) {
                 runCatching {
                     val o = GrapheneRepository.getObjectFromChain<AssetObject>(instance.toLong())

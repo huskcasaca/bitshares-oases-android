@@ -9,7 +9,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.slf4j.LoggerFactory
 import java.math.BigDecimal
-import kotlin.contracts.contract
 
 // TODO: 2022/2/15 remove
 fun delayMain(millis: Long, block: () -> Unit){
@@ -39,12 +38,28 @@ inline fun <T> T?.ifNull(block: () -> T): T = this ?: block.invoke()
 
 // debug only
 
-fun logcat(message: Any?) = Log.i("*** ***", message.toString())
-fun logcat(vararg message: Any?) = Log.i("*** ***", message.toList().toString())
-fun Any?.logloglog() {
-    if (this == null) Log.i("logloglog", "NULL") else Log.i("logloglog", this::class.simpleName + " " + this.toString())
+fun logcat(message: Any?) {
+    runCatching {
+        Log.i("*** ***", message.toString())
+    }.onFailure {
+        message.info()
+    }
 }
-fun Any?.info() = LoggerFactory.getLogger("BitSharesKit Log").info(toString())
+fun logcat(vararg message: Any?) {
+    runCatching {
+        Log.i("*** ***", message.toList().toString())
+    }.onFailure {
+        (listOf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>") + message.toList()).info()
+    }
+
+}
+fun Any?.info() {
+    runCatching {
+        if (this == null) Log.i("logloglog", "NULL") else Log.i("logloglog", this::class.simpleName + " " + this.toString())
+    }.onFailure {
+        LoggerFactory.getLogger("BitSharesKit Log").info(toString())
+    }
+}
 
 
 

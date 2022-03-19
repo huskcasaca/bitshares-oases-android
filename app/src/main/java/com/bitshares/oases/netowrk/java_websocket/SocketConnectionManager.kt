@@ -21,7 +21,7 @@ import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.database.entities.Node
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.provider.local_repo.NodeRepository
-import graphene.app.CallMethod
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

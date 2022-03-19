@@ -28,7 +28,7 @@ data class K103_AssetObject(
     @SerialName(KEY_FOR_LIQUIDITY_POOL)
     override val forLiquidityPool: K119_LiquidityPoolType = emptyIdType(), // optional
 
-) : K000_AbstractObject(), K103_AssetType {
+) : AbstractObject(), K103_AssetType {
 
     companion object {
         private const val KEY_SYMBOL = "symbol"

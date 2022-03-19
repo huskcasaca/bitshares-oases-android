@@ -5,7 +5,7 @@ import bitshareskit.objects.CommitteeMemberObject
 import com.bitshares.oases.chain.CommitteeMember
 import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
-import graphene.app.CallMethod
+import bitshareskit.chain.CallMethod
 
 object CommitteeMemberRepository {
 

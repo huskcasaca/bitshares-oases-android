@@ -23,7 +23,7 @@ import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.provider.local_repo.NodeRepository
-import graphene.app.CallMethod
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

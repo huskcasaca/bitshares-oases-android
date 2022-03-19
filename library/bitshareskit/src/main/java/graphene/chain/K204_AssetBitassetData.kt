@@ -7,7 +7,7 @@ import kotlinx.serialization.SerialName
 
 data class K204_AssetBitassetData(
     @SerialName(KEY_ID) override val id: K204_AssetBitassetIdType = emptyIdType(),
-) : K000_AbstractObject(), K204_AssetBitassetType {
+) : AbstractObject(), K204_AssetBitassetType {
 
     companion object {
         private const val KEY_ASSET_ID = "asset_id"

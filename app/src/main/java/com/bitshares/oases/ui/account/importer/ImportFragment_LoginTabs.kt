@@ -17,7 +17,7 @@ import com.bitshares.oases.ui.account.importer.ImportViewModel.State
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.wallet.startWalletRestore
 import com.bitshares.oases.ui.wallet.startWalletUnlock
-import graphene.app.Authority
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
 import modulon.component.*
 import modulon.extensions.charset.EMPTY_SPACE

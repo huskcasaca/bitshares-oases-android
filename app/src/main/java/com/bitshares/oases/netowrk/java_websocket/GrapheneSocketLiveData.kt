@@ -3,7 +3,7 @@ package com.bitshares.oases.netowrk.java_websocket
 import androidx.lifecycle.LiveData
 import com.bitshares.oases.chain.blockchainNetworkScope
 import com.bitshares.oases.preference.old.Graphene
-import graphene.app.CallMethod
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.launch
 import org.java_json.JSONObject
 import java.util.*

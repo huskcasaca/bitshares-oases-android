@@ -19,7 +19,7 @@ import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.ui.account.permission.PermissionViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.wallet.startWalletUnlock
-import graphene.app.Authority
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
 import modulon.component.ComponentCell
 import modulon.component.buttonStyle

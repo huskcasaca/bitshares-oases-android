@@ -13,7 +13,7 @@ import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.netowrk.java_websocket.GrapheneSocketLiveData
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
-import graphene.app.CallMethod
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.launch
 import modulon.extensions.coroutine.mapParallel
 import modulon.extensions.livedata.emptyLiveData

@@ -10,7 +10,7 @@ import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.provider.Source
-import graphene.app.CallMethod
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.java_json.JSONArray

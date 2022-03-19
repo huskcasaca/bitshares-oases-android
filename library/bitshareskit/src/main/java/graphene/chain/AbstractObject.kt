@@ -1,8 +1,10 @@
 package graphene.chain
 
 import graphene.protocol.*
+import kotlinx.serialization.Serializable
 
-abstract class K000_AbstractObject(
+@Serializable(with = AbstractObjectSerializer::class)
+sealed class AbstractObject(
 ) : Cloneable, AbstractType {
 
     companion object {
@@ -12,3 +14,5 @@ abstract class K000_AbstractObject(
     abstract override val id: AbstractIdType
 
 }
+
+

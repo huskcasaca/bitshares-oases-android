@@ -12,7 +12,7 @@ import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.netowrk.java_websocket.TransactionBuilder
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.wallet.startWalletUnlock
-import graphene.app.Authority
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
 import modulon.dialog.BottomDialogFragment
 import modulon.dialog.DialogState

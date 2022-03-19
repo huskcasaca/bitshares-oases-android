@@ -19,7 +19,7 @@ import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.provider.Source
-import graphene.app.CallMethod
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.*
 import modulon.extensions.livedata.NonNullMediatorLiveData
 import modulon.extensions.livedata.emptyLiveData
