@@ -187,6 +187,7 @@ private fun Project.dependenciesKtor() {
         implementation("io.ktor:ktor-client-serialization:$ktor_version")
 //        implementation("io.ktor:ktor-client-android:$ktor_version")
         implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+        implementation("io.ktor:ktor-client-cio:$ktor_version")
     }
 }
 

@@ -6,7 +6,7 @@ import graphene.app.*
 import graphene.protocol.GRAPHENE_JSON_PLATFORM_SERIALIZER
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import io.ktor.client.*
-import io.ktor.client.engine.okhttp.*
+import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.websocket.*
 import io.ktor.serialization.kotlinx.*
@@ -28,70 +28,6 @@ data class Node(
     val username: String = "",
     val password: String = ""
 )
-
-
-abstract class AbstractClient {
-
-    val session = SupervisorJob()
-    val socketScope = CoroutineScope(Dispatchers.IO.limitedParallelism(32) + session)
-    val channelScope = CoroutineScope(Dispatchers.IO + session)
-
-    inline fun <reified R> decodeParamsFromJsonElement(result: SocketResult) : R {
-        return when (result) {
-            is SocketCallback -> GRAPHENE_JSON_PLATFORM_SERIALIZER.decodeFromJsonElement(result.result)
-            is SocketError -> throw GrapheneClient.SocketErrorException(result)
-            is SocketNotice -> TODO()
-        }
-    }
-
-    // send 0 params
-    suspend inline fun send(method: API) : SocketResult {
-        val array = buildJsonArray {
-        }
-        return broadcast(method, array)
-    }
-    suspend inline fun <reified R> sendForResult(method: API) : R {
-        return decodeParamsFromJsonElement(send(method))
-    }
-    suspend inline fun <reified R> sendForResultOrNull(method: API) : R? {
-        return runCatching { sendForResult<R>(method) }.getOrNull()
-    }
-
-    // send 1 params
-    suspend inline fun <reified T1> send(method: API, param1: T1) : SocketResult {
-        val array = buildJsonArray {
-            add(GRAPHENE_JSON_PLATFORM_SERIALIZER.encodeToJsonElement(param1))
-        }
-        return broadcast(method, array)
-    }
-    suspend inline fun <reified T1, reified R> sendForResult(method: API, param1: T1) : R {
-        return decodeParamsFromJsonElement(send(method, param1))
-    }
-
-    // send 2 params
-    suspend inline fun <reified T1, reified T2> send(method: API, param1: T1, param2: T2) : SocketResult {
-        val array = buildJsonArray {
-            add(GRAPHENE_JSON_PLATFORM_SERIALIZER.encodeToJsonElement(param1))
-            add(GRAPHENE_JSON_PLATFORM_SERIALIZER.encodeToJsonElement(param2))
-        }
-        return broadcast(method, array)
-    }
-
-    suspend inline fun <reified T1, reified T2, reified R> sendForResult(method: API, param1: T1, param2: T2) : R {
-        return decodeParamsFromJsonElement(send(method, param1, param2))
-    }
-
-    suspend fun broadcast(method: API, params: JsonArray) : SocketResult {
-        return suspendCoroutine {
-            val struct = BroadcastStruct(method, false, params, it)
-            channelScope.launch { broadcast(struct) }
-        }
-    }
-
-    abstract suspend fun broadcast(struct: BroadcastStruct)
-
-}
-
 class GrapheneClient(val node: Node) : AbstractClient() {
 
     private fun <T> T.console(title: Any = System.currentTimeMillis()) = apply { logcat("GrapheneClient", title, this.toString()) }
@@ -111,10 +47,10 @@ class GrapheneClient(val node: Node) : AbstractClient() {
     private val sendingChannel: Channel<BroadcastStruct> = Channel()
     val fallbackChannel: Channel<BroadcastStruct> = Channel(UNLIMITED)
 
-    private val client = HttpClient(OkHttp.create()) {
+    private val client = HttpClient(CIO.create()) {
         install(WebSockets) {
             contentConverter = KotlinxWebsocketSerializationConverter(GRAPHENE_JSON_PLATFORM_SERIALIZER)
-            // TODO: 4/2/2022 pingInterval
+            pingInterval = 10000
         }
         install(ContentNegotiation)
     }
@@ -187,8 +123,6 @@ class GrapheneClient(val node: Node) : AbstractClient() {
         waiting.forEach { it.resume(Unit) }
         console("================ WEBSOCKET OPEN ================")
     }
-    private suspend fun DefaultClientWebSocketSession.pinging() {
-    }
 
     private suspend fun DefaultClientWebSocketSession.sendRPC() {
         console("Start Calling >>>")
@@ -204,9 +138,12 @@ class GrapheneClient(val node: Node) : AbstractClient() {
                     callbackMap.remove(socketCall.id)
                     fallbackChannel.send(struct)
                     sendingChannel.consumeEach { fallbackChannel.send(it) }
+
+                    e.printStackTrace()
                     break
                 }
             } catch (e: Throwable) {
+                e.printStackTrace()
                 break
             }
         }
@@ -233,9 +170,7 @@ class GrapheneClient(val node: Node) : AbstractClient() {
             login()
             api()
             open()
-            val pingJob = socketScope.launch { pinging() }
-            listOf(sendJob, receiveJob, pingJob).joinAll()
-            pingJob.cancel()
+            listOf(sendJob, receiveJob).joinAll()
         }
     }
 
@@ -245,7 +180,7 @@ class GrapheneClient(val node: Node) : AbstractClient() {
             try {
                 launchSocket()
             } catch (e: Throwable) {
-
+                e.printStackTrace()
             }
         }
     }
@@ -264,6 +199,70 @@ class GrapheneClient(val node: Node) : AbstractClient() {
 //            e.printStackTrace()
         }
     }
+
+}
+
+
+abstract class AbstractClient {
+
+    val session = SupervisorJob()
+    val socketScope = CoroutineScope(Dispatchers.IO.limitedParallelism(32) + session)
+    val channelScope = CoroutineScope(Dispatchers.IO)
+
+    inline fun <reified R> decodeParamsFromJsonElement(result: SocketResult) : R {
+        return when (result) {
+            is SocketCallback -> GRAPHENE_JSON_PLATFORM_SERIALIZER.decodeFromJsonElement(result.result)
+            is SocketError -> throw SocketErrorException(result)
+            is SocketNotice -> TODO()
+        }
+    }
+
+    // send 0 params
+    suspend inline fun send(method: API) : SocketResult {
+        val array = buildJsonArray {
+        }
+        return broadcast(method, array)
+    }
+    suspend inline fun <reified R> sendForResult(method: API) : R {
+        return decodeParamsFromJsonElement(send(method))
+    }
+    suspend inline fun <reified R> sendForResultOrNull(method: API) : R? {
+        return runCatching { sendForResult<R>(method) }.getOrNull()
+    }
+
+    // send 1 params
+    suspend inline fun <reified T1> send(method: API, param1: T1) : SocketResult {
+        val array = buildJsonArray {
+            add(GRAPHENE_JSON_PLATFORM_SERIALIZER.encodeToJsonElement(param1))
+        }
+        return broadcast(method, array)
+    }
+    suspend inline fun <reified T1, reified R> sendForResult(method: API, param1: T1) : R {
+        return decodeParamsFromJsonElement(send(method, param1))
+    }
+
+    // send 2 params
+    suspend inline fun <reified T1, reified T2> send(method: API, param1: T1, param2: T2) : SocketResult {
+        val array = buildJsonArray {
+            add(GRAPHENE_JSON_PLATFORM_SERIALIZER.encodeToJsonElement(param1))
+            add(GRAPHENE_JSON_PLATFORM_SERIALIZER.encodeToJsonElement(param2))
+        }
+        return broadcast(method, array)
+    }
+
+    suspend inline fun <reified T1, reified T2, reified R> sendForResult(method: API, param1: T1, param2: T2) : R {
+        return decodeParamsFromJsonElement(send(method, param1, param2))
+    }
+
+    suspend fun broadcast(method: API, params: JsonArray) : SocketResult {
+        return suspendCoroutine {
+            val struct = BroadcastStruct(method, false, params, it)
+            channelScope.launch(SupervisorJob()) { broadcast(struct) }
+        }
+    }
+
+    abstract suspend fun broadcast(struct: BroadcastStruct)
+
 
     sealed class SocketException : IOException()
 

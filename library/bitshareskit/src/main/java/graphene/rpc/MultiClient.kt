@@ -8,11 +8,6 @@ import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import kotlinx.serialization.json.*
 import kotlin.coroutines.suspendCoroutine
 
-
-
-
-
-
 class MultiClient : AbstractClient() {
 
     private val channel: Channel<BroadcastStruct> = Channel(UNLIMITED)
