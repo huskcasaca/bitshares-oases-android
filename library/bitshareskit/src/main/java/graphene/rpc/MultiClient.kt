@@ -1,12 +1,8 @@
 package graphene.rpc
 
-import graphene.app.API
-import graphene.protocol.GRAPHENE_JSON_PLATFORM_SERIALIZER
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
-import kotlinx.serialization.json.*
-import kotlin.coroutines.suspendCoroutine
 
 class MultiClient : AbstractClient() {
 

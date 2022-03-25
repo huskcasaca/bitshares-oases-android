@@ -1,6 +1,5 @@
 package graphene.rpc
 
-import bitshareskit.extensions.info
 import bitshareskit.extensions.logcat
 import graphene.app.*
 import graphene.protocol.GRAPHENE_JSON_PLATFORM_SERIALIZER
@@ -12,7 +11,6 @@ import io.ktor.client.plugins.websocket.*
 import io.ktor.serialization.kotlinx.*
 import io.ktor.util.collections.*
 import io.ktor.utils.io.errors.*
-import io.ktor.websocket.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.consumeEach
@@ -28,6 +26,7 @@ data class Node(
     val username: String = "",
     val password: String = ""
 )
+
 class GrapheneClient(val node: Node) : AbstractClient() {
 
     private fun <T> T.console(title: Any = System.currentTimeMillis()) = apply { logcat("GrapheneClient", title, this.toString()) }
@@ -35,8 +34,6 @@ class GrapheneClient(val node: Node) : AbstractClient() {
     private val sequence: AtomicInteger = AtomicInteger(0)
     private val connected: AtomicBoolean = AtomicBoolean(false)
 
-
-    private val closed: AtomicBoolean = AtomicBoolean(false)
     private val identifiers: MutableMap<APIType, Int> = ConcurrentMap<APIType, Int>().apply {
         put(APIType.LOGIN, 1)
     }
@@ -55,8 +52,8 @@ class GrapheneClient(val node: Node) : AbstractClient() {
         install(ContentNegotiation)
     }
 
-    private val callbackMap: MutableMap<Int, Continuation<SocketResult>> = ConcurrentMap()
-    private val subscribeMap: MutableMap<Int, Continuation<SocketResult>> = ConcurrentMap()
+    private val callbackMap: MutableMap<Int, Continuation<SocketResult>> = mutableMapOf()
+    private val subscribeMap: MutableMap<Int, Continuation<SocketResult>> = mutableMapOf()
 
     private fun callback(id: Int, result: Continuation<SocketResult>) {
         callbackMap.set(id, result)
@@ -105,7 +102,7 @@ class GrapheneClient(val node: Node) : AbstractClient() {
 
     private suspend fun api() {
         API_TYPE_MAP.map { (type, api) ->
-            socketScope.launch(Dispatchers.IO) {
+            sendScope.launch(Dispatchers.IO) {
                 val identifier = sendForResultOrNull<Int>(api)
                 if (identifier != null) {
                     identifiers[type] = identifier
@@ -165,8 +162,8 @@ class GrapheneClient(val node: Node) : AbstractClient() {
 
     private suspend fun launchSocket() {
         client.wss(node.url) {
-            val sendJob = socketScope.launch { sendRPC() }
-            val receiveJob = socketScope.launch { receiveRPC() }
+            val sendJob = sendScope.launch { sendRPC() }
+            val receiveJob = receiveScope.launch { receiveRPC() }
             login()
             api()
             open()
@@ -176,7 +173,7 @@ class GrapheneClient(val node: Node) : AbstractClient() {
 
     // public
     fun start() {
-        socketScope.launch {
+        sendScope.launch {
             try {
                 launchSocket()
             } catch (e: Throwable) {
@@ -206,7 +203,8 @@ class GrapheneClient(val node: Node) : AbstractClient() {
 abstract class AbstractClient {
 
     val session = SupervisorJob()
-    val socketScope = CoroutineScope(Dispatchers.IO.limitedParallelism(32) + session)
+    val sendScope = CoroutineScope(Dispatchers.IO + session)
+    val receiveScope = CoroutineScope(Dispatchers.IO + session)
     val channelScope = CoroutineScope(Dispatchers.IO)
 
     inline fun <reified R> decodeParamsFromJsonElement(result: SocketResult) : R {
@@ -257,7 +255,7 @@ abstract class AbstractClient {
     suspend fun broadcast(method: API, params: JsonArray) : SocketResult {
         return suspendCoroutine {
             val struct = BroadcastStruct(method, false, params, it)
-            channelScope.launch(SupervisorJob()) { broadcast(struct) }
+            channelScope.launch { broadcast(struct) }
         }
     }
 
