@@ -1,5 +1,6 @@
 package com.bitshares.oases
 
+import graphene.protocol.GRAPHENE_JSON_PLATFORM_SERIALIZER
 import graphene.rpc.GrapheneClient
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonPrimitive
@@ -15,24 +16,6 @@ import kotlin.reflect.full.staticFunctions
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
-
-    private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
-
-    private fun Any.console() = logger.info(this.toString())
-
-    private val JSON_CONVERTER = Json {
-        encodeDefaults = true
-        ignoreUnknownKeys = true
-    }
-
-    @Test
-    fun testSerialization() {
-        GrapheneClient.ClientJson.decodeFromJsonElement<Boolean>(JsonPrimitive(true)).console()
-        GrapheneClient.ClientJson.decodeFromJsonElement<ULong>(JsonPrimitive(11231231100)).console()
-        GrapheneClient.ClientJson.decodeFromJsonElement<UInt>(JsonPrimitive(1321230)).console()
-        GrapheneClient.ClientJson.decodeFromJsonElement<UShort>(JsonPrimitive(100)).console()
-        Int::class.staticFunctions
-    }
 
 
 }

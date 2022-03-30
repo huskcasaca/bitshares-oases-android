@@ -54,6 +54,7 @@ data class SocketNotice(
 @Serializable
 data class SocketError(
     @SerialName(KEY_ID)         override val id: Int,
+    // TODO: 2022/3/30 kotlinx.serialization.json.internal.JsonDecodingException: Failed to parse 'int'
     @SerialName(KEY_JSON_RPC)   override val jsonrpc: String = JSON_RPC_VERSION,
 //    @SerialName(KEY_METHOD)     override val method: String = METHOD_UNDEFINED,
     @SerialName(KEY_ERROR)      val error: JsonElement,

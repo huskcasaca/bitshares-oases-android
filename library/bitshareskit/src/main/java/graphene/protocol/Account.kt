@@ -2,32 +2,20 @@ package graphene.protocol
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.util.*
 
 @Serializable
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 data class AccountOptions(
-    @SerialName(KEY_MEMO_KEY)
+    @SerialName("memo_key")
     val memoKey: PublicKeyType = PublicKeyType(), // TODO
-    @SerialName(KEY_VOTING_ACCOUNT)
+    @SerialName("voting_account")
     val votingAccount: K102_AccountType = emptyIdType(),
-    @SerialName(KEY_NUM_WITNESS)
+    @SerialName("num_witness")
     val witnessNumber: UInt16 = 0U,
-    @SerialName(KEY_NUM_COMMITTEE)
+    @SerialName("num_committee")
     val committeeNumber: UInt16 = 0U,
-    @SerialName(KEY_VOTES)
+    @SerialName("votes")
     val vote: FlatSet<VoteIdType> = sortedSetOf(),
-    @SerialName(KEY_EXTENSIONS)
+    @SerialName("extensions")
     val extensions: ExtensionsType = sortedSetOf(),
-) : GrapheneComponent {
-
-    companion object {
-        private const val KEY_MEMO_KEY = "memo_key"
-        private const val KEY_VOTING_ACCOUNT = "voting_account"
-        private const val KEY_NUM_WITNESS = "num_witness"
-        private const val KEY_NUM_COMMITTEE = "num_committee"
-        private const val KEY_VOTES = "votes"
-        private const val KEY_EXTENSIONS = "extensions"
-    }
-
-}
+) : GrapheneComponent

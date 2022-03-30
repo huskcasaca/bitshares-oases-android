@@ -27,9 +27,10 @@ data class Node(
     val password: String = ""
 )
 
-class GrapheneClient(val node: Node) : AbstractClient() {
+class GrapheneClient(val node: Node, var debug: Boolean = true) : AbstractClient() {
 
-    private fun <T> T.console(title: Any = System.currentTimeMillis()) = apply { logcat("GrapheneClient", title, this.toString()) }
+
+    private fun <T> T.console(title: Any = System.currentTimeMillis()) = apply { if (debug) logcat("GrapheneClient", title, this.toString()) }
 
     private val sequence: AtomicInteger = AtomicInteger(0)
     private val connected: AtomicBoolean = AtomicBoolean(false)
@@ -206,6 +207,7 @@ abstract class AbstractClient {
     val sendScope = CoroutineScope(Dispatchers.IO + session)
     val receiveScope = CoroutineScope(Dispatchers.IO + session)
     val channelScope = CoroutineScope(Dispatchers.IO)
+
 
     inline fun <reified R> decodeParamsFromJsonElement(result: SocketResult) : R {
         return when (result) {

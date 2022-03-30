@@ -18,7 +18,7 @@ class MultiClient : AbstractClient() {
         }
         clients.clear()
 
-        val client = GrapheneClient(node)
+        val client = GrapheneClient(node, false)
         client.start()
         clients.add(client)
 

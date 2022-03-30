@@ -141,8 +141,8 @@ val GRAPHENE_OBJ_CLASS: List<KClass<out AbstractObject>> = listOf(
     AbstractObject::class, //    K200_GlobalPropertyObject::class,
     AbstractObject::class, //    K201_DynamicGlobalPropertyObject::class,
     AbstractObject::class, //    K202_ReservedObject::class,
-    AbstractObject::class, //    K203_AssetDynamicObject::class,
-    AbstractObject::class, //    K204_AssetBitassetObject::class,
+    K203_AssetDynamicData::class,
+    K204_AssetBitassetData::class,
     AbstractObject::class, //    K205_AccountBalanceObject::class,
     AbstractObject::class, //    K206_AccountStatisticsObject::class,
     AbstractObject::class, //    K207_TransactionHistoryObject::class,
@@ -211,6 +211,10 @@ val GRAPHENE_TYPE_TO_IDT_CLASS: Map<ObjectType, KClass<out AbstractIdType>> = GR
 val GRAPHENE_TYPE_TO_IDT_CONSTRUCTOR: Map<ObjectType, KFunction<AbstractIdType>> = GRAPHENE_TYPE_TO_IDT_CLASS.mapValues { it.value.constructors.first() }
 
 val GRAPHENE_TYPE_TO_OBJ_CLASS: Map<ObjectType, KClass<out AbstractObject>> = GRAPHENE_OBJ_TYP_ENUMS.zip(GRAPHENE_OBJ_CLASS).toMap()
+
+val GRAPHENE_OBJ_CLASS_TO_IDT_CLASS: Map<KClass<out AbstractObject>, KClass<out AbstractIdType>> = GRAPHENE_OBJ_CLASS.zip(GRAPHENE_IDT_CLASS).toMap()
+
+
 
 @OptIn(InternalSerializationApi::class)
 val GRAPHENE_TYPE_TO_OBJ_SERIALIZER: Map<ObjectType, KSerializer<out AbstractObject>> = GRAPHENE_OBJ_TYP_ENUMS.zip(GRAPHENE_OBJ_CLASS.map { it.serializer() }).toMap()

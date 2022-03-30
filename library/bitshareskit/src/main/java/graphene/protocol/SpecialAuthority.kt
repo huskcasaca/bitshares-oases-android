@@ -19,7 +19,7 @@ class NoSpecialAuthority : BaseSpecialAuthority()
 @Serializable
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 data class TopHoldersSpecialAuthority (
-    @SerialName("asset") @Serializable(with = ObjectIdTypeSerializer::class)
+    @SerialName("asset")
     val asset: K103_AssetType = emptyIdType(),
     @SerialName("num_top_holders")
     val numTopHolders: UInt8 = 1U

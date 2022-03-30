@@ -1,8 +1,6 @@
 package graphene.protocol
 
 import graphene.chain.AbstractObject
-import graphene.chain.K102_AccountObject
-import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.*
@@ -14,8 +12,9 @@ import java.util.*
 
 
 val GRAPHENE_JSON_PLATFORM_SERIALIZER = Json {
-    ignoreUnknownKeys = true
+    ignoreUnknownKeys = false
     encodeDefaults = true
+    allowStructuredMapKeys = true
 }
 
 class SortedSetSerializer<T: Comparable<T>>(private val elementSerializer: KSerializer<out T>) : KSerializer<SortedSet<T>> {
@@ -43,7 +42,7 @@ class AbstractObjectSerializer<T: AbstractObject> : KSerializer<T> {
     override fun deserialize(decoder: Decoder): T {
         decoder as JsonDecoder
         val element = decoder.decodeJsonElement().jsonObject
-        val serializer = element[AbstractObject.KEY_ID]!!.jsonPrimitive.content.toGrapheneType().toObjectClass().serializer()
+        val serializer = element["id"]!!.jsonPrimitive.content.toGrapheneType().toObjectClass().serializer()
         return decoder.json.decodeFromJsonElement(serializer, element) as T
     }
     override fun serialize(encoder: Encoder, value: T) = TODO()
@@ -53,8 +52,6 @@ class AbstractObjectSerializer<T: AbstractObject> : KSerializer<T> {
 //        return element.jsonObject[AbstractObject.KEY_ID]!!.jsonPrimitive.content.toGrapheneType().toObjectClass().serializer()
 //    }
 //}
-
-
 
 
 class SortedMapSerializer<K: Comparable<K>, V>(
@@ -67,9 +64,7 @@ class SortedMapSerializer<K: Comparable<K>, V>(
             { decoder.json.decodeFromJsonElement(valueSerializer, it.jsonArray[1]) }
         ).toSortedMap()
     }
-
     override fun serialize(encoder: Encoder, value: SortedMap<K, V>) = TODO()
-
 }
 
 object VoteTypeSerializer : KSerializer<VoteIdType> {

@@ -1,7 +1,5 @@
 package graphene.protocol
 
-import graphene.chain.K103_AssetObject
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
@@ -196,11 +194,6 @@ interface K203_AssetDynamicType: AbstractType {
 @Serializable(with = ObjectIdTypeSerializer::class)
 interface K204_AssetBitassetType: AbstractType {
     override val id: K204_AssetBitassetIdType               get() = this as K204_AssetBitassetIdType
-    val currentSupply: UInt64                               get() = 0U
-    val confidentialSupply: UInt64                          get() = 0U
-    val accumulatedFees: UInt64                             get() = 0U
-    val accumulatedCollateralFees: UInt64                   get() = 0U
-    val feePool: UInt64                                     get() = 0U
 }
 
 @Serializable(with = ObjectIdTypeSerializer::class)

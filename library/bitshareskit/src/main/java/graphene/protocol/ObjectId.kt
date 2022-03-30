@@ -138,6 +138,7 @@ fun String.toGrapheneInstance(): ObjectInstance {
 }
 
 fun ObjectType.toObjectClass(): KClass<out AbstractObject> = GRAPHENE_TYPE_TO_OBJ_CLASS[this]!!
+fun ObjectType.toObjectIdClass(): KClass<out AbstractIdType> = GRAPHENE_TYPE_TO_IDT_CLASS[this]!!
 
 fun <T: AbstractIdType> String.toGrapheneObjectId(): T {
     return GRAPHENE_TYPE_TO_IDT_CONSTRUCTOR[toGrapheneType()]!!.call(toGrapheneInstance()) as T
@@ -145,5 +146,7 @@ fun <T: AbstractIdType> String.toGrapheneObjectId(): T {
 
 val AbstractType.standardId: String
     get() = "${id.space.id}$GRAPHENE_ID_SEPARATOR${id.type.id}$GRAPHENE_ID_SEPARATOR${id.instance}"
+
+
 
 

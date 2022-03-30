@@ -7,10 +7,6 @@ import kotlinx.serialization.Serializable
 sealed class AbstractObject(
 ) : Cloneable, AbstractType {
 
-    companion object {
-        const val KEY_ID = "id"
-    }
-
     abstract override val id: AbstractIdType
 
 }

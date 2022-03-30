@@ -1,26 +1,21 @@
 package graphene.chain
 
-import graphene.protocol.K203_AssetDynamicIdType
-import graphene.protocol.K203_AssetDynamicType
-import graphene.protocol.UInt64
-import graphene.protocol.emptyIdType
+import graphene.protocol.*
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class K203_AssetDynamicData(
-    @SerialName(KEY_ID) override val id: K203_AssetDynamicIdType = emptyIdType(),
-    @SerialName(KEY_CURRENT_SUPPLY) override val currentSupply: UInt64,
-    @SerialName(KEY_CONFIDENTIAL_SUPPLY) override val confidentialSupply: UInt64,
-    @SerialName(KEY_ACCUMULATED_FEES) override val accumulatedFees: UInt64,
-    @SerialName(KEY_ACCUMULATED_COLLATERAL_FEES) override val accumulatedCollateralFees: UInt64,
-    @SerialName(KEY_FEE_POOL) override val feePool: UInt64,
-) : AbstractObject(), K203_AssetDynamicType {
-
-    companion object {
-        private const val KEY_CURRENT_SUPPLY = "current_supply"
-        private const val KEY_CONFIDENTIAL_SUPPLY = "confidential_supply"
-        private const val KEY_ACCUMULATED_FEES = "accumulated_fees"
-        private const val KEY_ACCUMULATED_COLLATERAL_FEES = "accumulated_collateral_fees"
-        private const val KEY_FEE_POOL = "fee_pool"
-    }
-
-}
+    @SerialName("id")
+    override val id: K203_AssetDynamicIdType = emptyIdType(),
+    @SerialName("current_supply")
+    override val currentSupply: ShareType,
+    @SerialName("confidential_supply")
+    override val confidentialSupply: ShareType,
+    @SerialName("accumulated_fees")
+    override val accumulatedFees: ShareType,
+    @SerialName("accumulated_collateral_fees")
+    override val accumulatedCollateralFees: ShareType,
+    @SerialName("fee_pool")
+    override val feePool: ShareType,
+) : AbstractObject(), K203_AssetDynamicType
