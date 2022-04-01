@@ -24,7 +24,7 @@ interface K101_BaseType: AbstractType {
 @Serializable(with = ObjectIdTypeSerializer::class)
 interface K102_AccountType: AbstractType {
     override val id: K102_AccountIdType                     get() = this as K102_AccountIdType
-    val membershipExpirationDate: ChainTimePoint            get() = ChainTimePoint.STANDARD_EXPIRATION_DATE_TIME
+    val membershipExpirationDate: ChainTimePoint            get() = ChainTimePoint.DEFAULT_EXPIRATION_TIME
     val registrar: K102_AccountType                         get() = emptyIdType()
     val referrer: K102_AccountType                          get() = emptyIdType()
     val lifetimeReferrer: K102_AccountType                  get() = emptyIdType()
@@ -55,11 +55,11 @@ interface K103_AssetType: AbstractType {
     val issuer: K102_AccountType                            get() = emptyIdType()
     val precision: UByte                                    get() = 0U
     val options: AssetOptions                               get() = emptyComponent()
-    val dynamicData: K203_AssetDynamicType                  get() = emptyIdType()
+    val dynamicData: K203_AssetDynamicDataType              get() = emptyIdType()
 
-    val bitassetData: K204_AssetBitassetType                get() = emptyIdType() // optional
-    val buybackAccount: K102_AccountType                    get() = emptyIdType() // optional
-    val forLiquidityPool: K119_LiquidityPoolType            get() = emptyIdType() // optional
+    val bitassetData: Optional<K204_AssetBitassetDataType> get() = optional() // optional
+    val buybackAccount: Optional<K102_AccountType>         get() = optional() // optional
+    val forLiquidityPool: Optional<K119_LiquidityPoolType> get() = optional() // optional
 
 //    var bitassetDataId: KAssetBitassetIdType = emptyIdType(),
 }
@@ -182,8 +182,8 @@ interface K202_ReservedType: AbstractType {
 }
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-interface K203_AssetDynamicType: AbstractType {
-    override val id: K203_AssetDynamicIdType                get() = this as K203_AssetDynamicIdType
+interface K203_AssetDynamicDataType: AbstractType {
+    override val id: K203_AssetDynamicDataIdType            get() = this as K203_AssetDynamicDataIdType
     val currentSupply: UInt64                               get() = 0U
     val confidentialSupply: UInt64                          get() = 0U
     val accumulatedFees: UInt64                             get() = 0U
@@ -192,8 +192,8 @@ interface K203_AssetDynamicType: AbstractType {
 }
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-interface K204_AssetBitassetType: AbstractType {
-    override val id: K204_AssetBitassetIdType               get() = this as K204_AssetBitassetIdType
+interface K204_AssetBitassetDataType: AbstractType {
+    override val id: K204_AssetBitassetDataIdType           get() = this as K204_AssetBitassetDataIdType
 }
 
 @Serializable(with = ObjectIdTypeSerializer::class)

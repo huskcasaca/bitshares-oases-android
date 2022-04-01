@@ -15,15 +15,8 @@ data class ChainTimePoint(
     val time: Instant
 ) : GrapheneComponent {
     companion object {
-        private const val STANDARD_EXPIRATION_TIME = "1970-01-01T00:00:00Z"
-
-        val STANDARD_EXPIRATION_DATE_TIME: ChainTimePoint = STANDARD_EXPIRATION_TIME.toGrapheneDateTime()
+        val DEFAULT_EXPIRATION_TIME: ChainTimePoint = "1970-01-01T00:00:00Z".toGrapheneDateTime()
     }
-
-//    override fun toString(): String {
-//        return time.toString().removeSuffix("Z")
-//    }
-
 }
 
 class KGrapheneDateTimeSerializer : KSerializer<ChainTimePoint> {
@@ -32,7 +25,6 @@ class KGrapheneDateTimeSerializer : KSerializer<ChainTimePoint> {
     override fun serialize(encoder: Encoder, value: ChainTimePoint) = encoder.encodeString(value.toString())
 }
 
-
 fun String.toGrapheneDateTime(): ChainTimePoint {
-    return runCatching { ChainTimePoint("${this}Z".toInstant()) }.getOrElse{ ChainTimePoint.STANDARD_EXPIRATION_DATE_TIME }
+    return runCatching { ChainTimePoint("${this}Z".toInstant()) }.getOrElse{ ChainTimePoint.DEFAULT_EXPIRATION_TIME }
 }

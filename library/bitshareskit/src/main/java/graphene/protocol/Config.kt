@@ -8,7 +8,7 @@ val GRAPHENE_1_PERCENT: UInt32                                          = GRAPHE
 val GRAPHENE_SYMBOL: String                                             = "BTS"
 val GRAPHENE_ADDRESS_PREFIX: String                                     = "BTS"
 
-val GRAPHENE_BLOCKCHAIN_PRECISION: UInt32                               = 100000U
+val GRAPHENE_BLOCKCHAIN_PRECISION: ShareType                            = 100000U
 val GRAPHENE_BLOCKCHAIN_PRECISION_DIGITS: UInt32                        = 5U
 
 val GRAPHENE_MIN_ACCOUNT_NAME_LENGTH: UInt32                            = 1U
@@ -22,7 +22,7 @@ val GRAPHENE_MAX_SHARE_SUPPLY: UInt64                                   = 100000
 val GRAPHENE_MAX_WORKER_NAME_LENGTH: UInt32                             = 63U
 val GRAPHENE_MAX_URL_LENGTH: UInt32                                     = 127U
 
-val GRAPHENE_MAX_SIG_CHECK_DEPTH: UInt32                                = 2U
+val GRAPHENE_MAX_SIG_CHECK_DEPTH: UInt8                                 = 2U
 
 //const val GRAPHENE_IRREVERSIBLE_THRESHOLD = (70 * GRAPHENE_1_PERCENT)
 
@@ -41,41 +41,41 @@ val GRAPHENE_MIN_TRANSACTION_SIZE_LIMIT: UInt32                         = 1024U
 val GRAPHENE_MIN_BLOCK_INTERVAL: UInt32                                 = 1U /* seconds */
 val GRAPHENE_MAX_BLOCK_INTERVAL: UInt32                                 = 30U /* seconds */
 
-val GRAPHENE_DEFAULT_BLOCK_INTERVAL: UInt32                             = 5U /* seconds */
+val GRAPHENE_DEFAULT_BLOCK_INTERVAL: UInt8                              = 5U /* seconds */
 val GRAPHENE_DEFAULT_MAX_TRANSACTION_SIZE: UInt32                       = 2048U
 val GRAPHENE_DEFAULT_MAX_BLOCK_SIZE: UInt32                             = 2U * 1000U * 1000U /* < 2 MiB (less than MAX_MESSAGE_SIZE in graphene/net/config.hpp) */
 val GRAPHENE_DEFAULT_MAX_TIME_UNTIL_EXPIRATION: UInt32                  = 60U * 60U * 24U // seconds,  aka: 1 day
 val GRAPHENE_DEFAULT_MAINTENANCE_INTERVAL: UInt32                       = 60U * 60U * 24U // seconds, aka: 1 day
-val GRAPHENE_DEFAULT_MAINTENANCE_SKIP_SLOTS: UInt32                     = 3U  // number of slots to skip for maintenance interval
+val GRAPHENE_DEFAULT_MAINTENANCE_SKIP_SLOTS: UInt8                      = 3U  // number of slots to skip for maintenance interval
 
 val GRAPHENE_DEFAULT_FORCE_SETTLEMENT_DELAY: UInt32                     = 60U * 60U * 24U ///< 1 day
-val GRAPHENE_DEFAULT_FORCE_SETTLEMENT_OFFSET: UInt32                    = 0U ///< 1%
-val GRAPHENE_DEFAULT_FORCE_SETTLEMENT_MAX_VOLUME: UInt32                = 20U * GRAPHENE_1_PERCENT ///< 20%
+val GRAPHENE_DEFAULT_FORCE_SETTLEMENT_OFFSET: UInt16                    = 0U ///< 1%
+val GRAPHENE_DEFAULT_FORCE_SETTLEMENT_MAX_VOLUME: UInt16                = (20U * GRAPHENE_1_PERCENT).toUInt16() ///< 20%
 val GRAPHENE_DEFAULT_PRICE_FEED_LIFETIME: UInt32                        = 60U * 60U * 24U ///< 1 day
-val GRAPHENE_DEFAULT_MAX_AUTHORITY_MEMBERSHIP: UInt32                   = 10U
-val GRAPHENE_DEFAULT_MAX_ASSET_WHITELIST_AUTHORITIES: UInt32            = 10U
-val GRAPHENE_DEFAULT_MAX_ASSET_FEED_PUBLISHERS: UInt32                  = 10U
+val GRAPHENE_DEFAULT_MAX_AUTHORITY_MEMBERSHIP: UInt16                   = 10U
+val GRAPHENE_DEFAULT_MAX_ASSET_WHITELIST_AUTHORITIES: UInt8             = 10U
+val GRAPHENE_DEFAULT_MAX_ASSET_FEED_PUBLISHERS: UInt8                   = 10U
 
 val GRAPHENE_DEFAULT_MIN_WITNESS_COUNT: UInt32                          = 11U
 val GRAPHENE_DEFAULT_MIN_COMMITTEE_MEMBER_COUNT: UInt32                 = 11U
-val GRAPHENE_DEFAULT_MAX_WITNESSES: UInt32                              = 1001U // SHOULD BE ODD
-val GRAPHENE_DEFAULT_MAX_COMMITTEE: UInt32                              = 1001U // SHOULD BE ODD
+val GRAPHENE_DEFAULT_MAX_WITNESSES: UInt16                              = 1001U // SHOULD BE ODD
+val GRAPHENE_DEFAULT_MAX_COMMITTEE: UInt16                              = 1001U // SHOULD BE ODD
 val GRAPHENE_DEFAULT_MAX_PROPOSAL_LIFETIME_SEC: UInt32                  = 60U * 60U * 24U * 7U * 4U // Four weeks
 val GRAPHENE_DEFAULT_COMMITTEE_PROPOSAL_REVIEW_PERIOD_SEC: UInt32       = 60U * 60U * 24U * 7U * 2U // Two weeks
-val GRAPHENE_DEFAULT_NETWORK_PERCENT_OF_FEE: UInt32                     = 20U * GRAPHENE_1_PERCENT
-val GRAPHENE_DEFAULT_LIFETIME_REFERRER_PERCENT_OF_FEE: UInt32           = 30U * GRAPHENE_1_PERCENT
+val GRAPHENE_DEFAULT_NETWORK_PERCENT_OF_FEE: UInt16                     = (20U * GRAPHENE_1_PERCENT).toUInt16()
+val GRAPHENE_DEFAULT_LIFETIME_REFERRER_PERCENT_OF_FEE: UInt16           = (30U * GRAPHENE_1_PERCENT).toUInt16()
 val GRAPHENE_DEFAULT_CASHBACK_VESTING_PERIOD_SEC: UInt32                = 60U * 60U * 24U * 365U ///< 1 year
-val GRAPHENE_DEFAULT_CASHBACK_VESTING_THRESHOLD: UInt32                 = GRAPHENE_BLOCKCHAIN_PRECISION * 100U // TODO
-val GRAPHENE_DEFAULT_BURN_PERCENT_OF_FEE: UInt32                        = 20U * GRAPHENE_1_PERCENT
-val GRAPHENE_DEFAULT_MAX_ASSERT_OPCODE: UInt32                          = 1U
-val GRAPHENE_DEFAULT_FEE_LIQUIDATION_THRESHOLD: UInt32                  = GRAPHENE_BLOCKCHAIN_PRECISION * 100U // TODO
-val GRAPHENE_DEFAULT_ACCOUNTS_PER_FEE_SCALE: UInt32                     = 1000U
-val GRAPHENE_DEFAULT_ACCOUNT_FEE_SCALE_BITSHIFTS: UInt32                = 4U
+val GRAPHENE_DEFAULT_CASHBACK_VESTING_THRESHOLD: ShareType              = GRAPHENE_BLOCKCHAIN_PRECISION * 100U // TODO
+val GRAPHENE_DEFAULT_BURN_PERCENT_OF_FEE: UInt16                        = (20U * GRAPHENE_1_PERCENT).toUInt16()
+val GRAPHENE_DEFAULT_MAX_ASSERT_OPCODE: UInt16                          = 1U
+val GRAPHENE_DEFAULT_FEE_LIQUIDATION_THRESHOLD: ShareType               = GRAPHENE_BLOCKCHAIN_PRECISION * 100U // TODO
+val GRAPHENE_DEFAULT_ACCOUNTS_PER_FEE_SCALE: UInt16                     = 1000U
+val GRAPHENE_DEFAULT_ACCOUNT_FEE_SCALE_BITSHIFTS: UInt8                 = 4U
 val GRAPHENE_DEFAULT_MAX_BUYBACK_MARKETS: UInt32                        = 4U
 
-val GRAPHENE_DEFAULT_WITNESS_PAY_PER_BLOCK: UInt32                      = GRAPHENE_BLOCKCHAIN_PRECISION * 10U
+val GRAPHENE_DEFAULT_WITNESS_PAY_PER_BLOCK: ShareType                   = GRAPHENE_BLOCKCHAIN_PRECISION * 10U
 val GRAPHENE_DEFAULT_WITNESS_PAY_VESTING_SECONDS: UInt32                = 60U * 60U * 24U
-val GRAPHENE_DEFAULT_WORKER_BUDGET_PER_DAY: UInt32                      = GRAPHENE_BLOCKCHAIN_PRECISION * 500U * 1000U
+val GRAPHENE_DEFAULT_WORKER_BUDGET_PER_DAY: ShareType                   = GRAPHENE_BLOCKCHAIN_PRECISION * 500U * 1000U
 val GRAPHENE_DEFAULT_MINIMUM_FEEDS: UInt32                              = 7U
 
 val GRAPHENE_MIN_BLOCK_SIZE_LIMIT: UInt32                               = GRAPHENE_MIN_TRANSACTION_SIZE_LIMIT * 5U // 5 transactions per block

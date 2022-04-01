@@ -1,5 +1,6 @@
 package graphene.protocol
 
+import bitshareskit.extensions.info
 import graphene.chain.AbstractObject
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
@@ -12,7 +13,7 @@ import java.util.*
 
 
 val GRAPHENE_JSON_PLATFORM_SERIALIZER = Json {
-    ignoreUnknownKeys = false
+    ignoreUnknownKeys = true
     encodeDefaults = true
     allowStructuredMapKeys = true
 }
@@ -74,28 +75,25 @@ object VoteTypeSerializer : KSerializer<VoteIdType> {
 }
 
 
-
-abstract class AbstractStaticVariantSerializer<T>(private val elementSerializer: KSerializer<T>) : KSerializer<StaticVariant<T>> {
+open class StaticVariantSerializer<T>(private val elementSerializer: KSerializer<T>) : KSerializer<StaticVariant<T>> {
 
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("StaticVariant", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder): StaticVariant<T> {
         decoder as JsonDecoder
         decoder.decodeJsonElement().jsonArray.let {
+            val tag = decoder.json.decodeFromJsonElement<Int64>(it[0])
+            val va = decoder.json.decodeFromJsonElement(elementSerializer, it[1])
+            elementSerializer::class.info()
             return deserialize(
-                decoder.json.decodeFromJsonElement(it[0]),
-                decoder.json.decodeFromJsonElement(elementSerializer, it[1])
+                tag,
+                va
             )
         }
     }
     override fun serialize(encoder: Encoder, value: StaticVariant<T>) {
         TODO("Not yet implemented")
     }
-    abstract fun deserialize(tagType: Int64, storage: T): StaticVariant<T>
-}
-
-
-class StaticVariantSerializer<T>(elementSerializer: KSerializer<T>) : AbstractStaticVariantSerializer<T>(elementSerializer) {
-    override fun deserialize(tagType: Int64, storage: T): StaticVariant<T> {
+    open fun deserialize(tagType: Int64, storage: T): StaticVariant<T> {
         return object : StaticVariant<T>() {
             override val tagType: Int64 = tagType
             override val storage: T = storage
@@ -120,7 +118,7 @@ object BaseSpecialAuthoritySerializer : KSerializer<BaseSpecialAuthority> {
     }
 }
 
-object SpecialAuthoritySerializer : AbstractStaticVariantSerializer<BaseSpecialAuthority>(BaseSpecialAuthority.serializer()) {
+object SpecialAuthoritySerializer : StaticVariantSerializer<BaseSpecialAuthority>(BaseSpecialAuthority.serializer()) {
     override fun deserialize(tagType: Int64, storage: BaseSpecialAuthority): StaticVariant<BaseSpecialAuthority> {
         return SpecialAuthority(tagType, storage)
     }

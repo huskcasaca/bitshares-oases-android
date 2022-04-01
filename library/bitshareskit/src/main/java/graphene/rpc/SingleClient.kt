@@ -97,7 +97,7 @@ class GrapheneClient(val node: Node, var debug: Boolean = true) : AbstractClient
 
 
     private suspend fun login() {
-        val result: Boolean = sendForResult(LoginAPI.LOGIN, node.username, node.password)
+        val result: Boolean = sendForResult(LoginAPI.LOGIN, node.username, node.password) ?: throw SocketErrorException("Login Failed")
         result.console("Login")
     }
 
@@ -163,23 +163,23 @@ class GrapheneClient(val node: Node, var debug: Boolean = true) : AbstractClient
 
     private suspend fun launchSocket() {
         client.wss(node.url) {
-            val sendJob = sendScope.launch { sendRPC() }
-            val receiveJob = receiveScope.launch { receiveRPC() }
-            login()
-            api()
-            open()
-            listOf(sendJob, receiveJob).joinAll()
+            try {
+                val sendJob = sendScope.launch { sendRPC() }
+                val receiveJob = receiveScope.launch { receiveRPC() }
+                login()
+                api()
+                open()
+                listOf(sendJob, receiveJob).joinAll()
+            } catch (e: Throwable) {
+                e.printStackTrace()
+            }
         }
     }
 
     // public
     fun start() {
         sendScope.launch {
-            try {
-                launchSocket()
-            } catch (e: Throwable) {
-                e.printStackTrace()
-            }
+            launchSocket() // TODO: 2022/4/1 java.net.SocketException: Bad file descriptor
         }
     }
 
@@ -209,10 +209,10 @@ abstract class AbstractClient {
     val channelScope = CoroutineScope(Dispatchers.IO)
 
 
-    inline fun <reified R> decodeParamsFromJsonElement(result: SocketResult) : R {
+    inline fun <reified R> decodeParamsFromJsonElement(result: SocketResult) : R? {
         return when (result) {
             is SocketCallback -> GRAPHENE_JSON_PLATFORM_SERIALIZER.decodeFromJsonElement(result.result)
-            is SocketError -> throw SocketErrorException(result)
+            is SocketError -> null // throw SocketErrorException(result)
             is SocketNotice -> TODO()
         }
     }
@@ -223,7 +223,7 @@ abstract class AbstractClient {
         }
         return broadcast(method, array)
     }
-    suspend inline fun <reified R> sendForResult(method: API) : R {
+    suspend inline fun <reified R> sendForResult(method: API) : R? {
         return decodeParamsFromJsonElement(send(method))
     }
     suspend inline fun <reified R> sendForResultOrNull(method: API) : R? {
@@ -237,7 +237,7 @@ abstract class AbstractClient {
         }
         return broadcast(method, array)
     }
-    suspend inline fun <reified T1, reified R> sendForResult(method: API, param1: T1) : R {
+    suspend inline fun <reified T1, reified R> sendForResult(method: API, param1: T1) : R? {
         return decodeParamsFromJsonElement(send(method, param1))
     }
 
@@ -250,7 +250,7 @@ abstract class AbstractClient {
         return broadcast(method, array)
     }
 
-    suspend inline fun <reified T1, reified T2, reified R> sendForResult(method: API, param1: T1, param2: T2) : R {
+    suspend inline fun <reified T1, reified T2, reified R> sendForResult(method: API, param1: T1, param2: T2) : R? {
         return decodeParamsFromJsonElement(send(method, param1, param2))
     }
 
@@ -268,6 +268,9 @@ abstract class AbstractClient {
 
     class SocketManualStopException : SocketException()
     class SocketClosedException : SocketException()
-    class SocketErrorException(error: SocketError) : SocketException()
+    class SocketErrorException(override val message: String) : SocketException() {
+
+        constructor(error: SocketError): this(error.error.toString())
+    }
 
 }

@@ -52,8 +52,8 @@ val GRAPHENE_TYP_CLASS: List<KClass<out AbstractType>> = listOf(
     K200_GlobalPropertyType::class,
     K201_DynamicGlobalPropertyType::class,
     K202_ReservedType::class,
-    K203_AssetDynamicType::class,
-    K204_AssetBitassetType::class,
+    K203_AssetDynamicDataType::class,
+    K204_AssetBitassetDataType::class,
     K205_AccountBalanceType::class,
     K206_AccountStatisticsType::class,
     K207_TransactionHistoryType::class,
@@ -96,8 +96,8 @@ val GRAPHENE_IDT_CLASS: List<KClass<out AbstractIdType>> = listOf(
     K200_GlobalPropertyIdType::class,
     K201_DynamicGlobalPropertyIdType::class,
     K202_ReservedIdType::class,
-    K203_AssetDynamicIdType::class,
-    K204_AssetBitassetIdType::class,
+    K203_AssetDynamicDataIdType::class,
+    K204_AssetBitassetDataIdType::class,
     K205_AccountBalanceIdType::class,
     K206_AccountStatisticsIdType::class,
     K207_TransactionHistoryIdType::class,
@@ -118,7 +118,6 @@ val GRAPHENE_OBJ_CLASS: List<KClass<out AbstractObject>> = listOf(
     K101_BaseObject::class,
     K102_AccountObject::class,
     K103_AssetObject::class,
-
     AbstractObject::class, //    K104_ForceSettlementObject::class,
     AbstractObject::class, //    K105_CommitteeMemberObject::class,
     AbstractObject::class, //    K106_WitnessObject::class,
@@ -138,11 +137,11 @@ val GRAPHENE_OBJ_CLASS: List<KClass<out AbstractObject>> = listOf(
     AbstractObject::class, //    K120_SametFundObject::class,
     AbstractObject::class, //    K121_CreditOfferObject::class,
     AbstractObject::class, //    K122_CreditDealObject::class,
-    AbstractObject::class, //    K200_GlobalPropertyObject::class,
-    AbstractObject::class, //    K201_DynamicGlobalPropertyObject::class,
-    AbstractObject::class, //    K202_ReservedObject::class,
-    K203_AssetDynamicData::class,
-    K204_AssetBitassetData::class,
+    K200_GlobalPropertyObject::class,
+    K201_DynamicGlobalPropertyObject::class,
+    K202_ReservedObject::class,
+    K203_AssetDynamicDataObject::class,
+    K204_AssetBitassetDataObject::class,
     AbstractObject::class, //    K205_AccountBalanceObject::class,
     AbstractObject::class, //    K206_AccountStatisticsObject::class,
     AbstractObject::class, //    K207_TransactionHistoryObject::class,
@@ -186,8 +185,8 @@ val GRAPHENE_ID_TYPE_INSTANCES: List<AbstractIdType> = listOf(
     K200_GlobalPropertyIdType(),
     K201_DynamicGlobalPropertyIdType(),
     K202_ReservedIdType(),
-    K203_AssetDynamicIdType(),
-    K204_AssetBitassetIdType(),
+    K203_AssetDynamicDataIdType(),
+    K204_AssetBitassetDataIdType(),
     K205_AccountBalanceIdType(),
     K206_AccountStatisticsIdType(),
     K207_TransactionHistoryIdType(),
@@ -203,6 +202,53 @@ val GRAPHENE_ID_TYPE_INSTANCES: List<AbstractIdType> = listOf(
     K217_CollateralBidIdType(),
     K218_CreditDealSummaryIdType(),
 )
+
+//val GRAPHENE_OBJECT_TYPE_INSTANCES: List<AbstractObject> by lazy {
+//    listOf(
+//        INVALID_NULL_OBJECT, // K100_NullIdType(),
+//        INVALID_BASE_OBJECT, // K101_BaseIdType(),
+//        INVALID_ACCOUNT_OBJECT, // K102_AccountIdType(),
+//        K100_NullObject(emptyIdType()), // K103_AssetIdType(),
+//        K100_NullObject(emptyIdType()), // K104_ForceSettlementIdType(),
+//        K100_NullObject(emptyIdType()), // K105_CommitteeMemberIdType(),
+//        K100_NullObject(emptyIdType()), // K106_WitnessIdType(),
+//        K100_NullObject(emptyIdType()), // K107_LimitOrderIdType(),
+//        K100_NullObject(emptyIdType()), // K108_CallOrderIdType(),
+//        K100_NullObject(emptyIdType()), // K109_CustomIdType(),
+//        K100_NullObject(emptyIdType()), // K110_ProposalIdType(),
+//        K100_NullObject(emptyIdType()), // K111_OperationHistoryIdType(),
+//        K100_NullObject(emptyIdType()), // K112_WithdrawPermissionIdType(),
+//        K100_NullObject(emptyIdType()), // K113_VestingBalanceIdType(),
+//        K100_NullObject(emptyIdType()), // K114_WorkerIdType(),
+//        K100_NullObject(emptyIdType()), // K115_BalanceIdType(),
+//        K100_NullObject(emptyIdType()), // K116_HtlcIdType(),
+//        K100_NullObject(emptyIdType()), // K117_CustomAuthorityIdType(),
+//        K100_NullObject(emptyIdType()), // K118_TicketIdType(),
+//        K100_NullObject(emptyIdType()), // K119_LiquidityPoolIdType(),
+//        K100_NullObject(emptyIdType()), // K120_SametFundIdType(),
+//        K100_NullObject(emptyIdType()), // K121_CreditOfferIdType(),
+//        K100_NullObject(emptyIdType()), // K122_CreditDealIdType(),
+//        K100_NullObject(emptyIdType()), // K200_GlobalPropertyIdType(),
+//        K100_NullObject(emptyIdType()), // K201_DynamicGlobalPropertyIdType(),
+//        K100_NullObject(emptyIdType()), // K202_ReservedIdType(),
+//        K100_NullObject(emptyIdType()), // K203_AssetDynamicIdType(),
+//        K100_NullObject(emptyIdType()), // K204_AssetBitassetIdType(),
+//        K100_NullObject(emptyIdType()), // K205_AccountBalanceIdType(),
+//        K100_NullObject(emptyIdType()), // K206_AccountStatisticsIdType(),
+//        K100_NullObject(emptyIdType()), // K207_TransactionHistoryIdType(),
+//        K100_NullObject(emptyIdType()), // K208_BlockSummaryIdType(),
+//        K100_NullObject(emptyIdType()), // K209_AccountTransactionHistoryIdType(),
+//        K100_NullObject(emptyIdType()), // K210_BlindedBalanceIdType(),
+//        K100_NullObject(emptyIdType()), // K211_ChainPropertyIdType(),
+//        K100_NullObject(emptyIdType()), // K212_WitnessScheduleIdType(),
+//        K100_NullObject(emptyIdType()), // K213_BudgetRecordIdType(),
+//        K100_NullObject(emptyIdType()), // K214_SpecialAuthorityIdType(),
+//        K100_NullObject(emptyIdType()), // K215_BuybackIdType(),
+//        K100_NullObject(emptyIdType()), // K216_FbaAccumulatorIdType(),
+//        K100_NullObject(emptyIdType()), // K217_CollateralBidIdType(),
+//        K100_NullObject(emptyIdType()), // K218_CreditDealSummaryIdType(),
+//    )
+//}
 
 
 // maps
@@ -226,12 +272,16 @@ val GRAPHENE_TYPE_TO_OBJ_SERIALIZER: Map<ObjectType, KSerializer<out AbstractObj
 val GRAPHENE_ID_TYPE_FAST_ALOC: Map<KClass<out AbstractType>, AbstractIdType> =
     GRAPHENE_TYP_CLASS.zip(GRAPHENE_ID_TYPE_INSTANCES).toMap() + GRAPHENE_IDT_CLASS.zip(GRAPHENE_ID_TYPE_INSTANCES).toMap()
 
+//val GRAPHENE_OBJECT_TYPE_FAST_ALOC: Map<KClass<out AbstractType>, AbstractObject> =
+//    GRAPHENE_TYP_CLASS.zip(GRAPHENE_OBJECT_TYPE_INSTANCES).toMap() + GRAPHENE_IDT_CLASS.zip(GRAPHENE_OBJECT_TYPE_INSTANCES).toMap()
+
+
 val GRAPHENE_COMPONENTS_FAST_ALOC: Map<KClass<out GrapheneComponent>, GrapheneComponent> =
     mapOf(
-        Authority::class            to Authority(),
-        AccountOptions::class       to AccountOptions(),
-        AssetOptions::class         to AssetOptions(),
-        PublicKeyType::class        to PublicKeyType(),
-        PrivateKeyType::class       to PrivateKeyType(),
-        SpecialAuthority::class     to SpecialAuthority(),
+//        Authority::class            to Authority(),
+//        AccountOptions::class       to AccountOptions(),
+//        AssetOptions::class         to AssetOptions(),
+//        PublicKeyType::class        to PublicKeyType(),
+//        PrivateKeyType::class       to PrivateKeyType(),
+//        SpecialAuthority::class     to SpecialAuthority(),
     )

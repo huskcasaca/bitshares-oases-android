@@ -105,9 +105,9 @@ fun Project.libraryKit() {
         testImplementation("com.github.bilthon:graphenej:0.4.2")
         testImplementation("com.github.bilthon:graphenej:0.4.2")
         testImplementation("junit:junit:4.13")
+        testImplementation("org.slf4j:slf4j-jdk14:1.7.30")
         testImplementation("org.bouncycastle:bcpkix-jdk15on:1.65")
         testImplementation("org.bitcoinj:bitcoinj-core:0.14.3")
-        testImplementation("org.slf4j:slf4j-jdk14:1.7.30")
         testImplementation(project(":external:java-json"))
 
         androidTestImplementation("androidx.test.ext:junit:1.1.3")

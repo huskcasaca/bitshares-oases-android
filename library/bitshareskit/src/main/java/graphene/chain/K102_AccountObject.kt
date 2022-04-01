@@ -49,8 +49,8 @@ data class K102_AccountObject(
     @SerialName("blacklisted_accounts")
     override val blackListedAccounts: Set<K102_AccountType>,
 
-    @SerialName("cashback_vb") @Optional
-    val cashback_vb: K113_VestingBalanceIdType = emptyIdType(),
+    @SerialName("cashback_vb")
+    val cashback_vb: Optional<K113_VestingBalanceIdType> = optional(),
 
     @SerialName("owner_special_authority")
     override val ownerSpecialAuthority: SpecialAuthority,
@@ -59,4 +59,4 @@ data class K102_AccountObject(
     @SerialName("top_n_control_flags")
     override val topNControlFlags: UInt8,
 
-) : AbstractObject(), K102_AccountType
+    ) : AbstractObject(), K102_AccountType

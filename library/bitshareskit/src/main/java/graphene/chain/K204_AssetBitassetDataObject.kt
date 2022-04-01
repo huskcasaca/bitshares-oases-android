@@ -5,9 +5,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class K204_AssetBitassetData(
+data class K204_AssetBitassetDataObject(
     @SerialName("id")
-    override val id: K204_AssetBitassetIdType,
+    override val id: K204_AssetBitassetDataIdType,
     // The asset this object belong to
     @SerialName("asset_id")
     val assetId: K103_AssetIdType,
@@ -67,7 +67,7 @@ data class K204_AssetBitassetData(
     @SerialName("feed_cer_updated")
     // Track whether core exchange rate in current feed has updated
     val feed_cer_updated: Boolean = false,
-) : AbstractObject(), K204_AssetBitassetType {
+) : AbstractObject(), K204_AssetBitassetDataType {
 //    // @return whether @ref current_feed is different from @ref median_feed
 ////    bool is_current_feed_price_capped()const
 ////    { return ( median_feed.settlement_price != current_feed.settlement_price ); }

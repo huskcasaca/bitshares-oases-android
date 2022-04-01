@@ -70,7 +70,8 @@ enum class ImplementationType(override val id: UInt8): ObjectType {
 
 typealias ObjectInstance = UInt64
 
-const val INVALID_ID: ULong = UInt64.MAX_VALUE
+const val INVALID_INSTANCE: ULong = UInt64.MAX_VALUE
+
 const val GRAPHENE_ID_SEPARATOR: String = "."
 
 
@@ -78,6 +79,10 @@ inline fun <reified K: AbstractType> emptyIdType(): K {
 //    return K::class.members.first { it.name == "id" }.returnType.jvmErasure.constructors.first().call(0U.toULong()) as K
     return GRAPHENE_ID_TYPE_FAST_ALOC[K::class] as K
 }
+
+//inline fun <reified K: AbstractType> emptyObjectType(): K {
+//    return GRAPHENE_OBJECT_TYPE_FAST_ALOC[K::class] as K
+//}
 
 fun opsLaunch(block: () -> Unit): String {
     var times = 0
@@ -143,10 +148,6 @@ fun ObjectType.toObjectIdClass(): KClass<out AbstractIdType> = GRAPHENE_TYPE_TO_
 fun <T: AbstractIdType> String.toGrapheneObjectId(): T {
     return GRAPHENE_TYPE_TO_IDT_CONSTRUCTOR[toGrapheneType()]!!.call(toGrapheneInstance()) as T
 }
-
-val AbstractType.standardId: String
-    get() = "${id.space.id}$GRAPHENE_ID_SEPARATOR${id.type.id}$GRAPHENE_ID_SEPARATOR${id.instance}"
-
 
 
 

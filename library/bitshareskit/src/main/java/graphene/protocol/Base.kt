@@ -31,6 +31,8 @@ typealias TypeSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSe
 typealias PairArray<A, B> = @Serializable(with = PairAsArraySerializer::class) Pair<A, B>
 
 
+typealias FeeParameters = FlatSet<TypedFeeParameter>
+
 class PairAsArraySerializer<A, B>(
     private val firstSerializer: KSerializer<A>, private val secondSerializer: KSerializer<B>
 ) : KSerializer<Pair<A, B>> {
@@ -69,5 +71,3 @@ internal val bytesComparator = Comparator<ByteArray> { o1, o2 ->
 }
 
 interface Extension<T> : GrapheneComponent
-
-annotation class Optional
