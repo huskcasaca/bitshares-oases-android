@@ -1,5 +1,14 @@
 package graphene.protocol
 
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import java.math.BigInteger
+
 typealias UInt8  = UByte
 typealias UInt16 = UShort
 typealias UInt32 = UInt
@@ -96,8 +105,56 @@ fun Int64.toInt8():  Int8  = toByte()
 fun Int64.toInt16(): Int16 = toShort()
 fun Int64.toInt32(): Int32 = toInt()
 
-
 typealias ShareType = UInt64 // safe<int64_t>
 
+
+object UInt128Serializer : KSerializer<UInt128> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("kotlin.ULongLong", PrimitiveKind.STRING)
+    override fun serialize(encoder: Encoder, value: UInt128) {
+        encoder.encodeString(value.toString())
+    }
+    override fun deserialize(decoder: Decoder): UInt128 = UInt128(decoder.decodeString())
+}
+
+@JvmInline
+@Serializable(with = UInt128Serializer::class)
+value class UInt128 constructor(@PublishedApi internal val data: BigInteger) : Comparable<UInt128> {
+
+    companion object {
+        val MIN_VALUE: UInt128 = UInt128(BigInteger.valueOf(0))
+        val MAX_VALUE: UInt128 = UInt128(BigInteger.valueOf(2).pow(128) - BigInteger.valueOf(1))
+        const val SIZE_BYTES: Int = 16
+        const val SIZE_BITS: Int = 128
+    }
+    constructor(value: String) : this(BigInteger(value))
+
+    operator fun plus(other: UInt128): UInt128 = UInt128(data + other.data)
+    operator fun minus(other: UInt128): UInt128 = UInt128(data - other.data)
+    operator fun times(other: UInt128): UInt128 = UInt128(data * other.data)
+    operator fun div(other: UInt128): UInt128 = UInt128(data / other.data)
+    operator fun rem(other: UInt128): UInt128 = UInt128(data % other.data)
+
+    fun UInt128.toByte(): Byte = data.toByte()
+    fun UInt128.toChar(): Char = data.toChar()
+    fun UInt128.toDouble(): Double = data.toDouble()
+    fun UInt128.toFloat(): Float = data.toFloat()
+    fun UInt128.toInt(): Int = data.toInt()
+    fun UInt128.toLong(): Long = data.toLong()
+    fun UInt128.toShort(): Short = data.toShort()
+
+    override fun toString(): String = data.toString()
+    override fun compareTo(other: UInt128): Int = data.compareTo(other.data)
+}
+
+
+fun UInt8.toUInt128(): UInt128 = UInt128(toString())
+fun UInt16.toUInt128(): UInt128 = UInt128(toString())
+fun UInt32.toUInt128(): UInt128 = UInt128(toString())
+fun UInt64.toUInt128(): UInt128 = UInt128(toString())
+
+fun Int8.toUInt128():  UInt128 = UInt128(BigInteger.valueOf(toLong()))
+fun Int16.toUInt128(): UInt128 = UInt128(BigInteger.valueOf(toLong()))
+fun Int32.toUInt128(): UInt128 = UInt128(BigInteger.valueOf(toLong()))
+fun Int64.toUInt128(): UInt128 = UInt128(BigInteger.valueOf(toLong()))
 
 

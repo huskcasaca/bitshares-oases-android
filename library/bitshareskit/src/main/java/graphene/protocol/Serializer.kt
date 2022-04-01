@@ -82,24 +82,49 @@ open class StaticVariantSerializer<T>(private val elementSerializer: KSerializer
         decoder as JsonDecoder
         decoder.decodeJsonElement().jsonArray.let {
             val tag = decoder.json.decodeFromJsonElement<Int64>(it[0])
-            val va = decoder.json.decodeFromJsonElement(elementSerializer, it[1])
-            elementSerializer::class.info()
-            return deserialize(
-                tag,
-                va
-            )
+            val serializer = selectSerializer(tag) ?: elementSerializer
+            return deserialize(tag, decoder.json.decodeFromJsonElement(serializer, it[1]))
         }
     }
     override fun serialize(encoder: Encoder, value: StaticVariant<T>) {
         TODO("Not yet implemented")
     }
     open fun deserialize(tagType: Int64, storage: T): StaticVariant<T> {
-        return object : StaticVariant<T>() {
-            override val tagType: Int64 = tagType
-            override val storage: T = storage
-        }
+        return StaticVariant(tagType, storage)
+    }
+    open fun selectSerializer(tag: Int64): KSerializer<out T>? {
+        return null
     }
 }
+
+object SpecialAuthoritySerializer : StaticVariantSerializer<BaseSpecialAuthority>(BaseSpecialAuthority.serializer()) {
+    override fun deserialize(tagType: Int64, storage: BaseSpecialAuthority): StaticVariant<BaseSpecialAuthority> {
+        return SpecialAuthority(tagType, storage)
+    }
+}
+
+//open class StaticVariantSerializer<T>(private val elementSerializer: KSerializer<T>) : KSerializer<StaticVariant<T>> {
+//
+//    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("StaticVariant", PrimitiveKind.STRING)
+//    override fun deserialize(decoder: Decoder): StaticVariant<T> {
+//        decoder as JsonDecoder
+//        decoder.decodeJsonElement().jsonArray.let {
+//            val tag = decoder.json.decodeFromJsonElement<Int64>(it[0])
+//            val va = decoder.json.decodeFromJsonElement(elementSerializer, it[1])
+//            elementSerializer::class.info()
+//            return deserialize(
+//                tag,
+//                va
+//            )
+//        }
+//    }
+//    override fun serialize(encoder: Encoder, value: StaticVariant<T>) {
+//        TODO("Not yet implemented")
+//    }
+//    open fun deserialize(tagType: Int64, storage: T): StaticVariant<T> {
+//        return StaticVariant(tagType, storage)
+//    }
+//}
 
 
 
@@ -118,8 +143,8 @@ object BaseSpecialAuthoritySerializer : KSerializer<BaseSpecialAuthority> {
     }
 }
 
-object SpecialAuthoritySerializer : StaticVariantSerializer<BaseSpecialAuthority>(BaseSpecialAuthority.serializer()) {
-    override fun deserialize(tagType: Int64, storage: BaseSpecialAuthority): StaticVariant<BaseSpecialAuthority> {
-        return SpecialAuthority(tagType, storage)
-    }
-}
+//object SpecialAuthoritySerializer : StaticVariantSerializer<BaseSpecialAuthority>(BaseSpecialAuthority.serializer()) {
+//    override fun deserialize(tagType: Int64, storage: BaseSpecialAuthority): StaticVariant<BaseSpecialAuthority> {
+//        return SpecialAuthority(tagType, storage)
+//    }
+//}

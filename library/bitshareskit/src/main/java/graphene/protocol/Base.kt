@@ -30,8 +30,7 @@ typealias TypeSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSe
 
 typealias PairArray<A, B> = @Serializable(with = PairAsArraySerializer::class) Pair<A, B>
 
-
-typealias FeeParameters = FlatSet<TypedFeeParameter>
+typealias FeeParameters = FlatSet<@Serializable(with = TypedFeeParameterSerializer::class) StaticVariant<FeeParameter>>
 
 class PairAsArraySerializer<A, B>(
     private val firstSerializer: KSerializer<A>, private val secondSerializer: KSerializer<B>

@@ -40,7 +40,7 @@ data class K201_DynamicGlobalPropertyObject(
      * used to compute witness participation.
      */
     @SerialName("recent_slots_filled")
-    val recent_slots_filled: UInt64, // fc::uint128_t TODO
+    val recent_slots_filled: UInt128, // fc::uint128_t TODO
     /**
      * dynamic_flags specifies chain state properties that can be
      * expressed in one bit.

@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class SpecialAuthority(
     override val tagType: Int64,
     override val storage: BaseSpecialAuthority
-) : StaticVariant<BaseSpecialAuthority>(), GrapheneComponent {
+) : StaticVariant<BaseSpecialAuthority>(tagType, storage), GrapheneComponent {
 
     companion object {
         internal val INVALID = SpecialAuthority(
