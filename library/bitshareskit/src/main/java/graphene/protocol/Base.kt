@@ -17,7 +17,7 @@ typealias KeyAuthMap = FlatMap<PublicKeyType, Weight>
 typealias AddressAuthMap = FlatMap<AddressType, Weight>
 
 // threshold weight
-typealias Weight = UInt16
+typealias Weight = uint16_t
 
 typealias ExtensionsType = @Serializable(with = SortedSetSerializer::class) SortedSet<@Serializable(with = StaticVariantSerializer::class) FutureExtensions>
 

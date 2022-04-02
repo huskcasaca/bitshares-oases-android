@@ -21,9 +21,9 @@ val INVALID_ACCOUNT_OBJECT = K102_AccountObject(
     emptyIdType(), //    val referrer: K102_AccountType,
     emptyIdType(), //    val lifetimeReferrer: K102_AccountType,
     //
-    UInt16.MAX_VALUE, //    val networkFeePercentage: UInt16,
-    UInt16.MAX_VALUE, //    val lifetimeReferrerFeePercentage: UInt16,
-    UInt16.MAX_VALUE, //    val referrerRewardsFeePercentage: UInt16,
+    uint16_t.MAX_VALUE, //    val networkFeePercentage: UInt16,
+    uint16_t.MAX_VALUE, //    val lifetimeReferrerFeePercentage: UInt16,
+    uint16_t.MAX_VALUE, //    val referrerRewardsFeePercentage: UInt16,
     //
     EMPTY_SPACE, //    val name: String,
     //
@@ -31,7 +31,7 @@ val INVALID_ACCOUNT_OBJECT = K102_AccountObject(
     Authority.INVALID, //    val active: Authority,
     AccountOptions.INVALID, //    val options: AccountOptions,
     //
-    UInt16.MAX_VALUE, //    val numCommitteeVoted: UInt16,
+    uint16_t.MAX_VALUE, //    val numCommitteeVoted: UInt16,
     emptyIdType(), //    val statistics: K206_AccountStatisticsType,
     //
     sortedSetOf(), //    val whiteListingAccounts: TypeSet<K102_AccountType>,
@@ -43,7 +43,7 @@ val INVALID_ACCOUNT_OBJECT = K102_AccountObject(
     //
     INVALID_TYPED_SPECIAL_AUTHORITY, //    val ownerSpecialAuthority: SpecialAuthority,
     INVALID_TYPED_SPECIAL_AUTHORITY, //    val activeSpecialAuthority: SpecialAuthority,
-    UInt8.MAX_VALUE, //    val topNControlFlags: UInt8,
+    uint8_t.MAX_VALUE, //    val topNControlFlags: UInt8,
 )
 
 

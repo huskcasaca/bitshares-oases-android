@@ -28,15 +28,15 @@ interface K102_AccountType: AbstractType {
     val registrar: K102_AccountType                         get() = emptyIdType()
     val referrer: K102_AccountType                          get() = emptyIdType()
     val lifetimeReferrer: K102_AccountType                  get() = emptyIdType()
-    val networkFeePercentage: UInt16                        get() = 0U
-    val lifetimeReferrerFeePercentage: UInt16               get() = 0U
-    val referrerRewardsFeePercentage: UInt16                get() = 0U
+    val networkFeePercentage: uint16_t                        get() = 0U
+    val lifetimeReferrerFeePercentage: uint16_t               get() = 0U
+    val referrerRewardsFeePercentage: uint16_t                get() = 0U
     val name: String                                        get() = emptyString()
     val owner: Authority                                    get() = emptyComponent()
     val active: Authority                                   get() = emptyComponent()
     val options: AccountOptions                             get() = emptyComponent()
 
-    val numCommitteeVoted: UInt16                           get() = 0U
+    val numCommitteeVoted: uint16_t                           get() = 0U
     val statistics: K206_AccountStatisticsType              get() = emptyIdType()
     val whiteListingAccounts: Set<K102_AccountType>         get() = emptySet()
     val blackListingAccounts: Set<K102_AccountType>         get() = emptySet()
@@ -45,7 +45,7 @@ interface K102_AccountType: AbstractType {
 
     val ownerSpecialAuthority: TypedSpecialAuthority             get() = emptyComponent()
     val activeSpecialAuthority: TypedSpecialAuthority            get() = emptyComponent()
-    val topNControlFlags: UInt8                             get() = 0U
+    val topNControlFlags: uint8_t                             get() = 0U
 }
 
 @Serializable(with = ObjectIdTypeSerializer::class)
@@ -184,11 +184,11 @@ interface K202_ReservedType: AbstractType {
 @Serializable(with = ObjectIdTypeSerializer::class)
 interface K203_AssetDynamicDataType: AbstractType {
     override val id: K203_AssetDynamicDataIdType            get() = this as K203_AssetDynamicDataIdType
-    val currentSupply: UInt64                               get() = 0U
-    val confidentialSupply: UInt64                          get() = 0U
-    val accumulatedFees: UInt64                             get() = 0U
-    val accumulatedCollateralFees: UInt64                   get() = 0U
-    val feePool: UInt64                                     get() = 0U
+    val currentSupply: uint64_t                               get() = 0U
+    val confidentialSupply: uint64_t                          get() = 0U
+    val accumulatedFees: uint64_t                             get() = 0U
+    val accumulatedCollateralFees: uint64_t                   get() = 0U
+    val feePool: uint64_t                                     get() = 0U
 }
 
 @Serializable(with = ObjectIdTypeSerializer::class)
@@ -233,7 +233,7 @@ interface K211_ChainPropertyType: AbstractType {
 
 @Serializable(with = ObjectIdTypeSerializer::class)
 interface K212_WitnessScheduleType: AbstractType {
-    override val id: K211_ChainPropertyIdType               get() = this as K211_ChainPropertyIdType
+    override val id: K212_WitnessScheduleIdType             get() = this as K212_WitnessScheduleIdType
 }
 
 @Serializable(with = ObjectIdTypeSerializer::class)

@@ -44,23 +44,23 @@ data class K204_AssetBitassetDataObject(
     val isPredictionMarket: Boolean = false,
     // This is the volume of this asset which has been force-settled this maintanence interval
     @SerialName("force_settled_volume")
-    val forceSettledVolume: ShareType,
+    val forceSettledVolume: share_type,
     // Price at which force settlements of a globally settled asset will occur
     @SerialName("settlement_price")
     val settlementPrice: PriceType,
     // Amount of collateral which is available for force settlement due to global settlement
     @SerialName("settlement_fund")
-    val settlementFund: ShareType,
+    val settlementFund: share_type,
     // The individual settlement pool.
     // In the event of individual settlements to fund, debt and collateral of the margin positions which got
     // settled are moved here.
 
     // Amount of debt due to individual settlements
     @SerialName("individual_settlement_debt")
-    val individualSettlementDebt: ShareType,
+    val individualSettlementDebt: share_type,
     // Amount of collateral which is available for force settlement due to individual settlements
     @SerialName("individual_settlement_fund")
-    val individualSettlementFund: ShareType,
+    val individualSettlementFund: share_type,
     @SerialName("asset_cer_updated")
     // Track whether core_exchange_rate in corresponding @ref asset_object has updated
     val asset_cer_updated: Boolean = false,

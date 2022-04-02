@@ -6,7 +6,7 @@ import graphene.chain.AbstractObject
 import kotlinx.coroutines.*
 import kotlin.reflect.KClass
 
-enum class ObjectSpace(val id: UInt8) {
+enum class ObjectSpace(val id: uint8_t) {
     /* 0.x.x  */ RELATIVE_PROTOCOL           (0U),
     /* 1.x.x  */ PROTOCOL                    (1U),
     /* 2.x.x  */ IMPLEMENTATION              (2U),
@@ -16,11 +16,11 @@ enum class ObjectSpace(val id: UInt8) {
 }
 
 interface ObjectType {
-    val id: UInt8
+    val id: uint8_t
 //    val ordinal: Int
 }
 
-enum class ProtocolType(override val id: UInt8): ObjectType {
+enum class ProtocolType(override val id: uint8_t): ObjectType {
     /* 1.0.x  */ NULL                        (0U), // unused
     /* 1.1.x  */ BASE                        (1U), // unused
     /* 1.2.x  */ ACCOUNT                     (2U),
@@ -46,7 +46,7 @@ enum class ProtocolType(override val id: UInt8): ObjectType {
     /* 1.22.x */ CREDIT_DEAL                 (22U);
 }
 
-enum class ImplementationType(override val id: UInt8): ObjectType {
+enum class ImplementationType(override val id: uint8_t): ObjectType {
     /* 2.0.x  */ GLOBAL_PROPERTY             (0U),
     /* 2.1.x  */ DYNAMIC_GLOBAL_PROPERTY     (1U),
     /* 2.2.x  */ RESERVED                    (2U), // unused
@@ -68,9 +68,9 @@ enum class ImplementationType(override val id: UInt8): ObjectType {
     /* 2.18.x */ CREDIT_DEAL_SUMMARY         (18U),
 }
 
-typealias ObjectInstance = UInt64
+typealias ObjectInstance = uint64_t
 
-const val INVALID_INSTANCE: ULong = UInt64.MAX_VALUE
+const val INVALID_INSTANCE: ULong = uint64_t.MAX_VALUE
 
 const val GRAPHENE_ID_SEPARATOR: String = "."
 

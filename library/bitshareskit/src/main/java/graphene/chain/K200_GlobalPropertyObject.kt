@@ -14,7 +14,7 @@ data class K200_GlobalPropertyObject(
     @SerialName("pending_parameters")
     val pendingParameters: Optional<ChainParameters> = optional(),
     @SerialName("next_available_vote_id")
-    val nextAvailableVoteId: UInt32, // = 0
+    val nextAvailableVoteId: uint32_t, // = 0
     @SerialName("active_committee_members")
     val activeCommitteeMembers: List<K105_CommitteeMemberType>, // updated once per maintenance interval
     @SerialName("active_witnesses")

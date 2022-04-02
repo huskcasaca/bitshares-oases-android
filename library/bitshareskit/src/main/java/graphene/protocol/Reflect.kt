@@ -7,14 +7,14 @@ import kotlinx.serialization.serializer
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
 
-val GRAPHENE_SPACE_ENUM_INDEX: Map<UInt8, ObjectSpace> =
+val GRAPHENE_SPACE_ENUM_INDEX: Map<uint8_t, ObjectSpace> =
     ObjectSpace.values().associateBy { it.id }
-val GRAPHENE_PROTOCOL_TYPE_ENUM_INDEX: Map<UInt8, ProtocolType> =
+val GRAPHENE_PROTOCOL_TYPE_ENUM_INDEX: Map<uint8_t, ProtocolType> =
     ProtocolType.values().associateBy { it.id }
-val GRAPHENE_IMPLEMENTATION_TYPE_ENUM_INDEX: Map<UInt8, ObjectType> =
+val GRAPHENE_IMPLEMENTATION_TYPE_ENUM_INDEX: Map<uint8_t, ObjectType> =
     ImplementationType.values().associateBy { it.id }
 
-val GRAPHENE_SPACE_TYPE_INDEX: Map<ObjectSpace, Map<UInt8, ObjectType>> = mapOf(
+val GRAPHENE_SPACE_TYPE_INDEX: Map<ObjectSpace, Map<uint8_t, ObjectType>> = mapOf(
     ObjectSpace.PROTOCOL to GRAPHENE_PROTOCOL_TYPE_ENUM_INDEX,
     ObjectSpace.IMPLEMENTATION to GRAPHENE_IMPLEMENTATION_TYPE_ENUM_INDEX,
 )
@@ -137,25 +137,26 @@ val GRAPHENE_OBJ_CLASS: List<KClass<out AbstractObject>> = listOf(
     AbstractObject::class, //    K120_SametFundObject::class,
     AbstractObject::class, //    K121_CreditOfferObject::class,
     AbstractObject::class, //    K122_CreditDealObject::class,
+
     K200_GlobalPropertyObject::class,
     K201_DynamicGlobalPropertyObject::class,
     K202_ReservedObject::class,
     K203_AssetDynamicDataObject::class,
     K204_AssetBitassetDataObject::class,
-    AbstractObject::class, //    K205_AccountBalanceObject::class,
-    AbstractObject::class, //    K206_AccountStatisticsObject::class,
-    AbstractObject::class, //    K207_TransactionHistoryObject::class,
-    AbstractObject::class, //    K208_BlockSummaryObject::class,
-    AbstractObject::class, //    K209_AccountTransactionHistoryObject::class,
-    AbstractObject::class, //    K210_BlindedBalanceObject::class,
-    AbstractObject::class, //    K211_ChainPropertyObject::class,
-    AbstractObject::class, //    K212_WitnessScheduleObject::class,
-    AbstractObject::class, //    K213_BudgetRecordObject::class,
-    AbstractObject::class, //    K214_SpecialAuthorityObject::class,
-    AbstractObject::class, //    K215_BuybackObject::class,
-    AbstractObject::class, //    K216_FbaAccumulatorObject::class,
-    AbstractObject::class, //    K217_CollateralBidObject::class,
-    AbstractObject::class, //    K218_CreditDealSummaryObject::class,
+    K205_AccountBalanceObject::class, //    K205_AccountBalanceObject::class,
+    K206_AccountStatisticsObject::class, //    K206_AccountStatisticsObject::class,
+    K207_TransactionHistoryObject::class, //    K207_TransactionHistoryObject::class,
+    K208_BlockSummaryObject::class, //    K208_BlockSummaryObject::class,
+    K209_AccountTransactionHistoryObject::class, //    K209_AccountTransactionHistoryObject::class,
+    K210_BlindedBalanceObject::class, //    K210_BlindedBalanceObject::class,
+    K211_ChainPropertyObject::class, //    K211_ChainPropertyObject::class,
+    K212_WitnessScheduleObject::class, //    K212_WitnessScheduleObject::class,
+    K213_BudgetRecordObject::class, //    K213_BudgetRecordObject::class,
+    K214_SpecialAuthorityObject::class, //    K214_SpecialAuthorityObject::class,
+    K215_BuybackObject::class, //    K215_BuybackObject::class,
+    K216_FbaAccumulatorObject::class, //    K216_FbaAccumulatorObject::class,
+    K217_CollateralBidObject::class, //    K217_CollateralBidObject::class,
+    K218_CreditDealSummaryObject::class, //    K218_CreditDealSummaryObject::class,
 )
 
 val GRAPHENE_ID_TYPE_INSTANCES: List<AbstractIdType> = listOf(

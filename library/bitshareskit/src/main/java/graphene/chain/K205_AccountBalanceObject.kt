@@ -13,7 +13,7 @@ data class K205_AccountBalanceObject(
     @SerialName("asset_type")
     val assetType: K103_AssetType,
     @SerialName("balance")
-    val balance: ShareType,
+    val balance: share_type,
     @SerialName("maintenance_flag")
     val maintenanceFlag: Boolean = false,  // Whether need to process this balance object in maintenance interval
 ) : AbstractObject(), K205_AccountBalanceType {

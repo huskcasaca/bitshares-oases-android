@@ -15,7 +15,6 @@ sealed class SpecialAuthority : GrapheneComponent
 class NoSpecialAuthority : SpecialAuthority() {
 
     companion object {
-
         internal val INVALID = NoSpecialAuthority(
         )
 
@@ -29,13 +28,13 @@ data class TopHoldersSpecialAuthority (
     @SerialName("asset")
     val asset: K103_AssetType,
     @SerialName("num_top_holders")
-    val numTopHolders: UInt8 = 1U
+    val numTopHolders: uint8_t = 1U
 ) : SpecialAuthority() {
 
     companion object {
         internal val INVALID = TopHoldersSpecialAuthority(
             emptyIdType(),
-            UInt8.MAX_VALUE
+            uint8_t.MAX_VALUE
         )
     }
 

@@ -8,18 +8,18 @@ import kotlinx.serialization.Serializable
 data class K201_DynamicGlobalPropertyObject(
     @SerialName("id")
     override val id: K201_DynamicGlobalPropertyIdType,
-    @SerialName("head_block_number")      val headBlockNumber     : UInt32, //  = 0
+    @SerialName("head_block_number")      val headBlockNumber     : uint32_t, //  = 0
     @SerialName("head_block_id")          val headBlockId         : BlockIdType,
     @SerialName("time")                   val time                : ChainTimePoint,
     @SerialName("current_witness")        val currentWitness      : K106_WitnessType,
     @SerialName("next_maintenance_time")  val nextMaintenanceTime : ChainTimePoint,
     @SerialName("last_vote_tally_time")   val lastVoteTallyTime   : ChainTimePoint,
     @SerialName("last_budget_time")       val lastBudgetTime      : ChainTimePoint,
-    @SerialName("witness_budget")         val witnessBudget       : ShareType,
-    @SerialName("total_pob")              val totalPob            : ShareType,
-    @SerialName("total_inactive")         val totalInactive       : ShareType,
+    @SerialName("witness_budget")         val witnessBudget       : share_type,
+    @SerialName("total_pob")              val totalPob            : share_type,
+    @SerialName("total_inactive")         val totalInactive       : share_type,
     @SerialName("accounts_registered_this_interval")
-    val accountsRegisteredThisInterval: UInt32, //  = 0
+    val accountsRegisteredThisInterval: uint32_t, //  = 0
     /**
      *  Every time a block is missed this increases by
      *  RECENTLY_MISSED_COUNT_INCREMENT,
@@ -28,14 +28,14 @@ data class K201_DynamicGlobalPropertyObject(
      *  never less than 0.
      */
     @SerialName("recently_missed_count")
-    val recentlyMissedCount: UInt32, // = 0
+    val recentlyMissedCount: uint32_t, // = 0
     /**
      * The current absolute slot number.  Equal to the total
      * number of slots since genesis.  Also equal to the total
      * number of missed slots plus head_block_number.
      */
     @SerialName("current_aslot")
-    val currentAslot: UInt64, // = 0
+    val currentAslot: uint64_t, // = 0
     /**
      * used to compute witness participation.
      */
@@ -46,9 +46,9 @@ data class K201_DynamicGlobalPropertyObject(
      * expressed in one bit.
      */
     @SerialName("dynamic_flags")
-    val dynamicFlags: UInt32, // = 0
+    val dynamicFlags: uint32_t, // = 0
     @SerialName("last_irreversible_block_num")
-    val lastIrreversibleBlockNum: UInt32, // = 0
+    val lastIrreversibleBlockNum: uint32_t, // = 0
 
 
 ) : AbstractObject(), K201_DynamicGlobalPropertyType {

@@ -19,11 +19,11 @@ data class K102_AccountObject(
     override val lifetimeReferrer: K102_AccountType,
 
     @SerialName("network_fee_percentage")
-    override val networkFeePercentage: UInt16,
+    override val networkFeePercentage: uint16_t,
     @SerialName("lifetime_referrer_fee_percentage")
-    override val lifetimeReferrerFeePercentage: UInt16,
+    override val lifetimeReferrerFeePercentage: uint16_t,
     @SerialName("referrer_rewards_percentage")
-    override val referrerRewardsFeePercentage: UInt16,
+    override val referrerRewardsFeePercentage: uint16_t,
 
     @SerialName("name")
     override val name: String,
@@ -36,7 +36,7 @@ data class K102_AccountObject(
     override val options: AccountOptions,
 
     @SerialName("num_committee_voted")
-    override val numCommitteeVoted: UInt16,
+    override val numCommitteeVoted: uint16_t,
     @SerialName("statistics")
     override val statistics: K206_AccountStatisticsType,
 
@@ -57,6 +57,6 @@ data class K102_AccountObject(
     @SerialName("active_special_authority")
     override val activeSpecialAuthority: TypedSpecialAuthority,
     @SerialName("top_n_control_flags")
-    override val topNControlFlags: UInt8,
+    override val topNControlFlags: uint8_t,
 
     ) : AbstractObject(), K102_AccountType

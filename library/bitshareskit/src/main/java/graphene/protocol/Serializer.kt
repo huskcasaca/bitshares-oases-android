@@ -47,12 +47,6 @@ class AbstractObjectSerializer<T: AbstractObject> : KSerializer<T> {
     }
     override fun serialize(encoder: Encoder, value: T) = TODO()
 }
-//class AbstractObjectSerializer : JsonContentPolymorphicSerializer<AbstractObject>(AbstractObject::class) {
-//    override fun selectDeserializer(element: JsonElement): DeserializationStrategy<out AbstractObject> {
-//        return element.jsonObject[AbstractObject.KEY_ID]!!.jsonPrimitive.content.toGrapheneType().toObjectClass().serializer()
-//    }
-//}
-
 
 class SortedMapSerializer<K: Comparable<K>, V>(
     private val keySerializer: KSerializer<K>, private val valueSerializer: KSerializer<V>) : KSerializer<SortedMap<K, V>> {
@@ -96,9 +90,19 @@ open class StaticVariantSerializer<T>(private val elementSerializer: KSerializer
     }
 }
 
+object TypedFeeParameterSerializer : StaticVariantSerializer<FeeParameter>(FeeParameter.serializer()) {
+
+    override fun selectSerializer(tag: Int64): KSerializer<out FeeParameter> {
+        return when (tag) {
+            0L -> EmptyFeeParameter.serializer()
+            else -> EmptyFeeParameter.serializer()
+        }
+    }
+}
+
 object SpecialAuthoritySerializer : KSerializer<SpecialAuthority> {
 
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("BaseSpecialAuthority", PrimitiveKind.STRING)
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("SpecialAuthority", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder): SpecialAuthority {
         decoder as JsonDecoder
         val element = decoder.decodeJsonElement().jsonObject
