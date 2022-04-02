@@ -12,13 +12,13 @@ data class K200_GlobalPropertyObject(
     @SerialName("parameters")
     val parameters: ChainParameters,
     @SerialName("pending_parameters")
-    val pending_parameters: Optional<ChainParameters> = optional(),
+    val pendingParameters: Optional<ChainParameters> = optional(),
     @SerialName("next_available_vote_id")
-    val next_available_vote_id: UInt32, // = 0
+    val nextAvailableVoteId: UInt32, // = 0
     @SerialName("active_committee_members")
-    val active_committee_members: List<K105_CommitteeMemberType>, // updated once per maintenance interval
+    val activeCommitteeMembers: List<K105_CommitteeMemberType>, // updated once per maintenance interval
     @SerialName("active_witnesses")
-    val active_witnesses: FlatSet<K106_WitnessType>, // updated once per maintenance interval // TODO
+    val activeWitnesses: FlatSet<K106_WitnessType>, // updated once per maintenance interval // TODO
     // n.b. witness scheduling is done by witness_schedule object
 ) : AbstractObject(), K200_GlobalPropertyType
 

@@ -41,8 +41,8 @@ val INVALID_ACCOUNT_OBJECT = K102_AccountObject(
     //
     emptyIdType(), //    val ack_vb: K113_VestingBalanceIdType = emptyIdType(),
     //
-    SpecialAuthority.INVALID, //    val ownerSpecialAuthority: SpecialAuthority,
-    SpecialAuthority.INVALID, //    val activeSpecialAuthority: SpecialAuthority,
+    INVALID_TYPED_SPECIAL_AUTHORITY, //    val ownerSpecialAuthority: SpecialAuthority,
+    INVALID_TYPED_SPECIAL_AUTHORITY, //    val activeSpecialAuthority: SpecialAuthority,
     UInt8.MAX_VALUE, //    val topNControlFlags: UInt8,
 )
 

@@ -1,5 +1,6 @@
 package graphene.protocol
 
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -63,4 +64,20 @@ data class FeeSchedule(
 //    private:
 //    static fee_schedule get_default_impl();
 //};
+}
+
+@Serializable
+sealed class FeeParameter
+
+@Serializable
+object EmptyFeeParameter : FeeParameter()
+
+object TypedFeeParameterSerializer : StaticVariantSerializer<FeeParameter>(FeeParameter.serializer()) {
+
+    override fun selectSerializer(tag: Int64): KSerializer<out FeeParameter> {
+        return when (tag) {
+            0L -> EmptyFeeParameter.serializer()
+            else -> EmptyFeeParameter.serializer()
+        }
+    }
 }

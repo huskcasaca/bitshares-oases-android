@@ -25,12 +25,14 @@ typealias FutureExtensions = StaticVariant<Unit>
 
 typealias FlatSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet<T>
 typealias FlatMap<K, V> = @Serializable(with = SortedMapSerializer::class) SortedMap<K, V>
-
 typealias TypeSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet< T>
-
 typealias PairArray<A, B> = @Serializable(with = PairAsArraySerializer::class) Pair<A, B>
 
-typealias FeeParameters = FlatSet<@Serializable(with = TypedFeeParameterSerializer::class) StaticVariant<FeeParameter>>
+
+typealias TypedSpecialAuthority = StaticVariant<SpecialAuthority>
+typealias TypedFeeParameter = @Serializable(with = TypedFeeParameterSerializer::class) StaticVariant<FeeParameter>
+
+typealias FeeParameters = FlatSet<TypedFeeParameter>
 
 class PairAsArraySerializer<A, B>(
     private val firstSerializer: KSerializer<A>, private val secondSerializer: KSerializer<B>

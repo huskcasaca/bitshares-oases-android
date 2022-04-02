@@ -53,9 +53,9 @@ data class K102_AccountObject(
     val cashback_vb: Optional<K113_VestingBalanceIdType> = optional(),
 
     @SerialName("owner_special_authority")
-    override val ownerSpecialAuthority: SpecialAuthority,
+    override val ownerSpecialAuthority: TypedSpecialAuthority,
     @SerialName("active_special_authority")
-    override val activeSpecialAuthority: SpecialAuthority,
+    override val activeSpecialAuthority: TypedSpecialAuthority,
     @SerialName("top_n_control_flags")
     override val topNControlFlags: UInt8,
 

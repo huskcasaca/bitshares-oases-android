@@ -43,8 +43,8 @@ interface K102_AccountType: AbstractType {
     val whiteListedAccounts: Set<K102_AccountType>          get() = emptySet()
     val blackListedAccounts: Set<K102_AccountType>          get() = emptySet()
 
-    val ownerSpecialAuthority: SpecialAuthority             get() = emptyComponent()
-    val activeSpecialAuthority: SpecialAuthority            get() = emptyComponent()
+    val ownerSpecialAuthority: TypedSpecialAuthority             get() = emptyComponent()
+    val activeSpecialAuthority: TypedSpecialAuthority            get() = emptyComponent()
     val topNControlFlags: UInt8                             get() = 0U
 }
 
@@ -57,9 +57,9 @@ interface K103_AssetType: AbstractType {
     val options: AssetOptions                               get() = emptyComponent()
     val dynamicData: K203_AssetDynamicDataType              get() = emptyIdType()
 
-    val bitassetData: Optional<K204_AssetBitassetDataType> get() = optional() // optional
-    val buybackAccount: Optional<K102_AccountType>         get() = optional() // optional
-    val forLiquidityPool: Optional<K119_LiquidityPoolType> get() = optional() // optional
+    val bitassetData: Optional<K204_AssetBitassetDataType>  get() = optional()
+    val buybackAccount: Optional<K102_AccountType>          get() = optional()
+    val forLiquidityPool: Optional<K119_LiquidityPoolType>  get() = optional()
 
 //    var bitassetDataId: KAssetBitassetIdType = emptyIdType(),
 }

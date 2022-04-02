@@ -1,6 +1,5 @@
 package graphene.protocol
 
-import bitshareskit.extensions.info
 import graphene.chain.AbstractObject
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
@@ -97,54 +96,17 @@ open class StaticVariantSerializer<T>(private val elementSerializer: KSerializer
     }
 }
 
-object SpecialAuthoritySerializer : StaticVariantSerializer<BaseSpecialAuthority>(BaseSpecialAuthority.serializer()) {
-    override fun deserialize(tagType: Int64, storage: BaseSpecialAuthority): StaticVariant<BaseSpecialAuthority> {
-        return SpecialAuthority(tagType, storage)
-    }
-}
-
-//open class StaticVariantSerializer<T>(private val elementSerializer: KSerializer<T>) : KSerializer<StaticVariant<T>> {
-//
-//    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("StaticVariant", PrimitiveKind.STRING)
-//    override fun deserialize(decoder: Decoder): StaticVariant<T> {
-//        decoder as JsonDecoder
-//        decoder.decodeJsonElement().jsonArray.let {
-//            val tag = decoder.json.decodeFromJsonElement<Int64>(it[0])
-//            val va = decoder.json.decodeFromJsonElement(elementSerializer, it[1])
-//            elementSerializer::class.info()
-//            return deserialize(
-//                tag,
-//                va
-//            )
-//        }
-//    }
-//    override fun serialize(encoder: Encoder, value: StaticVariant<T>) {
-//        TODO("Not yet implemented")
-//    }
-//    open fun deserialize(tagType: Int64, storage: T): StaticVariant<T> {
-//        return StaticVariant(tagType, storage)
-//    }
-//}
-
-
-
-object BaseSpecialAuthoritySerializer : KSerializer<BaseSpecialAuthority> {
+object SpecialAuthoritySerializer : KSerializer<SpecialAuthority> {
 
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("BaseSpecialAuthority", PrimitiveKind.STRING)
-    override fun deserialize(decoder: Decoder): BaseSpecialAuthority {
+    override fun deserialize(decoder: Decoder): SpecialAuthority {
         decoder as JsonDecoder
         val element = decoder.decodeJsonElement().jsonObject
         val serializer = if (element.containsKey("asset")) TopHoldersSpecialAuthority.serializer() else NoSpecialAuthority.serializer()
         return decoder.json.decodeFromJsonElement(serializer, element)
     }
 
-    override fun serialize(encoder: Encoder, value: BaseSpecialAuthority) {
+    override fun serialize(encoder: Encoder, value: SpecialAuthority) {
         TODO("Not yet implemented")
     }
 }
-
-//object SpecialAuthoritySerializer : StaticVariantSerializer<BaseSpecialAuthority>(BaseSpecialAuthority.serializer()) {
-//    override fun deserialize(tagType: Int64, storage: BaseSpecialAuthority): StaticVariant<BaseSpecialAuthority> {
-//        return SpecialAuthority(tagType, storage)
-//    }
-//}

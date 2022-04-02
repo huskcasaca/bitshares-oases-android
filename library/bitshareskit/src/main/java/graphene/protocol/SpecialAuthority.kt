@@ -3,26 +3,16 @@ package graphene.protocol
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+internal val INVALID_TYPED_SPECIAL_AUTHORITY = TypedSpecialAuthority(
+    0,
+    NoSpecialAuthority.INVALID
+)
+
 @Serializable(with = SpecialAuthoritySerializer::class)
-@Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
-data class SpecialAuthority(
-    override val tagType: Int64,
-    override val storage: BaseSpecialAuthority
-) : StaticVariant<BaseSpecialAuthority>(tagType, storage), GrapheneComponent {
-
-    companion object {
-        internal val INVALID = SpecialAuthority(
-            0,
-            NoSpecialAuthority.INVALID
-        )
-    }
-}
-
-@Serializable(with = BaseSpecialAuthoritySerializer::class)
-sealed class BaseSpecialAuthority : GrapheneComponent
+sealed class SpecialAuthority : GrapheneComponent
 
 @Serializable
-class NoSpecialAuthority : BaseSpecialAuthority() {
+class NoSpecialAuthority : SpecialAuthority() {
 
     companion object {
 
@@ -40,7 +30,7 @@ data class TopHoldersSpecialAuthority (
     val asset: K103_AssetType,
     @SerialName("num_top_holders")
     val numTopHolders: UInt8 = 1U
-) : BaseSpecialAuthority() {
+) : SpecialAuthority() {
 
     companion object {
         internal val INVALID = TopHoldersSpecialAuthority(
