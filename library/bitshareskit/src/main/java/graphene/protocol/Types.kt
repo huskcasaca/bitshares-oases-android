@@ -12,16 +12,18 @@ import kotlinx.serialization.encoding.Encoder
 //    val value: String
 //)
 
-typealias BlockIdType = String
-typealias ChecksumType = String
-//typealias block_id_type = fc::ripemd160; TODO
-//typealias checksum_type = fc::ripemd160; TODO
+typealias BlockIdType = String  //typealias block_id_type = fc::ripemd160; TODO
+typealias ChecksumType = String //typealias checksum_type = fc::ripemd160; TODO
 //typealias transaction_id_type = fc::ripemd160; TODO
 //typealias digest_type = fc::sha256; TODO
 //typealias signature_type = fc::ecc::compact_signature; TODO
 //typealias share_type = safe<int64_t>; TODO
 //typealias weight_type = uint16_t; TODO
 
+
+//using private_key_type = fc::ecc::private_key;
+typealias ChainIdType = String  //using chain_id_type = fc::sha256;
+//using ratio_type = boost::rational<int32_t>;
 
 @Serializable(with = OptionalSerializer::class)
 class Optional<T>(

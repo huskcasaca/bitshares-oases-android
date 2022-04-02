@@ -61,7 +61,7 @@ class TestLabViewModel(application: Application) : BaseViewModel(application) {
                     }
                 }.onFailure {
                     launch(Dispatchers.Main) {
-                        info[ProtocolType.ACCOUNT]?.value = "Failed ${K102_AccountIdType(instance).standardId}\n" +
+                        info[ProtocolType.ACCOUNT]?.value = "Failed ${AccountIdType(instance).standardId}\n" +
                                 it.stackTraceToString()
                         it.printStackTrace()
                     }
@@ -94,7 +94,7 @@ class TestLabViewModel(application: Application) : BaseViewModel(application) {
                     }
                 }.onFailure {
                     launch(Dispatchers.Main) {
-                        info[ProtocolType.ASSET]?.value = "Failed ${K103_AssetIdType(instance).standardId}\n" +
+                        info[ProtocolType.ASSET]?.value = "Failed ${AssetIdType(instance).standardId}\n" +
                                 it.stackTraceToString()
                         it.printStackTrace()
                     }

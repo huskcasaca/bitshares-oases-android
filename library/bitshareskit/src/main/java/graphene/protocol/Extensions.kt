@@ -2,14 +2,13 @@ package graphene.protocol
 
 import graphene.chain.AbstractObject
 import graphene.chain.K102_AccountObject
-import kotlinx.serialization.SerialName
 
 
 private fun String.toVote(): VoteIdType {
     return VoteIdType.fromStringId(this)
 }
 
-fun ULong.toAccount() = K102_AccountIdType(this)
+fun ULong.toAccount() = AccountIdType(this)
 
 val AbstractType.standardId: String
     get() = "${id.space.id}$GRAPHENE_ID_SEPARATOR${id.type.id}$GRAPHENE_ID_SEPARATOR${id.instance}"

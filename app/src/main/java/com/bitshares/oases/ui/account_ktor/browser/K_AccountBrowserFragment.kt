@@ -7,6 +7,11 @@ import com.bitshares.oases.R
 import com.bitshares.oases.ui.account_ktor.K_AccountViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.raw_data.JsonRawDataViewModel
+import graphene.chain.K102_AccountObject
+import graphene.chain.K217_CollateralBidObject
+import graphene.protocol.PriceType
+import graphene.protocol.emptyIdType
+import graphene.protocol.isObject
 import modulon.extensions.view.StringResTabs
 import modulon.extensions.view.attachEnumsViewPager2
 import modulon.extensions.view.nextView
@@ -38,6 +43,17 @@ class K_AccountBrowserFragment : ContainerFragment() {
             titleConnectionState(context.getString(R.string.account_browser_title))
             networkStateMenu()
             walletStateMenu()
+
+            val a = K217_CollateralBidObject(
+                emptyIdType(),
+                emptyIdType(),
+                PriceType.INVALID
+            )
+            
+            if (a.bidder is K102_AccountObject) {
+                a.bidder.blackListedAccounts
+            }
+
 //            menu {
 //                text = context.getString(R.string.account_observe)
 //                icon = R.drawable.ic_menu_remove_observer.contextDrawable()

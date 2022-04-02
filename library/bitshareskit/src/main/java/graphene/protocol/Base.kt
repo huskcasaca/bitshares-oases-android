@@ -12,12 +12,12 @@ import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.jsonArray
 import java.util.*
 
-typealias AccountAuthMap = FlatMap<@Serializable(with = ObjectIdTypeSerializer::class) K102_AccountType, Weight>
+typealias AccountAuthMap = FlatMap<@Serializable(with = ObjectIdTypeSerializer::class) AccountType, Weight>
 typealias KeyAuthMap = FlatMap<PublicKeyType, Weight>
 typealias AddressAuthMap = FlatMap<AddressType, Weight>
 
 // threshold weight
-typealias Weight = UInt16
+typealias Weight = uint16_t
 
 typealias ExtensionsType = @Serializable(with = SortedSetSerializer::class) SortedSet<@Serializable(with = StaticVariantSerializer::class) FutureExtensions>
 
@@ -28,6 +28,7 @@ typealias FlatMap<K, V> = @Serializable(with = SortedMapSerializer::class) Sorte
 typealias TypeSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet< T>
 typealias PairArray<A, B> = @Serializable(with = PairAsArraySerializer::class) Pair<A, B>
 
+typealias PriceFeeds = FlatMap<AccountIdType, PairArray<ChainTimePoint, PriceFeedWithIcr>>
 
 typealias TypedSpecialAuthority = StaticVariant<SpecialAuthority>
 typealias TypedFeeParameter = @Serializable(with = TypedFeeParameterSerializer::class) StaticVariant<FeeParameter>

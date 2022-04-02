@@ -13,221 +13,314 @@ abstract class AbstractIdType(
     override fun toString(): String {
         return "${space.id}${type.id}$instance"
     }
+    override val id: AbstractIdType = this
 
 }
 
 // PROTOCOL_IDS
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K100_NullIdType(
+data class NullIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.NULL), K100_NullType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.NULL), NullType {
+    override val id: NullIdType = this
+
+
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K101_BaseIdType(
+data class BaseIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.BASE), K101_BaseType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.BASE), BaseType {
+    override val id: BaseIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K102_AccountIdType(
+data class AccountIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.ACCOUNT), K102_AccountType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.ACCOUNT), AccountType {
+    override val id: AccountIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K103_AssetIdType(
+data class AssetIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.ASSET), K103_AssetType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.ASSET), AssetType {
+    override val id: AssetIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K104_ForceSettlementIdType(
+data class ForceSettlementIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.FORCE_SETTLEMENT), K104_ForceSettlementType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.FORCE_SETTLEMENT), ForceSettlementType {
+    override val id: ForceSettlementIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K105_CommitteeMemberIdType(
+data class CommitteeMemberIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.COMMITTEE_MEMBER), K105_CommitteeMemberType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.COMMITTEE_MEMBER), CommitteeMemberType {
+    override val id: CommitteeMemberIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K106_WitnessIdType(
+data class WitnessIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.WITNESS), K106_WitnessType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.WITNESS), WitnessType {
+    override val id: WitnessIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K107_LimitOrderIdType(
+data class LimitOrderIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.LIMIT_ORDER), K107_LimitOrderType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.LIMIT_ORDER), LimitOrderType {
+    override val id: LimitOrderIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K108_CallOrderIdType(
+data class CallOrderIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.CALL_ORDER), K108_CallOrderType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.CALL_ORDER), CallOrderType {
+    override val id: CallOrderIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K109_CustomIdType(
+data class CustomIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.CUSTOM), K109_CustomType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.CUSTOM), CustomType {
+    override val id: CustomIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K110_ProposalIdType(
+data class ProposalIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.PROPOSAL), K110_ProposalType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.PROPOSAL), ProposalType {
+    override val id: ProposalIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K111_OperationHistoryIdType(
+data class OperationHistoryIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.OPERATION_HISTORY), K111_OperationHistoryType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.OPERATION_HISTORY), OperationHistoryType {
+    override val id: OperationHistoryIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K112_WithdrawPermissionIdType(
+data class WithdrawPermissionIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.WITHDRAW_PERMISSION), K112_WithdrawPermissionType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.WITHDRAW_PERMISSION), WithdrawPermissionType {
+    override val id: WithdrawPermissionIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K113_VestingBalanceIdType(
+data class VestingBalanceIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.VESTING_BALANCE), K113_VestingBalanceType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.VESTING_BALANCE), VestingBalanceType {
+    override val id: VestingBalanceIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K114_WorkerIdType(
+data class WorkerIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.WORKER), K114_WorkerType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.WORKER), WorkerType {
+    override val id: WorkerIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K115_BalanceIdType(
+data class BalanceIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.BALANCE), K115_BalanceType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.BALANCE), BalanceType {
+    override val id: BalanceIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K116_HtlcIdType(
+data class HtlcIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.HTLC), K116_HtlcType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.HTLC), HtlcType {
+    override val id: HtlcIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K117_CustomAuthorityIdType(
+data class CustomAuthorityIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.CUSTOM_AUTHORITY), K117_CustomAuthorityType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.CUSTOM_AUTHORITY), CustomAuthorityType {
+    override val id: CustomAuthorityIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K118_TicketIdType(
+data class TicketIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.TICKET), K118_TicketType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.TICKET), TicketType {
+    override val id: TicketIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K119_LiquidityPoolIdType(
+data class LiquidityPoolIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.LIQUIDITY_POOL), K119_LiquidityPoolType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.LIQUIDITY_POOL), LiquidityPoolType {
+    override val id: LiquidityPoolIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K120_SametFundIdType(
+data class SametFundIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.SAMET_FUND), K120_SametFundType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.SAMET_FUND), SametFundType {
+    override val id: SametFundIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K121_CreditOfferIdType(
+data class CreditOfferIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.CREDIT_OFFER), K121_CreditOfferType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.CREDIT_OFFER), CreditOfferType {
+    override val id: CreditOfferIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K122_CreditDealIdType(
+data class CreditDealIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.CREDIT_DEAL), K122_CreditDealType
+) : AbstractIdType(ObjectSpace.PROTOCOL, ProtocolType.CREDIT_DEAL), CreditDealType {
+    override val id: CreditDealIdType = this
+}
 
 // IMPLEMENTATION_IDS
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K200_GlobalPropertyIdType(
+data class GlobalPropertyIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.GLOBAL_PROPERTY), K200_GlobalPropertyType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.GLOBAL_PROPERTY), GlobalPropertyType {
+    override val id: GlobalPropertyIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K201_DynamicGlobalPropertyIdType(
+data class DynamicGlobalPropertyIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.DYNAMIC_GLOBAL_PROPERTY), K201_DynamicGlobalPropertyType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.DYNAMIC_GLOBAL_PROPERTY), DynamicGlobalPropertyType {
+    override val id: DynamicGlobalPropertyIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K202_ReservedIdType(
+data class ReservedIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.RESERVED), K202_ReservedType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.RESERVED), ReservedType {
+    override val id: ReservedIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K203_AssetDynamicDataIdType(
+data class AssetDynamicDataIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.ASSET_DYNAMIC_DATA), K203_AssetDynamicDataType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.ASSET_DYNAMIC_DATA), AssetDynamicDataType {
+    override val id: AssetDynamicDataIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K204_AssetBitassetDataIdType(
+data class AssetBitassetDataIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.ASSET_BITASSET_DATA), K204_AssetBitassetDataType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.ASSET_BITASSET_DATA), AssetBitassetDataType {
+    override val id: AssetBitassetDataIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K205_AccountBalanceIdType(
+data class AccountBalanceIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.ACCOUNT_BALANCE), K205_AccountBalanceType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.ACCOUNT_BALANCE), AccountBalanceType {
+    override val id: AccountBalanceIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K206_AccountStatisticsIdType(
+data class AccountStatisticsIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.ACCOUNT_STATISTICS), K206_AccountStatisticsType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.ACCOUNT_STATISTICS), AccountStatisticsType {
+    override val id: AccountStatisticsIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K207_TransactionHistoryIdType(
+data class TransactionHistoryIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.TRANSACTION_HISTORY), K207_TransactionHistoryType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.TRANSACTION_HISTORY), TransactionHistoryType {
+    override val id: TransactionHistoryIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K208_BlockSummaryIdType(
+data class BlockSummaryIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.BLOCK_SUMMARY), K208_BlockSummaryType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.BLOCK_SUMMARY), BlockSummaryType {
+    override val id: BlockSummaryIdType = this
+}
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K209_AccountTransactionHistoryIdType(
+data class AccountTransactionHistoryIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.ACCOUNT_TRANSACTION_HISTORY), K209_AccountTransactionHistoryType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.ACCOUNT_TRANSACTION_HISTORY), AccountTransactionHistoryType {
+    override val id: AccountTransactionHistoryIdType = this
+}
+
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K210_BlindedBalanceIdType(
+data class BlindedBalanceIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.BLINDED_BALANCE), K210_BlindedBalanceType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.BLINDED_BALANCE), BlindedBalanceType {
+    override val id: BlindedBalanceIdType = this
+}
+
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K211_ChainPropertyIdType(
+data class ChainPropertyIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.CHAIN_PROPERTY), K211_ChainPropertyType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.CHAIN_PROPERTY), ChainPropertyType {
+    override val id: ChainPropertyIdType = this
+}
+
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K212_WitnessScheduleIdType(
+data class WitnessScheduleIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.WITNESS_SCHEDULE), K212_WitnessScheduleType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.WITNESS_SCHEDULE), WitnessScheduleType {
+    override val id: WitnessScheduleIdType = this
+}
+
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K213_BudgetRecordIdType(
+data class BudgetRecordIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.BUDGET_RECORD), K213_BudgetRecordType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.BUDGET_RECORD), BudgetRecordType {
+    override val id: BudgetRecordIdType = this
+}
+
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K214_SpecialAuthorityIdType(
+data class SpecialAuthorityIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.SPECIAL_AUTHORITY), K214_SpecialAuthorityType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.SPECIAL_AUTHORITY), SpecialAuthorityType {
+    override val id: SpecialAuthorityIdType = this
+}
+
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K215_BuybackIdType(
+data class BuybackIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.BUYBACK), K215_BuybackType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.BUYBACK), BuybackType {
+    override val id: BuybackIdType = this
+}
+
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K216_FbaAccumulatorIdType(
+data class FbaAccumulatorIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.FBA_ACCUMULATOR), K216_FbaAccumulatorType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.FBA_ACCUMULATOR), FbaAccumulatorType {
+    override val id: FbaAccumulatorIdType = this
+}
+
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K217_CollateralBidIdType(
+data class CollateralBidIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.COLLATERAL_BID), K217_CollateralBidType
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.COLLATERAL_BID), CollateralBidType {
+    override val id: CollateralBidIdType = this
+}
+
 
 @Serializable(with = ObjectIdTypeSerializer::class)
-data class K218_CreditDealSummaryIdType(
+data class CreditDealSummaryIdType(
     override val instance: ObjectInstance = INVALID_INSTANCE
-) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.CREDIT_DEAL_SUMMARY), K218_CreditDealSummaryType
-
-
-
+) : AbstractIdType(ObjectSpace.IMPLEMENTATION, ImplementationType.CREDIT_DEAL_SUMMARY), CreditDealSummaryType {
+    override val id: CreditDealSummaryIdType = this
+}

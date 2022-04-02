@@ -7,16 +7,16 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class K205_AccountBalanceObject(
     @SerialName("id")
-    override val id: K205_AccountBalanceIdType,
+    override val id: AccountBalanceIdType,
     @SerialName("owner")
-    val owner: K102_AccountType,
+    override val owner: AccountType,
     @SerialName("asset_type")
-    val assetType: K103_AssetType,
+    override val asset: AssetType,
     @SerialName("balance")
-    val balance: ShareType,
+    override val balance: share_type,
     @SerialName("maintenance_flag")
-    val maintenanceFlag: Boolean = false,  // Whether need to process this balance object in maintenance interval
-) : AbstractObject(), K205_AccountBalanceType {
+    override val maintenanceFlag: Boolean = false,  // Whether need to process this balance object in maintenance interval
+) : AbstractObject(), AccountBalanceType {
 
 //    public:
 //    static constexpr uint8_t space_id = implementation_ids;

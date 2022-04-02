@@ -8,17 +8,17 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class K200_GlobalPropertyObject(
     @SerialName("id")
-    override val id: K200_GlobalPropertyIdType,
+    override val id: GlobalPropertyIdType,
     @SerialName("parameters")
-    val parameters: ChainParameters,
+    override val parameters: ChainParameters,
     @SerialName("pending_parameters")
-    val pendingParameters: Optional<ChainParameters> = optional(),
+    override val pendingParameters: Optional<ChainParameters> = optional(),
     @SerialName("next_available_vote_id")
-    val nextAvailableVoteId: UInt32, // = 0
+    override val nextAvailableVoteId: uint32_t, // = 0
     @SerialName("active_committee_members")
-    val activeCommitteeMembers: List<K105_CommitteeMemberType>, // updated once per maintenance interval
+    override val activeCommitteeMembers: List<CommitteeMemberType>, // updated once per maintenance interval
     @SerialName("active_witnesses")
-    val activeWitnesses: FlatSet<K106_WitnessType>, // updated once per maintenance interval // TODO
+    override val activeWitnesses: FlatSet<WitnessType>, // updated once per maintenance interval // TODO
     // n.b. witness scheduling is done by witness_schedule object
-) : AbstractObject(), K200_GlobalPropertyType
+) : AbstractObject(), GlobalPropertyType
 

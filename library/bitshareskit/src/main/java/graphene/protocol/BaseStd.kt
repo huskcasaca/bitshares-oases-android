@@ -9,84 +9,84 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import java.math.BigInteger
 
-typealias UInt8  = UByte
-typealias UInt16 = UShort
-typealias UInt32 = UInt
-typealias UInt64 = ULong
+typealias uint8_t  = UByte
+typealias uint16_t = UShort
+typealias uint32_t = UInt
+typealias uint64_t = ULong
 
 typealias Int8  = Byte
 typealias Int16 = Short
 typealias Int32 = Int
 typealias Int64 = Long
 
-fun String.toUInt8OrNull(radix: Int = 10):  UInt8?  = toUByteOrNull(radix)
-fun String.toUInt16OrNull(radix: Int = 10): UInt16? = toUShortOrNull(radix)
-fun String.toUInt32OrNull(radix: Int = 10): UInt32? = toUIntOrNull(radix)
-fun String.toUInt64OrNull(radix: Int = 10): UInt64? = toULongOrNull(radix)
+fun String.toUInt8OrNull(radix: Int = 10):  uint8_t?  = toUByteOrNull(radix)
+fun String.toUInt16OrNull(radix: Int = 10): uint16_t? = toUShortOrNull(radix)
+fun String.toUInt32OrNull(radix: Int = 10): uint32_t? = toUIntOrNull(radix)
+fun String.toUInt64OrNull(radix: Int = 10): uint64_t? = toULongOrNull(radix)
 
-fun String.toUInt8(radix: Int = 10):  UInt8  = toUByte(radix)
-fun String.toUInt16(radix: Int = 10): UInt16 = toUShort(radix)
-fun String.toUInt32(radix: Int = 10): UInt32 = toUInt(radix)
-fun String.toUInt64(radix: Int = 10): UInt64 = toULong(radix)
-
-
-fun UInt8.toUInt8():  UInt8  = toUByte()
-fun UInt8.toUInt16(): UInt16 = toUShort()
-fun UInt8.toUInt32(): UInt32 = toUInt()
-fun UInt8.toUInt64(): UInt64 = toULong()
-
-fun UInt16.toUInt8():  UInt8  = toUByte()
-fun UInt16.toUInt16(): UInt16 = toUShort()
-fun UInt16.toUInt32(): UInt32 = toUInt()
-fun UInt16.toUInt64(): UInt64 = toULong()
-
-fun UInt32.toUInt8():  UInt8  = toUByte()
-fun UInt32.toUInt16(): UInt16 = toUShort()
-fun UInt32.toUInt32(): UInt32 = toUInt()
-fun UInt32.toUInt64(): UInt64 = toULong()
-
-fun UInt64.toUInt8():  UInt8  = toUByte()
-fun UInt64.toUInt16(): UInt16 = toUShort()
-fun UInt64.toUInt32(): UInt32 = toUInt()
-fun UInt64.toUInt64(): UInt64 = toULong()
+fun String.toUInt8(radix: Int = 10):  uint8_t  = toUByte(radix)
+fun String.toUInt16(radix: Int = 10): uint16_t = toUShort(radix)
+fun String.toUInt32(radix: Int = 10): uint32_t = toUInt(radix)
+fun String.toUInt64(radix: Int = 10): uint64_t = toULong(radix)
 
 
-fun UInt8.toInt8():  Int8  = toByte()
-fun UInt8.toInt32(): Int32 = toInt()
-fun UInt8.toInt64(): Int64 = toLong()
+fun uint8_t.toUInt8():  uint8_t  = toUByte()
+fun uint8_t.toUInt16(): uint16_t = toUShort()
+fun uint8_t.toUInt32(): uint32_t = toUInt()
+fun uint8_t.toUInt64(): uint64_t = toULong()
 
-fun UInt16.toInt8():  Int8  = toByte()
-fun UInt16.toInt32(): Int32 = toInt()
-fun UInt16.toInt64(): Int64 = toLong()
+fun uint16_t.toUInt8():  uint8_t  = toUByte()
+fun uint16_t.toUInt16(): uint16_t = toUShort()
+fun uint16_t.toUInt32(): uint32_t = toUInt()
+fun uint16_t.toUInt64(): uint64_t = toULong()
 
-fun UInt32.toInt8():  Int8  = toByte()
-fun UInt32.toInt16(): Int16 = toShort()
-fun UInt32.toInt64(): Int64 = toLong()
+fun uint32_t.toUInt8():  uint8_t  = toUByte()
+fun uint32_t.toUInt16(): uint16_t = toUShort()
+fun uint32_t.toUInt32(): uint32_t = toUInt()
+fun uint32_t.toUInt64(): uint64_t = toULong()
 
-fun UInt64.toInt8():  Int8  = toByte()
-fun UInt64.toInt16(): Int16 = toShort()
-fun UInt64.toInt32(): Int32 = toInt()
+fun uint64_t.toUInt8():  uint8_t  = toUByte()
+fun uint64_t.toUInt16(): uint16_t = toUShort()
+fun uint64_t.toUInt32(): uint32_t = toUInt()
+fun uint64_t.toUInt64(): uint64_t = toULong()
 
 
-fun Int8.toUInt8():  UInt8  = toUByte()
-fun Int8.toUInt16(): UInt16 = toUShort()
-fun Int8.toUInt32(): UInt32 = toUInt()
-fun Int8.toUInt64(): UInt64 = toULong()
+fun uint8_t.toInt8():  Int8  = toByte()
+fun uint8_t.toInt32(): Int32 = toInt()
+fun uint8_t.toInt64(): Int64 = toLong()
 
-fun Int16.toUInt8():  UInt8  = toUByte()
-fun Int16.toUInt16(): UInt16 = toUShort()
-fun Int16.toUInt32(): UInt32 = toUInt()
-fun Int16.toUInt64(): UInt64 = toULong()
+fun uint16_t.toInt8():  Int8  = toByte()
+fun uint16_t.toInt32(): Int32 = toInt()
+fun uint16_t.toInt64(): Int64 = toLong()
 
-fun Int32.toUInt8():  UInt8  = toUByte()
-fun Int32.toUInt16(): UInt16 = toUShort()
-fun Int32.toUInt32(): UInt32 = toUInt()
-fun Int32.toUInt64(): UInt64 = toULong()
+fun uint32_t.toInt8():  Int8  = toByte()
+fun uint32_t.toInt16(): Int16 = toShort()
+fun uint32_t.toInt64(): Int64 = toLong()
 
-fun Int64.toUInt8():  UInt8  = toUByte()
-fun Int64.toUInt16(): UInt16 = toUShort()
-fun Int64.toUInt32(): UInt32 = toUInt()
-fun Int64.toUInt64(): UInt64 = toULong()
+fun uint64_t.toInt8():  Int8  = toByte()
+fun uint64_t.toInt16(): Int16 = toShort()
+fun uint64_t.toInt32(): Int32 = toInt()
+
+
+fun Int8.toUInt8():  uint8_t  = toUByte()
+fun Int8.toUInt16(): uint16_t = toUShort()
+fun Int8.toUInt32(): uint32_t = toUInt()
+fun Int8.toUInt64(): uint64_t = toULong()
+
+fun Int16.toUInt8():  uint8_t  = toUByte()
+fun Int16.toUInt16(): uint16_t = toUShort()
+fun Int16.toUInt32(): uint32_t = toUInt()
+fun Int16.toUInt64(): uint64_t = toULong()
+
+fun Int32.toUInt8():  uint8_t  = toUByte()
+fun Int32.toUInt16(): uint16_t = toUShort()
+fun Int32.toUInt32(): uint32_t = toUInt()
+fun Int32.toUInt64(): uint64_t = toULong()
+
+fun Int64.toUInt8():  uint8_t  = toUByte()
+fun Int64.toUInt16(): uint16_t = toUShort()
+fun Int64.toUInt32(): uint32_t = toUInt()
+fun Int64.toUInt64(): uint64_t = toULong()
 
 
 fun Int8.toInt8():  Int8  = toByte()
@@ -105,7 +105,7 @@ fun Int64.toInt8():  Int8  = toByte()
 fun Int64.toInt16(): Int16 = toShort()
 fun Int64.toInt32(): Int32 = toInt()
 
-typealias ShareType = UInt64 // safe<int64_t>
+typealias share_type = uint64_t // safe<int64_t>
 
 
 object UInt128Serializer : KSerializer<UInt128> {
@@ -147,10 +147,10 @@ value class UInt128 constructor(@PublishedApi internal val data: BigInteger) : C
 }
 
 
-fun UInt8.toUInt128(): UInt128 = UInt128(toString())
-fun UInt16.toUInt128(): UInt128 = UInt128(toString())
-fun UInt32.toUInt128(): UInt128 = UInt128(toString())
-fun UInt64.toUInt128(): UInt128 = UInt128(toString())
+fun uint8_t.toUInt128(): UInt128 = UInt128(toString())
+fun uint16_t.toUInt128(): UInt128 = UInt128(toString())
+fun uint32_t.toUInt128(): UInt128 = UInt128(toString())
+fun uint64_t.toUInt128(): UInt128 = UInt128(toString())
 
 fun Int8.toUInt128():  UInt128 = UInt128(BigInteger.valueOf(toLong()))
 fun Int16.toUInt128(): UInt128 = UInt128(BigInteger.valueOf(toLong()))

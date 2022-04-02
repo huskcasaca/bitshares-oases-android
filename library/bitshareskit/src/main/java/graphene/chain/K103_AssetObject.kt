@@ -8,24 +8,24 @@ import kotlinx.serialization.Serializable
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 data class K103_AssetObject(
     @SerialName("id")
-    override val id: K103_AssetIdType,
+    override val id: AssetIdType,
 
     @SerialName("symbol")
     override val symbol: String,
     @SerialName("issuer")
-    override val issuer: K102_AccountType,
+    override val issuer: AccountType,
     @SerialName("precision")
-    override val precision: UInt8,
+    override val precision: uint8_t,
     @SerialName("options")
     override val options: AssetOptions,
 
     @SerialName("dynamic_asset_data_id")
-    override val dynamicData: K203_AssetDynamicDataType,
+    override val dynamicData: AssetDynamicDataType,
     @SerialName("bitasset_data_id")
-    override val bitassetData: Optional<K204_AssetBitassetDataType> = optional(),
+    override val bitassetData: Optional<AssetBitassetDataType> = optional(),
     @SerialName("buyback_account")
-    override val buybackAccount: Optional<K102_AccountType> = optional(),
+    override val buybackAccount: Optional<AccountType> = optional(),
     @SerialName("for_liquidity_pool")
-    override val forLiquidityPool: Optional<K119_LiquidityPoolType> = optional(),
+    override val liquidityPool: Optional<LiquidityPoolType> = optional(),
 
-    ) : AbstractObject(), K103_AssetType
+    ) : AbstractObject(), AssetType

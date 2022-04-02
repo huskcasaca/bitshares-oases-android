@@ -7,67 +7,67 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class K204_AssetBitassetDataObject(
     @SerialName("id")
-    override val id: K204_AssetBitassetDataIdType,
+    override val id: AssetBitassetDataIdType,
     // The asset this object belong to
     @SerialName("asset_id")
-    val assetId: K103_AssetIdType,
+    override val asset: AssetType,
     // The tunable options for BitAssets are stored in this field.
     @SerialName("options")
-    val options: BitassetOptions,
+    override val options: BitassetOptions,
     // Feeds published for this asset.
     // The keys in this map are the feed publishing accounts.
     // The timestamp on each feed is the time it was published.
     @SerialName("feeds")
-    val feeds: FlatMap<K102_AccountIdType, PairArray<ChainTimePoint, PriceFeedWithIcr>>,
+    override val feeds: PriceFeeds,
     // This is the median of values from the currently active feeds.
     @SerialName("median_feed")
-    val medianFeed: PriceFeedWithIcr,
+    override val medianFeed: PriceFeedWithIcr,
     // This is the currently active price feed, calculated from @ref median_feed and other parameters.
     @SerialName("current_feed")
-    val currentFeed: PriceFeedWithIcr,
+    override val currentFeed: PriceFeedWithIcr,
     // This is the publication time of the oldest feed which was factored into current_feed.
     @SerialName("current_feed_publication_time")
-    val currentFeedPublicationTime: ChainTimePoint,
+    override val currentFeedPublicationTime: ChainTimePoint,
     // Call orders with collateralization (aka collateral/debt) not greater than this value are in margin
     // call territory.
     // This value is derived from @ref current_feed for better performance and should be kept consistent.
     @SerialName("current_maintenance_collateralization")
-    val currentMaintenanceCollateralization: PriceType,
+    override val currentMaintenanceCollateralization: PriceType,
     // After BSIP77, when creating a new debt position or updating an existing position, the position
     // will be checked against the `initial_collateral_ratio` (ICR) parameter in the bitasset options.
     // This value is derived from @ref current_feed (which includes `ICR`) for better performance and
     // should be kept consistent.
     @SerialName("current_initial_collateralization")
-    val currentInitialCollateralization: PriceType,
+    override val currentInitialCollateralization: PriceType,
     // True if this asset implements a @ref prediction_market
     @SerialName("is_prediction_market")
-    val isPredictionMarket: Boolean = false,
+    override val isPredictionMarket: Boolean = false,
     // This is the volume of this asset which has been force-settled this maintanence interval
     @SerialName("force_settled_volume")
-    val forceSettledVolume: ShareType,
+    override val forceSettledVolume: share_type,
     // Price at which force settlements of a globally settled asset will occur
     @SerialName("settlement_price")
-    val settlementPrice: PriceType,
+    override val settlementPrice: PriceType,
     // Amount of collateral which is available for force settlement due to global settlement
     @SerialName("settlement_fund")
-    val settlementFund: ShareType,
+    override val settlementFund: share_type,
     // The individual settlement pool.
     // In the event of individual settlements to fund, debt and collateral of the margin positions which got
     // settled are moved here.
 
     // Amount of debt due to individual settlements
     @SerialName("individual_settlement_debt")
-    val individualSettlementDebt: ShareType,
+    override val individualSettlementDebt: share_type,
     // Amount of collateral which is available for force settlement due to individual settlements
     @SerialName("individual_settlement_fund")
-    val individualSettlementFund: ShareType,
+    override val individualSettlementFund: share_type,
     @SerialName("asset_cer_updated")
     // Track whether core_exchange_rate in corresponding @ref asset_object has updated
-    val asset_cer_updated: Boolean = false,
+    override val assetCerUpdated: Boolean = false,
     @SerialName("feed_cer_updated")
     // Track whether core exchange rate in current feed has updated
-    val feed_cer_updated: Boolean = false,
-) : AbstractObject(), K204_AssetBitassetDataType {
+    override val feedCerUpdated: Boolean = false,
+) : AbstractObject(), AssetBitassetDataType {
 //    // @return whether @ref current_feed is different from @ref median_feed
 ////    bool is_current_feed_price_capped()const
 ////    { return ( median_feed.settlement_price != current_feed.settlement_price ); }

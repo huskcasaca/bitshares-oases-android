@@ -6,16 +6,16 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class AssetType(
+data class KAsset(
     @SerialName("amount")
-    val amount: ShareType,
+    val amount: share_type,
     @SerialName("asset_id")
-    val asset: K103_AssetType
+    val asset: AssetType
 ) {
     companion object {
 
-        val INVALID = AssetType(
-            ShareType.MAX_VALUE,
+        val INVALID = KAsset(
+            share_type.MAX_VALUE,
             emptyIdType(),
         )
 
@@ -97,15 +97,15 @@ data class AssetType(
 @Serializable
 data class PriceType(
     @SerialName("base")
-    val base: AssetType,
+    val base: KAsset,
     @SerialName("quote")
-    val quote: AssetType,
+    val quote: KAsset,
 ) {
     companion object {
 
         val INVALID = PriceType(
-            AssetType.INVALID,
-            AssetType.INVALID,
+            KAsset.INVALID,
+            KAsset.INVALID,
         )
 
     }
@@ -173,10 +173,10 @@ data class PriceFeed(
     val core_exchange_rate: PriceType,
     /** Fixed point between 1.000 and 10.000, implied fixed point denominator is GRAPHENE_COLLATERAL_RATIO_DENOM */
     @SerialName("maintenance_collateral_ratio")
-    val maintenance_collateral_ratio: UInt16 = GRAPHENE_DEFAULT_MAINTENANCE_COLLATERAL_RATIO.toUInt16(),
+    val maintenance_collateral_ratio: uint16_t = GRAPHENE_DEFAULT_MAINTENANCE_COLLATERAL_RATIO.toUInt16(),
     /** Fixed point between 1.000 and 10.000, implied fixed point denominator is GRAPHENE_COLLATERAL_RATIO_DENOM */
     @SerialName("maximum_short_squeeze_ratio")
-    val maximum_short_squeeze_ratio: UInt16 = GRAPHENE_DEFAULT_MAX_SHORT_SQUEEZE_RATIO.toUInt16(),
+    val maximum_short_squeeze_ratio: uint16_t = GRAPHENE_DEFAULT_MAX_SHORT_SQUEEZE_RATIO.toUInt16(),
 ) {
 
 //    /**
@@ -317,14 +317,14 @@ data class PriceFeedWithIcr(
     @SerialName("core_exchange_rate")
     val coreExchangeRate: PriceType,
     @SerialName("maintenance_collateral_ratio")
-    val maintenanceCollateralRatio: UInt16 = GRAPHENE_DEFAULT_MAINTENANCE_COLLATERAL_RATIO,
+    val maintenanceCollateralRatio: uint16_t = GRAPHENE_DEFAULT_MAINTENANCE_COLLATERAL_RATIO,
     @SerialName("maximum_short_squeeze_ratio")
-    val maximumShortSqueezeRatio: UInt16 = GRAPHENE_DEFAULT_MAX_SHORT_SQUEEZE_RATIO,
+    val maximumShortSqueezeRatio: uint16_t = GRAPHENE_DEFAULT_MAX_SHORT_SQUEEZE_RATIO,
     // After BSIP77, when creating a new debt position or updating an existing position,
     // the position will be checked against this parameter.
     // Fixed point between 1.000 and 10.000, implied fixed point denominator is GRAPHENE_COLLATERAL_RATIO_DENOM
     @SerialName("initial_collateral_ratio")
-    val initialCollateralRatio: UInt16 = GRAPHENE_DEFAULT_MAINTENANCE_COLLATERAL_RATIO,
+    val initialCollateralRatio: uint16_t = GRAPHENE_DEFAULT_MAINTENANCE_COLLATERAL_RATIO,
 )  {
 //
 //    price_feed_with_icr()
@@ -343,19 +343,19 @@ data class PriceFeedWithIcr(
 @Serializable
 data class AdditionalAssetOptions(
     @SerialName("reward_percent")
-    val rewardPercent: UInt16 = 0U, // optional
+    val rewardPercent: uint16_t = 0U, // optional
     @SerialName("whitelist_market_fee_sharing")
-    val whitelistMarketFeeSharing: FlatSet<K102_AccountType> = sortedSetOf(), // optional
+    val whitelistMarketFeeSharing: FlatSet<AccountType> = sortedSetOf(), // optional
     @SerialName("taker_fee_percent")
-    val takerFeePercent: UInt16 = 0U, // optional
+    val takerFeePercent: uint16_t = 0U, // optional
 ) : Extension<AdditionalAssetOptions> {
 
     companion object {
 
         val INVALID = AdditionalAssetOptions(
-            UInt16.MAX_VALUE,
+            uint16_t.MAX_VALUE,
             sortedSetOf(),
-            UInt16.MAX_VALUE,
+            uint16_t.MAX_VALUE,
         )
 
     }
@@ -366,23 +366,23 @@ data class AssetOptions(
     // The maximum supply of this asset which may exist at any given time. This can be as large as
     // GRAPHENE_MAX_SHARE_SUPPLY
     @SerialName("max_supply")
-    val maxSupply: ShareType,
+    val maxSupply: share_type,
     // When this asset is traded on the markets, this percentage of the total traded will be exacted and paid
     // to the issuer. This is a fixed point value, representing hundredths of a percent, i.e. a value of 100
     // in this field means a 1% fee is charged on market trades of this asset.
     // BSIP81: Asset owners may specify different market fee rate for maker orders and taker orders
     // After BSIP81 activation, market_fee_percent is the maker fee
     @SerialName("market_fee_percent")
-    val marketFeePercent: UInt16,
+    val marketFeePercent: uint16_t,
     // Market fees calculated as @ref market_fee_percent of the traded volume are capped to this value
     @SerialName("max_market_fee")
-    val maxMarketFee: ShareType,
+    val maxMarketFee: share_type,
     // The flags which the issuer has permission to update. See @ref asset_issuer_permission_flags
     @SerialName("issuer_permissions")
-    val issuerPermissions: UInt16,
+    val issuerPermissions: uint16_t,
     // The currently active flags on this permission. See @ref asset_issuer_permission_flags
     @SerialName("flags")
-    val flags: UInt16,
+    val flags: uint16_t,
     // When a non-core asset is used to pay a fee, the blockchain must convert that asset to core asset in
     // order to accept the fee. If this asset's fee pool is funded, the chain will automatically deposite fees
     // in this asset to its accumulated fees, and withdraw from the fee pool the same amount as converted at
@@ -392,19 +392,19 @@ data class AssetOptions(
     // A set of accounts which maintain whitelists to consult for this asset. If whitelist_authorities
     // is non-empty, then only accounts in whitelist_authorities are allowed to hold, use, or transfer the asset.
     @SerialName("whitelist_authorities")
-    val whitelistAuthorities: FlatSet<K102_AccountType>,
+    val whitelistAuthorities: FlatSet<AccountType>,
     // A set of accounts which maintain blacklists to consult for this asset. If flags & white_list is set,
     // an account may only send, receive, trade, etc. in this asset if none of these accounts appears in
     // its account_object::blacklisting_accounts field. If the account is blacklisted, it may not transact in
     // this asset even if it is also whitelisted.
     @SerialName("blacklist_authorities")
-    val blacklistAuthorities: FlatSet<K102_AccountType>,
+    val blacklistAuthorities: FlatSet<AccountType>,
     /** defines the assets that this asset may be traded against in the market */
     @SerialName("whitelist_markets")
-    val whitelistMarkets: FlatSet<K103_AssetType>,
+    val whitelistMarkets: FlatSet<AssetType>,
     /** defines the assets that this asset may not be traded against in the market, must not overlap whitelist */
     @SerialName("blacklist_markets")
-    val blacklistMarkets: FlatSet<K103_AssetType>,
+    val blacklistMarkets: FlatSet<AssetType>,
     /**
      * data that describes the meaning/purpose of this asset, fee will be charged proportional to
      * size of description.
@@ -417,11 +417,11 @@ data class AssetOptions(
 
     companion object {
         val INVALID = AssetOptions(
-            ShareType.MAX_VALUE, // val maxSupply: ShareType,
-            UInt16.MAX_VALUE, // val marketFeePercent: UInt16,
-            ShareType.MAX_VALUE, // val maxMarketFee: ShareType,
-            UInt16.MAX_VALUE, // val issuerPermissions: UInt16,
-            UInt16.MAX_VALUE, // val flags: UInt16,
+            share_type.MAX_VALUE, // val maxSupply: ShareType,
+            uint16_t.MAX_VALUE, // val marketFeePercent: UInt16,
+            share_type.MAX_VALUE, // val maxMarketFee: ShareType,
+            uint16_t.MAX_VALUE, // val issuerPermissions: UInt16,
+            uint16_t.MAX_VALUE, // val flags: UInt16,
             PriceType.INVALID, // val coreExchangeRate: PriceType, // = price(asset(), asset(0, asset_id_type(1)));
             sortedSetOf(), // val whitelistAuthorities: FlatSet<K102_AccountType>,
             sortedSetOf(), // val blacklistAuthorities: FlatSet<K102_AccountType>,
@@ -448,17 +448,17 @@ data class AssetOptions(
 @Serializable
 data class BitassetOptions(
     @SerialName("feed_lifetime_sec")
-    val feedLifetimeSec: UInt32 = GRAPHENE_DEFAULT_PRICE_FEED_LIFETIME, // uint32_t
+    val feedLifetimeSec: uint32_t = GRAPHENE_DEFAULT_PRICE_FEED_LIFETIME, // uint32_t
     @SerialName("minimum_feeds")
-    val minimumFeeds: UInt8 = 1U, // uint32_t
+    val minimumFeeds: uint8_t = 1U, // uint32_t
     @SerialName("force_settlement_delay_sec")
-    val forceSettlementDelaySec: UInt32 = GRAPHENE_DEFAULT_FORCE_SETTLEMENT_DELAY,
+    val forceSettlementDelaySec: uint32_t = GRAPHENE_DEFAULT_FORCE_SETTLEMENT_DELAY,
     @SerialName("force_settlement_offset_percent")
-    val forceSettlementOffsetPercent: UInt16 = GRAPHENE_DEFAULT_FORCE_SETTLEMENT_OFFSET,
+    val forceSettlementOffsetPercent: uint16_t = GRAPHENE_DEFAULT_FORCE_SETTLEMENT_OFFSET,
     @SerialName("maximum_force_settlement_volume")
-    val maximumForceSettlementVolume: UInt16 = GRAPHENE_DEFAULT_FORCE_SETTLEMENT_MAX_VOLUME,
+    val maximumForceSettlementVolume: uint16_t = GRAPHENE_DEFAULT_FORCE_SETTLEMENT_MAX_VOLUME,
     @SerialName("short_backing_asset")
-    val shortBackingAsset: K103_AssetIdType,
+    val shortBackingAsset: AssetIdType,
     @SerialName("extensions")
     val extension: BitassetOptionsExtension,
 )
@@ -477,16 +477,16 @@ data class BitassetOptionsExtension(
     // the position will be checked against this parameter.
     // Unused for prediction markets, although we allow it to be set for simpler implementation
     @SerialName("initial_collateral_ratio")
-    val initialCollateralRatio: Optional<UInt16> = optional(),  // BSIP-77
+    val initialCollateralRatio: Optional<uint16_t> = optional(),  // BSIP-77
     @SerialName("maintenance_collateral_ratio") // After BSIP75, the asset owner can update MCR directly
-    val maintenanceCollateralRatio: Optional<UInt16> = optional(),  // BSIP-75
+    val maintenanceCollateralRatio: Optional<uint16_t> = optional(),  // BSIP-75
     @SerialName("maximum_short_squeeze_ratio") // After BSIP75, the asset owner can update MSSR directly
-    val maximumShortSqueezeRatio: Optional<UInt16> = optional(),  // BSIP-75
+    val maximumShortSqueezeRatio: Optional<uint16_t> = optional(),  // BSIP-75
     @SerialName("margin_call_fee_ratio")
-    val marginCallFeeRatio: Optional<UInt16> = optional(), // BSIP 74
+    val marginCallFeeRatio: Optional<uint16_t> = optional(), // BSIP 74
     @SerialName("force_settle_fee_percent")
-    val forceSettleFeePercent: Optional<UInt16> = optional(),  // BSIP-87
+    val forceSettleFeePercent: Optional<uint16_t> = optional(),  // BSIP-87
     @SerialName("black_swan_response_method") // https://github.com/bitshares/bitshares-core/issues/2467
-    val blackSwanResponseMethod: Optional<UInt8> = optional(),
+    val blackSwanResponseMethod: Optional<uint8_t> = optional(),
 ) : Extension<BitassetOptionsExtension>
 
