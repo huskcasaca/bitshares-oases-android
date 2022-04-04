@@ -52,15 +52,15 @@ data class ChainParameters(
     @SerialName("accounts_per_fee_scale")              val accountsPerFeeScale              : UInt16    = GRAPHENE_DEFAULT_ACCOUNTS_PER_FEE_SCALE, //< number of accounts between fee scalings
     @SerialName("account_fee_scale_bitshifts")         val accountFeeScaleBitshifts         : UInt8     = GRAPHENE_DEFAULT_ACCOUNT_FEE_SCALE_BITSHIFTS, //< number of times to left bitshift account registration fee at each scaling
     @SerialName("max_authority_depth")                 val maxAuthorityDepth                : UInt8     = GRAPHENE_MAX_SIG_CHECK_DEPTH,
-    @SerialName("extension")                           val extension                        : Optional<ChainParametersExtension> = optional(),
+    @SerialName("extensions")                          val extensions                       : Optional<ChainParametersExtension> = optional(),
 ) {
 
     @Serializable
     data class ChainParametersExtension(
-        @SerialName("updatable_htlc_options")      val updatableHtlcOptions    : Optional<HtlcOptions>,
-        @SerialName("custom_authority_options")    val customAuthorityOptions  : Optional<CustomAuthorityOptionsType>,
-        @SerialName("market_fee_network_percent")  val marketFeeNetworkPercent : Optional<UInt16>,
-        @SerialName("maker_fee_discount_percent")  val makerFeeDiscountPercent : Optional<UInt16>,
+        @SerialName("updatable_htlc_options")      val updatableHtlcOptions    : Optional<HtlcOptions> = optional(),
+        @SerialName("custom_authority_options")    val customAuthorityOptions  : Optional<CustomAuthorityOptionsType> = optional(),
+        @SerialName("market_fee_network_percent")  val marketFeeNetworkPercent : Optional<UInt16> = optional(),
+        @SerialName("maker_fee_discount_percent")  val makerFeeDiscountPercent : Optional<UInt16> = optional(),
     ): Extension<ChainParametersExtension>
 
 //    const fee_schedule& get_current_fees() const { FC_ASSERT(current_fees); return *current_fees; }
