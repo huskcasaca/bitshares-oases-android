@@ -1,45 +1,30 @@
 package graphene.protocol
 
+import graphene.serializers.SpecialAuthoritySerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-
-internal val INVALID_TYPED_SPECIAL_AUTHORITY = TypedSpecialAuthority(
-    0,
-    NoSpecialAuthority.INVALID
-)
+import kotlinx.serialization.Transient
 
 @Serializable(with = SpecialAuthoritySerializer::class)
 sealed class SpecialAuthority : GrapheneComponent
 
 @Serializable
-class NoSpecialAuthority : SpecialAuthority() {
-
+data class NoSpecialAuthority(
+    @Transient val reserved: Unit = Unit
+) : SpecialAuthority() {
     companion object {
         internal val INVALID = NoSpecialAuthority(
         )
-
     }
-
 }
 
 @Serializable
-@Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 data class TopHoldersSpecialAuthority (
     @SerialName("asset")
-    val asset: AssetType,
+    val asset: AssetIdType,
     @SerialName("num_top_holders")
-    val numTopHolders: uint8_t = 1U
-) : SpecialAuthority() {
-
-    companion object {
-        internal val INVALID = TopHoldersSpecialAuthority(
-            emptyIdType(),
-            uint8_t.MAX_VALUE
-        )
-    }
-
-}
-
+    val numTopHolders: UInt8 = 1U
+) : SpecialAuthority()
 
 
 

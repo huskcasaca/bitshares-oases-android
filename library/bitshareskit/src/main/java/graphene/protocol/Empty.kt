@@ -15,15 +15,15 @@ val INVALID_BASE_OBJECT = K101_BaseObject(
 
 val INVALID_ACCOUNT_OBJECT = K102_AccountObject(
     emptyIdType(), //    val id: K102_AccountIdType,
-    ChainTimePoint.DEFAULT_EXPIRATION_TIME, //    val membershipExpirationDate: ChainTimePoint,
+    DEFAULT_EXPIRATION_TIME, //    val membershipExpirationDate: ChainTimePoint,
     //
     emptyIdType(), //    val registrar: K102_AccountType,
     emptyIdType(), //    val referrer: K102_AccountType,
     emptyIdType(), //    val lifetimeReferrer: K102_AccountType,
     //
-    uint16_t.MAX_VALUE, //    val networkFeePercentage: UInt16,
-    uint16_t.MAX_VALUE, //    val lifetimeReferrerFeePercentage: UInt16,
-    uint16_t.MAX_VALUE, //    val referrerRewardsFeePercentage: UInt16,
+    UInt16.MAX_VALUE, //    val networkFeePercentage: UInt16,
+    UInt16.MAX_VALUE, //    val lifetimeReferrerFeePercentage: UInt16,
+    UInt16.MAX_VALUE, //    val referrerRewardsFeePercentage: UInt16,
     //
     EMPTY_SPACE, //    val name: String,
     //
@@ -31,7 +31,7 @@ val INVALID_ACCOUNT_OBJECT = K102_AccountObject(
     Authority.INVALID, //    val active: Authority,
     AccountOptions.INVALID, //    val options: AccountOptions,
     //
-    uint16_t.MAX_VALUE, //    val numCommitteeVoted: UInt16,
+    UInt16.MAX_VALUE, //    val numCommitteeVoted: UInt16,
     emptyIdType(), //    val statistics: K206_AccountStatisticsType,
     //
     sortedSetOf(), //    val whiteListingAccounts: TypeSet<K102_AccountType>,
@@ -41,9 +41,9 @@ val INVALID_ACCOUNT_OBJECT = K102_AccountObject(
     //
     emptyIdType(), //    val ack_vb: K113_VestingBalanceIdType = emptyIdType(),
     //
-    INVALID_TYPED_SPECIAL_AUTHORITY, //    val ownerSpecialAuthority: SpecialAuthority,
-    INVALID_TYPED_SPECIAL_AUTHORITY, //    val activeSpecialAuthority: SpecialAuthority,
-    uint8_t.MAX_VALUE, //    val topNControlFlags: UInt8,
+    NoSpecialAuthority.INVALID, //    val ownerSpecialAuthority: SpecialAuthority,
+    NoSpecialAuthority.INVALID, //    val activeSpecialAuthority: SpecialAuthority,
+    UInt8.MAX_VALUE, //    val topNControlFlags: UInt8,
 )
 
 

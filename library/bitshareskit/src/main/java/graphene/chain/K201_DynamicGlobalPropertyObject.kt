@@ -1,35 +1,37 @@
 package graphene.chain
 
 import graphene.protocol.*
+import graphene.serializers.TimePointSecSerializer
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class K201_DynamicGlobalPropertyObject(
     @SerialName("id")
-    override val id: DynamicGlobalPropertyIdType,
+    override val id: DynamicGlobalPropertyId,
     @SerialName("head_block_number")
-    override val headBlockNumber: uint32_t,
+    override val headBlockNumber: UInt32,
     @SerialName("head_block_id")
     override val headBlockId: BlockIdType,
-    @SerialName("time")
-    override val time: ChainTimePoint,
+    @SerialName("time") @Serializable(TimePointSecSerializer::class)
+    override val time: Instant,
     @SerialName("current_witness")
-    override val currentWitness: WitnessType,
-    @SerialName("next_maintenance_time")
-    override val nextMaintenanceTime: ChainTimePoint,
-    @SerialName("last_vote_tally_time")
-    override val lastVoteTallyTime: ChainTimePoint,
-    @SerialName("last_budget_time")
-    override val lastBudgetTime: ChainTimePoint,
+    override val currentWitness: WitnessIdType,
+    @SerialName("next_maintenance_time") @Serializable(TimePointSecSerializer::class)
+    override val nextMaintenanceTime: Instant,
+    @SerialName("last_vote_tally_time") @Serializable(TimePointSecSerializer::class)
+    override val lastVoteTallyTime: Instant,
+    @SerialName("last_budget_time") @Serializable(TimePointSecSerializer::class)
+    override val lastBudgetTime: Instant,
     @SerialName("witness_budget")
-    override val witnessBudget: share_type,
+    override val witnessBudget: ShareType,
     @SerialName("total_pob")
-    override val totalPob: share_type,
+    override val totalPob: ShareType,
     @SerialName("total_inactive")
-    override val totalInactive: share_type,
+    override val totalInactive: ShareType,
     @SerialName("accounts_registered_this_interval")
-    override val accountsRegisteredThisInterval: uint32_t, //  = 0
+    override val accountsRegisteredThisInterval: UInt32, //  = 0
     /**
      *  Every time a block is missed this increases by
      *  RECENTLY_MISSED_COUNT_INCREMENT,
@@ -38,14 +40,14 @@ data class K201_DynamicGlobalPropertyObject(
      *  never less than 0.
      */
     @SerialName("recently_missed_count")
-    override val recentlyMissedCount: uint32_t, // = 0
+    override val recentlyMissedCount: UInt32, // = 0
     /**
      * The current absolute slot number.  Equal to the total
      * number of slots since genesis.  Also equal to the total
      * number of missed slots plus head_block_number.
      */
     @SerialName("current_aslot")
-    override val currentAslot: uint64_t, // = 0
+    override val currentAslot: UInt64, // = 0
     /**
      * used to compute witness participation.
      */
@@ -56,12 +58,12 @@ data class K201_DynamicGlobalPropertyObject(
      * expressed in one bit.
      */
     @SerialName("dynamic_flags")
-    override val dynamicFlags: uint32_t, // = 0
+    override val dynamicFlags: UInt32, // = 0
     @SerialName("last_irreversible_block_num")
-    override val lastIrreversibleBlockNum: uint32_t, // = 0
+    override val lastIrreversibleBlockNum: UInt32, // = 0
 
 
-) : AbstractObject(), DynamicGlobalPropertyType {
+) : AbstractObject(), DynamicGlobalPropertyIdType {
 
 //    public:
 //    static constexpr uint8_t space_id = implementation_ids;

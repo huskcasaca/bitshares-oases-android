@@ -8,18 +8,18 @@ private fun String.toVote(): VoteIdType {
     return VoteIdType.fromStringId(this)
 }
 
-fun ULong.toAccount() = AccountIdType(this)
+fun ULong.toAccount() = AccountId(this)
 
-val AbstractType.standardId: String
+val ObjectIdType.standardId: String
     get() = "${id.space.id}$GRAPHENE_ID_SEPARATOR${id.type.id}$GRAPHENE_ID_SEPARATOR${id.instance}"
 
-val AbstractType.isObject
+val ObjectIdType.isObject
     get() = this is AbstractObject
 
-val AbstractType.isObjectId
+val ObjectIdType.isObjectId
     get() = this !is AbstractObject
 
-val AbstractType.isValid
+val ObjectIdType.isValid
     get() = id.type != ProtocolType.NULL && id.instance < 0xFFFFFFFFFFFFFFUL
 
 
@@ -28,5 +28,5 @@ inline fun <reified T: AbstractObject> T?.orEmpty(): T = this ?: when (T::class)
     else -> TODO()
 } as T
 
-inline fun <reified T: AbstractIdType> T?.orEmpty(): T = this ?: emptyIdType()
+inline fun <reified T: ObjectId> T?.orEmpty(): T = this ?: emptyIdType()
 

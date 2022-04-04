@@ -2,7 +2,7 @@ package graphene.rpc
 
 import bitshareskit.extensions.logcat
 import graphene.app.*
-import graphene.protocol.GRAPHENE_JSON_PLATFORM_SERIALIZER
+import graphene.serializers.GRAPHENE_JSON_PLATFORM_SERIALIZER
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*

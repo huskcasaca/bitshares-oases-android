@@ -11,6 +11,7 @@ import com.bitshares.oases.ui.base.BaseViewModel
 import graphene.chain.K102_AccountObject
 import graphene.chain.K103_AssetObject
 import graphene.protocol.*
+import graphene.serializers.GRAPHENE_JSON_PLATFORM_SERIALIZER
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
@@ -61,7 +62,7 @@ class TestLabViewModel(application: Application) : BaseViewModel(application) {
                     }
                 }.onFailure {
                     launch(Dispatchers.Main) {
-                        info[ProtocolType.ACCOUNT]?.value = "Failed ${AccountIdType(instance).standardId}\n" +
+                        info[ProtocolType.ACCOUNT]?.value = "Failed ${AccountId(instance).standardId}\n" +
                                 it.stackTraceToString()
                         it.printStackTrace()
                     }
@@ -94,7 +95,7 @@ class TestLabViewModel(application: Application) : BaseViewModel(application) {
                     }
                 }.onFailure {
                     launch(Dispatchers.Main) {
-                        info[ProtocolType.ASSET]?.value = "Failed ${AssetIdType(instance).standardId}\n" +
+                        info[ProtocolType.ASSET]?.value = "Failed ${AssetId(instance).standardId}\n" +
                                 it.stackTraceToString()
                         it.printStackTrace()
                     }

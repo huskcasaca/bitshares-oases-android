@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class K214_SpecialAuthorityObject(
     @SerialName("id")
-    override val id: SpecialAuthorityIdType,
+    override val id: SpecialAuthorityId,
     @SerialName("account")
-    val account: AccountType,
-) : AbstractObject(), SpecialAuthorityType
+    val account: AccountIdType,
+) : AbstractObject(), SpecialAuthorityIdType

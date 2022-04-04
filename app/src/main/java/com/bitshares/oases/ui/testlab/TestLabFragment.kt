@@ -13,6 +13,7 @@ import graphene.rpc.Node
 import com.bitshares.oases.provider.chain_repo.GrapheneRepository
 import com.bitshares.oases.ui.base.ContainerFragment
 import graphene.protocol.*
+import graphene.serializers.GRAPHENE_JSON_PLATFORM_SERIALIZER
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString

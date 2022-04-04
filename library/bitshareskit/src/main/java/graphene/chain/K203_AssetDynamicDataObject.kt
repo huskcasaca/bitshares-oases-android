@@ -7,15 +7,15 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class K203_AssetDynamicDataObject(
     @SerialName("id")
-    override val id: AssetDynamicDataIdType,
+    override val id: AssetDynamicDataId,
     @SerialName("current_supply")
-    override val currentSupply: share_type,
+    override val currentSupply: ShareType,
     @SerialName("confidential_supply")
-    override val confidentialSupply: share_type,
+    override val confidentialSupply: ShareType,
     @SerialName("accumulated_fees")
-    override val accumulatedFees: share_type,
+    override val accumulatedFees: ShareType,
     @SerialName("accumulated_collateral_fees")
-    override val accumulatedCollateralFees: share_type,
+    override val accumulatedCollateralFees: ShareType,
     @SerialName("fee_pool")
-    override val feePool: share_type,
-) : AbstractObject(), AssetDynamicDataType
+    override val feePool: ShareType,
+) : AbstractObject(), AssetDynamicDataIdType

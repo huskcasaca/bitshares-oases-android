@@ -1,83 +1,85 @@
 package graphene.chain
 
 import graphene.protocol.*
+import graphene.serializers.TimePointSecSerializer
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class K206_AccountStatisticsObject(
     @SerialName("id")
-    override val id: AccountStatisticsIdType,
+    override val id: AccountStatisticsId,
     @SerialName("owner")
-    val owner: AccountType,
+    val owner: AccountIdType,
     @SerialName("name") //< redundantly store account name here for better maintenance performance
     val name: String,
     /**
      * Keep the most recent operation as a root pointer to a linked list of the transaction history.
      */
     @SerialName("most_recent_op")
-    val most_recent_op: AccountTransactionHistoryType,
+    val mostRecentOp: AccountTransactionHistoryIdType,
     /** Total operations related to this account. */
     @SerialName("total_ops")
-    val total_ops: uint64_t,
+    val totalOps: UInt64,
     /** Total operations related to this account that has been removed from the database. */
     @SerialName("removed_ops")
-    val removed_ops: uint64_t,
+    val removedOps: UInt64,
     /**
      * When calculating votes it is necessary to know how much is stored in orders (and thus unavailable for
      * transfers). Rather than maintaining an index of [asset,owner,order_id] we will simply maintain the running
      * total here and update it every time an order is created or modified.
      */
     @SerialName("total_core_in_orders")
-    val total_core_in_orders: share_type,
+    val totalCoreInOrders: ShareType,
     // Total amount of core token in inactive lock_forever tickets
     @SerialName("total_core_inactive")
-    val total_core_inactive: share_type,
+    val totalCoreInactive: ShareType,
     // Total amount of core token in active lock_forever tickets
     @SerialName("total_core_pob")
-    val total_core_pob: share_type,
+    val totalCorePob: ShareType,
     // Total amount of core token in other tickets
     @SerialName("total_core_pol")
-    val total_core_pol: share_type,
+    val totalCorePol: ShareType,
     // Total value of tickets whose current type is lock_forever
     @SerialName("total_pob_value")
-    val total_pob_value: share_type,
+    val totalPobValue: ShareType,
     // Total value of tickets whose current type is not lock_forever
     @SerialName("total_pol_value")
-    val total_pol_value: share_type,
+    val totalPolValue: ShareType,
     // Redundantly store core balance in this object for better maintenance performance.
     // Only updates on maintenance.
     @SerialName("core_in_balance")
-    val core_in_balance: share_type,
+    val coreInBalance: ShareType,
     // redundantly store this for better maintenance performance
     @SerialName("has_cashback_vb")
-    val has_cashback_vb: Boolean = false,
+    val hasCashbackVestingBalance: Boolean = false,
     // redundately store "if this account is voting" for better maintenance performance
     @SerialName("is_voting")
-    val is_voting: Boolean = false,
+    val isVoting: Boolean = false,
     // last time voted
-    @SerialName("last_vote_time")
-    val last_vote_time: ChainTimePoint,
+    @SerialName("last_vote_time") @Serializable(TimePointSecSerializer::class)
+    val lastVoteTime: Instant,
     // Voting Power Stats
     @SerialName("vp_all")
-    val vpAll: uint64_t = 0U,            // all voting power.
+    val allVotingPower: UInt64 = 0U,            // all voting power.
     @SerialName("vp_active")
-    val vpActive: uint64_t = 0U,         // active voting power, if there is no attenuation, it is equal to vp_all.
+    val activeVotingPower: UInt64 = 0U,         // active voting power, if there is no attenuation, it is equal to vp_all.
     @SerialName("vp_committee")
-    val vpCommittee: uint64_t = 0U,      // the final voting power for the committees.
+    val committeeVotingPower: UInt64 = 0U,      // the final voting power for the committees.
     @SerialName("vp_witness")
-    val vpWitness: uint64_t = 0U,        // the final voting power for the witnesses.
+    val witnessVotingPower: UInt64 = 0U,        // the final voting power for the witnesses.
     @SerialName("vp_worker")
-    val vpWorker: uint64_t = 0U,         // the final voting power for the workers.
+    val workerVotingPower: UInt64 = 0U,         // the final voting power for the workers.
     // timestamp of the last count of vot.
     // if there is no statistics, the date is less than `_db.get_dynamic_global_properties().last_vote_tally_time`.
-    @SerialName("vote_tally_time")
-    val voteTallyTime: ChainTimePoint,
+    @SerialName("vote_tally_time") @Serializable(TimePointSecSerializer::class)
+    val voteTallyTime: Instant,
     /**
      * Tracks the total fees paid by this account for the purpose of calculating bulk discounts.
      */
     @SerialName("lifetime_fees_paid")
-    val lifetimeFeesPaid: share_type,
+    val lifetimeFeesPaid: ShareType,
     /**
      * Tracks the fees paid by this account which have not been disseminated to the various parties that receive
      * them yet (registrar, referrer, lifetime referrer, network, etc). This is used as an optimization to avoid
@@ -87,15 +89,15 @@ data class K206_AccountStatisticsObject(
      * interval.
      */
     @SerialName("pending_fees")
-    val pendingFees: share_type,
+    val pendingFees: ShareType,
 //    /**
 //     * Same as @ref pending_fees, except these fees will be paid out as pre-vested cash-back (immediately
 //     * available for withdrawal) rather than requiring the normal vesting period.
 //     */
     @SerialName("pending_vested_fees")
-    val pendingVestedFees: share_type,
+    val pendingVestedFees: ShareType,
 
-    ) : AbstractObject(), AccountStatisticsType {
+    ) : AbstractObject(), AccountStatisticsIdType {
 
 //
 //    /// Whether this account owns some CORE asset and is voting

@@ -1,23 +1,22 @@
 package graphene.protocol
 
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.descriptors.mapSerialDescriptor
+import graphene.serializers.*
+import kotlinx.datetime.Instant
+import kotlinx.serialization.*
+import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.json.JsonDecoder
-import kotlinx.serialization.json.JsonEncoder
-import kotlinx.serialization.json.buildJsonArray
-import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.*
 import java.util.*
+import kotlin.reflect.KClass
 
-typealias AccountAuthMap = FlatMap<@Serializable(with = ObjectIdTypeSerializer::class) AccountType, Weight>
+typealias AccountAuthMap = FlatMap<AccountIdType, Weight>
+//typealias AccountAuthMap = FlatMap<@Serializable(with = ObjectIdSerializer::class) AccountIdType, Weight>
 typealias KeyAuthMap = FlatMap<PublicKeyType, Weight>
 typealias AddressAuthMap = FlatMap<AddressType, Weight>
 
 // threshold weight
-typealias Weight = uint16_t
+typealias Weight = UInt16
 
 typealias ExtensionsType = @Serializable(with = SortedSetSerializer::class) SortedSet<@Serializable(with = StaticVariantSerializer::class) FutureExtensions>
 
@@ -28,34 +27,13 @@ typealias FlatMap<K, V> = @Serializable(with = SortedMapSerializer::class) Sorte
 typealias TypeSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet< T>
 typealias PairArray<A, B> = @Serializable(with = PairAsArraySerializer::class) Pair<A, B>
 
-typealias PriceFeeds = FlatMap<AccountIdType, PairArray<ChainTimePoint, PriceFeedWithIcr>>
+typealias PriceFeeds = FlatMap<AccountId, PairArray<Instant, PriceFeedWithIcr>>
 
-typealias TypedSpecialAuthority = StaticVariant<SpecialAuthority>
+
 typealias TypedFeeParameter = @Serializable(with = TypedFeeParameterSerializer::class) StaticVariant<FeeParameter>
 
 typealias FeeParameters = FlatSet<TypedFeeParameter>
 
-class PairAsArraySerializer<A, B>(
-    private val firstSerializer: KSerializer<A>, private val secondSerializer: KSerializer<B>
-) : KSerializer<Pair<A, B>> {
-    override val descriptor: SerialDescriptor = mapSerialDescriptor(firstSerializer.descriptor, secondSerializer.descriptor)
-    override fun deserialize(decoder: Decoder): Pair<A, B> {
-        return (decoder as JsonDecoder).decodeJsonElement().jsonArray.let {
-            Pair(
-                decoder.json.decodeFromJsonElement(firstSerializer, it[0]),
-                decoder.json.decodeFromJsonElement(secondSerializer, it[1])
-            )
-        }
-    }
-    override fun serialize(encoder: Encoder, value: Pair<A, B>) {
-        (encoder as JsonEncoder).encodeJsonElement(
-            buildJsonArray {
-                add(encoder.json.encodeToJsonElement(firstSerializer, value.first))
-                add(encoder.json.encodeToJsonElement(secondSerializer, value.second))
-            }
-        )
-    }
-}
 
 internal val bytesComparator = Comparator<ByteArray> { o1, o2 ->
     var i = 0

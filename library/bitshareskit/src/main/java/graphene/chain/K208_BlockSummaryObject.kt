@@ -1,17 +1,17 @@
 package graphene.chain
 
 import graphene.protocol.BlockIdType
+import graphene.protocol.BlockSummaryId
 import graphene.protocol.BlockSummaryIdType
-import graphene.protocol.BlockSummaryType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class K208_BlockSummaryObject(
     @SerialName("id")
-    override val id: BlockSummaryIdType,
+    override val id: BlockSummaryId,
     @SerialName("block_id")
-    val block_id: BlockIdType,
-) : AbstractObject(), BlockSummaryType {
+    val blockId: BlockIdType,
+) : AbstractObject(), BlockSummaryIdType {
 //    block_id_type      block_id;
 }

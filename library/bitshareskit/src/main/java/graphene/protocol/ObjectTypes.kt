@@ -1,314 +1,317 @@
 @file:Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 package graphene.protocol
 
-import kotlinx.serialization.SerialName
+import graphene.serializers.ObjectIdSerializer
+import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 
 private fun throwNIE(): Nothing = throw NotImplementedError()
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface AbstractType: Comparable<AbstractType> {
-    val id: AbstractIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface ObjectIdType: Comparable<ObjectIdType> {
+    val id: ObjectId
+    val space: ObjectSpace
+    val type: ObjectType
+    val instance: ObjectInstance
+    val number: UInt64
 
-    override fun compareTo(other: AbstractType): Int {
-        return id.instance.compareTo(other.id.instance)
+    override fun compareTo(other: ObjectIdType): Int {
+        return number.compareTo(other.number)
     }
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface NullType: AbstractType { // K100
-    override val id: NullIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface NullIdType: ObjectIdType { // K100
+    override val id: NullId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface BaseType: AbstractType { // K101
-    override val id: BaseIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface BaseIdType: ObjectIdType { // K101
+    override val id: BaseId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface AccountType: AbstractType { // K102
-    override val id: AccountIdType
-    val membershipExpirationDate: ChainTimePoint            get() = throwNIE()
-    val registrar: AccountType                              get() = throwNIE()
-    val referrer: AccountType                               get() = throwNIE()
-    val lifetimeReferrer: AccountType                       get() = throwNIE()
-    val networkFeePercentage: uint16_t                      get() = throwNIE()
-    val lifetimeReferrerFeePercentage: uint16_t             get() = throwNIE()
-    val referrerRewardsFeePercentage: uint16_t              get() = throwNIE()
+@Serializable(with = ObjectIdSerializer::class)
+interface AccountIdType: ObjectIdType { // K102
+    override val id: AccountId
+    val membershipExpirationDate: Instant                   get() = throwNIE()
+    val registrar: AccountIdType                            get() = throwNIE()
+    val referrer: AccountIdType                             get() = throwNIE()
+    val lifetimeReferrer: AccountIdType                     get() = throwNIE()
+    val networkFeePercentage: UInt16                        get() = throwNIE()
+    val lifetimeReferrerFeePercentage: UInt16               get() = throwNIE()
+    val referrerRewardsFeePercentage: UInt16                get() = throwNIE()
     val name: String                                        get() = throwNIE()
     val owner: Authority                                    get() = throwNIE()
     val active: Authority                                   get() = throwNIE()
     val options: AccountOptions                             get() = throwNIE()
 
-    val numCommitteeVoted: uint16_t                         get() = throwNIE()
-    val statistics: AccountStatisticsType                   get() = throwNIE()
-    val whiteListingAccounts: Set<AccountType>              get() = throwNIE()
-    val blackListingAccounts: Set<AccountType>              get() = throwNIE()
-    val whiteListedAccounts: Set<AccountType>               get() = throwNIE()
-    val blackListedAccounts: Set<AccountType>               get() = throwNIE()
+    val numCommitteeVoted: UInt16                           get() = throwNIE()
+    val statistics: AccountStatisticsIdType                 get() = throwNIE()
+    val whiteListingAccounts: Set<AccountIdType>            get() = throwNIE()
+    val blackListingAccounts: Set<AccountIdType>            get() = throwNIE()
+    val whiteListedAccounts: Set<AccountIdType>             get() = throwNIE()
+    val blackListedAccounts: Set<AccountIdType>             get() = throwNIE()
+    val cashbackVestingBalance: Optional<VestingBalanceId>  get() = throwNIE()
 
-    val cashbackVestingBalance: Optional<VestingBalanceIdType>
-                                                            get() = throwNIE()
-
-    val ownerSpecialAuthority: TypedSpecialAuthority        get() = throwNIE()
-    val activeSpecialAuthority: TypedSpecialAuthority       get() = throwNIE()
-    val topNControlFlags: uint8_t                           get() = throwNIE()
-    val allowedAssets: Optional<FlatSet<AccountType>>       get() = throwNIE()
+    val ownerSpecialAuthority: SpecialAuthority             get() = throwNIE()
+    val activeSpecialAuthority: SpecialAuthority            get() = throwNIE()
+    val topNControlFlags: UInt8                             get() = throwNIE()
+    val allowedAssets: Optional<FlatSet<AccountIdType>>     get() = throwNIE()
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface AssetType: AbstractType { // K103
-    override val id: AssetIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface AssetIdType: ObjectIdType { // K103
+    override val id: AssetId
     val symbol: String                                      get() = throwNIE()
-    val issuer: AccountType                                 get() = throwNIE()
+    val issuer: AccountIdType                               get() = throwNIE()
     val precision: UByte                                    get() = throwNIE()
     val options: AssetOptions                               get() = throwNIE()
 
-    val dynamicData: AssetDynamicDataType                   get() = throwNIE()
-    val bitassetData: Optional<AssetBitassetDataType>       get() = throwNIE()
-    val buybackAccount: Optional<AccountType>               get() = throwNIE()
-    val liquidityPool: Optional<LiquidityPoolType>          get() = throwNIE()
+    val dynamicData: AssetDynamicDataIdType                 get() = throwNIE()
+    val bitassetData: Optional<AssetBitassetDataIdType>     get() = throwNIE()
+    val buybackAccount: Optional<AccountIdType>             get() = throwNIE()
+    val liquidityPool: Optional<LiquidityPoolIdType>        get() = throwNIE()
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface ForceSettlementType: AbstractType { // K104
-    override val id: ForceSettlementIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface ForceSettlementIdType: ObjectIdType { // K104
+    override val id: ForceSettlementId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface CommitteeMemberType: AbstractType { // K105
-    override val id: CommitteeMemberIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface CommitteeMemberIdType: ObjectIdType { // K105
+    override val id: CommitteeMemberId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface WitnessType: AbstractType { // K106
-    override val id: WitnessIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface WitnessIdType: ObjectIdType { // K106
+    override val id: WitnessId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface LimitOrderType: AbstractType { // K107
-    override val id: LimitOrderIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface LimitOrderIdType: ObjectIdType { // K107
+    override val id: LimitOrderId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface CallOrderType: AbstractType { // K108
-    override val id: CallOrderIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface CallOrderIdType: ObjectIdType { // K108
+    override val id: CallOrderId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface CustomType: AbstractType { // K109
-    override val id: CustomIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface CustomIdType: ObjectIdType { // K109
+    override val id: CustomId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface ProposalType: AbstractType { // K110
-    override val id: ProposalIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface ProposalIdType: ObjectIdType { // K110
+    override val id: ProposalId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface OperationHistoryType: AbstractType { // K111
-    override val id: OperationHistoryIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface OperationHistoryIdType: ObjectIdType { // K111
+    override val id: OperationHistoryId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface WithdrawPermissionType: AbstractType { // K112
-    override val id: WithdrawPermissionIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface WithdrawPermissionIdType: ObjectIdType { // K112
+    override val id: WithdrawPermissionId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface VestingBalanceType: AbstractType { // K113
-    override val id: VestingBalanceIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface VestingBalanceIdType: ObjectIdType { // K113
+    override val id: VestingBalanceId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface WorkerType: AbstractType { // K114
-    override val id: WorkerIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface WorkerIdType: ObjectIdType { // K114
+    override val id: WorkerId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface BalanceType: AbstractType { // K115
-    override val id: BalanceIdType
-}
-
-
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface HtlcType: AbstractType { // K116
-    override val id: HtlcIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface BalanceIdType: ObjectIdType { // K115
+    override val id: BalanceId
 }
 
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface CustomAuthorityType: AbstractType { // K117
-    override val id: CustomAuthorityIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface HtlcIdType: ObjectIdType { // K116
+    override val id: HtlcId
 }
 
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface TicketType: AbstractType { // K118
-    override val id: TicketIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface CustomAuthorityIdType: ObjectIdType { // K117
+    override val id: CustomAuthorityId
 }
 
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface LiquidityPoolType: AbstractType { // K119
-    override val id: LiquidityPoolIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface TicketIdType: ObjectIdType { // K118
+    override val id: TicketId
 }
 
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface SametFundType: AbstractType { // K120
-    override val id: SametFundIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface LiquidityPoolIdType: ObjectIdType { // K119
+    override val id: LiquidityPoolId
 }
 
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface CreditOfferType: AbstractType { // K121
-    override val id: CreditOfferIdType
-}
-
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface CreditDealType: AbstractType { // K122
-    override val id: CreditDealIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface SametFundIdType: ObjectIdType { // K120
+    override val id: SametFundId
 }
 
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface GlobalPropertyType: AbstractType { // K200
-    override val id: GlobalPropertyIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface CreditOfferIdType: ObjectIdType { // K121
+    override val id: CreditOfferId
+}
+
+@Serializable(with = ObjectIdSerializer::class)
+interface CreditDealIdType: ObjectIdType { // K122
+    override val id: CreditDealId
+}
+
+
+@Serializable(with = ObjectIdSerializer::class)
+interface GlobalPropertyIdType: ObjectIdType { // K200
+    override val id: GlobalPropertyId
     val parameters: ChainParameters                         get() = throwNIE()
     val pendingParameters: Optional<ChainParameters>        get() = throwNIE()
-    val nextAvailableVoteId: uint32_t                       get() = throwNIE()
-    val activeCommitteeMembers: List<CommitteeMemberType>   get() = throwNIE()
-    val activeWitnesses: FlatSet<WitnessType>               get() = throwNIE()
+    val nextAvailableVoteId: UInt32                         get() = throwNIE()
+    val activeCommitteeMembers: List<CommitteeMemberIdType> get() = throwNIE()
+    val activeWitnesses: FlatSet<WitnessIdType>             get() = throwNIE()
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface DynamicGlobalPropertyType: AbstractType { // K201
-    override val id: DynamicGlobalPropertyIdType
-    val headBlockNumber: uint32_t                           get() = throwNIE()
+@Serializable(with = ObjectIdSerializer::class)
+interface DynamicGlobalPropertyIdType: ObjectIdType { // K201
+    override val id: DynamicGlobalPropertyId
+    val headBlockNumber: UInt32                             get() = throwNIE()
     val headBlockId: BlockIdType                            get() = throwNIE()
-    val time: ChainTimePoint                                get() = throwNIE()
-    val currentWitness: WitnessType                         get() = throwNIE()
-    val nextMaintenanceTime: ChainTimePoint                 get() = throwNIE()
-    val lastVoteTallyTime: ChainTimePoint                   get() = throwNIE()
-    val lastBudgetTime: ChainTimePoint                      get() = throwNIE()
-    val witnessBudget: share_type                           get() = throwNIE()
-    val totalPob: share_type                                get() = throwNIE()
-    val totalInactive: share_type                           get() = throwNIE()
-    val accountsRegisteredThisInterval: uint32_t            get() = throwNIE()
-    val recentlyMissedCount: uint32_t                       get() = throwNIE()
-    val currentAslot: uint64_t                              get() = throwNIE()
+    val time: Instant                                       get() = throwNIE()
+    val currentWitness: WitnessIdType                       get() = throwNIE()
+    val nextMaintenanceTime: Instant                        get() = throwNIE()
+    val lastVoteTallyTime: Instant                          get() = throwNIE()
+    val lastBudgetTime: Instant                             get() = throwNIE()
+    val witnessBudget: ShareType                            get() = throwNIE()
+    val totalPob: ShareType                                 get() = throwNIE()
+    val totalInactive: ShareType                            get() = throwNIE()
+    val accountsRegisteredThisInterval: UInt32              get() = throwNIE()
+    val recentlyMissedCount: UInt32                         get() = throwNIE()
+    val currentAslot: UInt64                                get() = throwNIE()
     val recentSlotsFilled: UInt128                          get() = throwNIE()
-    val dynamicFlags: uint32_t                              get() = throwNIE()
-    val lastIrreversibleBlockNum: uint32_t                  get() = throwNIE()
+    val dynamicFlags: UInt32                                get() = throwNIE()
+    val lastIrreversibleBlockNum: UInt32                    get() = throwNIE()
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface ReservedType: AbstractType { // K202
-    override val id: ReservedIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface ReservedIdType: ObjectIdType { // K202
+    override val id: ReservedId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface AssetDynamicDataType: AbstractType { // K203
-    override val id: AssetDynamicDataIdType                 get() = throwNIE()
-    val currentSupply: uint64_t                             get() = throwNIE()
-    val confidentialSupply: uint64_t                        get() = throwNIE()
-    val accumulatedFees: uint64_t                           get() = throwNIE()
-    val accumulatedCollateralFees: uint64_t                 get() = throwNIE()
-    val feePool: uint64_t                                   get() = throwNIE()
+@Serializable(with = ObjectIdSerializer::class)
+interface AssetDynamicDataIdType: ObjectIdType { // K203
+    override val id: AssetDynamicDataId
+    val currentSupply: UInt64                               get() = throwNIE()
+    val confidentialSupply: UInt64                          get() = throwNIE()
+    val accumulatedFees: UInt64                             get() = throwNIE()
+    val accumulatedCollateralFees: UInt64                   get() = throwNIE()
+    val feePool: UInt64                                     get() = throwNIE()
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface AssetBitassetDataType: AbstractType { // K204
-    override val id: AssetBitassetDataIdType
-    val asset: AssetType                                    get() = throwNIE()
+@Serializable(with = ObjectIdSerializer::class)
+interface AssetBitassetDataIdType: ObjectIdType { // K204
+    override val id: AssetBitassetDataId
+    val asset: AssetIdType                                  get() = throwNIE()
     val options: BitassetOptions                            get() = throwNIE()
     val feeds: PriceFeeds                                   get() = throwNIE()
     val medianFeed: PriceFeedWithIcr                        get() = throwNIE()
     val currentFeed: PriceFeedWithIcr                       get() = throwNIE()
-    val currentFeedPublicationTime: ChainTimePoint          get() = throwNIE()
+    val currentFeedPublicationTime: Instant                 get() = throwNIE()
     val currentMaintenanceCollateralization: PriceType      get() = throwNIE()
     val currentInitialCollateralization: PriceType          get() = throwNIE()
     val isPredictionMarket: Boolean                         get() = throwNIE()
-    val forceSettledVolume: share_type                      get() = throwNIE()
+    val forceSettledVolume: ShareType                       get() = throwNIE()
     val settlementPrice: PriceType                          get() = throwNIE()
-    val settlementFund: share_type                          get() = throwNIE()
-    val individualSettlementDebt: share_type                get() = throwNIE()
-    val individualSettlementFund: share_type                get() = throwNIE()
+    val settlementFund: ShareType                           get() = throwNIE()
+    val individualSettlementDebt: ShareType                 get() = throwNIE()
+    val individualSettlementFund: ShareType                 get() = throwNIE()
     val assetCerUpdated: Boolean                            get() = throwNIE()
     val feedCerUpdated: Boolean                             get() = throwNIE()
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface AccountBalanceType: AbstractType { // K205
-    override val id: AccountBalanceIdType
-    val owner: AccountType                                  get() = throwNIE()
-    val asset: AssetType                                    get() = throwNIE()
-    val balance: share_type                                 get() = throwNIE()
+@Serializable(with = ObjectIdSerializer::class)
+interface AccountBalanceIdType: ObjectIdType { // K205
+    override val id: AccountBalanceId
+    val owner: AccountIdType                                get() = throwNIE()
+    val asset: AssetIdType                                  get() = throwNIE()
+    val balance: ShareType                                  get() = throwNIE()
     val maintenanceFlag: Boolean                            get() = throwNIE()
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface AccountStatisticsType: AbstractType { // K206
-    override val id: AccountStatisticsIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface AccountStatisticsIdType: ObjectIdType { // K206
+    override val id: AccountStatisticsId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface TransactionHistoryType: AbstractType { // K207
-    override val id: TransactionHistoryIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface TransactionHistoryIdType: ObjectIdType { // K207
+    override val id: TransactionHistoryId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface BlockSummaryType: AbstractType { // K208
-    override val id: BlockSummaryIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface BlockSummaryIdType: ObjectIdType { // K208
+    override val id: BlockSummaryId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface AccountTransactionHistoryType: AbstractType { // K209
-    override val id: AccountTransactionHistoryIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface AccountTransactionHistoryIdType: ObjectIdType { // K209
+    override val id: AccountTransactionHistoryId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface BlindedBalanceType: AbstractType { // K210
-    override val id: BlindedBalanceIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface BlindedBalanceIdType: ObjectIdType { // K210
+    override val id: BlindedBalanceId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface ChainPropertyType: AbstractType { // K211
-    override val id: ChainPropertyIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface ChainPropertyIdType: ObjectIdType { // K211
+    override val id: ChainPropertyId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface WitnessScheduleType: AbstractType { // K212
-    override val id: WitnessScheduleIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface WitnessScheduleIdType: ObjectIdType { // K212
+    override val id: WitnessScheduleId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface BudgetRecordType: AbstractType { // K213
-    override val id: BudgetRecordIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface BudgetRecordIdType: ObjectIdType { // K213
+    override val id: BudgetRecordId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface SpecialAuthorityType: AbstractType { // K214
-    override val id: SpecialAuthorityIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface SpecialAuthorityIdType: ObjectIdType { // K214
+    override val id: SpecialAuthorityId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface BuybackType: AbstractType { // K215
-    override val id: BuybackIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface BuybackIdType: ObjectIdType { // K215
+    override val id: BuybackId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface FbaAccumulatorType: AbstractType { // K216
-    override val id: FbaAccumulatorIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface FbaAccumulatorIdType: ObjectIdType { // K216
+    override val id: FbaAccumulatorId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface CollateralBidType: AbstractType { // K217
-    override val id: CollateralBidIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface CollateralBidIdType: ObjectIdType { // K217
+    override val id: CollateralBidId
 }
 
-@Serializable(with = ObjectIdTypeSerializer::class)
-interface CreditDealSummaryType: AbstractType { // K218
-    override val id: CreditDealSummaryIdType
+@Serializable(with = ObjectIdSerializer::class)
+interface CreditDealSummaryIdType: ObjectIdType { // K218
+    override val id: CreditDealSummaryId
 }

@@ -7,14 +7,14 @@ import kotlinx.serialization.serializer
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
 
-val GRAPHENE_SPACE_ENUM_INDEX: Map<uint8_t, ObjectSpace> =
+val GRAPHENE_SPACE_ENUM_INDEX: Map<UInt8, ObjectSpace> =
     ObjectSpace.values().associateBy { it.id }
-val GRAPHENE_PROTOCOL_TYPE_ENUM_INDEX: Map<uint8_t, ProtocolType> =
+val GRAPHENE_PROTOCOL_TYPE_ENUM_INDEX: Map<UInt8, ProtocolType> =
     ProtocolType.values().associateBy { it.id }
-val GRAPHENE_IMPLEMENTATION_TYPE_ENUM_INDEX: Map<uint8_t, ObjectType> =
+val GRAPHENE_IMPLEMENTATION_TYPE_ENUM_INDEX: Map<UInt8, ObjectType> =
     ImplementationType.values().associateBy { it.id }
 
-val GRAPHENE_SPACE_TYPE_INDEX: Map<ObjectSpace, Map<uint8_t, ObjectType>> = mapOf(
+val GRAPHENE_SPACE_TYPE_INDEX: Map<ObjectSpace, Map<UInt8, ObjectType>> = mapOf(
     ObjectSpace.PROTOCOL to GRAPHENE_PROTOCOL_TYPE_ENUM_INDEX,
     ObjectSpace.IMPLEMENTATION to GRAPHENE_IMPLEMENTATION_TYPE_ENUM_INDEX,
 )
@@ -25,51 +25,7 @@ val GRAPHENE_PRO_TYP_ENUMS: List<ProtocolType> = ProtocolType.values().toList()
 val GRAPHENE_IMP_TYP_ENUMS: List<ImplementationType> = ImplementationType.values().toList()
 val GRAPHENE_OBJ_TYP_ENUMS: List<ObjectType> = GRAPHENE_PRO_TYP_ENUMS + GRAPHENE_IMP_TYP_ENUMS
 
-val GRAPHENE_TYP_CLASS: List<KClass<out AbstractType>> = listOf(
-    NullType::class,
-    BaseType::class,
-    AccountType::class,
-    AssetType::class,
-    ForceSettlementType::class,
-    CommitteeMemberType::class,
-    WitnessType::class,
-    LimitOrderType::class,
-    CallOrderType::class,
-    CustomType::class,
-    ProposalType::class,
-    OperationHistoryType::class,
-    WithdrawPermissionType::class,
-    VestingBalanceType::class,
-    WorkerType::class,
-    BalanceType::class,
-    HtlcType::class,
-    CustomAuthorityType::class,
-    TicketType::class,
-    LiquidityPoolType::class,
-    SametFundType::class,
-    CreditOfferType::class,
-    CreditDealType::class,
-    GlobalPropertyType::class,
-    DynamicGlobalPropertyType::class,
-    ReservedType::class,
-    AssetDynamicDataType::class,
-    AssetBitassetDataType::class,
-    AccountBalanceType::class,
-    AccountStatisticsType::class,
-    TransactionHistoryType::class,
-    BlockSummaryType::class,
-    AccountTransactionHistoryType::class,
-    BlindedBalanceType::class,
-    ChainPropertyType::class,
-    WitnessScheduleType::class,
-    BudgetRecordType::class,
-    SpecialAuthorityType::class,
-    BuybackType::class,
-    FbaAccumulatorType::class,
-    CollateralBidType::class,
-    CreditDealSummaryType::class,
-)
-val GRAPHENE_IDT_CLASS: List<KClass<out AbstractIdType>> = listOf(
+val GRAPHENE_TYP_CLASS: List<KClass<out ObjectIdType>> = listOf(
     NullIdType::class,
     BaseIdType::class,
     AccountIdType::class,
@@ -113,95 +69,139 @@ val GRAPHENE_IDT_CLASS: List<KClass<out AbstractIdType>> = listOf(
     CollateralBidIdType::class,
     CreditDealSummaryIdType::class,
 )
+val GRAPHENE_IDT_CLASS: List<KClass<out ObjectId>> = listOf(
+    NullId::class,
+    BaseId::class,
+    AccountId::class,
+    AssetId::class,
+    ForceSettlementId::class,
+    CommitteeMemberId::class,
+    WitnessId::class,
+    LimitOrderId::class,
+    CallOrderId::class,
+    CustomId::class,
+    ProposalId::class,
+    OperationHistoryId::class,
+    WithdrawPermissionId::class,
+    VestingBalanceId::class,
+    WorkerId::class,
+    BalanceId::class,
+    HtlcId::class,
+    CustomAuthorityId::class,
+    TicketId::class,
+    LiquidityPoolId::class,
+    SametFundId::class,
+    CreditOfferId::class,
+    CreditDealId::class,
+    GlobalPropertyId::class,
+    DynamicGlobalPropertyId::class,
+    ReservedId::class,
+    AssetDynamicDataId::class,
+    AssetBitassetDataId::class,
+    AccountBalanceId::class,
+    AccountStatisticsId::class,
+    TransactionHistoryId::class,
+    BlockSummaryId::class,
+    AccountTransactionHistoryId::class,
+    BlindedBalanceId::class,
+    ChainPropertyId::class,
+    WitnessScheduleId::class,
+    BudgetRecordId::class,
+    SpecialAuthorityId::class,
+    BuybackId::class,
+    FbaAccumulatorId::class,
+    CollateralBidId::class,
+    CreditDealSummaryId::class,
+)
 val GRAPHENE_OBJ_CLASS: List<KClass<out AbstractObject>> = listOf(
     K100_NullObject::class,
     K101_BaseObject::class,
     K102_AccountObject::class,
     K103_AssetObject::class,
-    AbstractObject::class, //    K104_ForceSettlementObject::class,
-    AbstractObject::class, //    K105_CommitteeMemberObject::class,
-    AbstractObject::class, //    K106_WitnessObject::class,
-    AbstractObject::class, //    K107_LimitOrderObject::class,
-    AbstractObject::class, //    K108_CallOrderObject::class,
-    AbstractObject::class, //    K109_CustomObject::class,
-    AbstractObject::class, //    K110_ProposalObject::class,
-    AbstractObject::class, //    K111_OperationHistoryObject::class,
-    AbstractObject::class, //    K112_WithdrawPermissionObject::class,
-    AbstractObject::class, //    K113_VestingBalanceObject::class,
-    AbstractObject::class, //    K114_WorkerObject::class,
-    AbstractObject::class, //    K115_BalanceObject::class,
-    AbstractObject::class, //    K116_HtlcObject::class,
-    AbstractObject::class, //    K117_CustomAuthorityObject::class,
-    AbstractObject::class, //    K118_TicketObject::class,
-    AbstractObject::class, //    K119_LiquidityPoolObject::class,
-    AbstractObject::class, //    K120_SametFundObject::class,
-    AbstractObject::class, //    K121_CreditOfferObject::class,
-    AbstractObject::class, //    K122_CreditDealObject::class,
+    K104_ForceSettlementObject::class,
+    K105_CommitteeMemberObject::class,
+    K106_WitnessObject::class,
+    K107_LimitOrderObject::class,
+    K108_CallOrderObject::class,
+    K109_CustomObject::class,
+    K110_ProposalObject::class,
+    K111_OperationHistoryObject::class,
+    K112_WithdrawPermissionObject::class,
+    K113_VestingBalanceObject::class,
+    K114_WorkerObject::class,
+    K115_BalanceObject::class,
+    K116_HtlcObject::class,
+    K117_CustomAuthorityObject::class,
+    K118_TicketObject::class,
+    K119_LiquidityPoolObject::class,
+    K120_SametFundObject::class,
+    K121_CreditOfferObject::class,
+    K122_CreditDealObject::class,
 
     K200_GlobalPropertyObject::class,
     K201_DynamicGlobalPropertyObject::class,
     K202_ReservedObject::class,
     K203_AssetDynamicDataObject::class,
     K204_AssetBitassetDataObject::class,
-    K205_AccountBalanceObject::class, //    K205_AccountBalanceObject::class,
-    K206_AccountStatisticsObject::class, //    K206_AccountStatisticsObject::class,
-    K207_TransactionHistoryObject::class, //    K207_TransactionHistoryObject::class,
-    K208_BlockSummaryObject::class, //    K208_BlockSummaryObject::class,
-    K209_AccountTransactionHistoryObject::class, //    K209_AccountTransactionHistoryObject::class,
-    K210_BlindedBalanceObject::class, //    K210_BlindedBalanceObject::class,
-    K211_ChainPropertyObject::class, //    K211_ChainPropertyObject::class,
-    K212_WitnessScheduleObject::class, //    K212_WitnessScheduleObject::class,
-    K213_BudgetRecordObject::class, //    K213_BudgetRecordObject::class,
-    K214_SpecialAuthorityObject::class, //    K214_SpecialAuthorityObject::class,
-    K215_BuybackObject::class, //    K215_BuybackObject::class,
-    K216_FbaAccumulatorObject::class, //    K216_FbaAccumulatorObject::class,
-    K217_CollateralBidObject::class, //    K217_CollateralBidObject::class,
-    K218_CreditDealSummaryObject::class, //    K218_CreditDealSummaryObject::class,
+    K205_AccountBalanceObject::class,
+    K206_AccountStatisticsObject::class,
+    K207_TransactionHistoryObject::class,
+    K208_BlockSummaryObject::class,
+    K209_AccountTransactionHistoryObject::class,
+    K210_BlindedBalanceObject::class,
+    K211_ChainPropertyObject::class,
+    K212_WitnessScheduleObject::class,
+    K213_BudgetRecordObject::class,
+    K214_SpecialAuthorityObject::class,
+    K215_BuybackObject::class,
+    K216_FbaAccumulatorObject::class,
+    K217_CollateralBidObject::class,
+    K218_CreditDealSummaryObject::class,
 )
 
-val GRAPHENE_ID_TYPE_INSTANCES: List<AbstractIdType> = listOf(
-    NullIdType(),
-    BaseIdType(),
-    AccountIdType(),
-    AssetIdType(),
-    ForceSettlementIdType(),
-    CommitteeMemberIdType(),
-    WitnessIdType(),
-    LimitOrderIdType(),
-    CallOrderIdType(),
-    CustomIdType(),
-    ProposalIdType(),
-    OperationHistoryIdType(),
-    WithdrawPermissionIdType(),
-    VestingBalanceIdType(),
-    WorkerIdType(),
-    BalanceIdType(),
-    HtlcIdType(),
-    CustomAuthorityIdType(),
-    TicketIdType(),
-    LiquidityPoolIdType(),
-    SametFundIdType(),
-    CreditOfferIdType(),
-    CreditDealIdType(),
-    GlobalPropertyIdType(),
-    DynamicGlobalPropertyIdType(),
-    ReservedIdType(),
-    AssetDynamicDataIdType(),
-    AssetBitassetDataIdType(),
-    AccountBalanceIdType(),
-    AccountStatisticsIdType(),
-    TransactionHistoryIdType(),
-    BlockSummaryIdType(),
-    AccountTransactionHistoryIdType(),
-    BlindedBalanceIdType(),
-    ChainPropertyIdType(),
-    WitnessScheduleIdType(),
-    BudgetRecordIdType(),
-    SpecialAuthorityIdType(),
-    BuybackIdType(),
-    FbaAccumulatorIdType(),
-    CollateralBidIdType(),
-    CreditDealSummaryIdType(),
+val GRAPHENE_ID_TYPE_INSTANCES: List<ObjectId> = listOf(
+    NullId(),
+    BaseId(),
+    AccountId(),
+    AssetId(),
+    ForceSettlementId(),
+    CommitteeMemberId(),
+    WitnessId(),
+    LimitOrderId(),
+    CallOrderId(),
+    CustomId(),
+    ProposalId(),
+    OperationHistoryId(),
+    WithdrawPermissionId(),
+    VestingBalanceId(),
+    WorkerId(),
+    BalanceId(),
+    HtlcId(),
+    CustomAuthorityId(),
+    TicketId(),
+    LiquidityPoolId(),
+    SametFundId(),
+    CreditOfferId(),
+    CreditDealId(),
+    GlobalPropertyId(),
+    DynamicGlobalPropertyId(),
+    ReservedId(),
+    AssetDynamicDataId(),
+    AssetBitassetDataId(),
+    AccountBalanceId(),
+    AccountStatisticsId(),
+    TransactionHistoryId(),
+    BlockSummaryId(),
+    AccountTransactionHistoryId(),
+    BlindedBalanceId(),
+    ChainPropertyId(),
+    WitnessScheduleId(),
+    BudgetRecordId(),
+    SpecialAuthorityId(),
+    BuybackId(),
+    FbaAccumulatorId(),
+    CollateralBidId(),
+    CreditDealSummaryId(),
 )
 
 //val GRAPHENE_OBJECT_TYPE_INSTANCES: List<AbstractObject> by lazy {
@@ -254,12 +254,12 @@ val GRAPHENE_ID_TYPE_INSTANCES: List<AbstractIdType> = listOf(
 
 // maps
 
-val GRAPHENE_TYPE_TO_IDT_CLASS: Map<ObjectType, KClass<out AbstractIdType>> = GRAPHENE_OBJ_TYP_ENUMS.zip(GRAPHENE_IDT_CLASS).toMap()
-val GRAPHENE_TYPE_TO_IDT_CONSTRUCTOR: Map<ObjectType, KFunction<AbstractIdType>> = GRAPHENE_TYPE_TO_IDT_CLASS.mapValues { it.value.constructors.first() }
+val GRAPHENE_TYPE_TO_IDT_CLASS: Map<ObjectType, KClass<out ObjectId>> = GRAPHENE_OBJ_TYP_ENUMS.zip(GRAPHENE_IDT_CLASS).toMap()
+val GRAPHENE_TYPE_TO_IDT_CONSTRUCTOR: Map<ObjectType, KFunction<ObjectId>> = GRAPHENE_TYPE_TO_IDT_CLASS.mapValues { it.value.constructors.first() }
 
 val GRAPHENE_TYPE_TO_OBJ_CLASS: Map<ObjectType, KClass<out AbstractObject>> = GRAPHENE_OBJ_TYP_ENUMS.zip(GRAPHENE_OBJ_CLASS).toMap()
 
-val GRAPHENE_OBJ_CLASS_TO_IDT_CLASS: Map<KClass<out AbstractObject>, KClass<out AbstractIdType>> = GRAPHENE_OBJ_CLASS.zip(GRAPHENE_IDT_CLASS).toMap()
+val GRAPHENE_OBJ_CLASS_TO_IDT_CLASS: Map<KClass<out AbstractObject>, KClass<out ObjectId>> = GRAPHENE_OBJ_CLASS.zip(GRAPHENE_IDT_CLASS).toMap()
 
 
 
@@ -270,7 +270,7 @@ val GRAPHENE_TYPE_TO_OBJ_SERIALIZER: Map<ObjectType, KSerializer<out AbstractObj
 
 
 
-val GRAPHENE_ID_TYPE_FAST_ALOC: Map<KClass<out AbstractType>, AbstractIdType> =
+val GRAPHENE_ID_TYPE_FAST_ALOC: Map<KClass<out ObjectIdType>, ObjectId> =
     GRAPHENE_TYP_CLASS.zip(GRAPHENE_ID_TYPE_INSTANCES).toMap() + GRAPHENE_IDT_CLASS.zip(GRAPHENE_ID_TYPE_INSTANCES).toMap()
 
 //val GRAPHENE_OBJECT_TYPE_FAST_ALOC: Map<KClass<out AbstractType>, AbstractObject> =

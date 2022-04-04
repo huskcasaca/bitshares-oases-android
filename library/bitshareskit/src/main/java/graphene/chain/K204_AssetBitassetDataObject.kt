@@ -1,16 +1,18 @@
 package graphene.chain
 
 import graphene.protocol.*
+import graphene.serializers.TimePointSecSerializer
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class K204_AssetBitassetDataObject(
     @SerialName("id")
-    override val id: AssetBitassetDataIdType,
+    override val id: AssetBitassetDataId,
     // The asset this object belong to
     @SerialName("asset_id")
-    override val asset: AssetType,
+    override val asset: AssetIdType,
     // The tunable options for BitAssets are stored in this field.
     @SerialName("options")
     override val options: BitassetOptions,
@@ -26,8 +28,8 @@ data class K204_AssetBitassetDataObject(
     @SerialName("current_feed")
     override val currentFeed: PriceFeedWithIcr,
     // This is the publication time of the oldest feed which was factored into current_feed.
-    @SerialName("current_feed_publication_time")
-    override val currentFeedPublicationTime: ChainTimePoint,
+    @SerialName("current_feed_publication_time") @Serializable(TimePointSecSerializer::class)
+    override val currentFeedPublicationTime: Instant,
     // Call orders with collateralization (aka collateral/debt) not greater than this value are in margin
     // call territory.
     // This value is derived from @ref current_feed for better performance and should be kept consistent.
@@ -44,30 +46,30 @@ data class K204_AssetBitassetDataObject(
     override val isPredictionMarket: Boolean = false,
     // This is the volume of this asset which has been force-settled this maintanence interval
     @SerialName("force_settled_volume")
-    override val forceSettledVolume: share_type,
+    override val forceSettledVolume: ShareType,
     // Price at which force settlements of a globally settled asset will occur
     @SerialName("settlement_price")
     override val settlementPrice: PriceType,
     // Amount of collateral which is available for force settlement due to global settlement
     @SerialName("settlement_fund")
-    override val settlementFund: share_type,
+    override val settlementFund: ShareType,
     // The individual settlement pool.
     // In the event of individual settlements to fund, debt and collateral of the margin positions which got
     // settled are moved here.
 
     // Amount of debt due to individual settlements
     @SerialName("individual_settlement_debt")
-    override val individualSettlementDebt: share_type,
+    override val individualSettlementDebt: ShareType,
     // Amount of collateral which is available for force settlement due to individual settlements
     @SerialName("individual_settlement_fund")
-    override val individualSettlementFund: share_type,
+    override val individualSettlementFund: ShareType,
     @SerialName("asset_cer_updated")
     // Track whether core_exchange_rate in corresponding @ref asset_object has updated
     override val assetCerUpdated: Boolean = false,
     @SerialName("feed_cer_updated")
     // Track whether core exchange rate in current feed has updated
     override val feedCerUpdated: Boolean = false,
-) : AbstractObject(), AssetBitassetDataType {
+) : AbstractObject(), AssetBitassetDataIdType {
 //    // @return whether @ref current_feed is different from @ref median_feed
 ////    bool is_current_feed_price_capped()const
 ////    { return ( median_feed.settlement_price != current_feed.settlement_price ); }

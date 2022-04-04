@@ -7,16 +7,16 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class K209_AccountTransactionHistoryObject(
     @SerialName("id")
-    override val id: AccountTransactionHistoryIdType,
+    override val id: AccountTransactionHistoryId,
     @SerialName("account")
-    val account: AccountType, // the account this operation applies to
+    val account: AccountIdType, // the account this operation applies to
     @SerialName("operation_id")
-    val operation_id: OperationHistoryType,
+    val operation: OperationHistoryIdType,
     @SerialName("sequence")
-    val sequence: uint64_t = 0U, // the operation position within the given account
+    val sequence: UInt64 = 0U, // the operation position within the given account
     @SerialName("next")
-    val next: AccountTransactionHistoryType,
+    val next: AccountTransactionHistoryIdType,
 
-    ) : AbstractObject(), AccountTransactionHistoryType {
+    ) : AbstractObject(), AccountTransactionHistoryIdType {
 
 }

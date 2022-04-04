@@ -1,6 +1,9 @@
 package graphene.protocol
 
+import kotlinx.serialization.Serializable
 
+
+@Serializable
 open class Transaction {
 
 

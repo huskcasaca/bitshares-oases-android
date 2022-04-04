@@ -6,6 +6,6 @@ import kotlinx.serialization.*
 @Serializable
 data class K101_BaseObject(
     @SerialName("id")
-    override val id: BaseIdType,
-) : AbstractObject(), BaseType
+    override val id: BaseId,
+) : AbstractObject(), BaseIdType
 

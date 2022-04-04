@@ -7,9 +7,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class K212_WitnessScheduleObject(
     @SerialName("id")
-    override val id: WitnessScheduleIdType,
+    override val id: WitnessScheduleId,
     @SerialName("current_shuffled_witnesses")
-    val current_shuffled_witnesses: List<WitnessType>, // vector< witness_id_type > current_shuffled_witnesses;
-) : AbstractObject(), WitnessScheduleType {
+    val currentShuffledWitnesses: List<WitnessIdType>, // vector< witness_id_type > current_shuffled_witnesses;
+) : AbstractObject(), WitnessScheduleIdType {
 
 }

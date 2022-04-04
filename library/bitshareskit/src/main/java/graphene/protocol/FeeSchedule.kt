@@ -1,5 +1,6 @@
 package graphene.protocol
 
+import graphene.serializers.FeeParameterSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -10,7 +11,7 @@ data class FeeSchedule(
      *  @note must be sorted by fee_parameters.which() and have no duplicates
      */
     @SerialName("parameters") val parameters: FeeParameters, // type_lt
-    @SerialName("scale")      val scale: uint32_t, //< fee * scale / GRAPHENE_100_PERCENT
+    @SerialName("scale")      val scale: UInt32, //< fee * scale / GRAPHENE_100_PERCENT
 ) {
     ///**
 // *  @brief contains all of the parameters necessary to calculate the fee for any operation
@@ -65,7 +66,7 @@ data class FeeSchedule(
 //};
 }
 
-@Serializable
+@Serializable(with = FeeParameterSerializer::class)
 sealed class FeeParameter
 
 @Serializable

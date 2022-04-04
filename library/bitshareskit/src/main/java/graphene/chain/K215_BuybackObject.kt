@@ -1,15 +1,15 @@
 package graphene.chain
 
-import graphene.protocol.AssetType
+import graphene.protocol.AssetIdType
+import graphene.protocol.BuybackId
 import graphene.protocol.BuybackIdType
-import graphene.protocol.BuybackType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class K215_BuybackObject(
     @SerialName("id")
-    override val id: BuybackIdType,
+    override val id: BuybackId,
     @SerialName("asset_to_buy")
-    val assetToBuy: AssetType,
-) : AbstractObject(), BuybackType
+    val assetToBuy: AssetIdType,
+) : AbstractObject(), BuybackIdType

@@ -6,5 +6,5 @@ import kotlinx.serialization.*
 @Serializable
 data class K100_NullObject(
     @SerialName("id")
-    override val id: NullIdType,
-) : AbstractObject(), NullType
+    override val id: NullId,
+) : AbstractObject(), NullIdType

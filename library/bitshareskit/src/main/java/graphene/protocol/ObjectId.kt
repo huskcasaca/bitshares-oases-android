@@ -6,7 +6,7 @@ import graphene.chain.AbstractObject
 import kotlinx.coroutines.*
 import kotlin.reflect.KClass
 
-enum class ObjectSpace(val id: uint8_t) {
+enum class ObjectSpace(val id: UInt8) {
     /* 0.x.x  */ RELATIVE_PROTOCOL           (0U),
     /* 1.x.x  */ PROTOCOL                    (1U),
     /* 2.x.x  */ IMPLEMENTATION              (2U),
@@ -16,11 +16,11 @@ enum class ObjectSpace(val id: uint8_t) {
 }
 
 interface ObjectType {
-    val id: uint8_t
+    val id: UInt8
 //    val ordinal: Int
 }
 
-enum class ProtocolType(override val id: uint8_t): ObjectType {
+enum class ProtocolType(override val id: UInt8): ObjectType {
     /* 1.0.x  */ NULL                        (0U), // unused
     /* 1.1.x  */ BASE                        (1U), // unused
     /* 1.2.x  */ ACCOUNT                     (2U),
@@ -46,7 +46,7 @@ enum class ProtocolType(override val id: uint8_t): ObjectType {
     /* 1.22.x */ CREDIT_DEAL                 (22U);
 }
 
-enum class ImplementationType(override val id: uint8_t): ObjectType {
+enum class ImplementationType(override val id: UInt8): ObjectType {
     /* 2.0.x  */ GLOBAL_PROPERTY             (0U),
     /* 2.1.x  */ DYNAMIC_GLOBAL_PROPERTY     (1U),
     /* 2.2.x  */ RESERVED                    (2U), // unused
@@ -68,14 +68,14 @@ enum class ImplementationType(override val id: uint8_t): ObjectType {
     /* 2.18.x */ CREDIT_DEAL_SUMMARY         (18U),
 }
 
-typealias ObjectInstance = uint64_t
+typealias ObjectInstance = UInt64
 
-const val INVALID_INSTANCE: ULong = uint64_t.MAX_VALUE
+const val INVALID_INSTANCE: ULong = 0x0000_FFFF_FFFF_FFFF_UL
 
 const val GRAPHENE_ID_SEPARATOR: String = "."
 
 
-inline fun <reified K: AbstractType> emptyIdType(): K {
+inline fun <reified K: ObjectIdType> emptyIdType(): K {
 //    return K::class.members.first { it.name == "id" }.returnType.jvmErasure.constructors.first().call(0U.toULong()) as K
     return GRAPHENE_ID_TYPE_FAST_ALOC[K::class] as K
 }
@@ -125,27 +125,27 @@ val String.isValidGrapheneId: Boolean
             }
 
 fun String.toGrapheneSpace(): ObjectSpace {
-//    if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id!")
+//    if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id: $this")
     val uid = split(GRAPHENE_ID_SEPARATOR)[0].toUInt8()
-    return GRAPHENE_SPACE_ENUM_INDEX[uid] ?: throw IllegalArgumentException("Invalid graphene id!")
+    return GRAPHENE_SPACE_ENUM_INDEX[uid] ?: throw IllegalArgumentException("Invalid graphene id: $this")
 }
 
 fun String.toGrapheneType(): ObjectType {
-//    if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id!")
+//    if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id: $this")
     val uid = split(GRAPHENE_ID_SEPARATOR)[1].toUInt8()
-    return GRAPHENE_SPACE_TYPE_INDEX[toGrapheneSpace()]?.get(uid) ?: throw IllegalArgumentException("Invalid graphene id!")
+    return GRAPHENE_SPACE_TYPE_INDEX[toGrapheneSpace()]?.get(uid) ?: throw IllegalArgumentException("Invalid graphene id: $this")
 }
 
 fun String.toGrapheneInstance(): ObjectInstance {
-//    if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id!")
+//    if (!isValidGrapheneId) throw IllegalArgumentException("Invalid graphene id: $this")
     val uid = split(GRAPHENE_ID_SEPARATOR)[2].toUInt64()
     return uid
 }
 
 fun ObjectType.toObjectClass(): KClass<out AbstractObject> = GRAPHENE_TYPE_TO_OBJ_CLASS[this]!!
-fun ObjectType.toObjectIdClass(): KClass<out AbstractIdType> = GRAPHENE_TYPE_TO_IDT_CLASS[this]!!
+fun ObjectType.toObjectIdClass(): KClass<out ObjectId> = GRAPHENE_TYPE_TO_IDT_CLASS[this]!!
 
-fun <T: AbstractIdType> String.toGrapheneObjectId(): T {
+fun <T: ObjectId> String.toGrapheneObjectId(): T {
     return GRAPHENE_TYPE_TO_IDT_CONSTRUCTOR[toGrapheneType()]!!.call(toGrapheneInstance()) as T
 }
 

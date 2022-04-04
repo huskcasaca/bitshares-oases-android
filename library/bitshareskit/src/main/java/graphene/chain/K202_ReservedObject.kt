@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class K202_ReservedObject(
     @SerialName("id")
-    override val id: ReservedIdType,
-) : AbstractObject(), ReservedType
+    override val id: ReservedId,
+) : AbstractObject(), ReservedIdType
