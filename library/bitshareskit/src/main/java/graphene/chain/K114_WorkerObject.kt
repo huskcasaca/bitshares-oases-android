@@ -1,6 +1,7 @@
 package graphene.chain
 
 import graphene.protocol.*
+import graphene.serializers.StaticVarSerializer
 import graphene.serializers.TimePointSecSerializer
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
@@ -25,7 +26,7 @@ data class K114_WorkerObject(
     val dailyPay: ShareType,
     // ID of this worker's pay balance
     @SerialName("worker")
-    val worker: TypedWorkerType,
+    val worker: WorkerType,
     // Human-readable name for the worker
     @SerialName("name")
     val name: String,
@@ -51,9 +52,7 @@ data class K114_WorkerObject(
 //    }
 }
 
-typealias TypedWorkerType = StaticVariant<WorkerType>
-
-@Serializable
+@Serializable(with = WorkerTypeSerializer::class)
 sealed class WorkerType
 
 /**
@@ -92,3 +91,11 @@ data class BurnWorkerType(
 ): WorkerType() {
 //    void pay_worker(share_type pay, database&);
 }
+
+object WorkerTypeSerializer : StaticVarSerializer<WorkerType>(
+    listOf(
+        RefundWorkerType::class,
+        VestingBalanceWorkerType::class,
+        BurnWorkerType::class,
+    )
+)

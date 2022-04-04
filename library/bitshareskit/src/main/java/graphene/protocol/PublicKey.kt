@@ -71,6 +71,10 @@ data class PublicKeyType(
         return bytesComparator.compare(publicBytes, other.publicBytes)
     }
 
+    override fun toString(): String {
+        return address
+    }
+
 }
 
 

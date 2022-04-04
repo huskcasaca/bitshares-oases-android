@@ -13,44 +13,9 @@ import kotlinx.serialization.serializer
 import kotlin.reflect.KClass
 
 
-open class StaticVariantSerializer<T>(private val elementSerializer: KSerializer<T>) : KSerializer<StaticVariant<T>> {
-
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("StaticVariant", PrimitiveKind.STRING)
-    override fun deserialize(decoder: Decoder): StaticVariant<T> {
-        decoder as JsonDecoder
-        decoder.decodeJsonElement().jsonArray.let {
-            val tag = decoder.json.decodeFromJsonElement<Int64>(it[0])
-            val serializer = selectSerializer(tag) ?: elementSerializer
-            return deserialize(tag, decoder.json.decodeFromJsonElement(serializer, it[1]))
-        }
-    }
-    override fun serialize(encoder: Encoder, value: StaticVariant<T>) {
-        TODO("Not yet implemented")
-    }
-    open fun deserialize(tagType: Int64, storage: T): StaticVariant<T> {
-        return StaticVariant(tagType, storage)
-    }
-    open fun selectSerializer(tag: Int64): KSerializer<out T>? {
-        return null
-    }
-}
-
-object TypedFeeParameterSerializer : StaticVariantSerializer<FeeParameter>(FeeParameter.serializer()) {
-
-    override fun selectSerializer(tag: Int64): KSerializer<out FeeParameter> {
-        return when (tag) {
-            0L -> EmptyFeeParameter.serializer()
-            else -> EmptyFeeParameter.serializer()
-        }
-    }
-}
-
-
-
-
-
+// new
 abstract class StaticVarSerializer<T: Any>(
-    val typelist: Array<KClass<out T>>,
+    val typelist: List<KClass<out T>>,
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("StaticVar", PrimitiveKind.STRING)
 ) : KSerializer<T> {
     @OptIn(InternalSerializationApi::class)
@@ -76,15 +41,4 @@ abstract class StaticVarSerializer<T: Any>(
     }
 }
 
-object SpecialAuthoritySerializer : StaticVarSerializer<SpecialAuthority>(
-    arrayOf(
-        NoSpecialAuthority::class,
-        TopHoldersSpecialAuthority::class
-    )
-)
 
-object FeeParameterSerializer : StaticVarSerializer<FeeParameter>(
-    arrayOf(
-        EmptyFeeParameter::class
-    )
-)

@@ -62,6 +62,10 @@ data class PrivateKeyType(
 
     }
 
+    override fun toString(): String {
+        return wif
+    }
+
 }
 
 

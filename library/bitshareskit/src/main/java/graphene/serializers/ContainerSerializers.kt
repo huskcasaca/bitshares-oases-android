@@ -11,6 +11,7 @@ import kotlinx.serialization.json.JsonEncoder
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.jsonArray
 import java.util.*
+import kotlin.Comparator
 
 class SortedSetSerializer<T: Comparable<T>>(
     private val elementSerializer: KSerializer<out T>
@@ -24,6 +25,23 @@ class SortedSetSerializer<T: Comparable<T>>(
     }
     override fun serialize(encoder: Encoder, value: SortedSet<T>) = TODO()
 }
+
+class StaticVarSetSerializer<T: Any>(
+    private val elementSerializer: StaticVarSerializer<T>
+) : KSerializer<SortedSet<T>> {
+    override val descriptor: SerialDescriptor = setSerialDescriptor(elementSerializer.descriptor)
+    private val comparator: Comparator<T> = Comparator { o1: T, o2: T ->
+        elementSerializer.typelist.indexOf(o1::class) - elementSerializer.typelist.indexOf(o2::class)
+    }
+    override fun deserialize(decoder: Decoder): SortedSet<T> {
+        decoder as JsonDecoder
+        return decoder.decodeJsonElement().jsonArray.map {
+            decoder.json.decodeFromJsonElement(elementSerializer, it)
+        }.toSortedSet(comparator)
+    }
+    override fun serialize(encoder: Encoder, value: SortedSet<T>) = TODO()
+}
+
 
 class SortedMapSerializer<K: Comparable<K>, V>(
     private val keySerializer: KSerializer<K>,

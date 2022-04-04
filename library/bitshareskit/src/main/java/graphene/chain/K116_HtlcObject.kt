@@ -32,7 +32,7 @@ data class K116_HtlcObject(
     ) {
         @Serializable
         data class HashLockInfo(
-            @SerialName("preimage_hash") val preimage_hash: TypedHtlcHash,
+            @SerialName("preimage_hash") val preimage_hash: HtlcHash,
             @SerialName("preimage_size") val preimage_size: UShort,
         )
         @Serializable

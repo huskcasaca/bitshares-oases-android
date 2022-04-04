@@ -1,10 +1,12 @@
 package graphene.chain
 
 import graphene.protocol.*
+import graphene.serializers.StaticVarSerializer
 import graphene.serializers.TimePointSecSerializer
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 @Serializable
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
@@ -20,7 +22,7 @@ data class K113_VestingBalanceObject(
     val balance: Asset,
     // The vesting policy stores details on when funds vest, and controls when they may be withdrawn
     @SerialName("policy")
-    val policy: TypedVestingPolicy,
+    val policy: VestingPolicy,
     // type of the vesting balance
     @SerialName("balance_type")
     val balanceType: VestingBalanceType = VestingBalanceType.UNSPECIFIED,
@@ -55,11 +57,7 @@ data class K113_VestingBalanceObject(
 //    asset get_allowed_withdraw(const time_point_sec& now)const;
 }
 
-
-
-typealias TypedVestingPolicy = StaticVariant<VestingPolicy>
-
-@Serializable
+@Serializable(with = VestingPolicySerializer::class)
 sealed class VestingPolicy
 
 @Serializable
@@ -133,6 +131,8 @@ data class CddVestingPolicy(
 
 @Serializable
 class InstantVestingPolicy(
+    @Transient
+    val reserved: Unit = Unit
 ) : VestingPolicy() {
 //    asset get_allowed_withdraw(const vesting_policy_context& ctx)const;
 //    bool is_deposit_allowed(const vesting_policy_context& ctx)const;
@@ -150,3 +150,11 @@ enum class VestingBalanceType {
     WITNESS,
     MARKET_FEE_SHARING,
 }
+
+object VestingPolicySerializer : StaticVarSerializer<VestingPolicy>(
+    listOf(
+        LinearVestingPolicy::class,
+        CddVestingPolicy::class,
+        InstantVestingPolicy::class,
+    )
+)

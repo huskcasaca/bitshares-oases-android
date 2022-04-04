@@ -2,18 +2,19 @@ package graphene.protocol
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import java.util.*
 
 @Serializable
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
-data class Authority (
+data class Authority(
     @SerialName("weight_threshold")
     val weightThreshold: UInt32,
     @SerialName("account_auths")
-    val accountAuths: AccountAuthMap,
+    val accountAuths: FlatMap<AccountIdType, Weight>,
     @SerialName("key_auths")
-    val keyAuths: KeyAuthMap,
+    val keyAuths: FlatMap<PublicKeyType, Weight>,
     @SerialName("address_auths")
-    val addressAuths: AddressAuthMap,
+    val addressAuths: FlatMap<AddressType, Weight>,
 ) : GrapheneComponent {
 
     companion object {

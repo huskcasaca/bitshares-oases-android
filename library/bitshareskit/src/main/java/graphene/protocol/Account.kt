@@ -9,11 +9,11 @@ data class AccountOptions(
     @SerialName("memo_key")
     val memoKey: PublicKeyType, // TODO
     @SerialName("voting_account")
-    val votingAccount: AccountIdType = GRAPHENE_PROXY_TO_SELF_ACCOUNT,
+    val votingAccount: AccountIdType, // = GRAPHENE_PROXY_TO_SELF_ACCOUNT
     @SerialName("num_witness")
-    val witnessNumber: UInt16 = 0U,
+    val witnessNumber: UInt16, // = 0U
     @SerialName("num_committee")
-    val committeeNumber: UInt16 = 0U,
+    val committeeNumber: UInt16, // = 0U
     @SerialName("votes")
     val vote: FlatSet<VoteIdType>,
     @SerialName("extensions")

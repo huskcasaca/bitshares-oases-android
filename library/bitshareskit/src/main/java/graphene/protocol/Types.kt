@@ -1,5 +1,6 @@
 package graphene.protocol
 
+import graphene.serializers.OptionalSerializer
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -26,12 +27,15 @@ typealias ChainIdType = String  //using chain_id_type = fc::sha256;
 //using ratio_type = boost::rational<int32_t>;
 
 @Serializable(with = OptionalSerializer::class)
-class Optional<T>(
+data class Optional<T>(
     val valueSafe: T? = null
 ) {
     val value get() = valueSafe!!
     val isPresent get() = valueSafe != null
-    val isNull get() = valueSafe != null
+
+    override fun toString(): String {
+        return valueSafe.toString()
+    }
 }
 
 fun <T> optional(value: T? = null) = Optional(value)
@@ -40,24 +44,3 @@ fun <T> Optional<T>.getOrNull() = valueSafe
 fun <T> Optional<T>.getOrThrow() = value
 fun <T> Optional<T>.getOrElse(fallback: () -> T) = valueSafe ?: fallback()
 
-
-class OptionalSerializer<T>(private val elementSerializer: KSerializer<T>) : KSerializer<Optional<T>> {
-
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("optional", PrimitiveKind.STRING)
-    override fun deserialize(decoder: Decoder): Optional<T> {
-        return try {
-            optional(elementSerializer.deserialize(decoder))
-        } catch (e: Throwable) {
-            e.printStackTrace()
-            optional(null)
-        }
-    }
-    override fun serialize(encoder: Encoder, value: Optional<T>) {
-        if (value.isPresent) {
-            elementSerializer.serialize(encoder, value.value)
-        } else {
-
-        }
-    }
-
-}

@@ -30,3 +30,24 @@ object TimePointSecSerializer: KSerializer<Instant> {
         encoder.encodeString(value.toLocalDateTime(TimeZone.UTC).toString())
 }
 
+class OptionalSerializer<T>(
+    private val elementSerializer: KSerializer<T>
+) : KSerializer<Optional<T>> {
+
+    override val descriptor: SerialDescriptor = elementSerializer.descriptor
+    override fun deserialize(decoder: Decoder): Optional<T> {
+        return try {
+            optional(elementSerializer.deserialize(decoder))
+        } catch (e: Throwable) {
+            e.printStackTrace()
+            optional(null)
+        }
+    }
+    override fun serialize(encoder: Encoder, value: Optional<T>) {
+        if (value.isPresent) {
+            elementSerializer.serialize(encoder, value.value)
+        } else {
+        }
+    }
+
+}

@@ -1,8 +1,9 @@
 package graphene.protocol
 
-import graphene.serializers.FeeParameterSerializer
+import graphene.serializers.StaticVarSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 
 @Serializable
@@ -10,7 +11,7 @@ data class FeeSchedule(
     /**
      *  @note must be sorted by fee_parameters.which() and have no duplicates
      */
-    @SerialName("parameters") val parameters: FeeParameters, // type_lt
+    @SerialName("parameters") val parameters: StatSet<FeeParameter>, // type_lt
     @SerialName("scale")      val scale: UInt32, //< fee * scale / GRAPHENE_100_PERCENT
 ) {
     ///**
@@ -70,4 +71,50 @@ data class FeeSchedule(
 sealed class FeeParameter
 
 @Serializable
-object EmptyFeeParameter : FeeParameter()
+data class EmptyFeeParameter0(
+    @Transient
+    val reserved: Unit = Unit
+) : FeeParameter()
+
+@Serializable
+data class EmptyFeeParameter1(
+    @Transient
+    val reserved: Unit = Unit
+) : FeeParameter()
+
+@Serializable
+data class EmptyFeeParameter2(
+    @Transient
+    val reserved: Unit = Unit
+) : FeeParameter()
+
+@Serializable
+data class EmptyFeeParameter3(
+    @Transient
+    val reserved: Unit = Unit
+) : FeeParameter()
+
+
+@Serializable
+data class EmptyFeeParameter4(
+    @Transient
+    val reserved: Unit = Unit
+) : FeeParameter()
+
+
+@Serializable
+data class EmptyFeeParameter(
+    @Transient
+    val reserved: Unit = Unit
+) : FeeParameter()
+
+object FeeParameterSerializer : StaticVarSerializer<FeeParameter>(
+    listOf(
+        EmptyFeeParameter0::class,
+        EmptyFeeParameter1::class,
+        EmptyFeeParameter2::class,
+        EmptyFeeParameter3::class,
+        EmptyFeeParameter4::class,
+    ) +
+    List(70) { EmptyFeeParameter::class } // TODO
+)

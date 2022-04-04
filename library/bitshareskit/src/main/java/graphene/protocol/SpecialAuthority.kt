@@ -1,6 +1,6 @@
 package graphene.protocol
 
-import graphene.serializers.SpecialAuthoritySerializer
+import graphene.serializers.StaticVarSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
@@ -10,7 +10,8 @@ sealed class SpecialAuthority : GrapheneComponent
 
 @Serializable
 data class NoSpecialAuthority(
-    @Transient val reserved: Unit = Unit
+    @Transient
+    val reserved: Unit = Unit
 ) : SpecialAuthority() {
     companion object {
         internal val INVALID = NoSpecialAuthority(
@@ -26,6 +27,9 @@ data class TopHoldersSpecialAuthority (
     val numTopHolders: UInt8 = 1U
 ) : SpecialAuthority()
 
-
-
-
+object SpecialAuthoritySerializer : StaticVarSerializer<SpecialAuthority>(
+    listOf(
+        NoSpecialAuthority::class,
+        TopHoldersSpecialAuthority::class
+    )
+)
