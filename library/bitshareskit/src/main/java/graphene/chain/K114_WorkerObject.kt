@@ -73,6 +73,7 @@ data class RefundWorkerType(
  *
  * This worker type takes all of his pay and places it into a vesting balance
  */
+@Serializable
 data class VestingBalanceWorkerType(
     // The balance this worker pays into
     @SerialName("balance") val balance: VestingBalanceIdType,
@@ -85,6 +86,7 @@ data class VestingBalanceWorkerType(
  *
  * This worker sends all pay he receives to the null account.
  */
+@Serializable
 data class BurnWorkerType(
     // Record of how much this worker has burned in his lifetime
     @SerialName("total_burned") val totalBurned: ShareType,

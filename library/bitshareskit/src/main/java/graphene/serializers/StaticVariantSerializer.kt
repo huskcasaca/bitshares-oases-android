@@ -1,26 +1,27 @@
 package graphene.serializers
 
 import graphene.protocol.*
-import kotlinx.serialization.InternalSerializationApi
-import kotlinx.serialization.KSerializer
+import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.*
-import kotlinx.serialization.serializer
 import kotlin.reflect.KClass
 
 
 // new
 abstract class StaticVarSerializer<T: Any>(
     val typelist: List<KClass<out T>>,
+    val fallback: Map<KClass<out T>, KSerializer<out T>> = emptyMap(),
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("StaticVar", PrimitiveKind.STRING)
 ) : KSerializer<T> {
+
     @OptIn(InternalSerializationApi::class)
-    open fun getSerializer(tag: Int64): KSerializer<out T> {
-        return typelist[tag.toInt32()].serializer()
+    private fun getSerializer(tag: Int64): KSerializer<out T> {
+        val clazz = typelist[tag.toInt32()]
+        return clazz.serializerOrNull() ?: fallback[clazz]!!
     }
     override fun deserialize(decoder: Decoder): T {
         decoder as JsonDecoder
@@ -40,5 +41,3 @@ abstract class StaticVarSerializer<T: Any>(
         )
     }
 }
-
-

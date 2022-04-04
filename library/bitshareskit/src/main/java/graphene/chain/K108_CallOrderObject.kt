@@ -17,7 +17,7 @@ data class K108_CallOrderObject(
     @SerialName("call_price")
     val callPrice: PriceType, // Collateral / Debt
     @SerialName("target_collateral_ratio")
-    val targetCollateralRatio: Optional<UInt16>, //< maximum CR to maintain when selling collateral on margin call
+    val targetCollateralRatio: Optional<UInt16> = optional(), //< maximum CR to maintain when selling collateral on margin call
 ) : AbstractObject(), CallOrderIdType {
 //
 //    asset get_collateral()const { return asset( collateral, call_price.base.asset_id ); }

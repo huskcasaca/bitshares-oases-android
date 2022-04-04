@@ -13,7 +13,7 @@ typealias UInt8  = UByte
 typealias UInt16 = UShort
 typealias UInt32 = UInt
 typealias UInt64 = ULong
-typealias ShareType = UInt64 // safe<int64_t>
+typealias ShareType = Int64 // safe<int64_t>
 typealias UnsignedInt = UInt64 // TODO: 2022/4/3
 
 typealias Int8  = Byte
@@ -54,20 +54,24 @@ fun UInt64.toUInt64(): UInt64 = toULong()
 
 
 fun UInt8.toInt8():  Int8  = toByte()
+fun UInt8.toInt16(): Int16 = toShort()
 fun UInt8.toInt32(): Int32 = toInt()
 fun UInt8.toInt64(): Int64 = toLong()
 
 fun UInt16.toInt8():  Int8  = toByte()
+fun UInt16.toInt16(): Int16 = toShort()
 fun UInt16.toInt32(): Int32 = toInt()
 fun UInt16.toInt64(): Int64 = toLong()
 
 fun UInt32.toInt8():  Int8  = toByte()
 fun UInt32.toInt16(): Int16 = toShort()
+fun UInt32.toInt32(): Int32 = toInt()
 fun UInt32.toInt64(): Int64 = toLong()
 
 fun UInt64.toInt8():  Int8  = toByte()
 fun UInt64.toInt16(): Int16 = toShort()
 fun UInt64.toInt32(): Int32 = toInt()
+fun UInt64.toInt64(): Int64 = toLong()
 
 
 fun Int8.toUInt8():  UInt8  = toUByte()

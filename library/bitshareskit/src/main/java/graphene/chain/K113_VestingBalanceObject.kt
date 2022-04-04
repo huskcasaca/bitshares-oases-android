@@ -143,12 +143,13 @@ class InstantVestingPolicy(
 //    void on_withdraw(const vesting_policy_context& ctx);
 }
 
+@Serializable
 enum class VestingBalanceType {
-    UNSPECIFIED,
-    CASHBACK,
-    WORKER,
-    WITNESS,
-    MARKET_FEE_SHARING,
+    @SerialName("unspecified") UNSPECIFIED,
+    @SerialName("cashback") CASHBACK,
+    @SerialName("worker") WORKER,
+    @SerialName("witness") WITNESS,
+    @SerialName("market_fee_sharing") MARKET_FEE_SHARING,
 }
 
 object VestingPolicySerializer : StaticVarSerializer<VestingPolicy>(

@@ -37,7 +37,8 @@ data class K116_HtlcObject(
         )
         @Serializable
         data class TimePointSec(
-            @SerialName("expiration") @Serializable(TimePointSecSerializer::class) val expiration: Instant,
+            @SerialName("expiration") @Serializable(TimePointSecSerializer::class)
+            val expiration: Instant,
         )
     }
 }

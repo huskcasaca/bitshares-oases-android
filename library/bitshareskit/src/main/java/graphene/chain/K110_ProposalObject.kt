@@ -3,8 +3,10 @@ package graphene.chain
 import graphene.protocol.*
 import graphene.serializers.TimePointSecSerializer
 import kotlinx.datetime.Instant
+import kotlinx.datetime.serializers.InstantIso8601Serializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class K110_ProposalObject(
@@ -13,9 +15,9 @@ data class K110_ProposalObject(
     @SerialName("expiration_time") @Serializable(TimePointSecSerializer::class)
     val expirationTime: Instant,
     @SerialName("review_period_time")
-    val reviewPeriodTime: Optional<Instant> = optional(),
+    val reviewPeriodTime: Optional<@Serializable(with = TimePointSecSerializer::class) Instant> = optional(),
     @SerialName("proposed_transaction")
-    val proposedTransaction: Transaction,
+    val proposedTransaction: JsonObject, // Transaction TODO
     @SerialName("required_active_approvals")
     val requiredActiveApprovals: FlatSet<AccountIdType>,
     @SerialName("available_active_approvals")

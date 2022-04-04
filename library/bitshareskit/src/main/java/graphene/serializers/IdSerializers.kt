@@ -40,3 +40,12 @@ class ObjectIdSerializer<T: ObjectId> : KSerializer<T> {
         decoder.decodeString().toGrapheneObjectId()
     override fun serialize(encoder: Encoder, value: T) = encoder.encodeString(value.standardId)
 }
+
+
+object ObjectIdDefaultSerializer : KSerializer<ObjectId> {
+    override val descriptor: SerialDescriptor = ID_TYPE_DESCRIPTOR
+    override fun deserialize(decoder: Decoder): ObjectId =
+        decoder.decodeString().toGrapheneObjectId()
+    override fun serialize(encoder: Encoder, value: ObjectId) = encoder.encodeString(value.standardId)
+}
+

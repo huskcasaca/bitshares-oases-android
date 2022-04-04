@@ -1,32 +1,39 @@
 package graphene.protocol
 
+import graphene.serializers.TimePointSecSerializer
+import kotlinx.datetime.Instant
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+sealed class AbstractTransaction() {
+
+}
 
 @Serializable
-open class Transaction {
-
-
-//    public:
+data class Transaction(
+    /**
+     * Least significant 16 bits from the reference block number.
+     */
+    @SerialName("ref_block_num")
+    val refBlockNum: UInt16, // = 0U
+    /**
+     * The first non-block-number 32-bits of the reference block ID. Recall that block IDs have 32 bits of block
+     * number followed by the actual block hash, so this field should be set using the second 32 bits in the
+     * @ref block_id_type
+     */
+    @SerialName("ref_block_prefix")
+    val refBlockPrefix: UInt32, // = 0U
+    /**
+     * This field specifies the absolute expiration for this transaction.
+     */
+    @SerialName("expiration") @Serializable(with = TimePointSecSerializer::class)
+    val expiration: Instant,
+    @SerialName("operations")
+    val operations: List<Operation>,
+    @SerialName("extensions")
+    val extensions: ExtensionsType,
+) : AbstractTransaction() {
 //    virtual ~transaction() = default;
-//    /**
-//     * Least significant 16 bits from the reference block number.
-//     */
-//    uint16_t           ref_block_num    = 0;
-//    /**
-//     * The first non-block-number 32-bits of the reference block ID. Recall that block IDs have 32 bits of block
-//     * number followed by the actual block hash, so this field should be set using the second 32 bits in the
-//     * @ref block_id_type
-//     */
-//    uint32_t           ref_block_prefix = 0;
-//
-//    /**
-//     * This field specifies the absolute expiration for this transaction.
-//     */
-//    fc::time_point_sec expiration;
-//
-//    vector<operation>  operations;
-//    extensions_type    extensions;
 //
 //    /// Calculate the digest for a transaction
 //    digest_type                        digest()const;
@@ -67,11 +74,20 @@ open class Transaction {
 //    mutable transaction_id_type _tx_id_buffer;
 }
 
-
-
-
-
-
+@Serializable
+data class SignedTransaction(
+    @SerialName("ref_block_num")
+    val refBlockNum: UInt16, // = 0U
+    @SerialName("ref_block_prefix")
+    val refBlockPrefix: UInt32, // = 0U
+    @SerialName("expiration") @Serializable(with = TimePointSecSerializer::class)
+    val expiration: Instant,
+    @SerialName("operations")
+    val operations: List<Operation>,
+    @SerialName("extensions")
+    val extensions: ExtensionsType,
+    @SerialName("signatures") val signatures: List<SignatureType>
+) : AbstractTransaction()
 //class signed_transaction : public transaction
 //{
 //    public:

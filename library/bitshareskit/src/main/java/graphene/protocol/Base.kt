@@ -24,7 +24,7 @@ typealias FlatMap<K, V> = @Serializable(with = SortedMapSerializer::class) Sorte
 typealias TypeSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet< T>
 typealias PairArray<A, B> = @Serializable(with = PairAsArraySerializer::class) Pair<A, B>
 
-typealias PriceFeeds = FlatMap<AccountId, PairArray<Instant, PriceFeedWithIcr>>
+typealias PriceFeeds = FlatMap<AccountId, PairArray<@Serializable(TimePointSecSerializer::class) Instant, PriceFeedWithIcr>>
 
 internal val bytesComparator = Comparator<ByteArray> { o1, o2 ->
     var i = 0

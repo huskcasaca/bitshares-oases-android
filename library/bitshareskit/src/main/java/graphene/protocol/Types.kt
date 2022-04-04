@@ -15,11 +15,13 @@ import kotlinx.serialization.encoding.Encoder
 
 typealias BlockIdType = String  //typealias block_id_type = fc::ripemd160; TODO
 typealias ChecksumType = String //typealias checksum_type = fc::ripemd160; TODO
-//typealias transaction_id_type = fc::ripemd160; TODO
+typealias TransactionIdType = String  //typealias transaction_id_type = fc::ripemd160; TODO
 //typealias digest_type = fc::sha256; TODO
-//typealias signature_type = fc::ecc::compact_signature; TODO
+typealias SignatureType = String // fc::ecc::compact_signature; TODO
 //typealias share_type = safe<int64_t>; TODO
 //typealias weight_type = uint16_t; TODO
+
+typealias CommitmentType = String
 
 
 //using private_key_type = fc::ecc::private_key;
@@ -43,4 +45,3 @@ fun <T> optional(value: T? = null) = Optional(value)
 fun <T> Optional<T>.getOrNull() = valueSafe
 fun <T> Optional<T>.getOrThrow() = value
 fun <T> Optional<T>.getOrElse(fallback: () -> T) = valueSafe ?: fallback()
-

@@ -1,6 +1,7 @@
 package graphene.chain
 
 import graphene.protocol.*
+import graphene.serializers.StaticVarSerializer
 import graphene.serializers.TimePointSecSerializer
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
@@ -24,13 +25,7 @@ data class K117_CustomAuthorityObject(
     @SerialName("auth")
     val auth: Authority,
     @SerialName("restrictions")
-    val restrictions: FlatMap<UInt16, restriction>,
+    val restrictions: FlatMap<UInt16, Restriction>,
     @SerialName("restriction_counter")
     val restriction_counter: UInt16 = 0U,
-) : AbstractObject(), CustomAuthorityIdType {
-
-}
-
-
-@Serializable
-class restriction
+) : AbstractObject(), CustomAuthorityIdType

@@ -16,7 +16,7 @@ data class K115_BalanceObject(
     @SerialName("balance")
     val balance: Asset,
     @SerialName("vesting_policy")
-    val vestingPolicy: Optional<LinearVestingPolicy>,
+    val vestingPolicy: Optional<LinearVestingPolicy> = optional(),
     @SerialName("last_claim_date") @Serializable(TimePointSecSerializer::class)
     val lastClaimDate: Instant,
 ) : AbstractObject(), BalanceIdType {

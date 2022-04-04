@@ -214,11 +214,11 @@ interface ReservedIdType: ObjectIdType { // K202
 @Serializable(with = ObjectIdSerializer::class)
 interface AssetDynamicDataIdType: ObjectIdType { // K203
     override val id: AssetDynamicDataId
-    val currentSupply: UInt64                               get() = throwNIE()
-    val confidentialSupply: UInt64                          get() = throwNIE()
-    val accumulatedFees: UInt64                             get() = throwNIE()
-    val accumulatedCollateralFees: UInt64                   get() = throwNIE()
-    val feePool: UInt64                                     get() = throwNIE()
+    val currentSupply: ShareType                            get() = throwNIE()
+    val confidentialSupply: ShareType                       get() = throwNIE()
+    val accumulatedFees: ShareType                          get() = throwNIE()
+    val accumulatedCollateralFees: ShareType                get() = throwNIE()
+    val feePool: ShareType                                  get() = throwNIE()
 }
 
 @Serializable(with = ObjectIdSerializer::class)
