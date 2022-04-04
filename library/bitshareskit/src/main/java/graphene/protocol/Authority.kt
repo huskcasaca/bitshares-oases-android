@@ -8,7 +8,7 @@ import java.util.*
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 data class Authority(
     @SerialName("weight_threshold")
-    val weightThreshold: uint32_t,
+    val weightThreshold: UInt32,
     @SerialName("account_auths")
     val accountAuths: FlatMap<AccountIdType, Weight>,
     @SerialName("key_auths")
@@ -19,7 +19,7 @@ data class Authority(
 
     companion object {
         internal val INVALID = Authority(
-            uint32_t.MAX_VALUE, // val weightThreshold: UInt32,
+            UInt32.MAX_VALUE, // val weightThreshold: UInt32,
             sortedMapOf(), // val accountAuths: AccountAuthMap,
             sortedMapOf(), // val keyAuths: KeyAuthMap,
             sortedMapOf(), // val addressAuths: AddressAuthMap,

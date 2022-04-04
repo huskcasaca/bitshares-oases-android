@@ -14,7 +14,7 @@ data class K103_AssetObject(
     @SerialName("issuer")
     override val issuer: AccountIdType,
     @SerialName("precision")
-    override val precision: uint8_t,
+    override val precision: UInt8,
     @SerialName("options")
     override val options: AssetOptions,
 

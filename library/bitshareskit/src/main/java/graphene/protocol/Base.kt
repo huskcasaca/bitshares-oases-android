@@ -6,7 +6,7 @@ import kotlinx.serialization.*
 import java.util.*
 
 // threshold weight
-typealias Weight = uint16_t
+typealias Weight = UInt16
 
 typealias ExtensionsType = StatSet<FutureExtensions>
 typealias FutureExtensions = @Serializable(with = FutureExtensionSerializer::class) Unit

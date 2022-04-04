@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
 data class VoteIdType(
     val type: VoteType = VoteType.COMMITTEE,
-    val instance: uint32_t = 0U,
+    val instance: UInt32 = 0U,
 ) : GrapheneComponent, Comparable<VoteIdType> {
 
     companion object {
@@ -26,7 +26,7 @@ data class VoteIdType(
         WORKER,
     }
 
-    private val content: uint32_t = instance shl 8 or type.ordinal.toUInt()
+    private val content: UInt32 = instance shl 8 or type.ordinal.toUInt()
 
     override fun toString(): String {
         return "${type.ordinal}:${instance}"
