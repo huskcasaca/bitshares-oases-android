@@ -2,7 +2,15 @@ package graphene.protocol
 
 import graphene.serializers.TimePointSecSerializer
 import kotlinx.datetime.Instant
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 
 
 typealias account_id_type = AccountIdType
@@ -22,6 +30,24 @@ typealias asset_id_type = AssetIdType
 typealias flat_set<V> = FlatSet<V>
 typealias flat_map<K, V> = FlatMap<K, V>
 typealias void_t = Unit
+
+//typealias account_id_type = AccountIdType
+//typealias uint64_t = UInt64
+//typealias uint32_t = UInt32
+//typealias uint16_t = UInt16
+//typealias uint8_t = UInt8
+//typealias share_type = ShareType
+//typealias time_point_sec = @Serializable(with = TimePointSecSerializer::class) Instant
+//typealias extensions_type = ExtensionsType
+//typealias asset = Asset
+//typealias memo_data = MemoData
+//typealias bool = Boolean
+//typealias string = String
+//typealias credit_deal_id_type = CreditDealIdType
+//typealias asset_id_type = AssetIdType
+//typealias flat_set<V> = FlatSet<V>
+//typealias flat_map<K, V> = FlatMap<K, V>
+//typealias void_t = Unit
 
 @Serializable
 sealed class Operation
@@ -119,17 +145,13 @@ sealed class Operation
 
 /*  6 */ @Serializable data class AccountUpdateOperation(
     val fee: asset,
-
-// The account to update
+    // The account to update
     val account: account_id_type,
-
-// New owner authority. If set, this operation requires owner authority to execute.
+    // New owner authority. If set, this operation requires owner authority to execute.
     val owner: Optional<Authority>,
-
-// New active authority. This can be updated by the current active authority.
+    // New active authority. This can be updated by the current active authority.
     val active: Optional<Authority>,
-
-// New account options
+    // New account options
     val new_options: Optional<AccountOptions>,
     val extensions: Ext,
 ) : Operation() {
@@ -143,37 +165,39 @@ sealed class Operation
 }
 
 /*  7 */ @Serializable data class AccountWhitelistOperation(
-// Paid by authorizing_account
+    // Paid by authorizing_account
     val fee: asset,
-
-// The account which is specifying an opinion of another account
+    // The account which is specifying an opinion of another account
     val authorizing_account: account_id_type,
-
-// The account being opined about
+    // The account being opined about
     val account_to_list: account_id_type,
-
-// The new white and blacklist status of account_to_list, as determined by authorizing_account
-// This is a bitfield using values defined in the account_listing enum
-    val new_listing: uint8_t = no_listing
+    // The new white and blacklist status of account_to_list, as determined by authorizing_account
+    // This is a bitfield using values defined in the account_listing enum
+    val new_listing: uint8_t, // = AccountListing.NO_LISTING
     val extensions: extensions_type,
 ) : Operation() {
-    @Serializable
-    enum class account_listing {
-        no_listing = 0x0, // No opinion is specified about this account
-        white_listed = 0x1, // This account is whitelisted, but not blacklisted
-        black_listed = 0x2, // This account is blacklisted, but not whitelisted
-        white_and_black_listed = white_listed | black_listed // This account is both whitelisted and blacklisted
+    @Serializable(with = AccountListingSerializer::class)
+    enum class AccountListing(val value: uint8_t) {
+        NO_LISTING(0x00U), // No opinion is specified about this account
+        WHITE_LISTED(0x01U), // This account is whitelisted, but not blacklisted
+        BLACK_LISTED(0x02U), // This account is blacklisted, but not whitelisted
+        WHITE_AND_BLACK_LISTED(0x03U) // This account is both whitelisted and blacklisted
+    }
+    object AccountListingSerializer : KSerializer<AccountListing> {
+        override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("AccountListing", PrimitiveKind.SHORT)
+        override fun serialize(encoder: Encoder, value: AccountListing) =
+            UInt8.serializer().serialize(encoder, value.value)
+        override fun deserialize(decoder: Decoder): AccountListing =
+            AccountListing.values()[UInt8.serializer().deserialize(decoder).toInt()]
     }
 }
 
 /*  8 */ @Serializable data class AccountUpgradeOperation(
     val fee: asset,
-
-// The account to upgrade; must not already be a lifetime member
+    // The account to upgrade; must not already be a lifetime member
     val account_to_upgrade: account_id_type,
-
-// If true, the account will be upgraded to a lifetime member; otherwise, it will add a year to the subscription
-    val upgrade_to_lifetime_member: bool = false
+    // If true, the account will be upgraded to a lifetime member; otherwise, it will add a year to the subscription
+    val upgrade_to_lifetime_member: bool, // = false
     val extensions: extensions_type,
 ) : Operation()
 
@@ -320,7 +344,7 @@ sealed class Operation
 /* 22 */ @Serializable data class ProposalCreateOperation(
     val fee: asset,
     val fee_paying_account: account_id_type,
-    val proposed_ops: List<op_wrapper>,
+    val proposed_ops: List<OperationWrapper>,
     val expiration_time: time_point_sec,
     val review_period_seconds: Optional<uint32_t>,
     val extensions: extensions_type,
@@ -373,11 +397,11 @@ sealed class Operation
     // New maximum amount the withdrawer is allowed to charge per withdrawal period
     val withdrawal_limit: asset,
     // New length of the period between withdrawals
-    val withdrawal_period_sec: uint32_t = 0
+    val withdrawal_period_sec: uint32_t, // = 0
     // New beginning of the next withdrawal period; must be in the future
     val period_start_time: time_point_sec,
     // The new number of withdrawal periods for which this permission will be valid
-    val periods_until_expiration: uint32_t = 0
+    val periods_until_expiration: uint32_t, // = 0
 ) : Operation()
 
 /* 27 */ @Serializable data class WithdrawPermissionClaimOperation(
@@ -457,7 +481,7 @@ sealed class Operation
     val fee: asset,
     val payer: account_id_type,
     val required_auths: flat_set<account_id_type>,
-    val id: uint16_t = 0
+    val id: uint16_t, // = 0
     val data: List<Char>,
 ) : Operation()
 
@@ -526,8 +550,18 @@ sealed class Operation
     val fee: asset,
     val issuer: account_id_type, // must match issuer of asset from which we claim fees
     val amount_to_claim: asset,
-    val extensions: extension<AdditionalOptionsType>,
-) : Operation()
+    val extensions: AdditionalOptionsType,
+) : Operation() {
+    @Serializable
+    data class AdditionalOptionsType(
+        // Which asset to claim fees from. This is needed, e.g., to claim collateral-
+        // denominated fees from a collateral-backed smart asset. If unset, assumed to be same
+        // asset as amount_to_claim is denominated in, such as would be the case when claiming
+        // market fees. If set, validation requires it to be a different asset_id than
+        // amount_to_claim (else there would exist two ways to form the same request).
+        @SerialName("claim_from_asset_id") val claimFromAssetId: Optional<AssetIdType>
+    ) : Extension<AdditionalOptionsType>
+}
 
 /* 44 */ @Serializable data class FbaDistributeOperation(
     val fee: asset, // always zero
@@ -583,7 +617,15 @@ sealed class Operation
     val preimage_size: uint16_t,
     // The time the funds will be returned to the source if not claimed
     val claim_period_seconds: uint32_t,
-) : Operation()
+    // additional extensions
+    val extensions: AdditionalOptionsType,
+) : Operation() {
+    @Serializable
+    data class AdditionalOptionsType(
+        @SerialName("memo") val memo: Optional<MemoData>,
+    ) : Extension<AdditionalOptionsType>
+
+}
 
 /* 50 */ @Serializable data class HtlcRedeemOperation(
     // paid to network
@@ -600,7 +642,9 @@ sealed class Operation
 
 /* 51 */ @Serializable data class HtlcRedeemedOperation(
     val htlc_id: HtlcIdType,
-    val from: account_id_type,, var to:account_id_type,, var redeemer:account_id_type,
+    val from: account_id_type,
+    val to:account_id_type,
+    val redeemer:account_id_type,
     val amount: asset,
     val htlc_preimage_hash: HtlcHash,
     val htlc_preimage_size: uint16_t,
@@ -706,8 +750,8 @@ sealed class Operation
     val asset_a: asset_id_type, // Type of the first asset in the pool
     val asset_b: asset_id_type, // Type of the second asset in the pool
     val share_asset: asset_id_type, // Type of the share asset aka the LP token
-    val taker_fee_percent: uint16_t = 0 // Taker fee percent
-    val withdrawal_fee_percent: uint16_t = 0 // Withdrawal fee percent
+    val taker_fee_percent: uint16_t, // = 0 // Taker fee percent
+    val withdrawal_fee_percent: uint16_t, // = 0 // Withdrawal fee percent
     val extensions: extensions_type, // Unused. Reserved for future use.
 ) : Operation()
 
@@ -750,7 +794,7 @@ sealed class Operation
     val owner_account: account_id_type, // Owner of the fund
     val asset_type: asset_id_type, // Asset type in the fund
     val balance: share_type,// Usable amount in the fund
-    val fee_rate: uint32_t = 0 // Fee rate, the demominator is GRAPHENE_FEE_RATE_DENOM
+    val fee_rate: uint32_t, // = 0 // Fee rate, the demominator is GRAPHENE_FEE_RATE_DENOM
     val extensions: extensions_type, // Unused. Reserved for future use.
 ) : Operation()
 
@@ -795,10 +839,10 @@ sealed class Operation
     val owner_account: account_id_type, // Owner of the credit offer
     val asset_type: asset_id_type, // Asset type in the credit offer
     val balance: share_type, // Usable amount in the credit offer
-    val fee_rate: uint32_t = 0 // Fee rate, the demominator is GRAPHENE_FEE_RATE_DENOM
-    val max_duration_seconds: uint32_t = 0 // The time limit that borrowed funds should be repaid
+    val fee_rate: uint32_t, // = 0 // Fee rate, the demominator is GRAPHENE_FEE_RATE_DENOM
+    val max_duration_seconds: uint32_t, // = 0 // The time limit that borrowed funds should be repaid
     val min_deal_amount: share_type, // Minimum amount to borrow for each new deal
-    val enabled: bool = false // Whether this offer is available
+    val enabled: bool, // = false // Whether this offer is available
     val auto_disable_time: time_point_sec, // The time when this offer will be disabled automatically
 // Types and rates of acceptable collateral
     val acceptable_collateral: flat_map<asset_id_type, PriceType>,
@@ -837,8 +881,8 @@ sealed class Operation
     val offer_id: CreditOfferIdType, // ID of the credit offer
     val borrow_amount: asset, // The amount to borrow
     val collateral: asset, // The collateral
-    val max_fee_rate: uint32_t = 0 // The maximum acceptable fee rate
-    val min_duration_seconds: uint32_t = 0 // The minimum acceptable duration
+    val max_fee_rate: uint32_t, // = 0 // The maximum acceptable fee rate
+    val min_duration_seconds: uint32_t, // = 0 // The minimum acceptable duration
     val extensions: extensions_type, // Unused. Reserved for future use.
 ) : Operation()
 
@@ -859,5 +903,5 @@ sealed class Operation
     val borrower: account_id_type, // The account who repays to the credit offer
     val unpaid_amount: asset, // The amount that is unpaid
     val collateral: asset, // The collateral liquidated
-    val fee_rate: uint32_t = 0 // Fee rate, the demominator is GRAPHENE_FEE_RATE_DENOM
+    val fee_rate: uint32_t, // = 0 // Fee rate, the demominator is GRAPHENE_FEE_RATE_DENOM
 ) : Operation()    // Virtual

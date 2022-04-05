@@ -1,32 +1,34 @@
 package graphene.protocol
 
 import graphene.serializers.OptionalSerializer
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 
-//data class RIPEMD160(
-//    val value: String
-//)
+typealias Ripemd160 = String
+typealias Sha256 = String
 
-typealias BlockIdType = String  //typealias block_id_type = fc::ripemd160; TODO
-typealias ChecksumType = String //typealias checksum_type = fc::ripemd160; TODO
-typealias TransactionIdType = String  //typealias transaction_id_type = fc::ripemd160; TODO
-//typealias digest_type = fc::sha256; TODO
+typealias BlockIdType = Ripemd160 //typealias block_id_type = fc::ripemd160; TODO
+typealias ChecksumType = Ripemd160 //typealias checksum_type = fc::ripemd160; TODO
+typealias TransactionIdType = Ripemd160 //typealias transaction_id_type = fc::ripemd160; TODO
+typealias DigestType = Sha256 //typealias digest_type = fc::sha256; TODO
 typealias SignatureType = String // fc::ecc::compact_signature; TODO
-//typealias share_type = safe<int64_t>; TODO
-//typealias weight_type = uint16_t; TODO
+typealias ShareType = Int64 //typealias share_type = safe<int64_t>; TODO
+typealias WeightType = UInt16 //typealias weight_type = uint16_t; TODO
 
-typealias CommitmentType = String
-
+// crypto
+typealias BlindFactorType = Sha256 //typedef fc::sha256                               blind_factor_type;
+typealias CommitmentType = String //typedef zero_initialized_array<unsigned char,33> commitment_type;
+//typedef zero_initialized_array<unsigned char,33> public_key_data;
+//typedef fc::sha256                               private_key_secret;
+//typedef zero_initialized_array<unsigned char,65> public_key_point_data; ///< the full non-compressed version of the ECC point
+//typedef zero_initialized_array<unsigned char,72> signature;
+//typedef zero_initialized_array<unsigned char,65> compact_signature;
+typealias RangeProofType = List<Char> //typedef std::vector<char>                        range_proof_type;
+//typedef zero_initialized_array<unsigned char,78> extended_key_data;
 
 //using private_key_type = fc::ecc::private_key;
-typealias ChainIdType = String  //using chain_id_type = fc::sha256;
+typealias ChainIdType = Sha256  //using chain_id_type = fc::sha256;
 //using ratio_type = boost::rational<int32_t>;
+
 
 @Serializable(with = OptionalSerializer::class)
 data class Optional<T>(

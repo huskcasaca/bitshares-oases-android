@@ -13,7 +13,6 @@ typealias UInt8  = UByte
 typealias UInt16 = UShort
 typealias UInt32 = UInt
 typealias UInt64 = ULong
-typealias ShareType = Int64 // safe<int64_t>
 typealias UnsignedInt = UInt64 // TODO: 2022/4/3
 
 typealias Int8  = Byte
