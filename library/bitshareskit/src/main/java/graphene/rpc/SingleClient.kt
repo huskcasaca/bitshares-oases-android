@@ -204,8 +204,9 @@ class GrapheneClient(val node: Node, var debug: Boolean = true) : AbstractClient
 abstract class AbstractClient {
 
     val session = SupervisorJob()
-    val sendScope = CoroutineScope(Dispatchers.IO + session)
-    val receiveScope = CoroutineScope(Dispatchers.IO + session)
+    val sendScope = CoroutineScope(Dispatchers.IO.limitedParallelism(10) + session)
+    val receiveScope = CoroutineScope(Dispatchers.IO.limitedParallelism(10) + session)
+
     val channelScope = CoroutineScope(Dispatchers.IO)
 
 

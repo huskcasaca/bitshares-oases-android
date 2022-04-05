@@ -17,7 +17,7 @@ import java.util.*
     val from: AccountIdType, // Account to transfer asset from
     val to: AccountIdType, // Account to transfer asset to
     val amount: Asset, // The amount of asset to transfer from @ref from to @ref to
-    val memo: Optional<MemoData>, // User provided data encrypted to the memo key of the "to" account
+    val memo: Optional<MemoData> = optional(), // User provided data encrypted to the memo key of the "to" account
     val extensions: ExtensionsType,
 ) : Operation()
 /*  1 */ @Serializable data class LimitOrderCreateOperation(
@@ -33,7 +33,7 @@ import java.util.*
     val fee: Asset,
     val order: LimitOrderIdType,
     val fee_paying_account: AccountIdType, // must be order->seller
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /*  3 */ @Serializable data class CallOrderUpdateOperation(
@@ -74,26 +74,26 @@ import java.util.*
 ) : Operation() {
     @Serializable
     data class Ext(
-        val null_ext: Optional<Unit>,
-        val owner_special_authority: Optional<SpecialAuthority>,
-        val active_special_authority: Optional<SpecialAuthority>,
-        val buyback_options: Optional<BuybackAccountOptions>,
+        val null_ext: Optional<Unit> = optional(),
+        val owner_special_authority: Optional<SpecialAuthority> = optional(),
+        val active_special_authority: Optional<SpecialAuthority> = optional(),
+        val buyback_options: Optional<BuybackAccountOptions> = optional(),
     ): Extension<Ext>
 }
 
 /*  6 */ @Serializable data class AccountUpdateOperation(
     val fee: Asset,
     val account: AccountIdType, // The account to update
-    val owner: Optional<Authority>, // New owner authority. If set, this operation requires owner authority to execute.
-    val active: Optional<Authority>, // New active authority. This can be updated by the current active authority.
-    val new_options: Optional<AccountOptions>, // New account options
+    val owner: Optional<Authority> = optional(), // New owner authority. If set, this operation requires owner authority to execute.
+    val active: Optional<Authority> = optional(), // New active authority. This can be updated by the current active authority.
+    val new_options: Optional<AccountOptions> = optional(), // New account options
     val extensions: Ext,
 ) : Operation() {
     @Serializable
     data class Ext(
-        val null_ext: Optional<Unit>,
-        val owner_special_authority: Optional<SpecialAuthority>,
-        val active_special_authority: Optional<SpecialAuthority>,
+        val null_ext: Optional<Unit> = optional(),
+        val owner_special_authority: Optional<SpecialAuthority> = optional(),
+        val active_special_authority: Optional<SpecialAuthority> = optional(),
     )
 }
 
@@ -102,7 +102,7 @@ import java.util.*
     val authorizing_account: AccountIdType, // The account which is specifying an opinion of another account
     val account_to_list: AccountIdType, // The account being opined about
     val new_listing: UInt8, // = AccountListing.NO_LISTING // The new white and blacklist status of account_to_list, as determined by authorizing_account // This is a bitfield using values defined in the account_listing enum
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation() {
     @Serializable(with = AccountListingSerializer::class)
     enum class AccountListing(val value: UInt8) {
@@ -124,14 +124,14 @@ import java.util.*
     val fee: Asset, // The account to upgrade; must not already be a lifetime member
     val account_to_upgrade: AccountIdType, // If true, the account will be upgraded to a lifetime member; otherwise, it will add a year to the subscription
     val upgrade_to_lifetime_member: Boolean, // = false
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /*  9 */ @Serializable data class AccountTransferOperation(
     val fee: Asset,
     val account_id: AccountIdType,
     val new_owner: AccountIdType,
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 10 */ @Serializable data class AssetCreateOperation(
@@ -144,16 +144,16 @@ import java.util.*
     // ID is not known at the time this operation is created, create this price as though the new asset has instance
     // ID 1, and the chain will overwrite it with the new asset's ID.
     val common_options: AssetOptions,
-    val bitasset_opts: Optional<BitassetOptions>, // Options only available for BitAssets. MUST be non-null if and only if the asset is market-issued.
+    val bitasset_opts: Optional<BitassetOptions> = optional(), // Options only available for BitAssets. MUST be non-null if and only if the asset is market-issued.
     val is_prediction_market: Boolean, // = false, // For BitAssets, set this to true if the asset implements a prediction market; false otherwise
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 11 */ @Serializable data class AssetUpdateOperation(
     val fee: Asset,
     val issuer: AccountIdType,
     val asset_to_update: AssetIdType,
-    val new_issuer: Optional<AccountIdType>, // If the asset is to be given a new issuer, specify his ID here.
+    val new_issuer: Optional<AccountIdType> = optional(), // If the asset is to be given a new issuer, specify his ID here.
     val new_options: AssetOptions,
     val extensions: Ext,
 ) : Operation() {
@@ -161,10 +161,10 @@ import java.util.*
     data class Ext(
         // After BSIP48, the precision of an asset can be updated if no supply is available
         // @note The parties involved still need to be careful
-        val new_precision: Optional<UInt8>,
+        val new_precision: Optional<UInt8> = optional(),
         // After BSIP48, if this option is set to true, the asset's core_exchange_rate won't be updated.
         // This is especially useful for committee-owned bitassets which can not be updated quickly.
-        val skip_core_exchange_rate: Optional<Boolean>,
+        val skip_core_exchange_rate: Optional<Boolean> = optional(),
     ) : Extension<Ext>
 }
 
@@ -173,15 +173,15 @@ import java.util.*
     val issuer: AccountIdType,
     val asset_to_update: AssetIdType,
     val new_options: BitassetOptions,
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 13 */ @Serializable data class AssetUpdateFeedProducersOperation(
     val fee: Asset,
     val issuer: AccountIdType,
     val asset_to_update: AssetIdType,
-    val new_feed_producers: SortedSet<AccountIdType>,
-    val extensions: SortedSet<FutureExtensions>,
+    val new_feed_producers: FlatSet<AccountIdType>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 14 */ @Serializable data class AssetIssueOperation(
@@ -189,15 +189,15 @@ import java.util.*
     val issuer: AccountIdType, // Must be asset_to_issue->asset_id->issuer
     val asset_to_issue: Asset,
     val issue_to_account: AccountIdType,
-    val memo: Optional<MemoData>, // user provided data encrypted to the memo key of the "to" account
-    val extensions: SortedSet<FutureExtensions>,
+    val memo: Optional<MemoData> = optional(), // user provided data encrypted to the memo key of the "to" account
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 15 */ @Serializable data class AssetReserveOperation(
     val fee: Asset,
     val payer: AccountIdType,
     val amount_to_reserve: Asset,
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 16 */ @Serializable data class AssetFundFeePoolOperation(
@@ -205,14 +205,14 @@ import java.util.*
     val from_account: AccountIdType,
     val asset_id: AssetIdType,
     val amount: ShareType, // core asset
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 17 */ @Serializable data class AssetSettleOperation(
     val fee: Asset,
     val account: AccountIdType, // Account requesting the force settlement. This account pays the fee
     val amount: Asset, // Amount of asset to force settle. This must be a market-issued asset
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 18 */ @Serializable data class AssetGlobalSettleOperation(
@@ -220,7 +220,7 @@ import java.util.*
     val issuer: AccountIdType, // must equal issuer of @ref asset_to_settle
     val asset_to_settle: AssetIdType,
     val settle_price: PriceType,
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 19 */ @Serializable data class AssetPublishFeedOperation(
@@ -233,7 +233,7 @@ import java.util.*
     @Serializable
     data class Ext(
         // After BSIP77, price feed producers can feed ICR too
-        val initial_collateral_ratio: Optional<UInt16>  // BSIP-77
+        val initial_collateral_ratio: Optional<UInt16> = optional()  // BSIP-77
     ): Extension<Ext>
 }
 
@@ -249,8 +249,8 @@ import java.util.*
     val fee: Asset,
     val witness: WitnessIdType, // The witness object to update.
     val witness_account: AccountIdType, // The account which owns the witness. This account pays the fee for this operation.
-    val new_url: Optional<String>, // The new URL.
-    val new_signing_key: Optional<PublicKeyType>, // The new block signing key.
+    val new_url: Optional<String> = optional(), // The new URL.
+    val new_signing_key: Optional<PublicKeyType> = optional(), // The new block signing key.
 ) : Operation()
 
 /* 22 */ @Serializable data class ProposalCreateOperation(
@@ -258,21 +258,21 @@ import java.util.*
     val fee_paying_account: AccountIdType,
     val proposed_ops: List<OperationWrapper>,
     val expiration_time: time_point_sec,
-    val review_period_seconds: Optional<UInt32>,
-    val extensions: SortedSet<FutureExtensions>,
+    val review_period_seconds: Optional<UInt32> = optional(),
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 23 */ @Serializable data class ProposalUpdateOperation(
     val fee_paying_account: AccountIdType,
     val fee: Asset,
     val proposal: ProposalIdType,
-    val active_approvals_to_add: SortedSet<AccountIdType>,
-    val active_approvals_to_remove: SortedSet<AccountIdType>,
-    val owner_approvals_to_add: SortedSet<AccountIdType>,
-    val owner_approvals_to_remove: SortedSet<AccountIdType>,
-    val key_approvals_to_add: SortedSet<PublicKeyType>,
-    val key_approvals_to_remove: SortedSet<PublicKeyType>,
-    val extensions: SortedSet<FutureExtensions>,
+    val active_approvals_to_add: FlatSet<AccountIdType>,
+    val active_approvals_to_remove: FlatSet<AccountIdType>,
+    val owner_approvals_to_add: FlatSet<AccountIdType>,
+    val owner_approvals_to_remove: FlatSet<AccountIdType>,
+    val key_approvals_to_add: FlatSet<PublicKeyType>,
+    val key_approvals_to_remove: FlatSet<PublicKeyType>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 24 */ @Serializable data class ProposalDeleteOperation(
@@ -280,7 +280,7 @@ import java.util.*
     val using_owner_authority: Boolean = false,
     val fee: Asset,
     val proposal: ProposalIdType,
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 25 */ @Serializable data class WithdrawPermissionCreateOperation(
@@ -309,7 +309,7 @@ import java.util.*
     val withdraw_from_account: AccountIdType, // Must match withdraw_permission->withdraw_from_account
     val withdraw_to_account: AccountIdType, // Must match withdraw_permision->authorized_account
     val amount_to_withdraw: Asset, // Amount to withdraw. Must not exceed withdraw_permission->withdrawal_limit
-    val memo: Optional<MemoData>, // Memo for withdraw_from_account. Should generally be encrypted with withdraw_from_account->memo_key
+    val memo: Optional<MemoData> = optional(), // Memo for withdraw_from_account. Should generally be encrypted with withdraw_from_account->memo_key
 ) : Operation()
 
 /* 28 */ @Serializable data class WithdrawPermissionDeleteOperation(
@@ -335,7 +335,7 @@ import java.util.*
     val committee_member: CommitteeMemberIdType,
     // The account which owns the committee_member. This account pays the fee for this operation.
     val committee_member_account: AccountIdType,
-    val new_url: Optional<String>,
+    val new_url: Optional<String> = optional(),
 ) : Operation()
 /* 31 */ @Serializable data class CommitteeMemberUpdateGlobalParametersOperation(
     val fee: Asset,
@@ -373,7 +373,7 @@ import java.util.*
 /* 35 */ @Serializable data class CustomOperation(
     val fee: Asset,
     val payer: AccountIdType,
-    val required_auths: SortedSet<AccountIdType>,
+    val required_auths: FlatSet<AccountIdType>,
     val id: UInt16, // = 0
     val data: List<Char>,
 ) : Operation()
@@ -382,8 +382,8 @@ import java.util.*
     val fee: Asset,
     val fee_paying_account: AccountIdType,
     val predicates: List<Predicate>,
-    val required_auths: SortedSet<AccountIdType>,
-    val extensions: SortedSet<FutureExtensions>,
+    val required_auths: FlatSet<AccountIdType>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 37 */ @Serializable data class BalanceClaimOperation(
@@ -400,8 +400,8 @@ import java.util.*
     val from: AccountIdType, // Account to transfer asset to
     val to: AccountIdType, // The amount of asset to transfer from @ref from to @ref to
     val amount: Asset, // User provided data encrypted to the memo key of the "to" account
-    val memo: Optional<MemoData>,
-    val extensions: SortedSet<FutureExtensions>,
+    val memo: Optional<MemoData> = optional(),
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 39 */ @Serializable data class TransferToBlindOperation(
@@ -446,7 +446,7 @@ import java.util.*
         // asset as amount_to_claim is denominated in, such as would be the case when claiming
         // market fees. If set, validation requires it to be a different asset_id than
         // amount_to_claim (else there would exist two ways to form the same request).
-        @SerialName("claim_from_asset_id") val claimFromAssetId: Optional<AssetIdType>
+        @SerialName("claim_from_asset_id") val claimFromAssetId: Optional<AssetIdType> = optional()
     ) : Extension<AdditionalOptionsType>
 }
 
@@ -462,7 +462,7 @@ import java.util.*
     val bidder: AccountIdType, // pays fee and additional collateral
     val additional_collateral: Asset, // the amount of collateral to bid for the debt
     val debt_covered: Asset, // the amount of debt to take over
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 46 */ @Serializable data class ExecuteBidOperation(
@@ -477,7 +477,7 @@ import java.util.*
     val issuer: AccountIdType,
     val asset_id: AssetIdType, // fee.asset_id must != asset_id
     val amount_to_claim: Asset, // core asset
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 48 */ @Serializable data class AssetUpdateIssuerOperation(
@@ -485,7 +485,7 @@ import java.util.*
     val issuer: AccountIdType,
     val asset_to_update: AssetIdType,
     val new_issuer: AccountIdType,
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 49 */ @Serializable data class HtlcCreateOperation(
@@ -500,7 +500,7 @@ import java.util.*
 ) : Operation() {
     @Serializable
     data class AdditionalOptionsType(
-        @SerialName("memo") val memo: Optional<MemoData>,
+        @SerialName("memo") val memo: Optional<MemoData> = optional(),
     ) : Extension<AdditionalOptionsType>
 }
 
@@ -509,7 +509,7 @@ import java.util.*
     val htlc_id: HtlcIdType, // the object we are attempting to update
     val redeemer: AccountIdType, // who is attempting to update the transaction
     val preimage: List<Char>, // the preimage (not used if after epoch timeout)
-    val extensions: SortedSet<FutureExtensions>, // for future expansion
+    val extensions: ExtensionsType, // for future expansion
 ) : Operation()
 
 /* 51 */ @Serializable data class HtlcRedeemedOperation(
@@ -529,7 +529,7 @@ import java.util.*
     val htlc_id: HtlcIdType, // the object we are attempting to update
     val update_issuer: AccountIdType, // who is attempting to update the transaction
     val seconds_to_add: UInt32, // how much to add
-    val extensions: SortedSet<FutureExtensions>, // for future expansion
+    val extensions: ExtensionsType, // for future expansion
 ) : Operation()
 
 // TODO: 2022/4/5
@@ -552,26 +552,26 @@ import java.util.*
     val operation_type: UnsignedInt, // Tag of the operation this custom authority can authorize
     val auth: Authority, // Authentication requirements for the custom authority
     val restrictions: List<Restriction>, // Restrictions on operations this custom authority can authenticate
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 55 */ @Serializable data class CustomAuthorityUpdateOperation(
     val fee: Asset,
     val account: AccountIdType, // Account which owns the custom authority to update; also pays the fee
     val authority_to_update: CustomAuthorityIdType, // ID of the custom authority to update
-    val new_enabled: Optional<Boolean>, // Change to whether the custom authority is enabled or not
-    val new_valid_from: Optional<time_point_sec>, // Change to the custom authority begin date
-    val new_valid_to: Optional<time_point_sec>, // Change to the custom authority expiration date
-    val new_auth: Optional<Authority>, // Change to the authentication for the custom authority
-    val restrictions_to_remove: SortedSet<UInt16>, // Set of IDs of restrictions to remove
+    val new_enabled: Optional<Boolean> = optional(), // Change to whether the custom authority is enabled or not
+    val new_valid_from: Optional<time_point_sec> = optional(), // Change to the custom authority begin date
+    val new_valid_to: Optional<time_point_sec> = optional(), // Change to the custom authority expiration date
+    val new_auth: Optional<Authority> = optional(), // Change to the authentication for the custom authority
+    val restrictions_to_remove: FlatSet<UInt16>, // Set of IDs of restrictions to remove
     val restrictions_to_add: List<Restriction>, // Vector of new restrictions
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 /* 56 */ @Serializable data class CustomAuthorityDeleteOperation(
     val fee: Asset,
     val account: AccountIdType, // Account which owns the custom authority to update; also pays the fee
     val authority_to_delete: CustomAuthorityIdType, // ID of the custom authority to delete
-    val extensions: SortedSet<FutureExtensions>,
+    val extensions: ExtensionsType,
 ) : Operation()
 
 /* 57 */ @Serializable data class TicketCreateOperation(
@@ -579,7 +579,7 @@ import java.util.*
     val account: AccountIdType, // The account who creates the ticket
     val target_type: UnsignedInt, // The target ticket type, see @ref ticket_type
     val amount: Asset, // The amount of the ticket
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 /* 58 */ @Serializable data class TicketUpdateOperation(
@@ -587,8 +587,8 @@ import java.util.*
     val ticket: TicketIdType, // The ticket to update
     val account: AccountIdType, // The account who owns the ticket
     val target_type: UnsignedInt, // New target ticket type, see @ref ticket_type
-    val amount_for_new_target: Optional<Asset>, // The amount to be used for the new target
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val amount_for_new_target: Optional<Asset> = optional(), // The amount to be used for the new target
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 /* 59 */ @Serializable data class LiquidityPoolCreateOperation(
@@ -599,14 +599,14 @@ import java.util.*
     val share_asset: AssetIdType, // Type of the share asset aka the LP token
     val taker_fee_percent: UInt16, // = 0 // Taker fee percent
     val withdrawal_fee_percent: UInt16, // = 0 // Withdrawal fee percent
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 /* 60 */ @Serializable data class LiquidityPoolDeleteOperation(
     val fee: Asset, // Operation fee
     val account: AccountIdType, // The account who owns the liquidity pool
     val pool: LiquidityPoolIdType, // ID of the liquidity pool
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 
@@ -616,7 +616,7 @@ import java.util.*
     val pool: LiquidityPoolIdType, // ID of the liquidity pool
     val amount_a: Asset, // The amount of the first asset to deposit
     val amount_b: Asset, // The amount of the second asset to deposit
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 
 ) : Operation()
 /* 62 */ @Serializable data class LiquidityPoolWithdrawOperation(
@@ -624,7 +624,7 @@ import java.util.*
     val account: AccountIdType, // The account who withdraws from the liquidity pool
     val pool: LiquidityPoolIdType, // ID of the liquidity pool
     val share_amount: Asset, // The amount of the share asset to use
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 /* 63 */ @Serializable data class LiquidityPoolExchangeOperation(
@@ -633,7 +633,7 @@ import java.util.*
     val pool: LiquidityPoolIdType, // ID of the liquidity pool
     val amount_to_sell: Asset, // The amount of one asset type to sell
     val min_to_receive: Asset, // The minimum amount of the other asset type to receive
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 /* 64 */ @Serializable data class SametFundCreateOperation(
@@ -642,23 +642,23 @@ import java.util.*
     val asset_type: AssetIdType, // Asset type in the fund
     val balance: ShareType,// Usable amount in the fund
     val fee_rate: UInt32, // = 0 // Fee rate, the demominator is GRAPHENE_FEE_RATE_DENOM
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 /* 65 */ @Serializable data class SametFundDeleteOperation(
     val fee: Asset, // Operation fee
     val owner_account: AccountIdType, // The account who owns the SameT Fund object
     val fund_id: SametFundIdType, // ID of the SameT Fund object
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 /* 66 */ @Serializable data class SametFundUpdateOperation(
     val fee: Asset, // Operation fee
     val owner_account: AccountIdType, // Owner of the fund
     val fund_id: SametFundIdType, // ID of the SameT Fund object
-    val delta_amount: Optional<Asset>, // Delta amount, optional
-    val new_fee_rate: Optional<UInt32>, // New fee rate, optional
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val delta_amount: Optional<Asset> = optional(), // Delta amount, optional
+    val new_fee_rate: Optional<UInt32> = optional(), // New fee rate, optional
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 /* 67 */ @Serializable data class SametFundBorrowOperation(
@@ -666,7 +666,7 @@ import java.util.*
     val borrower: AccountIdType, // The account who borrows from the fund
     val fund_id: SametFundIdType, // ID of the SameT Fund
     val borrow_amount: Asset, // The amount to borrow
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 
 ) : Operation()
 
@@ -676,7 +676,7 @@ import java.util.*
     val fund_id: SametFundIdType, // ID of the SameT Fund
     val repay_amount: Asset, // The amount to repay
     val fund_fee: Asset, // Fee for using the fund
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 
 ) : Operation()
 
@@ -691,31 +691,31 @@ import java.util.*
     val min_deal_amount: ShareType, // Minimum amount to borrow for each new deal
     val enabled: Boolean, // = false // Whether this offer is available
     val auto_disable_time: time_point_sec, // The time when this offer will be disabled automatically
-    val acceptable_collateral: SortedMap<AssetIdType, PriceType>, // Types and rates of acceptable collateral
-    val acceptable_borrowers: SortedMap<AccountIdType, ShareType>, // Allowed borrowers and their maximum amounts to borrow. No limitation if empty.
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val acceptable_collateral: FlatMap<AssetIdType, PriceType>, // Types and rates of acceptable collateral
+    val acceptable_borrowers: FlatMap<AccountIdType, ShareType>, // Allowed borrowers and their maximum amounts to borrow. No limitation if empty.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 /* 70 */ @Serializable data class CreditOfferDeleteOperation(
     val fee: Asset, // Operation fee
     val owner_account: AccountIdType, // The account who owns the credit offer
     val offer_id: CreditOfferIdType, // ID of the credit offer
-    val extensions: SortedSet<FutureExtensions>,// Unused. Reserved for future use.
+    val extensions: ExtensionsType,// Unused. Reserved for future use.
 ) : Operation()
 
 /* 71 */ @Serializable data class CreditOfferUpdateOperation(
     val fee: Asset, // Operation fee
     val owner_account: AccountIdType, // Owner of the credit offer
     val offer_id: CreditOfferIdType, // ID of the credit offer
-    val delta_amount: Optional<Asset>, // Delta amount, optional
-    val fee_rate: Optional<UInt32>, // New fee rate, optional
-    val max_duration_seconds: Optional<UInt32>, // New repayment time limit, optional
-    val min_deal_amount: Optional<ShareType>, // Minimum amount to borrow for each new deal, optional
-    val enabled: Optional<Boolean>, // Whether this offer is available, optional
+    val delta_amount: Optional<Asset> = optional(), // Delta amount, optional
+    val fee_rate: Optional<UInt32> = optional(), // New fee rate, optional
+    val max_duration_seconds: Optional<UInt32> = optional(), // New repayment time limit, optional
+    val min_deal_amount: Optional<ShareType> = optional(), // Minimum amount to borrow for each new deal, optional
+    val enabled: Optional<Boolean> = optional(), // Whether this offer is available, optional
     val auto_disable_time: Optional<time_point_sec>, // New time to disable automatically, optional
-    val acceptable_collateral: Optional<SortedMap<AssetIdType, PriceType>>, // New types and rates of acceptable collateral, optional
-    val acceptable_borrowers: Optional<SortedMap<AccountIdType, ShareType>>, // New allowed borrowers and their maximum amounts to borrow, optional
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val acceptable_collateral: Optional<FlatMap<AssetIdType, PriceType>> = optional(), // New types and rates of acceptable collateral, optional
+    val acceptable_borrowers: Optional<FlatMap<AccountIdType, ShareType>> = optional(), // New allowed borrowers and their maximum amounts to borrow, optional
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 /* 72 */ @Serializable data class CreditOfferAcceptOperation(
@@ -726,7 +726,7 @@ import java.util.*
     val collateral: Asset, // The collateral
     val max_fee_rate: UInt32, // = 0 // The maximum acceptable fee rate
     val min_duration_seconds: UInt32, // = 0 // The minimum acceptable duration
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 /* 73 */ @Serializable data class CreditDealRepayOperation(
@@ -735,7 +735,7 @@ import java.util.*
     val deal_id: CreditDealIdType, // ID of the credit deal
     val repay_amount: Asset, // The amount to repay
     val credit_fee: Asset, // The credit fee relative to the amount to repay
-    val extensions: SortedSet<FutureExtensions>, // Unused. Reserved for future use.
+    val extensions: ExtensionsType, // Unused. Reserved for future use.
 ) : Operation()
 
 /* 74 */ @Serializable data class CreditDealExpiredOperation(

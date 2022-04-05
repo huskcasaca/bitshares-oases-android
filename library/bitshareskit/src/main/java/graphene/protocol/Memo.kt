@@ -22,7 +22,7 @@ data class MemoData(
     /**
      * This field contains the AES encrypted packed @ref memo_message
      */
-    val message: List<Char>,
+    val message: String, // TODO: 2022/4/5 List<Char>
 ) {
 
 //    /// @note custom_nonce is for debugging only; do not set to a nonzero value in production
