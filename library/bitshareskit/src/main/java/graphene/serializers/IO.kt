@@ -25,21 +25,21 @@ class IO : BinaryFormat {
 abstract class IOEncoder : AbstractEncoder() {
     private val headerSizeHint = 0
     protected val builder = BytePacketBuilder(headerSizeHint)
-    private fun Output.writeVarLong(v: Long) {
-        var value = v
-        while (value and -0x80L != 0L) {
-            writeByte((value and 0x7F or 0x80).toByte())
-            value = value ushr 7
+    private fun Output.writeVarLong(value: Long) {
+        var curr = value
+        while (curr and -0x80L != 0L) {
+            writeByte((curr and 0x7F or 0x80).toByte())
+            curr = curr ushr 7
         }
-        writeByte((value and 0x7F).toByte())
+        writeByte((curr and 0x7F).toByte())
     }
-    private fun Output.writeVarInt(v: Int) {
-        var value = v
-        while (value and -0x80 != 0) {
-            writeByte((value and 0x7F or 0x80).toByte())
-            value = value ushr 7
+    private fun Output.writeVarInt(value: Int) {
+        var curr = value
+        while (curr and -0x80 != 0) {
+            writeByte((curr and 0x7F or 0x80).toByte())
+            curr = curr ushr 7
         }
-        writeByte((value and 0x7F).toByte())
+        writeByte((curr and 0x7F).toByte())
     }
     fun encodeByteArray(value: ByteArray): Unit = builder.writeFully(value)
     fun encodeVarInt(value: Int): Unit = builder.writeVarInt(value)

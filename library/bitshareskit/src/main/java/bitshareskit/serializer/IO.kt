@@ -91,8 +91,7 @@ fun Output.writeGrapheneTypes(item: Any) {
     }
 }
 
-
-//fun Output.writeVarUInt(value: UInt) {
+//fun Output.writeVarInt(value: UInt) {
 //    var current = value
 //    while (true) {
 //        val masked = current.and(0x7FU).toInt()
@@ -106,27 +105,36 @@ fun Output.writeGrapheneTypes(item: Any) {
 //    }
 //}
 
-fun Output.writeVarLong(v: Long) {
-    var value = v
-    while (value and -0x80L != 0L) {
-        writeByte((value and 0x7F or 0x80).toByte())
-        value = value ushr 7
+//fun Output.writeVarInt(value: UInt) {
+//    var curr = value
+//    while (curr shr 7 != 0U) {
+//        writeByte((curr and 0x7FU or 0x80U).toByte())
+//        curr = curr shr 7
+//    }
+//    writeByte(curr.and(0x7FU).toByte())
+//}
+//fun Output.writeVarInt(value: UInt) = writeVarInt(value.toInt())
+fun Output.writeVarInt(value: Int) {
+    var curr = value
+    while (curr and -0x80 != 0) {
+        writeByte((curr and 0x7F or 0x80).toByte())
+        curr = curr ushr 7
     }
-    writeByte((value and 0x7F).toByte())
-}
-
-//fun Output.writeVarLongUnsigned(v: Long) = writeVarLong(v shl 1 xor (v shr 63))
-
-fun Output.writeVarInt(v: Int) {
-    var value = v
-    while (value and -0x80 != 0) {
-        writeByte((value and 0x7F or 0x80).toByte())
-        value = value ushr 7
-    }
-    writeByte((value and 0x7F).toByte())
+    writeByte((curr and 0x7F).toByte())
 }
 
 //fun Output.writeVarIntUnsigned(v: Int) = writeVarInt(v shl 1 xor (v shr 31))
+
+fun Output.writeVarLong(value: Long) {
+    var curr = value
+    while (curr and -0x80L != 0L) {
+        writeByte((curr and 0x7F or 0x80).toByte())
+        curr = curr ushr 7
+    }
+    writeByte((curr and 0x7F).toByte())
+}
+
+//fun Output.writeVarLongUnsigned(v: Long) = writeVarLong(v shl 1 xor (v shr 63))
 
 
 
