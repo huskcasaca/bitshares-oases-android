@@ -80,10 +80,11 @@ data class K118_TicketObject(
 
 }
 
+@Serializable
 enum class TicketStatus {
-    CHARGING,
-    STABLE,
-    WITHDRAWING,
+    @SerialName("charging") CHARGING,
+    @SerialName("stable") STABLE,
+    @SerialName("withdrawing") WITHDRAWING,
 }
 
 

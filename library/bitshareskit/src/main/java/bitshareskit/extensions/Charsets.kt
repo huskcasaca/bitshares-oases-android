@@ -14,8 +14,7 @@ internal fun String.toHexByteArray1() = chunked(2).map { it.toInt(16).toByte() }
 
 internal fun String?.toHexByteArrayOrEmpty() = this?.toHexByteArray() ?: byteArrayOf()
 
-internal fun ByteArray.toHexString() = this.joinToString(separator = "") { String.format("%02x", (it.toInt() and 0xFF)) }
-internal fun ByteArray.toHexString1() = joinToString("") { "%02x".format(it) }
+internal fun ByteArray.toHexString() = joinToString("") { "%02x".format(it) }
 
 internal const val EMPTY_SPACE = ""
 internal const val BLANK_SPACE = " "

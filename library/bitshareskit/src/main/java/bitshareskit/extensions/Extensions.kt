@@ -53,7 +53,7 @@ fun logcat(vararg message: Any?) {
     }
 
 }
-fun Any?.info() {
+fun Any?.info() = apply {
     runCatching {
         if (this == null) Log.i("logloglog", "NULL") else Log.i("logloglog", this::class.simpleName + " " + this.toString())
     }.onFailure {

@@ -465,10 +465,10 @@ data class BitassetOptions(
 
 @Serializable
 enum class BlackSwanResponseType {
-    GLOBAL_SETTLEMENT,
-    NO_SETTLEMENT,
-    INDIVIDUAL_SETTLEMENT_TO_FUND,
-    INDIVIDUAL_SETTLEMENT_TO_ORDER,
+    @SerialName("global_settlement") GLOBAL_SETTLEMENT,
+    @SerialName("no_settlement") NO_SETTLEMENT,
+    @SerialName("individual_settlement_to_fund") INDIVIDUAL_SETTLEMENT_TO_FUND,
+    @SerialName("individual_settlement_to_order") INDIVIDUAL_SETTLEMENT_TO_ORDER,
 }
 
 @Serializable

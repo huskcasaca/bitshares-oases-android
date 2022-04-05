@@ -20,7 +20,7 @@ object FutureExtensionSerializer : StaticVarSerializer<Unit>(
 )
 
 typealias FlatSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet<T>
-typealias StatSet<T> = @Serializable(with = StaticVarSetSerializer::class) SortedSet<T>
+typealias StatSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet<T>
 
 typealias FlatMap<K, V> = @Serializable(with = SortedMapSerializer::class) SortedMap<K, V>
 typealias TypeSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet<T>

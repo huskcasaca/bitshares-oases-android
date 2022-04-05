@@ -19,7 +19,7 @@ internal val ID_TYPE_DESCRIPTOR = PrimitiveSerialDescriptor("ObjectIdType", Prim
 class ObjectSerializer<T: AbstractObject> : KSerializer<T> {
     override val descriptor: SerialDescriptor = ID_TYPE_DESCRIPTOR
     override fun deserialize(decoder: Decoder): T {
-        decoder as JsonDecoder
+        decoder as JsonDecoder // TODO: 2022/4/5
         val element = decoder.decodeJsonElement().jsonObject
         @OptIn(InternalSerializationApi::class)
         val serializer = element["id"]!!.jsonPrimitive.content.toGrapheneType().toObjectClass().serializer()

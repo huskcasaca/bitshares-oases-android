@@ -88,6 +88,7 @@ data class K201_DynamicGlobalPropertyObject(
 //    static constexpr uint8_t space_id = implementation_ids;
 //    static constexpr uint8_t type_id  = impl_dynamic_global_property_object_type;
 
+    // TODO: 2022/4/6
     enum class DynamicFlagBits {
         /**
          * If maintenance_flag is set, then the head block is a
