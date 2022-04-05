@@ -19,7 +19,7 @@ abstract class StaticVarSerializer<T: Any>(
 ) : KSerializer<T> {
 
     @OptIn(InternalSerializationApi::class)
-    private fun getSerializer(tag: Int64): KSerializer<out T> {
+    fun getSerializer(tag: Int64): KSerializer<out T> {
         val clazz = typelist[tag.toInt32()]
         return clazz.serializerOrNull() ?: fallback[clazz]!!
     }

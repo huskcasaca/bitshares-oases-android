@@ -14,7 +14,7 @@ import java.util.*
 import kotlin.Comparator
 
 class SortedSetSerializer<T: Comparable<T>>(
-    private val elementSerializer: KSerializer<out T>
+    private val elementSerializer: KSerializer<T>
 ) : KSerializer<SortedSet<T>> {
     override val descriptor: SerialDescriptor = setSerialDescriptor(elementSerializer.descriptor)
     override fun deserialize(decoder: Decoder): SortedSet<T> {
@@ -23,7 +23,14 @@ class SortedSetSerializer<T: Comparable<T>>(
             decoder.json.decodeFromJsonElement(elementSerializer, it)
         }.toSortedSet()
     }
-    override fun serialize(encoder: Encoder, value: SortedSet<T>) = TODO()
+    override fun serialize(encoder: Encoder, value: SortedSet<T>) {
+        val size = value.size
+        val composite = encoder.beginCollection(elementSerializer.descriptor, size)
+        val iterator = value.iterator()
+        for (index in 0 until size)
+            composite.encodeSerializableElement(descriptor, index, elementSerializer, iterator.next())
+        composite.endStructure(descriptor)
+    }
 }
 
 class StaticVarSetSerializer<T: Any>(
@@ -34,14 +41,23 @@ class StaticVarSetSerializer<T: Any>(
         elementSerializer.typelist.indexOf(o1::class) - elementSerializer.typelist.indexOf(o2::class)
     }
     override fun deserialize(decoder: Decoder): SortedSet<T> {
-        decoder as JsonDecoder
-        return decoder.decodeJsonElement().jsonArray.map {
-            decoder.json.decodeFromJsonElement(elementSerializer, it)
-        }.toSortedSet(comparator)
+        if (decoder is JsonDecoder) {
+            return decoder.decodeJsonElement().jsonArray.map {
+                decoder.json.decodeFromJsonElement(elementSerializer, it)
+            }.toSortedSet(comparator)
+        } else {
+            TODO()
+        }
     }
-    override fun serialize(encoder: Encoder, value: SortedSet<T>) = TODO()
+    override fun serialize(encoder: Encoder, value: SortedSet<T>) {
+        val size = value.size
+        val composite = encoder.beginCollection(elementSerializer.descriptor, size)
+        val iterator = value.iterator()
+        for (index in 0 until size)
+            composite.encodeSerializableElement(descriptor, index, elementSerializer, iterator.next())
+        composite.endStructure(descriptor)
+    }
 }
-
 
 class SortedMapSerializer<K: Comparable<K>, V>(
     private val keySerializer: KSerializer<K>,
@@ -55,7 +71,9 @@ class SortedMapSerializer<K: Comparable<K>, V>(
             { decoder.json.decodeFromJsonElement(valueSerializer, it.jsonArray[1]) }
         ).toSortedMap()
     }
-    override fun serialize(encoder: Encoder, value: SortedMap<K, V>) = TODO()
+    override fun serialize(encoder: Encoder, value: SortedMap<K, V>) {
+        TODO()
+    }
 }
 
 class PairAsArraySerializer<A, B>(

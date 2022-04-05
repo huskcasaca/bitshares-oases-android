@@ -5,6 +5,7 @@ import graphene.protocol.*
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -38,7 +39,15 @@ class ObjectIdSerializer<T: ObjectId> : KSerializer<T> {
     override val descriptor: SerialDescriptor = ID_TYPE_DESCRIPTOR
     override fun deserialize(decoder: Decoder): T =
         decoder.decodeString().toGrapheneObjectId()
-    override fun serialize(encoder: Encoder, value: T) = encoder.encodeString(value.standardId)
+    override fun serialize(encoder: Encoder, value: T) {
+        if (encoder is JsonEncoder) {
+            encoder.encodeString(value.standardId)
+        } else if (encoder is IOEncoder) {
+            encoder.encodeVarLong(value.instance.toLong())
+        } else {
+            TODO()
+        }
+    }
 }
 
 

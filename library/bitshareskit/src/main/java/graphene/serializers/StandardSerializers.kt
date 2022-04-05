@@ -11,6 +11,7 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonEncoder
 
 object VoteIdTypeSerializer : KSerializer<VoteIdType> {
     override val descriptor: SerialDescriptor =
@@ -44,9 +45,13 @@ class OptionalSerializer<T>(
         }
     }
     override fun serialize(encoder: Encoder, value: Optional<T>) {
-        if (value.isPresent) {
-            elementSerializer.serialize(encoder, value.value)
+        if (encoder is JsonEncoder) {
+            if (value.isPresent) elementSerializer.serialize(encoder, value.value)
+        } else if (encoder is IOEncoder) {
+            encoder.encodeBoolean(value.isPresent)
+            if (value.isPresent) elementSerializer.serialize(encoder, value.value)
         } else {
+            TODO()
         }
     }
 

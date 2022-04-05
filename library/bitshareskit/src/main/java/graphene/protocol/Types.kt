@@ -11,6 +11,8 @@ import java.util.*
 typealias ExtensionsType = StatSet<FutureExtensions>
 typealias FutureExtensions = @Serializable(with = FutureExtensionSerializer::class) Unit
 
+fun emptyExtension() = sortedSetOf<Unit>()
+
 object FutureExtensionSerializer : StaticVarSerializer<Unit>(
     listOf(
         Unit::class
