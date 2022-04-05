@@ -17,7 +17,4 @@ data class K105_CommitteeMemberObject(
     val totalVotes: UInt64 = 0U,
     @SerialName("url")
     val url: String,
-) : AbstractObject(), CommitteeMemberIdType {
-
-
-}
+) : AbstractObject(), CommitteeMemberIdType

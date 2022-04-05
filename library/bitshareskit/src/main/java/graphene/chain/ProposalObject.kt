@@ -3,10 +3,8 @@ package graphene.chain
 import graphene.protocol.*
 import graphene.serializers.TimePointSecSerializer
 import kotlinx.datetime.Instant
-import kotlinx.datetime.serializers.InstantIso8601Serializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class K110_ProposalObject(

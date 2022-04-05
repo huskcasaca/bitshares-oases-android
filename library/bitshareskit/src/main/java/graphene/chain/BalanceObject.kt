@@ -30,4 +30,3 @@ data class K115_BalanceObject(
 //
 //    asset_id_type asset_type()const { return balance.asset_id; }
 }
-

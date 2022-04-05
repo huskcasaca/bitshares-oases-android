@@ -79,3 +79,16 @@ data class K118_TicketObject(
     //void update_value( ticket_version version );
 
 }
+
+enum class TicketStatus {
+    CHARGING,
+    STABLE,
+    WITHDRAWING,
+}
+
+
+// Version of a ticket
+enum class TicketVersion(val version: Int32) {
+    TICKET_V1(1),
+    TICKET_V2(2),
+}

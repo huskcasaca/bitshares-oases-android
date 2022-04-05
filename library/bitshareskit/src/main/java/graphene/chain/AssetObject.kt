@@ -7,6 +7,50 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+data class K103_AssetObject(
+    @SerialName("id")
+    override val id: AssetId,
+
+    @SerialName("symbol")
+    override val symbol: String,
+    @SerialName("issuer")
+    override val issuer: AccountIdType,
+    @SerialName("precision")
+    override val precision: UInt8,
+    @SerialName("options")
+    override val options: AssetOptions,
+
+    @SerialName("dynamic_asset_data_id")
+    override val dynamicData: AssetDynamicDataIdType,
+    @SerialName("bitasset_data_id")
+    override val bitassetData: Optional<AssetBitassetDataIdType> = optional(),
+    @SerialName("buyback_account")
+    override val buybackAccount: Optional<AccountIdType> = optional(),
+    @SerialName("for_liquidity_pool")
+    override val liquidityPool: Optional<LiquidityPoolIdType> = optional(),
+) : AbstractObject(), AssetIdType
+
+
+
+@Serializable
+data class K203_AssetDynamicDataObject(
+    @SerialName("id")
+    override val id: AssetDynamicDataId,
+    @SerialName("current_supply")
+    override val currentSupply: ShareType,
+    @SerialName("confidential_supply")
+    override val confidentialSupply: ShareType,
+    @SerialName("accumulated_fees")
+    override val accumulatedFees: ShareType,
+    @SerialName("accumulated_collateral_fees")
+    override val accumulatedCollateralFees: ShareType,
+    @SerialName("fee_pool")
+    override val feePool: ShareType,
+) : AbstractObject(), AssetDynamicDataIdType
+
+
+
+@Serializable
 data class K204_AssetBitassetDataObject(
     @SerialName("id")
     override val id: AssetBitassetDataId,

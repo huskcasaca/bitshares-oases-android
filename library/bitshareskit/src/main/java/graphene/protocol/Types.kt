@@ -1,10 +1,31 @@
 package graphene.protocol
 
-import graphene.serializers.OptionalSerializer
-import graphene.serializers.TimePointSecSerializer
+import graphene.serializers.*
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
+import java.util.*
+
+// threshold weight
+
+typealias ExtensionsType = StatSet<FutureExtensions>
+typealias FutureExtensions = @Serializable(with = FutureExtensionSerializer::class) Unit
+
+object FutureExtensionSerializer : StaticVarSerializer<Unit>(
+    listOf(
+        Unit::class
+    )
+)
+
+typealias FlatSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet<T>
+typealias StatSet<T> = @Serializable(with = StaticVarSetSerializer::class) SortedSet<T>
+
+typealias FlatMap<K, V> = @Serializable(with = SortedMapSerializer::class) SortedMap<K, V>
+typealias TypeSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet<T>
+typealias PairArray<A, B> = @Serializable(with = PairAsArraySerializer::class) Pair<A, B>
+
+typealias PriceFeeds = FlatMap<AccountId, PairArray<@Serializable(TimePointSecSerializer::class) Instant, PriceFeedWithIcr>>
+
 
 typealias Ripemd160 = String
 typealias Sha256 = String
