@@ -11,14 +11,14 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class BlindMemo(
-    @SerialName("from") val from: account_id_type,
-    @SerialName("amount") val amount: share_type,
+    @SerialName("from") val from: AccountIdType,
+    @SerialName("amount") val amount: ShareType,
     @SerialName("message") val message: String,
     /** set to the first 4 bytes of the shared secret
      * used to encrypt the memo.  Used to verify that
      * decryption was successful.
      */
-    @SerialName("check") val check: uint32_t, // = 0
+    @SerialName("check") val check: UInt32, // = 0
 )
 
 
@@ -52,10 +52,10 @@ data class StealthConfirmation(
     @Serializable
     internal data class MemoData(
         @SerialName("from") val from: Optional<PublicKeyType>,
-        @SerialName("amount") val amount: asset,
+        @SerialName("amount") val amount: Asset,
         @SerialName("blinding_factor") val blindingFactor: Sha256,
         @SerialName("commitment") val commitment: CommitmentType,
-        @SerialName("check") val check: uint32_t, // = 0
+        @SerialName("check") val check: UInt32, // = 0
     )
 }
 

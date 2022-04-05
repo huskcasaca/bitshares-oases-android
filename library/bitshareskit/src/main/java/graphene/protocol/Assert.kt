@@ -11,7 +11,7 @@ sealed class Predicate
  */
 @Serializable
 data class AccountNameEqLitPredicate(
-    val account_id: account_id_type,
+    val account_id: AccountIdType,
     val name: String,
 ) : Predicate()
 
@@ -20,7 +20,7 @@ data class AccountNameEqLitPredicate(
  */
 @Serializable
 data class AssetSymbolEqLitPredicate(
-    val asset_id: asset_id_type,
+    val asset_id: AssetIdType,
     val symbol: String,
 ) : Predicate()
 /**

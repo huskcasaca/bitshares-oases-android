@@ -14,7 +14,7 @@ data class  RefundWorkerInitializer(
 
 @Serializable
 data class VestingBalanceWorkerInitializer(
-    @SerialName("pay_vesting_period_days") val payVestingPeriodDays: uint16_t, // = 0
+    @SerialName("pay_vesting_period_days") val payVestingPeriodDays: UInt16, // = 0
 ) : WorkerInitializer()
 
 @Serializable
