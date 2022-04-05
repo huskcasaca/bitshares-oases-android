@@ -20,7 +20,6 @@ import modulon.extensions.animation.animatorSet
 import modulon.extensions.compat.isForceDarkAllowedCompat
 import modulon.extensions.graphics.createRoundSelectorDrawable
 import modulon.extensions.graphics.outlineProvider
-import modulon.extensions.stdlib.logcatUI
 import modulon.extensions.view.*
 import modulon.interpolator.CubicBezierInterpolator
 import modulon.layout.recycler.decorations.drawAllShaders

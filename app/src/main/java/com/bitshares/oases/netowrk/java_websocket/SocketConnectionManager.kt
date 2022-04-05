@@ -13,7 +13,6 @@ import bitshareskit.chain.ChainConfig
 import bitshareskit.extensions.asOrNull
 import bitshareskit.extensions.formatIdentifier
 import bitshareskit.extensions.logcat
-import bitshareskit.ks_chain.CallMethod
 import bitshareskit.objects.AssetObject
 import com.bitshares.oases.MainApplication
 import com.bitshares.oases.chain.blockchainDatabaseScope
@@ -22,6 +21,7 @@ import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.database.entities.Node
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.provider.local_repo.NodeRepository
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

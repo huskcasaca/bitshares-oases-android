@@ -4,7 +4,6 @@ import androidx.lifecycle.distinctUntilChanged
 import bitshareskit.errors.ErrorCode
 import bitshareskit.errors.GrapheneException
 import bitshareskit.errors.TransactionBroadcastException
-import bitshareskit.ks_chain.Authority
 import com.bitshares.oases.R
 import com.bitshares.oases.chain.operationNameStringResMap
 import com.bitshares.oases.extensions.compat.startBlockBrowser
@@ -13,6 +12,7 @@ import com.bitshares.oases.globalWalletManager
 import com.bitshares.oases.netowrk.java_websocket.TransactionBuilder
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.wallet.startWalletUnlock
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
 import modulon.dialog.BottomDialogFragment
 import modulon.dialog.DialogState
@@ -85,7 +85,8 @@ fun BottomDialogFragment.bindTransaction(builder: TransactionBuilder, accountVie
         }
         isEnabled = false
         val list = builder.requiredAuthority
-        val isAuthorized = if (list.contains(Authority.OWNER)) accountViewModel.isOwnerAuthorizedLive else if (list.contains(Authority.ACTIVE)) accountViewModel.isActiveAuthorizedLive else emptyLiveData(true)
+        val isAuthorized = if (list.contains(Authority.OWNER)) accountViewModel.isOwnerAuthorizedLive else if (list.contains(
+                Authority.ACTIVE)) accountViewModel.isActiveAuthorizedLive else emptyLiveData(true)
         // FIXME: 17/10/2021 Cannot add the same observer with different lifecycles
         //  distinctUntilChanged() added to fix this
         accountViewModel.isAuthorized.distinctUntilChanged().observe(viewLifecycleOwner){ }

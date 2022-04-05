@@ -1,6 +1,6 @@
 package bitshareskit.errors
 
-import bitshareskit.ks_chain.BlockchainAPI
+import bitshareskit.chain.BlockchainAPI
 
 class UnsupportedCallException(api: BlockchainAPI) : GrapheneException(ErrorCode.UNSUPPORTED_API) {
 

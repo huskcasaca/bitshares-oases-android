@@ -6,7 +6,6 @@ import bitshareskit.entities.Block
 import bitshareskit.extensions.formatAssetBigDecimal
 import bitshareskit.extensions.isCore
 import bitshareskit.extensions.isZero
-import bitshareskit.ks_chain.CallMethod
 import bitshareskit.models.AssetAmount
 import bitshareskit.objects.AssetObject
 import bitshareskit.objects.DynamicGlobalPropertyObject
@@ -20,6 +19,7 @@ import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.provider.Source
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.*
 import modulon.extensions.livedata.NonNullMediatorLiveData
 import modulon.extensions.livedata.emptyLiveData

@@ -1,11 +1,11 @@
 package com.bitshares.oases.provider.chain_repo
 
 import androidx.lifecycle.LiveData
-import bitshareskit.ks_chain.CallMethod
 import bitshareskit.objects.CommitteeMemberObject
 import com.bitshares.oases.chain.CommitteeMember
 import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
+import bitshareskit.chain.CallMethod
 
 object CommitteeMemberRepository {
 

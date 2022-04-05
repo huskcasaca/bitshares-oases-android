@@ -6,8 +6,7 @@ import androidx.lifecycle.viewModelScope
 import bitshareskit.chain.ChainConfig
 import bitshareskit.errors.GrapheneException
 import bitshareskit.errors.WebSocketClosedException
-import bitshareskit.ks_chain.Authority
-import bitshareskit.ks_chain.Authority.*
+import bitshareskit.chain.Authority.*
 import bitshareskit.models.PrivateKey
 import bitshareskit.objects.AccountObject
 import com.bitshares.oases.chain.KeyCreator
@@ -19,6 +18,7 @@ import com.bitshares.oases.provider.chain_repo.AccountRepository
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.ui.base.BaseViewModel
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

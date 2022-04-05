@@ -151,6 +151,7 @@ class WalletManager(
         if (seed == null || message == null) return null
         return try {
             val cipher = provider.walletSecureProvider.initEncryptionCipher()
+            cipher.iv
             val enc0 = cipher.doFinal(message)!! + cipher.iv
             aesEncrypt(seed, enc0)
         } catch (e: Exception) {

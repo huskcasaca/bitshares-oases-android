@@ -4,7 +4,6 @@ import bitshareskit.errors.ErrorCode
 import bitshareskit.errors.TransactionBroadcastException
 import bitshareskit.extensions.delayMain
 import bitshareskit.extensions.logcat
-import bitshareskit.ks_chain.CallMethod
 import bitshareskit.models.*
 import bitshareskit.objects.AssetObject
 import bitshareskit.objects.DynamicGlobalPropertyObject
@@ -13,6 +12,7 @@ import com.bitshares.oases.chain.blockchainNetworkScope
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.provider.chain_repo.TransactionRepository
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

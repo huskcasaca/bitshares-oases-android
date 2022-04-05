@@ -7,13 +7,13 @@ import bitshareskit.extensions.createAccountObject
 import bitshareskit.extensions.formatIdentifier
 import bitshareskit.extensions.formatInstance
 import bitshareskit.extensions.isGrapheneInstanceValid
-import bitshareskit.ks_chain.CallMethod
 import bitshareskit.models.FullAccount
 import bitshareskit.objects.*
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.netowrk.java_websocket.GrapheneSocketLiveData
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.launch
 import modulon.extensions.coroutine.mapParallel
 import modulon.extensions.livedata.emptyLiveData

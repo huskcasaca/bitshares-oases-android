@@ -5,7 +5,6 @@ import android.widget.EdgeEffect
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.recyclerview.widget.RecyclerView
-import modulon.extensions.stdlib.logcatUI
 import kotlin.math.abs
 
 /** The magnitude of translation distance while the list is over-scrolled. */

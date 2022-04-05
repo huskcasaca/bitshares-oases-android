@@ -9,7 +9,6 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.*
 import androidx.core.widget.doAfterTextChanged
 import bitshareskit.extensions.encodeBase64
-import bitshareskit.extensions.logloglog
 import bitshareskit.extensions.sha256
 import com.bitshares.oases.R
 import com.bitshares.oases.globalWalletManager
@@ -191,7 +190,6 @@ suspend fun Union.showWalletPasswordUnlockDialog(changePassword: Boolean = false
             currentPassword.observe(viewLifecycleOwner) {
                 state = DialogState.EMPTY
                 if (it.length == 6) {
-                    passcode.joinToString("").logloglog()
                     unlock(passcode.joinToString(""))
                 }
                 message = if (changePassword) "Enter your old password" else "Enter your password"

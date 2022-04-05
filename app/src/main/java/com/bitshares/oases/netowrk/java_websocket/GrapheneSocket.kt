@@ -3,14 +3,14 @@ package com.bitshares.oases.netowrk.java_websocket
 import android.util.Log
 import bitshareskit.errors.WebSocketClosedException
 import bitshareskit.extensions.logcat
-import bitshareskit.ks_chain.BlockchainAPI
-import bitshareskit.ks_chain.CallMethod
 import bitshareskit.models.SocketCall
 import bitshareskit.models.SocketResponse
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.database.entities.Node
 import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.provider.local_repo.NodeRepository
+import bitshareskit.chain.BlockchainAPI
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

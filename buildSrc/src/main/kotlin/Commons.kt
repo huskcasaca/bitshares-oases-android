@@ -68,6 +68,7 @@ fun Project.libraryModulon() {
     dependenciesAndroidxActivity()
     dependenciesAndroidxFragment()
     dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-reflect:${Constants.KOTLIN_VERSION}")
         implementation("androidx.constraintlayout:constraintlayout:2.0.1")
         implementation("androidx.recyclerview:recyclerview:1.2.0-beta01")
         implementation("androidx.drawerlayout:drawerlayout:1.1.0")
@@ -100,11 +101,13 @@ fun Project.libraryKit() {
         implementation("org.bouncycastle:bcpkix-jdk15on:1.65")
 
         // test libs
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+        testImplementation("com.github.bilthon:graphenej:0.4.2")
         testImplementation("com.github.bilthon:graphenej:0.4.2")
         testImplementation("junit:junit:4.13")
+        testImplementation("org.slf4j:slf4j-jdk14:1.7.30")
         testImplementation("org.bouncycastle:bcpkix-jdk15on:1.65")
         testImplementation("org.bitcoinj:bitcoinj-core:0.14.3")
-        testImplementation("org.slf4j:slf4j-jdk14:1.7.30")
         testImplementation(project(":external:java-json"))
 
         androidTestImplementation("androidx.test.ext:junit:1.1.3")
@@ -184,6 +187,7 @@ private fun Project.dependenciesKtor() {
         implementation("io.ktor:ktor-client-serialization:$ktor_version")
 //        implementation("io.ktor:ktor-client-android:$ktor_version")
         implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+        implementation("io.ktor:ktor-client-cio:$ktor_version")
     }
 }
 

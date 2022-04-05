@@ -6,7 +6,6 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import bitshareskit.ks_chain.Authority
 import bitshareskit.objects.AccountObject
 import com.bitshares.oases.R
 import com.bitshares.oases.chain.IntentParameters
@@ -18,6 +17,7 @@ import com.bitshares.oases.ui.account.importer.ImportViewModel.State
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.wallet.startWalletRestore
 import com.bitshares.oases.ui.wallet.startWalletUnlock
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
 import modulon.component.*
 import modulon.extensions.charset.EMPTY_SPACE

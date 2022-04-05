@@ -1,10 +1,10 @@
 package com.bitshares.oases.provider.chain_repo
 
 import androidx.lifecycle.LiveData
-import bitshareskit.ks_chain.CallMethod
 import bitshareskit.objects.WorkerObject
 import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
+import bitshareskit.chain.CallMethod
 import org.java_json.JSONArray
 import org.java_json.JSONObject
 

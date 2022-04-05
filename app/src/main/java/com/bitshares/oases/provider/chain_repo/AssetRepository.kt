@@ -1,7 +1,6 @@
 package com.bitshares.oases.provider.chain_repo
 
 import bitshareskit.chain.ChainConfig
-import bitshareskit.ks_chain.CallMethod
 import bitshareskit.models.AssetAmount
 import bitshareskit.models.SimplePrice
 import bitshareskit.objects.AssetBitassetData
@@ -11,6 +10,7 @@ import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.provider.Source
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.java_json.JSONArray

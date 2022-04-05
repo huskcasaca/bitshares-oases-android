@@ -16,6 +16,7 @@ import com.bitshares.oases.ui.account.membership.MembershipFragment
 import com.bitshares.oases.ui.account.permission.PermissionFragment
 import com.bitshares.oases.ui.account.voting.VotingFragment
 import com.bitshares.oases.ui.account.whitelist.WhitelistFragment
+import com.bitshares.oases.ui.account_ktor.browser.K_AccountBrowserFragment
 import com.bitshares.oases.ui.asset.browser.AssetBrowserFragment
 import com.bitshares.oases.ui.base.putJson
 import com.bitshares.oases.ui.base.startFragment
@@ -31,7 +32,7 @@ import java.math.BigDecimal
 
 
 //fun UnionContext.startAccountBrowser(uid: ULong) = startFragment<AccountBrowserFragment>{ putExtraJson(IntentParameters.Account.KEY_UID, uid) }
-fun UnionContext.startAccountBrowser(uid: Long) = startFragment<AccountBrowserFragment>{ putJson(IntentParameters.Account.KEY_UID, uid) }
+fun UnionContext.startAccountBrowser(uid: Long) = startFragment<K_AccountBrowserFragment>{ putJson(IntentParameters.Account.KEY_UID, uid) }
 
 fun UnionContext.startAssetBrowser(uid: Long) = startFragment<AssetBrowserFragment> {
     putJson(IntentParameters.Asset.KEY_UID, uid)

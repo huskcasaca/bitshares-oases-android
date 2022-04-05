@@ -7,7 +7,6 @@ import bitshareskit.entities.OrderBook
 import bitshareskit.extensions.collateralAmount
 import bitshareskit.extensions.debtAmount
 import bitshareskit.extensions.rebase
-import bitshareskit.ks_chain.CallMethod
 import bitshareskit.models.Market
 import bitshareskit.models.SimplePrice
 import bitshareskit.models.Ticker
@@ -22,6 +21,7 @@ import com.bitshares.oases.database.entities.TickerEntity
 import com.bitshares.oases.netowrk.java_websocket.GrapheneSocketLiveData
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.provider.chain_repo.AssetRepository.awaitPriceDetailWithExtraData
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import modulon.extensions.livedata.emptyLiveData

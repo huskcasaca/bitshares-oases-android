@@ -1,11 +1,11 @@
 package bitshareskit.operations
 
-import bitshareskit.ks_chain.Authority
 import bitshareskit.extensions.*
 import bitshareskit.objects.AccountObject
 import bitshareskit.objects.LimitOrderObject
 import bitshareskit.serializer.writeGrapheneSet
 import bitshareskit.serializer.writeSerializable
+import bitshareskit.chain.Authority
 import kotlinx.io.core.buildPacket
 import kotlinx.io.core.readBytes
 import org.java_json.JSONArray

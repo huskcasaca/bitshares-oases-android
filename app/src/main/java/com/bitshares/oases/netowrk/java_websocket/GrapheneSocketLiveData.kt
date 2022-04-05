@@ -1,9 +1,9 @@
 package com.bitshares.oases.netowrk.java_websocket
 
 import androidx.lifecycle.LiveData
-import bitshareskit.ks_chain.CallMethod
 import com.bitshares.oases.chain.blockchainNetworkScope
 import com.bitshares.oases.preference.old.Graphene
+import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.launch
 import org.java_json.JSONObject
 import java.util.*

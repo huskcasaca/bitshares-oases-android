@@ -29,6 +29,7 @@ import com.bitshares.oases.ui.main.explore.ExploreViewModel
 import com.bitshares.oases.ui.main.market.MarketFragment
 import com.bitshares.oases.ui.main.market.MarketViewModel
 import com.bitshares.oases.ui.main.settings.MainSettingsFragment
+import com.bitshares.oases.ui.testlab.TestLabFragment
 import modulon.dialog.button
 import modulon.extensions.compat.activity
 import modulon.extensions.compat.recreate
@@ -272,6 +273,7 @@ class MainFragment : ContainerFragment() {
             }
         }
 
+        startFragment<TestLabFragment>()
         globalPreferenceManager.LANGUAGE.skipFirst().observe { recreate() }
         Settings.KEY_CURRENT_ACCOUNT_ID.observe { accountViewModel.setAccountUid(it) }
         if (!mainViewModel.isInitialized) {

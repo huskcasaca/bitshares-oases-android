@@ -7,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.map
-import bitshareskit.ks_chain.Authority
 import bitshareskit.models.BrainKey
 import bitshareskit.models.PrivateKey
 import com.bitshares.oases.R
@@ -20,6 +19,7 @@ import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.ui.account.permission.PermissionViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.wallet.startWalletUnlock
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
 import modulon.component.ComponentCell
 import modulon.component.buttonStyle

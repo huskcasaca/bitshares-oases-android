@@ -1,12 +1,18 @@
 package modulon.union
 
 import android.content.Context
+import android.view.View
 import modulon.union.UnionContext
 
 // TODO: 2022/2/10 remove toUnion() for some objects
 fun Context.toUnion(): UnionContext = object : UnionContext {
     override val context: Context @Suppress("INAPPLICABLE_JVM_NAME") @JvmName("getContextUnion") get() = this@toUnion
 }
+fun View.toUnion(): UnionContext = object : UnionContext {
+    override val context: Context @Suppress("INAPPLICABLE_JVM_NAME") @JvmName("getContextUnion") get() = this@toUnion.context
+}
+
+
 //fun Context.asUnion(block: UnionContext.() -> Unit): UnionContext = object : UnionContext {
 //    override val context: Context @Suppress("INAPPLICABLE_JVM_NAME") @JvmName("getContextUnion") get() = this@asUnion
 //}.apply(block)

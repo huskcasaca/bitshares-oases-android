@@ -67,5 +67,6 @@ abstract class ContainerFragment : BaseFragment() {
     fun ContainerFragment.setupVertical(block: VerticalLayout.() -> Unit) = linearLayout.block()
     fun ContainerFragment.setupCoordinator(block: CoordinatorLayout.() -> Unit) = coordinatorLayout.block()
     fun ContainerFragment.setupRecycler(block: RecyclerLayout.() -> Unit) = recyclerLayout.block()
+
 }
 

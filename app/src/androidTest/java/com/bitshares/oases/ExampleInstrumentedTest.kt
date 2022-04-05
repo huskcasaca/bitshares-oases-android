@@ -1,7 +1,7 @@
 package com.bitshares.oases
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.bitshares.oases.netowrk.rpc.GrapheneClient
+import graphene.serializers.GRAPHENE_JSON_PLATFORM_SERIALIZER
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.decodeFromJsonElement
@@ -30,10 +30,10 @@ class ExampleInstrumentedTest {
 
     @Test
     fun testSerialization() {
-        GrapheneClient.ClientJson.decodeFromJsonElement<Boolean>(JsonPrimitive(true)).console()
-        GrapheneClient.ClientJson.decodeFromJsonElement<ULong>(JsonPrimitive(11231231100)).console()
-        GrapheneClient.ClientJson.decodeFromJsonElement<UInt>(JsonPrimitive(1321230)).console()
-        GrapheneClient.ClientJson.decodeFromJsonElement<UShort>(JsonPrimitive(100)).console()
+        GRAPHENE_JSON_PLATFORM_SERIALIZER.decodeFromJsonElement<Boolean>(JsonPrimitive(true)).console()
+        GRAPHENE_JSON_PLATFORM_SERIALIZER.decodeFromJsonElement<ULong>(JsonPrimitive(11231231100)).console()
+        GRAPHENE_JSON_PLATFORM_SERIALIZER.decodeFromJsonElement<UInt>(JsonPrimitive(1321230)).console()
+        GRAPHENE_JSON_PLATFORM_SERIALIZER.decodeFromJsonElement<UShort>(JsonPrimitive(100)).console()
         Int::class.staticFunctions
     }
 

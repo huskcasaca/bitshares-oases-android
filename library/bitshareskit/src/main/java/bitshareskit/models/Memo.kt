@@ -15,7 +15,7 @@ data class Memo(
     val from: PublicKey,
     val to: PublicKey,
     var message: String? = null,
-    val nonce: ULong = NonceGenerator.INSTANCE.generateNonce().toULong(),
+    val nonce: ULong = NonceGenerator().generateNonce().toULong(),
     var isEncrypted: Boolean = false
 ): GrapheneSerializable {
 

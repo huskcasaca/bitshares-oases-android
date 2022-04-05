@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import bitshareskit.extensions.ifNull
-import bitshareskit.ks_chain.Authority
 import com.bitshares.oases.R
 import com.bitshares.oases.chain.Clipboard
 import com.bitshares.oases.chain.blockchainDatabaseScope
@@ -22,13 +21,13 @@ import com.bitshares.oases.extensions.viewbinder.bindUserV1
 import com.bitshares.oases.extensions.viewbinder.bindUserV3
 import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.globalWalletManager
-import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.security.fingerprint.FingerprintAuthentication
 import com.bitshares.oases.ui.base.startFragment
 import com.bitshares.oases.ui.settings.node.NodeSettingsFragment
 import com.mattprecious.swirl.SwirlView
+import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
 import modulon.component.IconSize
 import modulon.dialog.*

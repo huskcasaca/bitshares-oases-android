@@ -1,10 +1,10 @@
 package bitshareskit.models
 
-import bitshareskit.ks_chain.CallMethod
-import bitshareskit.ks_chain.BlockchainAPI
 import bitshareskit.extensions.buildJsonArray
 import bitshareskit.extensions.buildJsonObject
 import bitshareskit.objects.JsonSerializable
+import bitshareskit.chain.BlockchainAPI
+import bitshareskit.chain.CallMethod
 import org.java_json.JSONArray
 import org.java_json.JSONObject
 
