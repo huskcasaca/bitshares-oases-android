@@ -22,11 +22,11 @@ object FutureExtensionSerializer : StaticVarSerializer<Unit>(
 typealias FlatSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet<T>
 typealias StatSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet<T>
 
-typealias FlatMap<K, V> = @Serializable(with = SortedMapSerializer::class) SortedMap<K, V>
+typealias FlatMap<K, V> = @Serializable(with = FlatMapSerializer::class) SortedMap<K, V>
 typealias TypeSet<T> = @Serializable(with = SortedSetSerializer::class) SortedSet<T>
-typealias PairArray<A, B> = @Serializable(with = PairAsArraySerializer::class) Pair<A, B>
+typealias FlatPair<A, B> = @Serializable(with = FlatPairSerializer::class) Pair<A, B>
 
-typealias PriceFeeds = FlatMap<AccountId, PairArray<@Serializable(TimePointSecSerializer::class) Instant, PriceFeedWithIcr>>
+typealias PriceFeeds = FlatMap<AccountId, FlatPair<@Serializable(TimePointSecSerializer::class) Instant, PriceFeedWithIcr>>
 
 
 typealias Ripemd160 = String

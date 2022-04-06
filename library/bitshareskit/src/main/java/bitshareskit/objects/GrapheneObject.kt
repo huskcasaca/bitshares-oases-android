@@ -26,7 +26,7 @@ class GrapheneJsonSerializer<T: GrapheneObject> : KSerializer<T> {
     private fun String.toGrapheneObject(): T = GrapheneObject.fromJson<T>(JSONObject(this))
 
     override fun deserialize(decoder: Decoder): T {
-        decoder as JsonDecoder // TODO: 2022/4/5
+        decoder as JsonDecoder
         return decoder.decodeString().toGrapheneObject()
     }
 

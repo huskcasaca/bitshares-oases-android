@@ -6,7 +6,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 typealias Restriction = @Serializable(with = ArgumentTypeSerializer::class) Any
-typealias VariantAssertArgumentType = PairArray<Int64, List<Restriction>>
+typealias VariantAssertArgumentType = FlatPair<Int64, List<Restriction>>
 
 @Serializable
 internal enum class FunctionType {

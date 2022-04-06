@@ -19,7 +19,7 @@ private fun String.toPublicKey(): PublicKey = PublicKey.fromAddress(this)
 object PublicKeySerializer : KSerializer<PublicKey> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("PublicKey", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder): PublicKey {
-        decoder as JsonDecoder // TODO: 2022/4/5
+        decoder as JsonDecoder
         return decoder.decodeJsonElement().jsonPrimitive.content.toPublicKey()
     }
     override fun serialize(encoder: Encoder, value: PublicKey) {
