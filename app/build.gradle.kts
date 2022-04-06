@@ -34,7 +34,8 @@ dependencies {
 
 
     // project libs
-    implementation(project(":library:bitshareskit"))
+    implementation(project(":library:bitshares-kit"))
+    implementation(project(":library:bitshares-kit-old"))
     implementation(project(":library:modulon"))
     implementation(project(":library:kdenticon"))
     implementation(project(":library:swirl"))
