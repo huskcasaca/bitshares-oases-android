@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.*
 import androidx.core.widget.doAfterTextChanged
-import bitshareskit.extensions.encodeBase64
-import bitshareskit.extensions.sha256
 import com.bitshares.oases.R
 import com.bitshares.oases.globalWalletManager
 import kotlinx.coroutines.*
@@ -30,6 +28,7 @@ import modulon.extensions.viewbinder.*
 import modulon.layout.linear.HorizontalLayout
 import modulon.union.Union
 import modulon.widget.FieldTextView
+import graphene.extension.*
 
 private class DigitPasswordLayout(context: Context) : HorizontalLayout(context) {
 

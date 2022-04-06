@@ -1,5 +1,6 @@
 include(":app")
-include(":library:bitshareskit")
+include(":library:bitshares-kit")
+include(":library:bitshares-kit-old")
 include(":library:modulon")
 include(":library:kdenticon")
 include(":library:swirl")

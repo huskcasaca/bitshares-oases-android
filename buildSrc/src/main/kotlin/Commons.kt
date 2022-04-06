@@ -97,6 +97,7 @@ fun Project.libraryKit() {
         implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.1")
 
         implementation(project(":external:java-json"))
+        implementation(project(":library:bitshares-kit"))
 
         implementation("org.bouncycastle:bcpkix-jdk15on:1.65")
 
@@ -109,6 +110,7 @@ fun Project.libraryKit() {
         testImplementation("org.bouncycastle:bcpkix-jdk15on:1.65")
         testImplementation("org.bitcoinj:bitcoinj-core:0.14.3")
         testImplementation(project(":external:java-json"))
+        testImplementation(project(":library:bitshares-kit"))
 
         androidTestImplementation("androidx.test.ext:junit:1.1.3")
         androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
