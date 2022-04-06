@@ -5,8 +5,7 @@ import android.content.SharedPreferences
 import android.util.Base64
 import androidx.core.content.edit
 import androidx.lifecycle.LiveData
-import bitshareskit.extensions.decodeBase64
-import bitshareskit.extensions.encodeBase64
+import graphene.extension.*
 import bitshareskit.serializer.UUIDSerializer
 import com.bitshares.oases.MainApplication
 import com.bitshares.oases.security.SecureKeyProvider

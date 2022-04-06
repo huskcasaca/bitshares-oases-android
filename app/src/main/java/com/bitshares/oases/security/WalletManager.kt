@@ -2,10 +2,6 @@ package com.bitshares.oases.security
 
 import android.content.Context
 import android.os.Build
-import bitshareskit.extensions.aesDecrypt
-import bitshareskit.extensions.aesEncrypt
-import bitshareskit.extensions.nextSecureRandomBytes
-import bitshareskit.extensions.sha256
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.database.LocalDatabase
 import com.bitshares.oases.globalPreferenceManager
@@ -13,6 +9,7 @@ import kotlinx.coroutines.launch
 import modulon.extensions.livedata.NonNullMutableLiveData
 import modulon.union.UnionContext
 import java.util.*
+import graphene.extension.*
 
 
 class WalletManager(

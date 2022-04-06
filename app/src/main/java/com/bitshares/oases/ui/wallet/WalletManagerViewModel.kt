@@ -6,8 +6,6 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import bitshareskit.extensions.decodeBase64OrEmpty
-import bitshareskit.extensions.encodeBase64OrEmpty
 import bitshareskit.extensions.logcat
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.database.entities.User
@@ -35,6 +33,7 @@ import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import graphene.extension.*
 
 class WalletManagerViewModel(application: Application) : BaseViewModel(application) {
 
