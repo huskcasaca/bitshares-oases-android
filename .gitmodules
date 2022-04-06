@@ -1,0 +1,3 @@
+[submodule "library/bitshares-kit"]
+	path = library/bitshares-kit
+	url = https://github.com/huskcasaca/bitshares-kit.git
