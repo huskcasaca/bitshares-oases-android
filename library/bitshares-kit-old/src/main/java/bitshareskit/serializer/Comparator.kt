@@ -13,7 +13,7 @@ val grapheneInstanceDistinctor = { o1: GrapheneObject?, o2: GrapheneObject? ->
 val publicKeyComparator = Comparator<PublicKey> { o1, o2 -> o1.addressBytes.toHexString().compareTo(o2.addressBytes.toHexString()) }
 
 val grapheneInstanceComparator = Comparator<GrapheneObject> { o1, o2 -> o1.uid.compareTo(o2.uid) }
-val voteComparator = Comparator<Vote> { o1, o2 -> o1.instance.compareTo(o2.instance) }
+val voteComparator = Comparator<Vote> { o1, o2 -> o1.instance.compareTo(o2.instance) } // FIXME: 2022/4/10
 val binaryComparator = Comparator<GrapheneSerializable> { o1, o2 -> o1.toByteArray().toHexString().compareTo(o2.toByteArray().toHexString()) }
 
 val grapheneSerializableComparator = Comparator<GrapheneSerializable> { o1, o2  ->

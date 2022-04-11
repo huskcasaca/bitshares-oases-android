@@ -13,6 +13,8 @@ import com.bitshares.oases.preference.ChainPreferenceManager
 import com.bitshares.oases.preference.PreferenceManager
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.security.WalletManager
+import graphene.protocol.CommitteeMemberCreateOperation
+import graphene.protocol.WithdrawPermissionClaimOperation
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.Job
 import modulon.extensions.compat.application
@@ -55,6 +57,9 @@ class MainApplication : ModulonApplication() {
         getSystemService<ConnectivityManager>()?.registerDefaultNetworkCallback(NetworkService)
         registerActivityLifecycleCallbacks(NetworkService)
         ChainPropertyRepository.start()
+
+        val a = Any() as WithdrawPermissionClaimOperation
+
     }
 
     override fun onTerminate() {
