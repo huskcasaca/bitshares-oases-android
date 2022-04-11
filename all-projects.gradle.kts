@@ -1,6 +1,6 @@
 rootProject.extra.apply {
     set("pluginVersion", "7.0.4")
-    set("kotlinVersion", "1.6.10")
+    set("kotlinVersion", "1.6.20")
 //    val androidPluginVersion = rootProject.extra["androidPluginVersion"].toString()
 //    val kotlinVersion = rootProject.extra["kotlinVersion"].toString()
 }
