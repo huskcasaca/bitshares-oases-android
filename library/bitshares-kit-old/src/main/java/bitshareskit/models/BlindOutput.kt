@@ -11,7 +11,7 @@ data class BlindOutput(
     val commitment: String,
     val rangeProof: String,
     val owner: Authority,
-    val stealth_memo: StealthConfirmation?
+    val stealthMemo: StealthConfirmation?
 ): GrapheneSerializable {
 
     companion object {
