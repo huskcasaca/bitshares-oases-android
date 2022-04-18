@@ -46,7 +46,7 @@ class AccountBrowserFragment : ContainerFragment() {
 //        secureWindow()
         setupAction {
             titleConnectionState(context.getString(R.string.account_browser_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
             menu {
                 text = context.getString(R.string.account_observe)

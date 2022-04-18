@@ -9,6 +9,7 @@ import org.java_json.JSONObject
 import java.util.*
 import kotlin.concurrent.schedule
 
+@Deprecated("use GrapheneClient")
 class GrapheneSocketLiveData<T : Any?>(
     private val method: CallMethod,
     private val data: List<Any> = listOf(),

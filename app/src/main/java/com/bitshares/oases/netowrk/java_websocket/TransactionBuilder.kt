@@ -2,7 +2,6 @@ package com.bitshares.oases.netowrk.java_websocket
 
 import bitshareskit.errors.ErrorCode
 import bitshareskit.errors.TransactionBroadcastException
-import bitshareskit.extensions.delayMain
 import bitshareskit.extensions.logcat
 import bitshareskit.models.*
 import bitshareskit.objects.AssetObject
@@ -22,6 +21,7 @@ import org.java_json.JSONArray
 import org.java_json.JSONObject
 import java.util.*
 
+@Deprecated("")
 class TransactionBuilder {
 
     enum class FeeState { EMPTY, CHECKING, COMPLETE, INSUFFICIENT }
@@ -179,12 +179,6 @@ class TransactionBuilder {
             block == null -> throw TransactionBroadcastException(ErrorCode.MISSING_HEADER_BLOCK)
 //            privateKeys.isEmpty() -> throw TransactionBroadcastException(ErrorCode.MISSING_OTHER_AUTH)
             !isFeeCalculated && calculateFees(feeAsset).isEmpty() -> throw TransactionBroadcastException(ErrorCode.FEE_NOT_CALCULATED)
-        }
-    }
-
-    private fun startTimeoutTimer(timeout: Long = 12000L) {
-        delayMain(timeout) {
-            if (!isSuccess) failureCallbacks.forEach { it.invoke(TransactionBroadcastException(ErrorCode.BROADCAST_TIMEOUT)) }
         }
     }
 

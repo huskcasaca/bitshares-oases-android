@@ -14,6 +14,8 @@ class NonNullLiveData<T>(initValue: T) : LiveData<T>(initValue) {
     override fun getValue(): T = super.getValue() as T
 }
 
+
+
 class NonNullMutableLiveData<T>(initValue: T) : MutableLiveData<T>(initValue) {
     var distinctItem = false
     override fun getValue(): T = super.getValue() as T

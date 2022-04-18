@@ -36,7 +36,7 @@ class TradingFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             title(context.getString(R.string.market_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
             menu {
                 icon = R.drawable.ic_cell_settings.contextDrawable()

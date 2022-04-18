@@ -21,7 +21,7 @@ fun formatTimeStringFromSec(second: Int): String {
     return if (hours != 0) "$hours Hours " else "" + if (minutes != 0) (if (hours != 0) " " else "") + "$minutes Minutes" else "" + if (seconds != 0 || (hours == 0 && minutes == 0)) (if (hours != 0 || minutes != 0) " " else "") + "$seconds Seconds " else ""
 }
 
-fun CharSequence?.toStringOrEmpty(): String = this?.toString() ?: EMPTY_SPACE
+fun CharSequence?.toStringOrEmpty(): String = this?.toString().orEmpty()
 
 fun CharSequence?.toStringOrEmpty(block: () -> CharSequence): String = this?.toString() ?: block.invoke().toString()
 

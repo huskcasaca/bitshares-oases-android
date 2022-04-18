@@ -173,7 +173,7 @@ class MainFragment : ContainerFragment() {
                                         isVisible = mainTab == Tabs.EXPLORE && exploreTab == ExploreFragment.Tabs.FEE_SCHEDULE
                                     }
                                 }
-                                networkStateMenu()
+                                websocketStateMenu()
                                 walletStateMenu()
                                 combineNonNull(mainViewModel.currentMainTab, exploreViewModel.isUpdatesEnabled).observe(viewLifecycleOwner) { (tab, update) ->
                                     if (tab == Tabs.EXPLORE) subtitle(if (update) "Syncing..." else "Paused")

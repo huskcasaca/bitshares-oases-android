@@ -1,0 +1,196 @@
+package com.bitshares.oases.ui.settings.network
+
+import android.os.Bundle
+import android.view.View
+import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import com.bitshares.oases.R
+import com.bitshares.oases.database.entities.BitsharesNode
+import com.bitshares.oases.extensions.viewbinder.bindNode
+import com.bitshares.oases.extensions.viewbinder.logo
+import com.bitshares.oases.netowrk.java_websocket.WebSocketState
+import com.bitshares.oases.ui.base.ContainerFragment
+import modulon.component.ComponentCell
+import modulon.component.buttonStyle
+import modulon.component.toggleEnd
+import modulon.dialog.*
+import modulon.extensions.compat.showBottomDialog
+import modulon.extensions.compat.showSoftKeyboard
+import modulon.extensions.livedata.combineNonNull
+import modulon.extensions.text.toStringOrEmpty
+import modulon.extensions.view.*
+import modulon.extensions.viewbinder.cell
+import modulon.layout.actionbar.title
+import modulon.layout.recycler.*
+import modulon.union.Union
+
+
+class NetworkSettingsFragment : ContainerFragment() {
+
+    val viewModel: NetworkSettingsViewModel by activityViewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupAction {
+            title("Network")
+            walletStateMenu()
+        }
+        setupRecycler {
+            section {
+        //                header = context.getString(R.string.node_settings_info_title)
+                cell {
+                    updatePaddingVerticalHalf()
+                    title = context.getString(R.string.node_settings_websocket_state)
+        //                    title = context.getString(R.string.node_settings_websocket_state)
+                    viewModel.websocketState.observe(viewLifecycleOwner) {
+                        @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
+                        subtitle = when (it) {
+                            WebSocketState.CONNECTING -> context.getString(R.string.node_settings_websocket_state_connecting)
+                            WebSocketState.CONNECTED -> context.getString(R.string.node_settings_websocket_state_connected)
+                            WebSocketState.MESSAGING -> context.getString(R.string.node_settings_websocket_state_messaging)
+                            WebSocketState.CLOSED -> context.getString(R.string.node_settings_websocket_state_closed)
+                        }
+                        subtitleView.textColor = if (it == WebSocketState.CLOSED) context.getColor(R.color.component_error) else context.getColor(R.color.component)
+                    }
+                }
+                cell {
+                    updatePaddingVerticalHalf()
+                    title = "Current Node"
+                    viewModel.activeNodeConfig.observe(viewLifecycleOwner) { subtitle = it?.name.orEmpty() }
+                }
+//                cell {
+//                    updatePaddingVerticalHalf()
+//                    title = "Chain Type"
+//                    NodeRepository.currentNode.observe(viewLifecycleOwner) {
+//                        subtitle = when (it.chainId) {
+//                            ChainConfig.Chain.CHAIN_ID_MAIN_NET -> "Mainnet"
+//                            ChainConfig.Chain.CHAIN_ID_TEST_NET -> "Testnet"
+//                            else -> "Unknown"
+//                        }
+//                    }
+//                }
+        //                cell {
+        //                    Graphene.KEY_CORE_ASSET.observe(activityLifecycleOwner) { text = it.symbol.toString() }
+        //                }
+                cell {
+                    updatePaddingVerticalHalf()
+                    text = context.getString(R.string.node_settings_auto_select)
+                    toggleEnd {
+                        viewModel.isAutoSelect.observe(viewLifecycleOwner) {
+                            setChecked(it, true)
+        //                            subtext = context.getString(if (it) R.string.node_settings_auto_select_enabled else R.string.node_settings_auto_select_disabled)
+                        }
+                    }
+                    doOnClick { viewModel.setAutoSelect() }
+                }
+            }
+            section {
+                header = context.getString(R.string.node_settings_api_nodes_title)
+                list<ComponentCell, BitsharesNode> {
+                    construct { updatePaddingVerticalHalf() }
+                    data {
+                        bindNode(it)
+                        doOnClick {
+                            viewModel.setAutoSelect(false)
+                            viewModel.switchNode(it)
+                        }
+                        doOnLongClick { showNodeEditor(it) }
+                    }
+                    @Suppress("UNCHECKED_CAST")
+                    payload { node, payload ->
+                        val (selected, active) = payload as Pair<Long, Long>
+                        bindNode(node, node.id == selected, node.id == active)
+                    }
+                    distinctItemsBy { it.id }
+                    distinctContentBy { it }
+                    viewModel.nodes.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    combineNonNull(viewModel.selectedNodeId, viewModel.activeNodeId).observe(viewLifecycleOwner) { adapter.submitPayload(it) }
+
+//                    viewModel.nodeStateList
+                }
+                cell {
+                    buttonStyle()
+                    title = context.getString(R.string.node_settings_add_node_button)
+                    doOnClick { showNodeEditor(null) }
+                }
+                viewModel.nodes.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
+            }
+            logo()
+        }
+    }
+}
+
+private fun Union.showNodeEditor(node: BitsharesNode?) = showBottomDialog {
+    val viewModel: NodeEditorViewModel by viewModels()
+    title = context.getString(R.string.node_settings_node_info_title)
+    section {
+        cell {
+            updatePaddingVerticalV6()
+            title = context.getString(R.string.node_settings_name)
+            field {
+                hint = context.getString(R.string.node_settings_name_hint)
+                doAfterTextChanged { viewModel.nameField = it.toStringOrEmpty() }
+                viewModel.nodeInEdit.observe(viewLifecycleOwner) { fieldtext = it.name }
+            }
+        }
+        cell {
+            updatePaddingVerticalV6()
+            title = context.getString(R.string.node_settings_url)
+            field {
+                hint = "wss://"
+                inputType = InputTypeExtended.TYPE_URI_NO_SUGGESTION
+                doAfterTextChanged { viewModel.uriField = it.toStringOrEmpty() }
+                viewModel.isUriInvalid.observe(viewLifecycleOwner) {
+                    isError = it
+                    requestFocus()
+                }
+                viewModel.nodeInEdit.observe(viewLifecycleOwner) {
+                    fieldtext = it.url
+                    requestFocus()
+                }
+                showSoftKeyboard()
+            }
+        }
+        cell {
+            updatePaddingVerticalV6()
+            title = context.getString(R.string.node_settings_username)
+            field {
+                hint = context.getString(R.string.node_settings_username_hint)
+                inputType = InputTypeExtended.TYPE_PASSWORD_VISIBLE
+                doAfterTextChanged { viewModel.usernameField = it.toStringOrEmpty() }
+                viewModel.nodeInEdit.observe(viewLifecycleOwner) { fieldtext = it.username }
+            }
+        }
+        cell {
+            updatePaddingVerticalV6()
+            title = context.getString(R.string.node_settings_password)
+            field {
+                hint = context.getString(R.string.node_settings_password_hint)
+                inputType = InputTypeExtended.TYPE_PASSWORD
+                doAfterTextChanged { viewModel.passwordField = it.toStringOrEmpty() }
+                viewModel.nodeInEdit.observe(viewLifecycleOwner) { fieldtext = it.password }
+            }
+        }
+    }
+    button {
+        text = context.getString(R.string.button_save)
+        doOnClick { if (viewModel.save()) dismiss() }
+    }
+    button {
+        text = context.getString(R.string.button_delete)
+        textColor = context.getColor(R.color.component_error)
+        isVisible = false
+        viewModel.nodeInEdit.observe(viewLifecycleOwner) { isVisible = it.id != 0L }
+        doOnClick {
+            viewModel.remove()
+            dismiss()
+        }
+    }
+    button {
+        text = context.getString(R.string.button_cancel)
+        doOnClick { dismiss() }
+    }
+    viewModel.edit(node)
+}

@@ -14,7 +14,7 @@ class BlankFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             titleConnectionState("CONTAINER_TITLE")
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
         }
         setupRecycler {

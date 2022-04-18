@@ -48,7 +48,7 @@ class TransferFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             titleConnectionState(getString(R.string.transfer_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
             viewModel.accountName.observe(viewLifecycleOwner) { subtitle(it.toUpperCase(Locale.ROOT)) }
         }

@@ -11,8 +11,8 @@ import com.bitshares.oases.ui.base.BaseViewModel
 import com.bitshares.oases.ui.base.getJson
 import graphene.chain.K102_AccountObject
 import graphene.protocol.*
-import graphene.rpc.MultiClient
-import graphene.rpc.Node
+import graphene.rpc.GrapheneClient
+import graphene.rpc.K_Node
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -21,8 +21,9 @@ import modulon.extensions.livedata.*
 open class K_AccountViewModel(application: Application) : BaseViewModel(application) {
 
     private val databaseApi by lazy {
-        MultiClient().apply {
-            switch(Node("XN_DELEGATE", "wss://api.btsgo.net/ws"))
+        GrapheneClient {
+            name = "XN_DELEGATE"
+            url = "wss://api.btsgo.net/ws"
         }
     }
 

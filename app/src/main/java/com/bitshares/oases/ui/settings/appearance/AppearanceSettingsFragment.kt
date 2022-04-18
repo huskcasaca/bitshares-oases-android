@@ -29,7 +29,7 @@ class AppearanceSettingsFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             title(context.getString(R.string.appearance_settings_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
         }
         setupRecycler {

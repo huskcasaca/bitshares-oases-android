@@ -18,12 +18,15 @@ import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.security.BinaryRestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import modulon.extensions.text.PatternInputFilter
 import modulon.extensions.text.toStringOrEmpty
 
 // TODO: 2022/2/19 remove
-val blockchainDatabaseScope get() = CoroutineScope(Dispatchers.IO + MainApplication.applicationJob)
-val blockchainNetworkScope get() = CoroutineScope(Dispatchers.IO + MainApplication.applicationJob)
+@Deprecated("removed") val blockchainDatabaseScope get() = CoroutineScope(Dispatchers.IO + MainApplication.applicationJob)
+@Deprecated("removed") val blockchainNetworkScope get() = CoroutineScope(Dispatchers.IO + MainApplication.applicationJob)
+
+val globalDatabaseScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
 val accountNameFilter = AccountNameFilter
 val assetSymbolFilter = AssetSymbolFilter

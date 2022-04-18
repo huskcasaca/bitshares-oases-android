@@ -15,10 +15,11 @@ import androidx.lifecycle.observe
 import com.bitshares.oases.R
 import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.globalWalletManager
+import com.bitshares.oases.globalWebsocketManager
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.netowrk.java_websocket.WebSocketState
 import com.bitshares.oases.preference.DarkMode
-import com.bitshares.oases.ui.settings.node.NodeSettingsFragment
+import com.bitshares.oases.ui.settings.network.NetworkSettingsFragment
 import com.bitshares.oases.ui.wallet.WalletSettingsFragment
 import com.bitshares.oases.ui.wallet.startWalletUnlock
 import kotlinx.coroutines.CoroutineScope
@@ -65,7 +66,7 @@ abstract class BaseFragment : UnionFragment() {
         }.distinctUntilChanged().observe { title = it }
     }
 
-    fun ActionBarLayout.networkStateMenuInternal() = menu {
+    fun ActionBarLayout.websocketStateMenuInternal() = menu {
         text = "Network State"
         isVisible = false
         globalPreferenceManager.INDICATOR.observe(viewLifecycleOwner) { isVisible = it }
@@ -82,8 +83,7 @@ abstract class BaseFragment : UnionFragment() {
             interpolator = LinearInterpolator()
             repeatCount = ObjectAnimator.INFINITE
         }
-
-        NetworkService.connectionState.distinctUntilChanged().observe(viewLifecycleOwner) {
+        globalWebsocketManager.state.distinctUntilChanged().observe {
             when (it) {
                 WebSocketState.CONNECTING -> run {
                     if (icon != connecting) {
@@ -115,8 +115,8 @@ abstract class BaseFragment : UnionFragment() {
                 }
             }
         }
-        doOnClick { startFragment<NodeSettingsFragment>() }
-        doOnLongClick { startFragment<NodeSettingsFragment>() }
+        doOnClick { startFragment<NetworkSettingsFragment>() }
+        doOnLongClick { startFragment<NetworkSettingsFragment>() }
     }
 
     fun ActionBarLayout.walletStateMenu() = menu {
@@ -157,8 +157,8 @@ abstract class BaseFragment : UnionFragment() {
 
     }
 
-    fun ActionBarLayout.networkStateMenu() {
-        networkStateMenuInternal()
+    fun ActionBarLayout.websocketStateMenu() {
+        websocketStateMenuInternal()
     }
 
     fun ActionBarLayout.broadcastMenu(block: ActionBarLayout.Item.() -> Unit) = menu {

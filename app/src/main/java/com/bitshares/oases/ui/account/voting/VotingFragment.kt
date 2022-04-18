@@ -57,7 +57,7 @@ class VotingFragment : ContainerFragment() {
 
         setupAction {
             titleConnectionState(getString(R.string.voting_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
             menu {
                 isVisible = false

@@ -7,7 +7,7 @@ private const val DEFAULT_TIMEOUT = 500L
 
 // FIXME: 3/11/2021 fix throttleLatest and throttleLast
 
-fun <T> throttleFirst(coroutineScope: CoroutineScope, skip: Long = DEFAULT_TIMEOUT, destinationFunction: (T) -> Unit): (T) -> Unit {
+fun <T> throttleFirst(coroutineScope: CoroutineScope, skip: Long = DEFAULT_TIMEOUT,  destinationFunction: suspend (T) -> Unit): (T) -> Unit {
     var throttleJob: Job? = null
     return { param: T ->
         if (throttleJob?.isCompleted != false) {

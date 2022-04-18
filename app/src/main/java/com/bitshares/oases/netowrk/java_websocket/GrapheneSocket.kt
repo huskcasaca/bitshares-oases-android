@@ -42,6 +42,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
+@Deprecated("use GrapheneClient")
 @Suppress("UNCHECKED_CAST", "UNUSED", "MemberVisibilityCanBePrivate")
 class GrapheneSocket(val node: Node, var login: Boolean = true) {
 

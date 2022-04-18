@@ -39,7 +39,7 @@ class MarginPositionFragment : ContainerFragment() {
         secureWindow()
         setupAction {
             title("Margin Positions")
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
             viewModel.accountName.observe(viewLifecycleOwner) { subtitle(it.toUpperCase(Locale.ROOT)) }
         }

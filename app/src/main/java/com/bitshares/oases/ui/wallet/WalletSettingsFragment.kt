@@ -13,7 +13,6 @@ import com.bitshares.oases.extensions.viewbinder.bindUserV3
 import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.globalWalletManager
-import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.security.fingerprint.FingerprintAuthentication
 import com.bitshares.oases.ui.base.ContainerFragment
 import kotlinx.coroutines.launch
@@ -41,7 +40,7 @@ class WalletSettingsFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             title(context.getString(R.string.wallet_settings_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
         }
         setupRecycler {

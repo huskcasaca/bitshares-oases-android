@@ -27,7 +27,7 @@ class OperationBrowserFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             titleConnectionState(context.getString(R.string.operation_browser_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
         }
         setupVertical {

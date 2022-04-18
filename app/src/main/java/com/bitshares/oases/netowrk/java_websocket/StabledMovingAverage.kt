@@ -5,6 +5,7 @@ package com.bitshares.oases.netowrk.java_websocket
  * @see [Exponential Moving Average](https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average).
  */
 
+@Deprecated("use WebsocketManager")
 class StabledMovingAverage(a: Double = DEFAULT_ALPHA) {
 
     companion object {

@@ -8,6 +8,7 @@ import bitshareskit.objects.AssetObject
 import com.bitshares.oases.preference.DarkMode
 import java.util.*
 
+@Deprecated("removed", replaceWith = ReplaceWith("globalPreferenceManager", "com.bitshares.oases.globalPreferenceManager"))
 object Settings {
 
     // node

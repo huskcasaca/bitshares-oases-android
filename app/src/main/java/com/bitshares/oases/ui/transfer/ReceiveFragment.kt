@@ -12,7 +12,7 @@ class ReceiveFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             titleConnectionState("Receive")
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
         }
         setupRecycler {

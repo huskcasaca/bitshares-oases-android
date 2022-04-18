@@ -31,7 +31,7 @@ class AssetBrowserFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             titleConnectionState(context.getString(R.string.asset_browser_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
             viewModel.assetSymbol.observe(viewLifecycleOwner) { subtitle(it.toUpperCase(Locale.ROOT)) }
             viewModel.assetNonNull.observe(viewLifecycleOwner) { rawViewModel.setContent(it) }

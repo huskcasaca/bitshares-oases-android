@@ -28,7 +28,7 @@ class ImportFragment : ContainerFragment() {
         secureWindow()
         setupAction {
             titleConnectionState(context.getString(R.string.import_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
             menu {
                 icon = R.drawable.ic_menu_add.contextDrawable()

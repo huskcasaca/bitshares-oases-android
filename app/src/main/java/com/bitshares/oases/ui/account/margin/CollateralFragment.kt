@@ -53,7 +53,7 @@ class CollateralFragment : ContainerFragment() {
         secureWindow()
         setupAction {
             title(context.getString(R.string.collateral_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
             viewModel.accountName.observe(viewLifecycleOwner) { subtitle(it.toUpperCase(Locale.ROOT)) }
         }

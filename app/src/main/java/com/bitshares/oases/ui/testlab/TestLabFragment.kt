@@ -9,7 +9,7 @@ import graphene.chain.K103_AssetObject
 import bitshareskit.objects.AccountObject
 import bitshareskit.objects.AssetObject
 import graphene.rpc.GrapheneClient
-import graphene.rpc.Node
+import graphene.rpc.K_Node
 import com.bitshares.oases.provider.chain_repo.GrapheneRepository
 import com.bitshares.oases.ui.base.ContainerFragment
 import graphene.protocol.*
@@ -40,7 +40,7 @@ class TestLabFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             title("TestLab")
-            networkStateMenu()
+            websocketStateMenu()
         }
         setupVertical {
             tabLayout {
@@ -64,7 +64,7 @@ class TestLabFragment : ContainerFragment() {
                             val channel = Channel<String>()
                             title = "Ktor Send"
                             doOnClick {
-                                val client = GrapheneClient(Node("BTSGO", "wss://api.btsgo.net/ws"))
+                                val client = GrapheneClient(K_Node("BTSGO", "wss://api.btsgo.net/ws"))
                                 lifecycleScope.launch { client.start() }
                             }
                         }
@@ -181,7 +181,7 @@ class TestLabFragment : ContainerFragment() {
                             val channel = Channel<String>()
                             title = "Ktor Send"
                             doOnClick {
-                                val client = GrapheneClient(Node("BTSGO", "wss://api.btsgo.net/ws"))
+                                val client = GrapheneClient(K_Node("BTSGO", "wss://api.btsgo.net/ws"))
                                 lifecycleScope.launch { client.start() }
                             }
                         }

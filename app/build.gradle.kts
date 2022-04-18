@@ -8,7 +8,6 @@ plugins {
 application()
 
 dependencies {
-
 //    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Constants.KOTLIN_VERSION}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${Constants.KOTLIN_VERSION}")
     implementation("org.jetbrains.kotlinx:kotlinx-io-jvm:0.1.16")
@@ -32,7 +31,6 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
-
     // project libs
     implementation(project(":library:bitshares-kit"))
     implementation(project(":library:bitshares-kit-old"))
@@ -43,10 +41,15 @@ dependencies {
     implementation(project(":external:java-json"))
 
     implementation(fileTree("${project.rootDir}/buildSrc/build/"))
+}
 
-    // test libs
-    testImplementation("junit:junit:4.13")
-    testImplementation("org.slf4j:slf4j-jdk14:1.7.35")
+dependencies {
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+    testImplementation("com.github.bilthon:graphenej:0.4.2")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.slf4j:slf4j-jdk14:1.7.36")
+    testImplementation("org.bouncycastle:bcpkix-jdk15on:1.65")
+    testImplementation("org.bitcoinj:bitcoinj-core:0.14.3")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
@@ -54,4 +57,8 @@ dependencies {
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
+        name = "ktor-eap"
+    }
 }

@@ -12,7 +12,7 @@ class ScannerFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             titleConnectionState("Scan")
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
         }
         setupRecycler {

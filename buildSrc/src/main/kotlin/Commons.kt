@@ -178,7 +178,7 @@ private fun Project.dependenciesAndroidxFragment() {
 }
 private fun Project.dependenciesKtor() {
     dependencies {
-        val ktor_version = "2.0.0-beta-1"
+        val ktor_version = "2.0.0"
         implementation("io.ktor:ktor-client-core:$ktor_version")
 //        implementation("io.ktor:ktor-serialization:$ktor_version")
         implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")

@@ -47,7 +47,7 @@ class WhitelistFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             titleConnectionState(context.getString(R.string.whitelist_settings_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
             broadcastMenu {
                 text = context.getString(R.string.account_observe)

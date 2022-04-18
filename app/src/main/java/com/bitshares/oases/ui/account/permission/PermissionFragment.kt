@@ -47,7 +47,7 @@ class PermissionFragment : ContainerFragment() {
         secureWindow()
         setupAction {
             title(context.getString(R.string.permission_settings_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
             broadcastMenu {
                 doOnClick {

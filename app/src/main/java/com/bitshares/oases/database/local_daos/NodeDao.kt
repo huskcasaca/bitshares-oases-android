@@ -2,6 +2,7 @@ package com.bitshares.oases.database.local_daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.bitshares.oases.database.entities.BitsharesNode
 import com.bitshares.oases.database.entities.Node
 
 @Dao
@@ -45,5 +46,49 @@ interface NodeDao {
 
     @Query("DELETE FROM nodes")
     suspend fun removeAll()
+
+}
+
+@Dao
+interface BitsharesNodeDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun add(nodes: BitsharesNode): Long
+
+    @Query("SELECT * FROM bitshares_nodes")
+    fun getListLive(): LiveData<List<BitsharesNode>>
+
+    @Query("SELECT * FROM bitshares_nodes WHERE id = :id")
+    fun getLive(id: Long): LiveData<BitsharesNode>
+
+    @Query("SELECT * FROM bitshares_nodes ORDER BY name ASC")
+    fun getListSortedByName(): LiveData<List<BitsharesNode>>
+
+    @Query("SELECT * FROM bitshares_nodes ORDER BY latency ASC")
+    fun getListSortedByLatency(): LiveData<List<BitsharesNode>>
+
+    @Query("SELECT * FROM bitshares_nodes WHERE id = :id")
+    suspend fun get(id: Long): BitsharesNode?
+
+    @Query("SELECT * FROM bitshares_nodes")
+    suspend fun getList(): List<BitsharesNode>
+
+    @Query("UPDATE bitshares_nodes SET name = :name, url = :url, username = :username, password = :password WHERE id = :id")
+    suspend fun update(id: Long, name: String, url: String, username: String, password: String)
+
+    @Query("UPDATE bitshares_nodes SET latency = :latency, last_update = :lastUpdate WHERE id = :id")
+    suspend fun updateLatency(id: Long, latency: Long, lastUpdate: Long)
+
+//    @Query("UPDATE bitshares_nodes SET supported_apis = :apis WHERE id = :id")
+//    suspend fun updateApis(id: Long, apis: String)
+
+    @Query("UPDATE bitshares_nodes SET chain_id = :chainId, core_symbol = :symbol WHERE id = :id")
+    suspend fun updateChainInfo(id: Long, chainId: String, symbol: String)
+
+    @Delete
+    suspend fun remove(node: BitsharesNode)
+
+    @Query("DELETE FROM bitshares_nodes")
+    suspend fun clear()
 
 }

@@ -29,7 +29,7 @@ class BlockBrowserFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             titleConnectionState(getString(R.string.block_browser_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
             viewModel.block.observe(viewLifecycleOwner) {
                 subtitle(it.blockNum.toString())

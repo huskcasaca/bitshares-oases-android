@@ -20,6 +20,7 @@ import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.*
 import com.bitshares.oases.ui.main.MainViewModel
 import com.bitshares.oases.ui.settings.appearance.AppearanceSettingsFragment
+import com.bitshares.oases.ui.settings.network.NetworkSettingsFragment
 import com.bitshares.oases.ui.settings.node.NodeSettingsFragment
 import com.bitshares.oases.ui.settings.showLanguageSettingDialog
 import com.bitshares.oases.ui.settings.storage.StorageSettingsFragment
@@ -171,6 +172,12 @@ class MainSettingsFragment : ContainerFragment() {
 //                    subtext = context.getString(R.string.node_settings_hint)
                     icon = R.drawable.ic_cell_nodes.contextDrawable()
                     doOnThrottledClick { startFragment<NodeSettingsFragment>() }
+                }
+                cell {
+                    text = "Ktor" + context.getString(R.string.node_settings_title)
+//                    subtext = context.getString(R.string.node_settings_hint)
+                    icon = R.drawable.ic_cell_nodes.contextDrawable()
+                    doOnThrottledClick { startFragment<NetworkSettingsFragment>() }
                 }
                 cell {
                     title = context.getString(R.string.language_settings_title)

@@ -53,7 +53,7 @@ class FaucetFragment : ContainerFragment() {
         secureWindow()
         setupAction {
             titleConnectionState(getString(R.string.faucet_register_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
         }
         setupRecycler {

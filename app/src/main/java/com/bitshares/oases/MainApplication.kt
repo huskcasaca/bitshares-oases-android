@@ -9,11 +9,11 @@ import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.database.LocalDatabase
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.netowrk.java_websocket.SocketConnectionManager
+import com.bitshares.oases.netowrk.socket.WebsocketManager
 import com.bitshares.oases.preference.ChainPreferenceManager
 import com.bitshares.oases.preference.PreferenceManager
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
 import com.bitshares.oases.security.WalletManager
-import graphene.protocol.CommitteeMemberCreateOperation
 import graphene.protocol.WithdrawPermissionClaimOperation
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.Job
@@ -25,14 +25,10 @@ import modulon.union.UnionContext
 class MainApplication : ModulonApplication() {
 
     companion object {
-
-        // TODO: 2022/3/11 remove
-        lateinit var context: Context
+        lateinit var context: Context // TODO: 2022/3/11 remove
         // TODO: 2022/3/11 remove
         fun requireContext() = context
-
         val applicationJob: CompletableJob = Job()
-
 //        val applicationScope: CoroutineScope = CoroutineScope(Dispatchers.IO + applicationJob)
 
     }
@@ -40,6 +36,11 @@ class MainApplication : ModulonApplication() {
     val preferenceManager by lazy { PreferenceManager(this) }
     val chainPreferenceManager by lazy { ChainPreferenceManager(this) }
     val walletManager: WalletManager by lazy { WalletManager(this) }
+
+    val connectivityManager by lazy { getSystemService<ConnectivityManager>() }
+    @Deprecated("use websocketManager")
+    val socketConnectionManager by lazy { SocketConnectionManager(this) }
+    val websocketManager by lazy { WebsocketManager(this) }
 
     override fun onCreate() {
         super.onCreate()
@@ -58,8 +59,6 @@ class MainApplication : ModulonApplication() {
         registerActivityLifecycleCallbacks(NetworkService)
         ChainPropertyRepository.start()
 
-        val a = Any() as WithdrawPermissionClaimOperation
-
     }
 
     override fun onTerminate() {
@@ -67,8 +66,6 @@ class MainApplication : ModulonApplication() {
         applicationJob.cancel()
     }
 
-    val connectivityManager by lazy { getSystemService<ConnectivityManager>() }
-    val socketConnectionManager by lazy { getSystemService<SocketConnectionManager>() }
 
 }
 
@@ -76,11 +73,14 @@ val Union.globalPreferenceManager get() = (activity.application as MainApplicati
 val Union.globalWalletManager get() = (activity.application as MainApplication).walletManager
 
 val UnionContext.globalPreferenceManager get() = (context.application as MainApplication).preferenceManager
+val UnionContext.globalConnectivityManager get() = (context.application as MainApplication).connectivityManager
 val UnionContext.globalWalletManager get() = (context.application as MainApplication).walletManager
+val UnionContext.globalWebsocketManager get() = (context.application as MainApplication).websocketManager
 
 val AndroidViewModel.globalPreferenceManager get() = getApplication<MainApplication>().preferenceManager
 val AndroidViewModel.globalConnectivityManager get() = getApplication<MainApplication>().connectivityManager
 val AndroidViewModel.globalWalletManager get() = getApplication<MainApplication>().walletManager
+val AndroidViewModel.globalWebsocketManager get() = getApplication<MainApplication>().websocketManager
 
 val UnionContext.localPreferenceManager get() = PreferenceManager(context)
 

@@ -39,6 +39,7 @@ import kotlin.concurrent.schedule
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.suspendCoroutine
 
+@Deprecated("use WebsocketManager")
 class SocketConnectionManager(private val application: MainApplication) : ActivityLifecycleCallbacks, NetworkCallback() {
 
     private val socketConnectionJob: CompletableJob = Job()

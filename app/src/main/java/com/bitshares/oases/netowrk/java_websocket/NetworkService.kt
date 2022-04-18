@@ -44,6 +44,7 @@ import kotlin.concurrent.schedule
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.suspendCoroutine
 
+@Deprecated("use WebsocketManager")
 object NetworkService : ActivityLifecycleCallbacks, NetworkCallback() {
 
     // TODO: 13/9/2021 breaking changes for ConcurrentHashMap

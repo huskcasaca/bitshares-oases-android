@@ -17,6 +17,7 @@ import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.startFragment
 import com.bitshares.oases.ui.settings.appearance.AppearanceSettingsFragment
+import com.bitshares.oases.ui.settings.network.NetworkSettingsFragment
 import com.bitshares.oases.ui.settings.node.NodeSettingsFragment
 import com.bitshares.oases.ui.settings.storage.StorageSettingsFragment
 import com.bitshares.oases.ui.wallet.WalletSettingsFragment
@@ -101,6 +102,12 @@ class SettingsFragment : ContainerFragment() {
                     doOnThrottledClick { startFragment<NodeSettingsFragment>() }
                 }
                 cell {
+                    text = "Ktor" + context.getString(R.string.node_settings_title)
+//                    subtext = context.getString(R.string.node_settings_hint)
+                    icon = R.drawable.ic_cell_nodes.contextDrawable()
+                    doOnThrottledClick { startFragment<NetworkSettingsFragment>() }
+                }
+                cell {
                     text = context.getString(R.string.language_settings_title)
 //                    subtext = "Languages and locals"
                     icon = R.drawable.ic_cell_language.contextDrawable()
@@ -118,7 +125,7 @@ class SettingsFragment : ContainerFragment() {
 
         setupAction {
             title(context.getString(R.string.settings_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
         }
     }

@@ -21,7 +21,7 @@ class StorageSettingsFragment : ContainerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAction {
             title(getString(R.string.storage_settings_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
         }
         setupRecycler {

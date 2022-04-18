@@ -56,7 +56,7 @@ class KeychainFragment : ContainerFragment() {
         secureWindow()
         setupAction {
             titleConnectionState(getString(R.string.keychain_title))
-            networkStateMenu()
+            websocketStateMenu()
             walletStateMenu()
             viewModel.accountName.observe(viewLifecycleOwner) { subtitle(it.toUpperCase(Locale.ROOT)) }
         }
