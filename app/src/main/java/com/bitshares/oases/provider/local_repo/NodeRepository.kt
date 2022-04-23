@@ -41,7 +41,7 @@ object NodeRepository {
 // TODO: 2022/4/14
 object BitsharesNodeRepository : BitsharesNodeDao by LocalDatabase.INSTANCE.bitsharesNodeDao() {
 
-
+    suspend fun update(node: BitsharesNode) = update(node.id, node.name, node.url, node.username, node.password)
 
 }
 

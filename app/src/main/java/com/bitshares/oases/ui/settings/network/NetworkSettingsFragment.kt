@@ -102,7 +102,7 @@ class NetworkSettingsFragment : ContainerFragment() {
             section {
                 header = context.getString(R.string.node_settings_api_nodes_title)
                 list<ComponentCell, BitsharesNode> {
-                    construct { updatePaddingVerticalHalf() }
+                    construct { updatePaddingVerticalV8() }
                     data {
                         bindNode(it)
                         doOnClick {
@@ -132,10 +132,6 @@ class NetworkSettingsFragment : ContainerFragment() {
                     title = context.getString(R.string.node_settings_add_node_button)
                     doOnClick { showNodeEditor(null) }
                 }
-                lifecycleScope.launch {
-                    viewModel.nodes.collectLatest { isVisible = it.isNotEmpty() }
-                }
-
             }
             section {
                 cell {
@@ -149,14 +145,6 @@ class NetworkSettingsFragment : ContainerFragment() {
                                 }
                             }
                         }
-                    }
-                }
-            }
-            section {
-                cell {
-                    title = "Start Pinger"
-                    doOnClick {
-                        viewModel.startPinger()
                     }
                 }
             }

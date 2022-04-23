@@ -22,6 +22,7 @@ import io.ktor.util.network.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ClosedReceiveChannelException
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.datetime.Clock
@@ -36,7 +37,9 @@ data class WebsocketState(
     val config: GrapheneClientConfig
 )
 
-class NodeListViewModel(application: Application) : BaseViewModel(application) {
+class NodeListViewModel(
+    application: Application
+) : BaseViewModel(application) {
 
     private val repo = BitsharesNodeRepository
 
@@ -55,57 +58,53 @@ class NodeListViewModel(application: Application) : BaseViewModel(application) {
         globalPreferenceManager.NODE_ID.value = node.id
     }
 
-    private val nodeListAreEquivalent: (List<BitsharesNode>, List<BitsharesNode>) -> Boolean = { old, new ->
-        old.size == new.size && old.indices.all { nodeConfigAreEquivalent(old[it], new[it]) }
-    }
-
-    private val client = HttpClient(CIO.create()) {
+    private val httpClient = HttpClient(CIO.create()) {
         install(WebSockets)
         install(ContentNegotiation)
     }
-    private var lastPingerSession: Job = Job()
-    fun startPinger() {
-        val temp = lastPingerSession
-        lastPingerSession = viewModelScope.launch(Dispatchers.IO) {
-            temp.cancelAndJoin()
-            repo.getListAsync().distinctUntilChanged(nodeListAreEquivalent).collect {
-                lastPingerSession.cancelAndJoin()
-                lastPingerSession = viewModelScope.launch(Dispatchers.IO + SupervisorJob()) {
-                    it.forEach {
-                        repo.updateLatency(it.id, BitsharesNode.LATENCY_CONNECTING)
-                        launch {
-                            val average = StabledMovingAverage()
-                            try {
-                                client.wss(it.url) {
-                                    while (isActive) {
-                                        val send = Clock.System.now()
-                                        send(byteArrayOf())
-                                        incoming.receive()
-                                        val receive = Clock.System.now()
-                                        average.update((receive - send).toDouble(DurationUnit.MILLISECONDS))
-                                        globalDatabaseScope.launch {
-                                            repo.updateLatency(it.id, average.value.roundToLong())
-                                        }
-                                        "Node Latency #${it.id} ${it.name.padEnd(12).take(12)} Latency ${average.value}ms".logcat()
-                                        delay(3.seconds)
-                                    }
-                                    ensureActive()
-                                }
-                            } catch (e: Throwable) {
-                                cancel("", e)
-                            }
-                        }.invokeOnCompletion { e ->
-                            "Node Latency #${it.id} ${it.name.padEnd(12).take(12)} Reason $e ${e?.cause}".logcat()
-                            globalDatabaseScope.launch {
-                                when (e?.cause) {
-                                    is ConnectTimeoutException -> repo.updateLatency(it.id, BitsharesNode.LATENCY_TIMEOUT)
-                                    is ClosedReceiveChannelException -> repo.updateLatency(it.id, BitsharesNode.LATENCY_TIMEOUT)
-                                    is UnresolvedAddressException -> repo.updateLatency(it.id, BitsharesNode.LATENCY_UNRESOLVED)
-                                    else -> repo.updateLatency(it.id, BitsharesNode.LATENCY_UNKNOWN)
-                                }
-                            }
 
+    private var pingerTask: Job = Job()
+    fun startPinger() {
+        val temp = pingerTask
+        pingerTask = viewModelScope.launch(Dispatchers.IO + SupervisorJob()) {
+            temp.cancelAndJoin()
+            repo.getListAsync().distinctUntilChanged { old, new ->
+                old.size == new.size && old.indices.all { nodeConfigAreEquivalent(old[it], new[it]) }
+            }.collectLatest {
+                it.forEach {
+                    repo.updateLatency(it.id, BitsharesNode.LATENCY_CONNECTING)
+                    launch {
+                        val average = StabledMovingAverage()
+                        try {
+                            httpClient.wss(it.url) {
+                                while (isActive) {
+                                    val send = Clock.System.now()
+                                    send(byteArrayOf())
+                                    incoming.receive()
+                                    val receive = Clock.System.now()
+                                    average.update((receive - send).toDouble(DurationUnit.MILLISECONDS))
+                                    globalDatabaseScope.launch {
+                                        repo.updateLatency(it.id, average.value.roundToLong())
+                                    }
+                                    "Node Latency #${it.id} ${it.name.padEnd(12).take(12)} Latency ${average.value}ms".logcat()
+                                    delay(10.seconds)
+                                }
+                                ensureActive()
+                            }
+                        } catch (e: Throwable) {
+                            cancel("", e)
                         }
+                    }.invokeOnCompletion { e ->
+                        "Node Latency #${it.id} ${it.name.padEnd(12).take(12)} Reason $e ${e?.cause}".logcat()
+                        globalDatabaseScope.launch {
+                            when (e?.cause) {
+                                is ConnectTimeoutException -> repo.updateLatency(it.id, BitsharesNode.LATENCY_TIMEOUT)
+                                is ClosedReceiveChannelException -> repo.updateLatency(it.id, BitsharesNode.LATENCY_TIMEOUT)
+                                is UnresolvedAddressException -> repo.updateLatency(it.id, BitsharesNode.LATENCY_UNRESOLVED)
+                                else -> repo.updateLatency(it.id, BitsharesNode.LATENCY_UNKNOWN)
+                            }
+                        }
+
                     }
                 }
             }

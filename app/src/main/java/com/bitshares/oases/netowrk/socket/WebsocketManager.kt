@@ -3,12 +3,9 @@ package com.bitshares.oases.netowrk.socket
 import android.net.ConnectivityManager
 import android.net.Network
 import androidx.lifecycle.asFlow
-import androidx.lifecycle.asLiveData
 import com.bitshares.oases.MainApplication
 import com.bitshares.oases.database.entities.nodeConfigAreEquivalent
 import com.bitshares.oases.database.entities.toClient
-import com.bitshares.oases.globalPreferenceManager
-import com.bitshares.oases.globalWebsocketManager
 import com.bitshares.oases.provider.local_repo.BitsharesNodeRepository
 import graphene.app.API
 import graphene.rpc.*
@@ -18,7 +15,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.JsonArray
 import modulon.extensions.stdlib.logcat
 import kotlin.time.Duration.Companion.seconds
-
 
 class WebsocketManager(
     private val application: MainApplication
@@ -64,6 +60,14 @@ class WebsocketManager(
         }.apply { invokeOnCompletion { websocketScope.launch { tempSession.cancelAndJoin() } } }
     }
 
+    private suspend fun collectLatestConfig() {
+        application.preferenceManager.NODE_ID.asFlow().flatMapLatest {
+            repo.getAsync(it)
+        }.distinctUntilChanged(nodeConfigAreEquivalent).collectLatest {
+            startClient(it.toClient(), true)
+        }
+    }
+
     override suspend fun broadcast(method: API, params: JsonArray): SocketResult {
         if (client.value.state.value == GrapheneClient.State.CLOSED) {
             startClient()
@@ -78,19 +82,11 @@ class WebsocketManager(
         application.connectivityManager?.registerDefaultNetworkCallback(
             object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
-                    websocketScope.launch {
-                        startClient()
-                    }
+                    websocketScope.launch { startClient() }
                 }
             }
         )
-        websocketScope.launch {
-            application.preferenceManager.NODE_ID.asFlow().flatMapLatest {
-                repo.getAsync(it)
-            }.distinctUntilChanged(nodeConfigAreEquivalent).collectLatest {
-                startClient(it.toClient(), true)
-            }
-        }
+        websocketScope.launch { collectLatestConfig() }
     }
 
 }

@@ -47,7 +47,7 @@ class NodeEditorViewModel(application: Application) : BaseViewModel(application)
         )
         globalDatabaseScope.launch {
             if (repo.get(node.id) != null) {
-                repo.add(node)
+                repo.update(node)
             } else {
                 repo.add(node)
 //                withContext(Dispatchers.Main) { Settings.KEY_CURRENT_NODE_ID.value =  }

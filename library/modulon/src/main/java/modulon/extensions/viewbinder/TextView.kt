@@ -33,7 +33,7 @@ fun PlainTextView.textStyle() {
 }
 
 fun PlainTextView.subtextStyle() {
-    textSize = 14.5f
+    textSize = 15f
     typeface = typefaceRegular
     textColor = context.getColor(R.color.cell_text_secondary)
     autoSpacing()

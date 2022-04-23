@@ -41,6 +41,10 @@ fun ComponentPaddingCell.updatePaddingVerticalHalf() {
 //    updatePadding(bottom = 10.dp)
 }
 // TODO: 2022/2/15 remove
+fun ComponentPaddingCell.updatePaddingVerticalV8() {
+    updatePadding(top = 10.dp)
+    updatePadding(bottom = 10.dp)
+}
 fun ComponentPaddingCell.updatePaddingVerticalV6() {
     updatePadding(top = 8.dp)
     updatePadding(bottom = 8.dp)
