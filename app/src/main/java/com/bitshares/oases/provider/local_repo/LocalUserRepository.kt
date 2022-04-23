@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
-import bitshareskit.extensions.logcat
 import bitshareskit.models.PrivateKey
 import bitshareskit.objects.AccountObject
 import com.bitshares.oases.chain.blockchainDatabaseScope
@@ -24,6 +23,7 @@ import kotlinx.coroutines.launch
 import modulon.extensions.livedata.combineLatest
 import modulon.extensions.livedata.combineNonNull
 import modulon.extensions.livedata.distinctUntilChangedBy
+import modulon.extensions.stdlib.logcat
 
 object LocalUserRepository {
 
@@ -162,7 +162,7 @@ object LocalUserRepository {
     }
 
     suspend fun switchChain(chainId: String) {
-        logcat("switchChain $chainId")
+        "switchChain $chainId".logcat()
         val currentUser = get(Settings.KEY_CURRENT_ACCOUNT_ID.value, ChainPropertyRepository.chainId)
         if (currentUser == null || currentUser.chainId != chainId) {
             val users = getList(chainId)

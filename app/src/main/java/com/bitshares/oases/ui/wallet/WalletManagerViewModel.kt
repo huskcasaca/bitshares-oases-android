@@ -6,7 +6,6 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import bitshareskit.extensions.logcat
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.database.entities.User
 import com.bitshares.oases.extensions.text.StringFilter
@@ -154,8 +153,6 @@ class WalletManagerViewModel(application: Application) : BaseViewModel(applicati
                 }
             }.onSuccess { bin ->
                 users.value = withContext(Dispatchers.IO) {
-                    logcat("unlockBackup ${bin.privateKeys.map { it.wif }}")
-
                     if (bin.isCanonical) {
 //                        val currentChainAccounts = bin.accounts.filter { it.chainId == ChainPropertyRepository.chainId }
 //                        val otherChainAccounts = bin.accounts.filter { it.chainId != ChainPropertyRepository.chainId }
