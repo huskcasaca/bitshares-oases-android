@@ -67,7 +67,11 @@ class NetworkSettingsFragment : ContainerFragment() {
                 cell {
                     updatePaddingVerticalHalf()
                     title = "Current Node"
-                    viewModel.activeNodeConfig.observe(viewLifecycleOwner) { subtitle = it?.name.orEmpty() }
+                    lifecycleScope.launch {
+                        viewModel.websocketState.collectLatest {
+                            subtitle = it.config.name
+                        }
+                    }
                 }
 //                cell {
 //                    updatePaddingVerticalHalf()
@@ -109,13 +113,17 @@ class NetworkSettingsFragment : ContainerFragment() {
                     }
                     @Suppress("UNCHECKED_CAST")
                     payload { node, payload ->
-                        val (selected, active) = payload as Pair<Long, Long>
-                        bindNode(node, node.id == selected, node.id == active)
+                        payload as WebsocketState
+                        bindNode(node, node.id == payload.selected, node.id == payload.config.id)
                     }
                     distinctItemsBy { it.id }
                     distinctContentBy { it }
-                    viewModel.nodes.observe(viewLifecycleOwner) { adapter.submitList(it) }
-                    combineNonNull(viewModel.selectedNodeId, viewModel.activeNodeId).observe(viewLifecycleOwner) { adapter.submitPayload(it) }
+                    lifecycleScope.launch {
+                        viewModel.websocketState.collectLatest { adapter.submitPayload(it) }
+                    }
+                    lifecycleScope.launch {
+                        viewModel.nodes.collectLatest { adapter.submitList(it) }
+                    }
 
 //                    viewModel.nodeStateList
                 }
@@ -124,7 +132,10 @@ class NetworkSettingsFragment : ContainerFragment() {
                     title = context.getString(R.string.node_settings_add_node_button)
                     doOnClick { showNodeEditor(null) }
                 }
-                viewModel.nodes.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
+                lifecycleScope.launch {
+                    viewModel.nodes.collectLatest { isVisible = it.isNotEmpty() }
+                }
+
             }
             section {
                 cell {

@@ -9,9 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
-import androidx.lifecycle.distinctUntilChanged
-import androidx.lifecycle.map
-import androidx.lifecycle.observe
+import androidx.lifecycle.*
 import com.bitshares.oases.R
 import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.globalWalletManager
@@ -84,7 +82,7 @@ abstract class BaseFragment : UnionFragment() {
             interpolator = LinearInterpolator()
             repeatCount = ObjectAnimator.INFINITE
         }
-        globalWebsocketManager.stateLive.distinctUntilChanged().observe {
+        globalWebsocketManager.state.asLiveData().observe(viewLifecycleOwner) {
             when (it) {
                 GrapheneClient.State.CONNECTING -> run {
                     if (icon != connecting) {
