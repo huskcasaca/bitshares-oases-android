@@ -64,8 +64,6 @@ class TestLabFragment : ContainerFragment() {
                             val channel = Channel<String>()
                             title = "Ktor Send"
                             doOnClick {
-                                val client = GrapheneClient(K_Node("BTSGO", "wss://api.btsgo.net/ws"))
-                                lifecycleScope.launch { client.start() }
                             }
                         }
                     }
@@ -181,8 +179,6 @@ class TestLabFragment : ContainerFragment() {
                             val channel = Channel<String>()
                             title = "Ktor Send"
                             doOnClick {
-                                val client = GrapheneClient(K_Node("BTSGO", "wss://api.btsgo.net/ws"))
-                                lifecycleScope.launch { client.start() }
                             }
                         }
                     }

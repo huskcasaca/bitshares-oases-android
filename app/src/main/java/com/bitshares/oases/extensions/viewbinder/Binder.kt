@@ -412,27 +412,46 @@ fun ComponentCell.bindNode(node: BitsharesNode) {
 fun ComponentCell.bindNode(node: BitsharesNode, isSelected: Boolean, isActive: Boolean) {
     title = buildContextSpannedString {
         append(node.name.ifBlank { Uri.parse(node.url).host })
-        when (node.chainId) {
-            ChainConfig.Chain.CHAIN_ID_MAIN_NET -> appendSimpleColoredSpan(context.getString(R.string.chain_type_bitshares_mainnet).toUpperCase(), context.getColor(R.color.tag_component))
-            ChainConfig.Chain.CHAIN_ID_TEST_NET -> appendSimpleColoredSpan(context.getString(R.string.chain_type_bitshares_testnet).toUpperCase(), context.getColor(R.color.tag_component_warning))
-            else -> appendSimpleColoredSpan(context.getString(R.string.chain_type_unknown_network).toUpperCase(), context.getColor(R.color.tag_component_inactive))
-        }
+        appendBlankSpan()
+        appendScaled(
+            buildContextSpannedString {
+                when (node.chainId) {
+                    ChainConfig.Chain.CHAIN_ID_MAIN_NET -> appendSimpleColoredSpan(context.getString(R.string.chain_type_bitshares_mainnet).toUpperCase(), context.getColor(R.color.tag_component))
+                    ChainConfig.Chain.CHAIN_ID_TEST_NET -> appendSimpleColoredSpan(context.getString(R.string.chain_type_bitshares_testnet).toUpperCase(), context.getColor(R.color.tag_component_warning))
+                    else -> appendSimpleColoredSpan(context.getString(R.string.chain_type_unknown_network).toUpperCase(), context.getColor(R.color.tag_component_inactive))
+                }
+            },
+            0.8f
+        )
     }
     textView.startScrolling()
     when (node.latency) {
-        Node.LATENCY_CONNECTING -> {
+        BitsharesNode.LATENCY_CONNECTING -> {
             subtext = context.getString(R.string.node_settings_connecting)
             subtextView.textColor = context.getColor(R.color.cell_text_primary)
         }
-        Node.LATENCY_TIMEOUT -> {
+        BitsharesNode.LATENCY_TIMEOUT -> {
             subtext = context.getString(R.string.node_settings_timeout)
             subtextView.textColor = context.getColor(R.color.component_error)
         }
-        else -> {
-            if (isSelected) {
+        BitsharesNode.LATENCY_UNRESOLVED -> {
+            subtext = "Unresolved"
+            subtextView.textColor = context.getColor(R.color.component_error)
+        }
+        BitsharesNode.LATENCY_UNKNOWN -> {
+            subtext = "UNKNOWN"
+            subtextView.textColor = context.getColor(R.color.component_error)
+        }
+        else -> when {
+            isActive -> {
                 subtext = "${context.getString(R.string.node_settings_connected)}, ${context.getString(R.string.node_settings_latency)} ${node.latency} ${context.getString(R.string.node_settings_latency_ms)}"
                 subtextView.textColor = context.getColor(R.color.component_active)
-            } else {
+            }
+            isSelected -> {
+                subtext = "Pending, ${context.getString(R.string.node_settings_latency)} ${node.latency} ${context.getString(R.string.node_settings_latency_ms)}"
+                subtextView.textColor = context.getColor(R.color.cell_text_secondary)
+            }
+            else -> {
                 subtext = "${context.getString(R.string.node_settings_latency)} ${node.latency} ${context.getString(R.string.node_settings_latency_ms)}"
                 subtextView.textColor = context.getColor(R.color.cell_text_secondary)
             }

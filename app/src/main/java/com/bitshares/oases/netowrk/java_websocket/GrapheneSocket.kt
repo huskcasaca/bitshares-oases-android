@@ -281,7 +281,7 @@ class GrapheneSocket(val node: Node, var login: Boolean = true) {
                 is PongFrame -> {
                     pongTime = System.currentTimeMillis()
                     ponged = true
-                    updateNodeLatency(averageLatency.update(pongTime - pingTime).toLong())
+                    updateNodeLatency(averageLatency.update((pongTime - pingTime).toDouble()).toLong())
                     return
                 }
                 else -> SocketResponse.fromJson(message as JSONObject)
@@ -322,8 +322,8 @@ class GrapheneSocket(val node: Node, var login: Boolean = true) {
 
     private fun onSocketClose(e: Throwable) {
         if (login) {
-            Log.e(TAG, "onSocketClose: ${e.message}")
-            e.printStackTrace()
+//            Log.e(TAG, "onSocketClose: ${e.message}")
+//            e.printStackTrace()
         }
         runCatching {
             changeState(WebSocketState.CLOSED)

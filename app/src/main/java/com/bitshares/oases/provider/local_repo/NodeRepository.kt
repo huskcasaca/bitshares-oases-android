@@ -7,6 +7,7 @@ import bitshareskit.chain.ChainConfig
 import com.bitshares.oases.database.LocalDatabase
 import com.bitshares.oases.database.entities.BitsharesNode
 import com.bitshares.oases.database.entities.Node
+import com.bitshares.oases.database.local_daos.BitsharesNodeDao
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.preference.old.Settings
 import modulon.extensions.livedata.withDefault
@@ -38,21 +39,9 @@ object NodeRepository {
 }
 
 // TODO: 2022/4/14
-object BitsharesNodeRepository {
+object BitsharesNodeRepository : BitsharesNodeDao by LocalDatabase.INSTANCE.bitsharesNodeDao() {
 
-    private val bitsharesNodeDao = LocalDatabase.INSTANCE.bitsharesNodeDao()
-    fun getLiveList() = bitsharesNodeDao.getListLive()
-    fun getLiveNode(id: Long) = bitsharesNodeDao.getLive(id)
 
-    suspend fun getNode(id: Long) = bitsharesNodeDao.get(id)
-    suspend fun getList() = bitsharesNodeDao.getList()
-    suspend fun add(node: BitsharesNode) = bitsharesNodeDao.add(node)
-    suspend fun update(node: BitsharesNode) = bitsharesNodeDao.update(node.id, node.name, node.url, node.username, node.password)
-    suspend fun updateLatency(node: BitsharesNode) = bitsharesNodeDao.updateLatency(node.id, node.latency, node.lastUpdate)
-//    suspend fun updateApis(node: BitsharesNode) = bitsharesNodeDao.updateApis(node.id, node.apis.toString())
-    suspend fun updateChainInfo(node: BitsharesNode) = bitsharesNodeDao.updateChainInfo(node.id, node.chainId, node.coreSymbol)
-    suspend fun remove(node: BitsharesNode) = bitsharesNodeDao.remove(node)
-    suspend fun removeAll() = bitsharesNodeDao.clear()
 
 }
 

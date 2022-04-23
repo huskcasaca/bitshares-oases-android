@@ -62,29 +62,6 @@ fun Project.library() {
     dependenciesKotlinStdlib()
 }
 
-fun Project.libraryModulon() {
-    dependenciesAndroidx()
-    dependenciesAndroidxLifecycle()
-    dependenciesAndroidxActivity()
-    dependenciesAndroidxFragment()
-    dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-reflect:${Constants.KOTLIN_VERSION}")
-        implementation("androidx.constraintlayout:constraintlayout:2.0.1")
-        implementation("androidx.recyclerview:recyclerview:1.2.0-beta01")
-        implementation("androidx.drawerlayout:drawerlayout:1.1.0")
-        implementation("androidx.viewpager2:viewpager2:1.1.0-alpha01")
-        implementation("androidx.dynamicanimation:dynamicanimation:1.0.0")
-        implementation("androidx.coordinatorlayout:coordinatorlayout:1.1.0")
-
-        implementation("com.squareup.retrofit2:retrofit:2.9.0")
-        implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
-
-        // test libs
-        testImplementation("junit:junit:4.13")
-        androidTestImplementation("androidx.test.ext:junit:1.1.3")
-        androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    }
-}
 fun Project.libraryKit() {
     dependenciesAndroidx()
     dependenciesAndroidxRoom()

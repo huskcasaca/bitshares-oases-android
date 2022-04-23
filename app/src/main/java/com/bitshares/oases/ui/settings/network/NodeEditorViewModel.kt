@@ -33,7 +33,7 @@ class NodeEditorViewModel(application: Application) : BaseViewModel(application)
 
     fun save(): Boolean {
         uriField = uriField.replace(Regex("\\s+"), "")
-        if (!uriField.matches(WEBSOCKET_ADDRESS_PATTERN)) {
+        if (!uriField.matches(WSS_ADDRESS_PATTERN)) {
             isUriInvalid.value = true
             return false
         }
@@ -46,7 +46,7 @@ class NodeEditorViewModel(application: Application) : BaseViewModel(application)
             lastUpdate = Long.MAX_VALUE
         )
         globalDatabaseScope.launch {
-            if (repo.getNode(node.id) != null) {
+            if (repo.get(node.id) != null) {
                 repo.add(node)
             } else {
                 repo.add(node)

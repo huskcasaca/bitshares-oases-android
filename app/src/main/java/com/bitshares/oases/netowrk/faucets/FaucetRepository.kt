@@ -12,7 +12,7 @@ object FaucetRepository {
 
 }
 
-// TODO: 2022/2/19 move to extensions
+// TODO: 2022/4/19 remove
 inline fun buildRetrofit(block: Retrofit.Builder.() -> Unit): Retrofit = Retrofit.Builder().apply(block).build()
 inline fun buildOkhttpClient(block: OkHttpClient.Builder.() -> Unit): OkHttpClient = OkHttpClient.Builder().apply(block).build()
 

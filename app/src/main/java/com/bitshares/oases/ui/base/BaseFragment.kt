@@ -22,6 +22,7 @@ import com.bitshares.oases.preference.DarkMode
 import com.bitshares.oases.ui.settings.network.NetworkSettingsFragment
 import com.bitshares.oases.ui.wallet.WalletSettingsFragment
 import com.bitshares.oases.ui.wallet.startWalletUnlock
+import graphene.rpc.GrapheneClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -83,15 +84,15 @@ abstract class BaseFragment : UnionFragment() {
             interpolator = LinearInterpolator()
             repeatCount = ObjectAnimator.INFINITE
         }
-        globalWebsocketManager.state.distinctUntilChanged().observe {
+        globalWebsocketManager.stateLive.distinctUntilChanged().observe {
             when (it) {
-                WebSocketState.CONNECTING -> run {
+                GrapheneClient.State.CONNECTING -> run {
                     if (icon != connecting) {
                         icon = connecting
                         oa.start()
                     }
                 }
-                WebSocketState.CONNECTED, WebSocketState.MESSAGING -> run {
+                GrapheneClient.State.CONNECTED -> run {
                     if (icon != connected) {
                         connecting.reset()
                         connected.reset()
@@ -102,7 +103,7 @@ abstract class BaseFragment : UnionFragment() {
                         iconView.rotation = 0f
                     }
                 }
-                WebSocketState.CLOSED -> run {
+                GrapheneClient.State.CLOSED -> run {
                     if (icon != closed) {
                         connecting.reset()
                         connected.reset()

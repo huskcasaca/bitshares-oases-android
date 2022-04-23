@@ -1,18 +1,20 @@
 package com.bitshares.oases.netowrk.java_websocket
 
+import kotlinx.atomicfu.atomic
+
 /**
  * Class used to compute the Exponential Moving Average with stability fixes of a sequence of values.
  * @see [Exponential Moving Average](https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average).
  */
 
-@Deprecated("use WebsocketManager")
 class StabledMovingAverage(a: Double = DEFAULT_ALPHA) {
 
     companion object {
         const val DEFAULT_ALPHA = 0.2
     }
 
-    private var accumulatedValue: Double? = null
+    private var accumulatedValue: Double = 0.0
+    private var isInitialized = false
 
     /**
      * Variable [alpha] represents the degree of weighting decrease, a constant smoothing factor
@@ -21,31 +23,37 @@ class StabledMovingAverage(a: Double = DEFAULT_ALPHA) {
     private var alpha: Double = a
         set(value: Double) {
             field = value
-            accumulatedValue = null
+            synchronized(this) {
+                isInitialized = false
+                accumulatedValue = 0.0
+            }
         }
 
     /**  The current average value. */
-    val average: Double
-        get() = if (accumulatedValue == null) 0.0 else accumulatedValue as Double
+    val value: Double
+        get() = if (isInitialized) accumulatedValue else 0.0
 
     /**
      * Method that updates the average with a new sample
      * @param [data] New value
      * @return       The updated average value
      */
-    fun update(data: Number): Double {
-        val value = data.toDouble()
-        if (accumulatedValue == null) {
-            accumulatedValue = value
-            return value
+
+    fun update(value: Double): Double {
+        synchronized(this) {
+            if (!isInitialized) {
+                isInitialized = true
+                accumulatedValue = value
+                return value
+            }
+//            // Prevent unexpected violation
+//            if (value * 0.5 >= accumulatedValue) {
+//                return accumulatedValue
+//            }
+            val newValue = accumulatedValue + alpha * (value - accumulatedValue)
+            accumulatedValue = newValue
+            return newValue
         }
-        // Prevent unexpected violation
-        if (value * 0.5 >= accumulatedValue!!) {
-            return accumulatedValue!!
-        }
-        val newValue = accumulatedValue!! + alpha * (value - accumulatedValue!!)
-        accumulatedValue = newValue
-        return newValue
     }
 
 }

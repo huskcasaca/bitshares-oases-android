@@ -10,8 +10,15 @@ import com.bitshares.oases.R
 import com.bitshares.oases.database.entities.BitsharesNode
 import com.bitshares.oases.extensions.viewbinder.bindNode
 import com.bitshares.oases.extensions.viewbinder.logo
-import com.bitshares.oases.netowrk.java_websocket.WebSocketState
+import com.bitshares.oases.globalWebsocketManager
 import com.bitshares.oases.ui.base.ContainerFragment
+import graphene.protocol.AccountId
+import graphene.rpc.GrapheneClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import modulon.component.ComponentCell
 import modulon.component.buttonStyle
 import modulon.component.toggleEnd
@@ -29,7 +36,7 @@ import modulon.union.Union
 
 class NetworkSettingsFragment : ContainerFragment() {
 
-    val viewModel: NetworkSettingsViewModel by activityViewModels()
+    val viewModel: NodeListViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,15 +51,17 @@ class NetworkSettingsFragment : ContainerFragment() {
                     updatePaddingVerticalHalf()
                     title = context.getString(R.string.node_settings_websocket_state)
         //                    title = context.getString(R.string.node_settings_websocket_state)
-                    viewModel.websocketState.observe(viewLifecycleOwner) {
-                        @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
-                        subtitle = when (it) {
-                            WebSocketState.CONNECTING -> context.getString(R.string.node_settings_websocket_state_connecting)
-                            WebSocketState.CONNECTED -> context.getString(R.string.node_settings_websocket_state_connected)
-                            WebSocketState.MESSAGING -> context.getString(R.string.node_settings_websocket_state_messaging)
-                            WebSocketState.CLOSED -> context.getString(R.string.node_settings_websocket_state_closed)
+                    lifecycleScope.launch {
+                        globalWebsocketManager.state.collectLatest {
+                            @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
+                            subtitle = when (it) {
+                                GrapheneClient.State.CONNECTING -> context.getString(R.string.node_settings_websocket_state_connecting)
+                                GrapheneClient.State.CONNECTED -> context.getString(R.string.node_settings_websocket_state_connected)
+                                GrapheneClient.State.LOGGING_IN -> "Logging In" // context.getString(R.string.node_settings_websocket_state_messaging)
+                                GrapheneClient.State.CLOSED -> context.getString(R.string.node_settings_websocket_state_closed)
+                            }
+                            subtitleView.textColor = if (it == GrapheneClient.State.CLOSED) context.getColor(R.color.component_error) else context.getColor(R.color.component)
                         }
-                        subtitleView.textColor = if (it == WebSocketState.CLOSED) context.getColor(R.color.component_error) else context.getColor(R.color.component)
                     }
                 }
                 cell {
@@ -94,7 +103,7 @@ class NetworkSettingsFragment : ContainerFragment() {
                         bindNode(it)
                         doOnClick {
                             viewModel.setAutoSelect(false)
-                            viewModel.switchNode(it)
+                            viewModel.switch(it)
                         }
                         doOnLongClick { showNodeEditor(it) }
                     }
@@ -116,6 +125,29 @@ class NetworkSettingsFragment : ContainerFragment() {
                     doOnClick { showNodeEditor(null) }
                 }
                 viewModel.nodes.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
+            }
+            section {
+                cell {
+                    title = "Call "
+                    doOnClick {
+                        text = "Loading..."
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            globalWebsocketManager.getObject(AccountId(0U)).let {
+                                withContext(Dispatchers.Main.immediate) {
+                                    text = it.toString()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            section {
+                cell {
+                    title = "Start Pinger"
+                    doOnClick {
+                        viewModel.startPinger()
+                    }
+                }
             }
             logo()
         }

@@ -273,7 +273,6 @@ class MainFragment : ContainerFragment() {
             }
         }
 
-        startFragment<TestLabFragment>()
         globalPreferenceManager.LANGUAGE.skipFirst().observe { recreate() }
         Settings.KEY_CURRENT_ACCOUNT_ID.observe { accountViewModel.setAccountUid(it) }
         if (!mainViewModel.isInitialized) {

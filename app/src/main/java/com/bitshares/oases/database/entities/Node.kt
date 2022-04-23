@@ -3,6 +3,7 @@ package com.bitshares.oases.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import graphene.rpc.GrapheneClient
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
@@ -52,4 +53,26 @@ data class BitsharesNode(
 //    val apis: List<Boolean> = List(4) { false },
     @SerialName("last_update") @ColumnInfo(name = "last_update")
     val lastUpdate: Long = Long.MAX_VALUE,
-)
+) {
+
+    companion object {
+        const val LATENCY_TIMEOUT = Long.MAX_VALUE
+        const val LATENCY_CONNECTING = -1L
+        const val LATENCY_UNRESOLVED = -2L
+        const val LATENCY_UNKNOWN = -3L
+
+    }
+}
+
+val nodeConfigAreEquivalent: (BitsharesNode, BitsharesNode) -> Boolean = { old, new ->
+    old.id == new.id && old.url == new.url && old.username == new.username && old.password == new.password
+}
+
+fun BitsharesNode.toClient() =
+    GrapheneClient {
+        id = this@toClient.id
+        name = this@toClient.name
+        url = this@toClient.url
+        enableFallback = false
+        debug = true
+    }
