@@ -5,7 +5,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import bitshareskit.extensions.asOrNull
 import bitshareskit.models.Market
 import bitshareskit.operations.LimitOrderCancelOperation
 import com.bitshares.oases.R
@@ -48,7 +47,7 @@ fun Union.showLimitOrderCancelDialog(operation: LimitOrderCancelOperation, marke
 
 class LimitOrderCancelViewModel(application: Application) : TransactionBroadcastViewModel(application) {
 
-    val operation = operations.map { it.firstOrNull().asOrNull<LimitOrderCancelOperation>() }.filterNotNull()
+    val operation = operations.map { it.firstOrNull() as? LimitOrderCancelOperation }.filterNotNull()
     val market = MutableLiveData<Market>()
 
     val limitOrder = combineNonNull(operation, market).map(viewModelScope) { (operation, market) -> MarketRepository.getOrderDetail(operation.order, market) }

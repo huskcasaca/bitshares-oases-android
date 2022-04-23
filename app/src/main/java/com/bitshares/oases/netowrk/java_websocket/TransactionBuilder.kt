@@ -2,7 +2,6 @@ package com.bitshares.oases.netowrk.java_websocket
 
 import bitshareskit.errors.ErrorCode
 import bitshareskit.errors.TransactionBroadcastException
-import bitshareskit.extensions.logcat
 import bitshareskit.models.*
 import bitshareskit.objects.AssetObject
 import bitshareskit.objects.DynamicGlobalPropertyObject
@@ -15,7 +14,6 @@ import bitshareskit.chain.CallMethod
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import modulon.extensions.charset.toHexString
 import modulon.extensions.livedata.NonNullMediatorLiveData
 import org.java_json.JSONArray
 import org.java_json.JSONObject
@@ -140,9 +138,6 @@ class TransactionBuilder {
                 validate()
                 chainId = ChainPropertyRepository.chainId
                 transaction.sign(privateKeys)
-                logcat("TRANSACTION PFB   ${transaction.toJsonElement()} ")
-                logcat("TRANSACTION TXHEX ${transaction.toByteArray().toHexString()} ")
-                logcat("TRANSACTION OPHEX ${transaction.operations[0].toByteArray().toHexString()} ")
                 if (test) return@launch
                 TransactionRepository.broadcastTransactionWithCallback(transaction).collect { result ->
                     withContext(Dispatchers.Main) {

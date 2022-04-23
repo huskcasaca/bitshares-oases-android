@@ -24,6 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import modulon.extensions.livedata.*
+import modulon.extensions.stdlib.logcat
 import java.math.BigDecimal
 
 open class AccountViewModel(application: Application) : BaseViewModel(application) {
@@ -67,7 +68,7 @@ open class AccountViewModel(application: Application) : BaseViewModel(applicatio
 
     val accountBalanceOnly = accountBalance.map(viewModelScope) { it.map { AccountBalance(it, emptyList(), emptyList()) } }
 
-    val balanceCombined = combineFirst(accountBalanceOnly, accountBalanceWithOrders, accountBalanceWithPrices) { b1, b2, b3 -> (b3.takeIf { it.isNotNullOrEmpty() } ?: b2.takeIf { it.isNotNullOrEmpty() } ?: b1).orEmpty() }
+    val balanceCombined = combineFirst(accountBalanceOnly, accountBalanceWithOrders, accountBalanceWithPrices) { b1, b2, b3 -> (b3.takeIf { it != null && it.isNotEmpty() } ?: b2.takeIf { it != null && it.isNotEmpty() } ?: b1).orEmpty() }
 
     val balanceSorted = balanceCombined.map { it.sortedByDescending { it.value?.amount } }
 
@@ -239,7 +240,7 @@ open class AccountViewModel(application: Application) : BaseViewModel(applicatio
     override fun onActivityIntent(intent: Intent?) {
         super.onActivityIntent(intent)
         intent ?: return
-        logcat("onActivityIntent", intent.action)
+        "onActivityIntent ${intent.action}".logcat()
         when (intent.action) {
             Intent.ACTION_MAIN -> return
             Intent.ACTION_VIEW -> {

@@ -3,7 +3,6 @@ package com.bitshares.oases.ui.settings
 import android.app.Application
 import androidx.lifecycle.viewModelScope
 import bitshareskit.extensions.formatAssetInteger
-import bitshareskit.extensions.ifNull
 import bitshareskit.models.AssetAmount
 import com.bitshares.oases.MainApplication
 import com.bitshares.oases.chain.blockchainDatabaseScope
@@ -74,7 +73,7 @@ class SettingsViewModel(application: Application) : BaseViewModel(application) {
     }
 
     val appDescription = NonNullMutableLiveData(
-        "${AppConfig.APP_PACKAGE_NAME} v${AppConfig.APP_VERSION} ${getSystemABIs().firstOrNull().ifNull { "unknown_abi" }}"
+        "${AppConfig.APP_PACKAGE_NAME} v${AppConfig.APP_VERSION} ${getSystemABIs().firstOrNull() ?: "unknown_abi"}"
     )
 
 }

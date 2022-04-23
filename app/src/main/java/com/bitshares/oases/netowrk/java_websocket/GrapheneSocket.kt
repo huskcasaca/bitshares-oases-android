@@ -2,7 +2,6 @@ package com.bitshares.oases.netowrk.java_websocket
 
 import android.util.Log
 import bitshareskit.errors.WebSocketClosedException
-import bitshareskit.extensions.logcat
 import bitshareskit.models.SocketCall
 import bitshareskit.models.SocketResponse
 import com.bitshares.oases.chain.blockchainDatabaseScope
@@ -196,7 +195,6 @@ class GrapheneSocket(val node: Node, var login: Boolean = true) {
 
     @Synchronized
     fun connect() {
-        logcat(">>> >>> >>> START CONNECTING >>> >>> >>> ")
         changeState(WebSocketState.CONNECTING)
         socketScope.launch {
             updateNodeLatency(Node.LATENCY_CONNECTING)

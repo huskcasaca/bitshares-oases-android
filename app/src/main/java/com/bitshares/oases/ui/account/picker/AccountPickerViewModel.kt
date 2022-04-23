@@ -6,7 +6,6 @@ import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import bitshareskit.extensions.createAccountObject
-import bitshareskit.extensions.isNotNullOrEmpty
 import bitshareskit.objects.AccountObject
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.provider.chain_repo.AccountRepository
@@ -52,9 +51,9 @@ class AccountPickerViewModel(application: Application) : BaseViewModel(applicati
 
     val availableTabs = combineFirst(historyAccounts, localAccounts, whitelistAccounts) { history, local, whitelist ->
         listOf(
-            AccountPickerFragment.Tabs.HISTORY.takeIf { history.isNotNullOrEmpty() },
-            AccountPickerFragment.Tabs.LOCAL.takeIf { local.isNotNullOrEmpty() },
-            AccountPickerFragment.Tabs.WHITELIST.takeIf { whitelist.isNotNullOrEmpty() },
+            AccountPickerFragment.Tabs.HISTORY.takeIf { history != null && history.isNotEmpty() },
+            AccountPickerFragment.Tabs.LOCAL.takeIf { local != null && local.isNotEmpty() },
+            AccountPickerFragment.Tabs.WHITELIST.takeIf { whitelist != null && whitelist.isNotEmpty() },
         ).filterNotNull()
     }.distinctUntilChanged().throttleLatest(viewModelScope, 64).withDefault { emptyList() }
 

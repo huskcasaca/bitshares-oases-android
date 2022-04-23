@@ -22,6 +22,7 @@ import com.bitshares.oases.provider.chain_repo.MarketRepository
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.base.getJson
 import modulon.extensions.livedata.*
+import modulon.extensions.stdlib.logcat
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
@@ -85,7 +86,7 @@ class TradingViewModel(application: Application) : AccountViewModel(application)
     // FIXME: 5/10/2021 empty when recreated
     override fun onActivityIntent(intent: Intent?) {
         intent ?: return
-        logcat("onActivityIntent", intent.action)
+        "onActivityIntent ${intent.action}".logcat()
         when (intent.action) {
             Intent.ACTION_MAIN -> return
             Intent.ACTION_VIEW -> return
@@ -270,8 +271,8 @@ class TradingViewModel(application: Application) : AccountViewModel(application)
 
     val transactionBuilder = MutableLiveData<TransactionBuilder>()
     val transaction = transactionBuilder.map { it.build() }
-    val limitOrderCreateOperation = transaction.map { it.operations.firstOrNull().asOrNull<LimitOrderCreateOperation>() }.filterNotNull()
-    val limitOrderCancelOperation = transaction.map { it.operations.firstOrNull().asOrNull<LimitOrderCancelOperation>() }.filterNotNull()
+    val limitOrderCreateOperation = transaction.map { it.operations.firstOrNull() as? LimitOrderCreateOperation }.filterNotNull()
+    val limitOrderCancelOperation = transaction.map { it.operations.firstOrNull() as? LimitOrderCancelOperation }.filterNotNull()
 
     // FIXME: 9/10/2021 Refactor of val operation cause [const val KEY_OPERATION = "operation"] get renamed to "limitOrderCreateOperation", consider other potential impacts
 

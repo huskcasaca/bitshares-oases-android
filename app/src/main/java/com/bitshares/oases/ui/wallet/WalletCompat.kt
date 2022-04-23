@@ -8,7 +8,6 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import bitshareskit.extensions.ifNull
 import com.bitshares.oases.R
 import com.bitshares.oases.chain.Clipboard
 import com.bitshares.oases.chain.blockchainDatabaseScope
@@ -574,7 +573,7 @@ fun Union.showWalletRestoreDialog() = showBottomDialog {
             doOnClick {
                 lifecycleScope.launch {
                     if (startWalletUnlock()) {
-                        val uri = suspendActivityForOpenDocument(arrayOf("application/octet-stream")).ifNull { return@launch dismiss() }
+                        val uri = suspendActivityForOpenDocument(arrayOf("application/octet-stream")) ?: return@launch dismiss()
                         val file = WalletManagerViewModel.decodeFile(uri, context.contentResolver)
                         if (file == WalletManagerViewModel.BackupFile.INVALID) showWalletRestoreErrorDialog() else showWalletFileRestoreDialog(file)
                         dismiss()

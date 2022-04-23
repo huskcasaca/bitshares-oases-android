@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import modulon.extensions.livedata.*
+import modulon.extensions.stdlib.logcat
 
 open class K_AccountViewModel(application: Application) : BaseViewModel(application) {
 
@@ -36,7 +37,7 @@ open class K_AccountViewModel(application: Application) : BaseViewModel(applicat
     override fun onActivityIntent(intent: Intent?) {
         super.onActivityIntent(intent)
         intent ?: return
-        logcat("onActivityIntent", intent.action)
+        "onActivityIntent ${intent.action}".logcat()
         when (intent.action) {
             Intent.ACTION_MAIN -> return
             Intent.ACTION_VIEW -> {

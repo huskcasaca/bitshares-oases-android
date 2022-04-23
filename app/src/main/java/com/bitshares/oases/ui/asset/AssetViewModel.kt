@@ -9,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import bitshareskit.chain.ChainConfig
 import bitshareskit.extensions.formatPercentage
 import bitshareskit.extensions.formatTradePrice
-import bitshareskit.extensions.logcat
 import bitshareskit.extensions.symbolOrEmpty
 import bitshareskit.models.AssetAmount
 import bitshareskit.models.Price
@@ -26,6 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import modulon.extensions.livedata.*
+import modulon.extensions.stdlib.logcat
 import java.math.BigDecimal
 import java.math.RoundingMode
 import kotlin.math.max
@@ -145,7 +145,7 @@ open class AssetViewModel(application: Application) : BaseViewModel(application)
     override fun onActivityIntent(intent: Intent?) {
         super.onActivityIntent(intent)
         intent ?: return
-        logcat("onActivityIntent", intent.action)
+        "onActivityIntent ${intent.action}".logcat()
         when (intent.action) {
             Intent.ACTION_MAIN -> return
             Intent.ACTION_VIEW -> {

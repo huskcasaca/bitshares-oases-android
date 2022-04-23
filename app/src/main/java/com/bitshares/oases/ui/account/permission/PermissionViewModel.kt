@@ -2,8 +2,6 @@ package com.bitshares.oases.ui.account.permission
 
 import android.app.Application
 import androidx.lifecycle.*
-import bitshareskit.extensions.isNotNullOrEmpty
-import bitshareskit.extensions.orFalse
 import bitshareskit.models.BrainKey
 import bitshareskit.models.PrivateKey
 import bitshareskit.models.PublicKey
@@ -37,23 +35,44 @@ open class PermissionViewModel(application: Application) : AuthorityViewModel(ap
         newPasswordField.value = PrivateKey.randomPassword(ChainPropertyRepository.chainSymbol)
     }
 
-    protected val ownerKeyAuthsChanged: MutableLiveData<SortedMap<PublicKey, UShort>> = ownerKeyAuths.map { it.toSortedMap(publicKeyComparator) }.toMutableLiveData()
-    protected val activeKeyAuthsChanged: MutableLiveData<SortedMap<PublicKey, UShort>> = activeKeyAuths.map { it.toSortedMap(publicKeyComparator) }.toMutableLiveData()
-    protected val memoKeyAuthsChanged: MutableLiveData<SortedMap<PublicKey, UShort>> = memoKeyAuths.map { it.toSortedMap(publicKeyComparator) }.toMutableLiveData()
-    val ownerAccountAuthsChanged: MutableLiveData<SortedMap<AccountObject, UShort>> = ownerAccountAuths.map { it.toSortedMap(grapheneInstanceComparator) }.toMutableLiveData()
-    val activeAccountAuthsChanged: MutableLiveData<SortedMap<AccountObject, UShort>> = activeAccountAuths.map { it.toSortedMap(grapheneInstanceComparator) }.toMutableLiveData()
+    protected val ownerKeyAuthsChanged: MutableLiveData<SortedMap<PublicKey, UShort>> =
+        ownerKeyAuths.map { it.toSortedMap(publicKeyComparator) }.toMutableLiveData()
+    protected val activeKeyAuthsChanged: MutableLiveData<SortedMap<PublicKey, UShort>> =
+        activeKeyAuths.map { it.toSortedMap(publicKeyComparator) }.toMutableLiveData()
+    protected val memoKeyAuthsChanged: MutableLiveData<SortedMap<PublicKey, UShort>> =
+        memoKeyAuths.map { it.toSortedMap(publicKeyComparator) }.toMutableLiveData()
+    val ownerAccountAuthsChanged: MutableLiveData<SortedMap<AccountObject, UShort>> =
+        ownerAccountAuths.map { it.toSortedMap(grapheneInstanceComparator) }.toMutableLiveData()
+    val activeAccountAuthsChanged: MutableLiveData<SortedMap<AccountObject, UShort>> =
+        activeAccountAuths.map { it.toSortedMap(grapheneInstanceComparator) }.toMutableLiveData()
 
 
-
-    val ownerKeyAuthsChecked: LiveData<List<Triple<PublicKey, UShort, Boolean>>> = combineLatest(ownerKeyAuthsChanged, ownerKeyAuthsLocal) { changed, local ->
-        changed.orEmpty().map { Triple(it.key, it.value, local.orEmpty().map { it.publicKey }.contains(it.key) || ownerKeyAuthsToAppend.map { it.key.publicKey }.contains(it.key)) }
-    }.distinctUntilChanged()
-    val activeKeyAuthsChecked: LiveData<List<Triple<PublicKey, UShort, Boolean>>> = combineLatest(activeKeyAuthsChanged, activeKeyAuthsLocal) { changed, local ->
-        changed.orEmpty().map { Triple(it.key, it.value, local.orEmpty().map { it.publicKey }.contains(it.key) || activeKeyAuthsToAppend.map { it.key.publicKey }.contains(it.key)) }
-    }.distinctUntilChanged()
-    val memoKeyAuthsChecked: LiveData<List<Triple<PublicKey, UShort, Boolean>>> = combineLatest(memoKeyAuthsChanged, memoKeyAuthsLocal) { changed, local ->
-        changed.orEmpty().map { Triple(it.key, it.value, local.orEmpty().map { it.publicKey }.contains(it.key) || memoKeyAuthsToAppend.map { it.key.publicKey }.contains(it.key)) }
-    }.distinctUntilChanged()
+    val ownerKeyAuthsChecked: LiveData<List<Triple<PublicKey, UShort, Boolean>>> =
+        combineLatest(ownerKeyAuthsChanged, ownerKeyAuthsLocal) { changed, local ->
+            changed.orEmpty().map {
+                Triple(it.key,
+                    it.value,
+                    local.orEmpty().map { it.publicKey }.contains(it.key) || ownerKeyAuthsToAppend.map { it.key.publicKey }
+                        .contains(it.key))
+            }
+        }.distinctUntilChanged()
+    val activeKeyAuthsChecked: LiveData<List<Triple<PublicKey, UShort, Boolean>>> =
+        combineLatest(activeKeyAuthsChanged, activeKeyAuthsLocal) { changed, local ->
+            changed.orEmpty().map {
+                Triple(it.key,
+                    it.value,
+                    local.orEmpty().map { it.publicKey }.contains(it.key) || activeKeyAuthsToAppend.map { it.key.publicKey }
+                        .contains(it.key))
+            }
+        }.distinctUntilChanged()
+    val memoKeyAuthsChecked: LiveData<List<Triple<PublicKey, UShort, Boolean>>> =
+        combineLatest(memoKeyAuthsChanged, memoKeyAuthsLocal) { changed, local ->
+            changed.orEmpty().map {
+                Triple(it.key,
+                    it.value,
+                    local.orEmpty().map { it.publicKey }.contains(it.key) || memoKeyAuthsToAppend.map { it.key.publicKey }.contains(it.key))
+            }
+        }.distinctUntilChanged()
 
     private val ownerKeyAuthsToAppend = mutableMapOf<PrivateKey, UShort>()
     private val activeKeyAuthsToAppend = mutableMapOf<PrivateKey, UShort>()
@@ -67,12 +86,16 @@ open class PermissionViewModel(application: Application) : AuthorityViewModel(ap
     val memoThresholdChanged = combineFirst(memoThreshold, emptyLiveData<UInt>()).distinctUntilChanged()
 
     // FIXME: 28/07/2021 threshold!! in 1U..UInt.MAX_VALUE -> (1U..UInt.MAX_VALUE).contains(threshold)
-    val isOwnerSufficient = combineLatest(ownerThresholdChanged.map { it.second ?: it.first }, ownerKeyAuthsChanged, ownerAccountAuthsChanged) { threshold, keys, accounts ->
+    val isOwnerSufficient = combineLatest(ownerThresholdChanged.map { it.second ?: it.first },
+        ownerKeyAuthsChanged,
+        ownerAccountAuthsChanged) { threshold, keys, accounts ->
         val current = keys?.values.orEmpty().sum() + accounts?.values.orEmpty().sum()
         threshold != null && (1U..UInt.MAX_VALUE).contains(threshold) && threshold <= current
     }
 
-    val isActiveSufficient = combineLatest(activeThresholdChanged.map { it.second ?: it.first }, activeKeyAuthsChanged, activeAccountAuthsChanged) { threshold, keys, accounts ->
+    val isActiveSufficient = combineLatest(activeThresholdChanged.map { it.second ?: it.first },
+        activeKeyAuthsChanged,
+        activeAccountAuthsChanged) { threshold, keys, accounts ->
         val current: UInt = keys?.values.orEmpty().sum() + accounts?.values.orEmpty().sum()
         threshold != null && (1U..UInt.MAX_VALUE).contains(threshold) && threshold <= current
     }
@@ -232,7 +255,8 @@ open class PermissionViewModel(application: Application) : AuthorityViewModel(ap
         randomField.value = when (type) {
             PermissionFragment_Tabs.ImportKeyType.CLOUD -> "P${PrivateKey.random(ChainPropertyRepository.chainSymbol).wif}"
             PermissionFragment_Tabs.ImportKeyType.WIF -> PrivateKey.random(ChainPropertyRepository.chainSymbol).wif
-            PermissionFragment_Tabs.ImportKeyType.BRAIN -> BrainKey.suggest(BrainKeyDict.getDictionary(), ChainPropertyRepository.chainSymbol).words.joinToString(BLANK_SPACE)
+            PermissionFragment_Tabs.ImportKeyType.BRAIN -> BrainKey.suggest(BrainKeyDict.getDictionary(),
+                ChainPropertyRepository.chainSymbol).words.joinToString(BLANK_SPACE)
         }
     }
 
@@ -359,7 +383,7 @@ open class PermissionViewModel(application: Application) : AuthorityViewModel(ap
     //    val isModified = NonNullMediatorLiveData(false)
     val isModified = combineBooleanAny(isOwnerModified, isActiveModified, isMemoModified)
 
-    fun isModified() = isModified.value.orFalse()
+    fun isModified() = isModified.value ?: false
 
     fun checkSufficient() = isOwnerSufficient.value == true && isActiveSufficient.value == true && isMemoSufficient.value == true
 
@@ -387,7 +411,7 @@ open class PermissionViewModel(application: Application) : AuthorityViewModel(ap
 
     fun importDialogKeys(vararg authority: Authority): Boolean {
         val user = user.value
-        val generated = dialogKeyGenerated.value.isNotNullOrEmpty()
+        val generated = dialogKeyGenerated.value != null && dialogKeyGenerated.value.isNotEmpty()
         if (generated && user != null) {
             blockchainDatabaseScope.launch {
                 LocalUserRepository.add(

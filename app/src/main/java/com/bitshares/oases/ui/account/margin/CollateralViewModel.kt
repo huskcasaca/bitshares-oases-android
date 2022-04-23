@@ -18,6 +18,7 @@ import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.base.getJson
 import kotlinx.coroutines.launch
 import modulon.extensions.livedata.*
+import modulon.extensions.stdlib.logcat
 import java.math.BigDecimal
 import java.math.RoundingMode
 import kotlin.math.log
@@ -53,7 +54,8 @@ class CollateralViewModel(application: Application) : AccountViewModel(applicati
 
     val coreExchangeRate = debtAssetInternal.filterNotNull().map(viewModelScope) { AssetRepository.getPriceDetail(it.coreExchangeRate) }
 
-    private val bitassetData = debtAssetInternal.filterNotNull().map { it.bitassetData.uid }.switchMap { AssetRepository.getAssetBitassetDataLive(it) }
+    private val bitassetData =
+        debtAssetInternal.filterNotNull().map { it.bitassetData.uid }.switchMap { AssetRepository.getAssetBitassetDataLive(it) }
 
     val debtAssetDetailed = combineNonNull(debtAssetInternal, bitassetData) { asset, bitasset ->
         asset.apply { if (asset.bitassetData.uid == bitasset.uid) bitassetData = bitasset }
@@ -62,16 +64,19 @@ class CollateralViewModel(application: Application) : AccountViewModel(applicati
     private val mcr = bitassetData.filterNotNull().map { it.currentFeed.maintenanceCollateralRatio }.distinctUntilChanged()
     private val mssr = bitassetData.filterNotNull().map { it.currentFeed.maximumShortSqueezeRatio }.distinctUntilChanged()
 
-    val feedPrice = bitassetData.filterNotNull().map(viewModelScope) { AssetRepository.getPriceDetail(it.currentFeed.settlementPrice) }.map { if (it.quote.asset.uid != AssetObject.CORE_ASSET_UID) it.invertedPair else it }.distinctUntilChanged()
+    val feedPrice = bitassetData.filterNotNull().map(viewModelScope) { AssetRepository.getPriceDetail(it.currentFeed.settlementPrice) }
+        .map { if (it.quote.asset.uid != AssetObject.CORE_ASSET_UID) it.invertedPair else it }.distinctUntilChanged()
 
     val isCollateralLocked = NonNullMutableLiveData(false)
 
     private val debtBalance = combineLatest(account, accountBalance, debtAssetInternal) { account, balances, asset ->
-        if (account == null || asset == null) null else AssetAmount(balances.orEmpty().find { it.assetUid == asset.uid && it.ownerUid == account.uid }?.balance ?: 0L, asset)
+        if (account == null || asset == null) null else AssetAmount(balances.orEmpty()
+            .find { it.assetUid == asset.uid && it.ownerUid == account.uid }?.balance ?: 0L, asset)
     }.filterNotNull()
 
     private val collBalance = combineLatest(account, accountBalance, collAssetInternal) { account, balances, asset ->
-        if (account == null || asset == null) null else AssetAmount(balances.orEmpty().find { it.assetUid == asset.uid && it.ownerUid == account.uid }?.balance ?: 0L, asset)
+        if (account == null || asset == null) null else AssetAmount(balances.orEmpty()
+            .find { it.assetUid == asset.uid && it.ownerUid == account.uid }?.balance ?: 0L, asset)
     }.filterNotNull()
 
     private val debtFieldDecimal = MutableLiveData<BigDecimal>()
@@ -94,8 +99,14 @@ class CollateralViewModel(application: Application) : AccountViewModel(applicati
     private val isSliderOnTouch = NonNullMutableLiveData(false)
     private val isTcrSliderOnTouch = NonNullMutableLiveData(false)
 
-    private val debtAmountChanged = combineNonNull(debtAssetInternal, debtFieldDecimal) { asset, number -> AssetAmount(formatAssetInteger(number, asset.precision), asset) }
-    private val collAmountChanged = combineNonNull(collAssetInternal, collFieldDecimal) { asset, number -> AssetAmount(formatAssetInteger(number, asset.precision), asset) }
+    private val debtAmountChanged = combineNonNull(debtAssetInternal, debtFieldDecimal) { asset, number ->
+        AssetAmount(formatAssetInteger(number, asset.precision),
+            asset)
+    }
+    private val collAmountChanged = combineNonNull(collAssetInternal, collFieldDecimal) { asset, number ->
+        AssetAmount(formatAssetInteger(number, asset.precision),
+            asset)
+    }
 
     val debtLeft = combineNonNull(debtBalance, debtAmount, debtAmountChanged) { balance, amount, changed -> balance - amount + changed }
     val collLeft = combineNonNull(collBalance, collAmount, collAmountChanged) { balance, amount, changed -> balance + amount - changed }
@@ -143,12 +154,16 @@ class CollateralViewModel(application: Application) : AccountViewModel(applicati
     private val ratioThreshold = BigDecimal(64)
 
     private val interceptor = combineNonNull(mcr, currentRatio.distinctUntilChangedBy { it > ratioThreshold }) { mcr, currentRatio ->
-        if (currentRatio > ratioThreshold) createInterceptor(mcr.toDouble(), 64.0 * RATIO_SCALE) else createInterceptor(mcr.toDouble(), 64.0 * RATIO_SCALE)
+        if (currentRatio > ratioThreshold) createInterceptor(mcr.toDouble(), 64.0 * RATIO_SCALE) else createInterceptor(mcr.toDouble(),
+            64.0 * RATIO_SCALE)
     }
 
-    private val interceptorReversed = combineNonNull(mcr, currentRatio.distinctUntilChangedBy { it > ratioThreshold }) { mcr, currentRatio ->
-        if (currentRatio > ratioThreshold) createInterceptorReversed(mcr.toDouble(), 64.0 * RATIO_SCALE) else createInterceptorReversed(mcr.toDouble(), 64.0 * RATIO_SCALE)
-    }.sources(interceptor)
+    private val interceptorReversed =
+        combineNonNull(mcr, currentRatio.distinctUntilChangedBy { it > ratioThreshold }) { mcr, currentRatio ->
+            if (currentRatio > ratioThreshold) createInterceptorReversed(mcr.toDouble(), 64.0 * RATIO_SCALE) else createInterceptorReversed(
+                mcr.toDouble(),
+                64.0 * RATIO_SCALE)
+        }.sources(interceptor)
 
     val progress = combineNonNull(currentRatio, isSliderOnTouch, interceptorReversed) { ratio, touch, interceptor ->
         if (!touch) interceptor.invoke(ratio.toDouble()) else null
@@ -173,7 +188,8 @@ class CollateralViewModel(application: Application) : AccountViewModel(applicati
 
     private val tcrInterceptor = mcr.map { createInterceptor(it.toDouble(), UShort.MAX_VALUE.toDouble()) }
 
-    private val tcrInterceptorReversed = mcr.map { createInterceptorReversed(it.toDouble(), UShort.MAX_VALUE.toDouble()) }.sources(tcrInterceptor)
+    private val tcrInterceptorReversed =
+        mcr.map { createInterceptorReversed(it.toDouble(), UShort.MAX_VALUE.toDouble()) }.sources(tcrInterceptor)
 
 //    val currentTargetRatioProgress = NonNullMutableLiveData(0)
 
@@ -181,7 +197,9 @@ class CollateralViewModel(application: Application) : AccountViewModel(applicati
     private val currentTargetRatioInternal = NonNullMutableLiveData(errorRatio)
 
     val currentTargetRatio = combineNonNull(currentTargetRatioInternal, mcr) { ratio, mcr ->
-        if (ratio.multiply(ratioScale).toDouble() <= mcr * 0.7) undefinedRatio else if (ratio.multiply(ratioScale).toDouble() <= mcr) mcr.toBigDecimal().divide(ratioScale, 4, RoundingMode.HALF_EVEN) else ratio
+        if (ratio.multiply(ratioScale).toDouble() <= mcr * 0.7) undefinedRatio else if (ratio.multiply(ratioScale)
+                .toDouble() <= mcr
+        ) mcr.toBigDecimal().divide(ratioScale, 4, RoundingMode.HALF_EVEN) else ratio
     }
 
     private val tcr = callOrder.filterNotNull().map { if (it.tcr.toInt() == 0) UNDEFINED_RATIO else it.tcr.toInt() }
@@ -221,16 +239,23 @@ class CollateralViewModel(application: Application) : AccountViewModel(applicati
             val debtPre = debtAssetInternal.value?.precision ?: 0
             if (feed != null && coll != null && debt != null) {
                 if (isCollateralLocked.value) {
-                    debtFieldDecimal.value = if (ratio.isNotZero()) (feed.setScale(debtPre + collPre, RoundingMode.HALF_EVEN) * coll).divide(ratio, debtPre, RoundingMode.HALF_EVEN) else BigDecimal.ZERO
+                    debtFieldDecimal.value =
+                        if (ratio.isNotZero()) (feed.setScale(debtPre + collPre, RoundingMode.HALF_EVEN) * coll).divide(ratio,
+                            debtPre,
+                            RoundingMode.HALF_EVEN) else BigDecimal.ZERO
                 } else {
-                    collFieldDecimal.value = if (feed.isNotZero()) (debt.setScale(debtPre + collPre, RoundingMode.HALF_EVEN) * ratio).divide(feed, collPre, RoundingMode.HALF_EVEN) else BigDecimal.ZERO
+                    collFieldDecimal.value =
+                        if (feed.isNotZero()) (debt.setScale(debtPre + collPre, RoundingMode.HALF_EVEN) * ratio).divide(feed,
+                            collPre,
+                            RoundingMode.HALF_EVEN) else BigDecimal.ZERO
                 }
             }
         }
     }
 
     fun switchTargetRatio(scaled: Double) {
-        tcrInterceptor.value?.invoke(scaled)?.let { currentTargetRatioInternal.value = BigDecimal.valueOf(it).setScale(3, RoundingMode.HALF_EVEN) }
+        tcrInterceptor.value?.invoke(scaled)
+            ?.let { currentTargetRatioInternal.value = BigDecimal.valueOf(it).setScale(3, RoundingMode.HALF_EVEN) }
     }
 
     fun switchSlider(touched: Boolean) {
@@ -269,18 +294,24 @@ class CollateralViewModel(application: Application) : AccountViewModel(applicati
 
     private val isDebtBalanceSufficient = debtLeft.map { it.amount >= 0L }
     private val isCollBalanceSufficient = collLeft.map { it.amount >= 0L }
-    private val isCollateralRatioAboveMaintained = combineNonNull(callPositionPercentage, lastCallPositionPercentage, currentRatio).map { (current, last, ratio) -> current >= 0 || (current > last) || ratio == undefinedRatio }
+    private val isCollateralRatioAboveMaintained = combineNonNull(callPositionPercentage,
+        lastCallPositionPercentage,
+        currentRatio).map { (current, last, ratio) -> current >= 0 || (current > last) || ratio == undefinedRatio }
 
-    private val isDebtModified = combineNonNull(debtAmountChanged, debtAmount) { changed, original -> changed.asset.uid == original.asset.uid && changed.amount != original.amount }
-    private val isCollModified = combineNonNull(collAmountChanged, collAmount) { changed, original -> changed.asset.uid == original.asset.uid && changed.amount != original.amount }
+    private val isDebtModified = combineNonNull(debtAmountChanged,
+        debtAmount) { changed, original -> changed.asset.uid == original.asset.uid && changed.amount != original.amount }
+    private val isCollModified = combineNonNull(collAmountChanged,
+        collAmount) { changed, original -> changed.asset.uid == original.asset.uid && changed.amount != original.amount }
 
     private val isTargetRatioModified = combineNonNull(currentTargetRatio, tcr) { changed, original ->
         changed.multiply(ratioScale).toInt() != original
     }
 
     val isModified = combineBooleanAny(isDebtModified, isCollModified)
-    val isPositionUpdatable = combineBooleanAll(isDebtBalanceSufficient, isCollBalanceSufficient, isCollateralRatioAboveMaintained, isModified)
-    fun isModified() = isPositionUpdatable.value.orFalse()
+    val isPositionUpdatable =
+        combineBooleanAll(isDebtBalanceSufficient, isCollBalanceSufficient, isCollateralRatioAboveMaintained, isModified)
+
+    fun isModified() = isPositionUpdatable.value ?: false
 
     val transactionBuilder = MutableLiveData<TransactionBuilder>()
     val feeState = transactionBuilder.switchMap { it.feeState }
@@ -300,10 +331,10 @@ class CollateralViewModel(application: Application) : AccountViewModel(applicati
         transactionBuilder.value = this
         checkFees()
     }
-    
+
     override fun onActivityIntent(intent: Intent?) {
         intent ?: return
-        logcat("onActivityIntent", intent.action)
+        "onActivityIntent ${intent.action}".logcat()
         when (intent.action) {
             Intent.ACTION_MAIN -> return
             Intent.ACTION_VIEW -> return

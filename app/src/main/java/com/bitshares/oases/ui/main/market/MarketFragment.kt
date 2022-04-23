@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
-import bitshareskit.extensions.logcat
 import bitshareskit.objects.AssetObject
 import com.bitshares.oases.R
 import com.bitshares.oases.chain.IntentParameters
@@ -18,6 +17,7 @@ import modulon.dialog.doOnDismiss
 import modulon.dialog.section
 import modulon.extensions.compat.arguments
 import modulon.extensions.compat.showBottomDialog
+import modulon.extensions.stdlib.logcat
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.nestedScrollableHost
@@ -35,7 +35,7 @@ class MarketFragment : ContainerFragment() {
             tabLayout {
                 viewModel.marketGroupInternal.observe(viewLifecycleOwner) {
                     removeAllTabs()
-                    logcat("[ui_trace] viewModel.marketGroupInternal.observe(viewLifecycleOwner) removeAllTabs()")
+                    "[ui_trace] viewModel.marketGroupInternal.observe(viewLifecycleOwner) removeAllTabs()".logcat()
                     tab { text = context.getString(R.string.market_all_groups) }
                     it.forEach {
                         tab {

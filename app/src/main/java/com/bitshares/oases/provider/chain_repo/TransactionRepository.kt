@@ -1,6 +1,5 @@
 package com.bitshares.oases.provider.chain_repo
 
-import bitshareskit.extensions.logcat
 import bitshareskit.models.Transaction
 import bitshareskit.models.TransactionBlock
 import bitshareskit.operations.*
@@ -17,7 +16,6 @@ object TransactionRepository {
 
     suspend fun broadcastTransactionWithCallback(tx: Transaction): Flow<Any?> {
         return NetworkService.sendSubscribe(CallMethod.BROADCAST_TRANSACTION_WITH_CALLBACK, listOf(tx.toJsonElement())) {
-            logcat("broadcastTransactionWithCallback $it")
             when (it) {
                 is JSONArray -> runCatching { TransactionBlock(it[0] as JSONObject) }.getOrNull()
                 else -> it

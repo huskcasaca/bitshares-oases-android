@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import bitshareskit.chain.ChainConfig
-import bitshareskit.extensions.logcat
 import com.bitshares.oases.chain.IntentParameters
 import com.bitshares.oases.chain.resolveBlock
 import com.bitshares.oases.provider.chain_repo.AccountRepository
@@ -18,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import modulon.extensions.livedata.*
+import modulon.extensions.stdlib.logcat
 
 class BlockViewModel(application: Application) : BaseViewModel(application) {
 
@@ -41,7 +41,7 @@ class BlockViewModel(application: Application) : BaseViewModel(application) {
     override fun onActivityIntent(intent: Intent?) {
         super.onActivityIntent(intent)
         intent ?: return
-        logcat("onActivityIntent", intent.action)
+        "onActivityIntent ${intent.action}".logcat()
         when (intent.action) {
             Intent.ACTION_MAIN -> return
             Intent.ACTION_VIEW -> {

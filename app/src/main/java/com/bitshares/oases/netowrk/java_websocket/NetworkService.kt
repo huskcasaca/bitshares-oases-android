@@ -10,9 +10,7 @@ import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import bitshareskit.chain.ChainConfig
-import bitshareskit.extensions.asOrNull
 import bitshareskit.extensions.formatIdentifier
-import bitshareskit.extensions.logcat
 import bitshareskit.objects.AssetObject
 import com.bitshares.oases.chain.blockchainDatabaseScope
 import com.bitshares.oases.chain.blockchainNetworkScope
@@ -35,6 +33,7 @@ import modulon.extensions.coroutine.throttleFirst
 import modulon.extensions.coroutine.throttleLatest
 import modulon.extensions.livedata.distinctUntilChangedBy
 import modulon.extensions.livedata.withDefault
+import modulon.extensions.stdlib.logcat
 import org.java_json.JSONArray
 import org.java_json.JSONObject
 import java.util.*
@@ -109,7 +108,7 @@ object NetworkService : ActivityLifecycleCallbacks, NetworkCallback() {
 
     @Synchronized
     private suspend fun switch(node: Node?, from: String = ""): GrapheneSocket {
-        logcat("Synchronized switch from ${from} ${node?.url}")
+        "Synchronized switch from ${from} ${node?.url}".logcat()
         try {
             if (node == null) {
                 lastConnection?.disconnect()
@@ -118,7 +117,7 @@ object NetworkService : ActivityLifecycleCallbacks, NetworkCallback() {
                 isPending = true
                 val socket = GrapheneSocket(node)
                 socket.connect()
-                val chainId = sendOrNull(socket, CallMethod.GET_CHAIN_ID) { it.asOrNull<String>() }
+                val chainId = sendOrNull(socket, CallMethod.GET_CHAIN_ID) { it as? String }
                 val coreAsset = sendOrNull(socket, CallMethod.LOOKUP_ASSET_SYMBOLS, listOf(listOf(formatIdentifier<AssetObject>(ChainConfig.GLOBAL_INSTANCE)))) {
                     runCatching { AssetObject((it as JSONArray)[0] as JSONObject) }.onFailure { it.printStackTrace() }.getOrNull()
                 }

@@ -3,8 +3,6 @@ package com.bitshares.oases.ui.account.whitelist
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import bitshareskit.extensions.asOrNull
-import bitshareskit.extensions.orFalse
 import bitshareskit.objects.AccountObject
 import bitshareskit.operations.AccountWhitelistOperation
 import bitshareskit.serializer.grapheneInstanceComparator
@@ -31,12 +29,16 @@ class WhitelistViewModel(application: Application) : AccountViewModel(applicatio
     private val whitelistToAppend = sortedSetOf<AccountObject>(grapheneInstanceComparator)
     private val whitelistToRemove = sortedSetOf<AccountObject>(grapheneInstanceComparator)
 
-    val blacklistChanged = combineLatest(blacklisted, blacklistedToAppend, blacklistedToRemove) { blacklisted, blacklistedToAppend, blacklistedToRemove ->
-        sortedSetOf(grapheneInstanceComparator, *(blacklisted.orEmpty() + blacklistedToAppend.orEmpty() - blacklistedToRemove.orEmpty()).toTypedArray())
-    }
-    val whitelistChanged = combineLatest(whitelisted, whitelistedToAppend, whitelistedToRemove) { whitelisted, whitelistedToAppend, whitelistedToRemove ->
-        sortedSetOf(grapheneInstanceComparator, *(whitelisted.orEmpty() + whitelistedToAppend.orEmpty() - whitelistedToRemove.orEmpty()).toTypedArray())
-    }
+    val blacklistChanged =
+        combineLatest(blacklisted, blacklistedToAppend, blacklistedToRemove) { blacklisted, blacklistedToAppend, blacklistedToRemove ->
+            sortedSetOf(grapheneInstanceComparator,
+                *(blacklisted.orEmpty() + blacklistedToAppend.orEmpty() - blacklistedToRemove.orEmpty()).toTypedArray())
+        }
+    val whitelistChanged =
+        combineLatest(whitelisted, whitelistedToAppend, whitelistedToRemove) { whitelisted, whitelistedToAppend, whitelistedToRemove ->
+            sortedSetOf(grapheneInstanceComparator,
+                *(whitelisted.orEmpty() + whitelistedToAppend.orEmpty() - whitelistedToRemove.orEmpty()).toTypedArray())
+        }
 
     val isBlacklistChanged = combineBooleanAny(blacklistedToAppend.map { it.isNotEmpty() }, blacklistedToRemove.map { it.isNotEmpty() })
     val isWhitelistChanged = combineBooleanAny(whitelistedToAppend.map { it.isNotEmpty() }, whitelistedToRemove.map { it.isNotEmpty() })
@@ -47,7 +49,7 @@ class WhitelistViewModel(application: Application) : AccountViewModel(applicatio
 
     val isModified = combineBooleanAny(isBlacklistChanged, isWhitelistChanged)
 
-    fun isModified() = isModified.value.orFalse()
+    fun isModified() = isModified.value ?: false
 
     @Synchronized
     fun addBlacklistedAccount(obj: AccountObject) {
@@ -107,7 +109,7 @@ class WhitelistViewModel(application: Application) : AccountViewModel(applicatio
 
     val transactionBuilder = MutableLiveData<TransactionBuilder>()
     val transaction = transactionBuilder.map { it.build() }
-    val operation = transaction.map { it.operations.firstOrNull().asOrNull<AccountWhitelistOperation>() }.filterNotNull()
+    val operation = transaction.map { it.operations.firstOrNull() as? AccountWhitelistOperation }.filterNotNull()
 
     fun buildTransaction(): TransactionBuilder = buildTransaction {
         val blacklist = blacklisted.value.orEmpty().toSortedSet(grapheneInstanceComparator)

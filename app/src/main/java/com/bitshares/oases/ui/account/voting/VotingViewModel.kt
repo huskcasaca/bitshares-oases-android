@@ -6,7 +6,6 @@ import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import bitshareskit.extensions.isProxyToSelf
-import bitshareskit.extensions.orFalse
 import bitshareskit.models.Vote
 import bitshareskit.objects.AccountObject
 import bitshareskit.operations.AccountUpdateOperation
@@ -38,10 +37,11 @@ class VotingViewModel(application: Application) : AccountViewModel(application) 
         }
     }
 
-    private val committeeMemberList = CommitteeMemberRepository.list.mapChild { CommitteeMember(it) }.replaceChildAsync(viewModelScope, 20) {
+    private val committeeMemberList =
+        CommitteeMemberRepository.list.mapChild { CommitteeMember(it) }.replaceChildAsync(viewModelScope, 20) {
 //        delay(4000 + Random.nextLong(4) * 1000L)
-        it.copy(account = GrapheneRepository.getObject(it.committee.committeeMemberAccount.uid) ?: it.committee.committeeMemberAccount)
-    }.map { it.sortedByDescending { it.committee.totalVotes } }
+            it.copy(account = GrapheneRepository.getObject(it.committee.committeeMemberAccount.uid) ?: it.committee.committeeMemberAccount)
+        }.map { it.sortedByDescending { it.committee.totalVotes } }
 
     private val witnessList = WitnessRepository.list.replaceChildAsync(viewModelScope) {
 //        delay(4000 + Random.nextLong(4) * 1000L)
@@ -53,8 +53,11 @@ class VotingViewModel(application: Application) : AccountViewModel(application) 
         it.copy().apply { workerAccount = GrapheneRepository.getObject(workerAccount.uid) ?: workerAccount }
     }.map { it.sortedByDescending { it.totalVotesFor - it.totalVotesAgainst } }
 
-    private val activeCommitteeMemberUids = ChainPropertyRepository.globalProperty.map { it?.activeCommitteeMembers.orEmpty().map { committee -> committee.uid } }.distinctUntilChanged()
-    private val activeWitnessUids = ChainPropertyRepository.globalProperty.map { it?.activeWitnesses.orEmpty().map { witness -> witness.uid } }.distinctUntilChanged()
+    private val activeCommitteeMemberUids =
+        ChainPropertyRepository.globalProperty.map { it?.activeCommitteeMembers.orEmpty().map { committee -> committee.uid } }
+            .distinctUntilChanged()
+    private val activeWitnessUids =
+        ChainPropertyRepository.globalProperty.map { it?.activeWitnesses.orEmpty().map { witness -> witness.uid } }.distinctUntilChanged()
     private val workerBudget = BudgetRecordRepository.lastBudgetRecord.map { it?.workerBudget?.times(24) }
     private val workerBudgetPerDay = ChainPropertyRepository.globalProperty.map { it?.workerBudgetPerDay }
 
@@ -95,7 +98,8 @@ class VotingViewModel(application: Application) : AccountViewModel(application) 
             all.isNullOrEmpty() || budget == null -> emptyList()
             else -> {
                 var remainingBudget: Long = budget
-                all.filter { remainingBudget -= it.dailyPay; remainingBudget >= 0 }.filter { filter.isNullOrBlank() || it.containsInternal(filter) }
+                all.filter { remainingBudget -= it.dailyPay; remainingBudget >= 0 }
+                    .filter { filter.isNullOrBlank() || it.containsInternal(filter) }
             }
         }
     }
@@ -103,7 +107,8 @@ class VotingViewModel(application: Application) : AccountViewModel(application) 
     val standbyWorkerFiltered = combineLatest(workerList, workerBudgetPerDay, filter) { all, budget, filter ->
         if (all.isNullOrEmpty() || budget == null) all.orEmpty() else {
             var remainingBudget: Long = budget
-            all.filter { remainingBudget -= it.dailyPay; remainingBudget < 0 }.filter { filter.isNullOrBlank() || it.containsInternal(filter) }
+            all.filter { remainingBudget -= it.dailyPay; remainingBudget < 0 }
+                .filter { filter.isNullOrBlank() || it.containsInternal(filter) }
         }
     }
 
@@ -190,12 +195,13 @@ class VotingViewModel(application: Application) : AccountViewModel(application) 
     }
 
     val isModified = combineBooleanAny(isProxyModified, isVoteListModified)
-    fun isModified() = isModified.value.orFalse()
+    fun isModified() = isModified.value ?: false
 
     fun buildTransaction(): TransactionBuilder = buildTransaction {
         addOperation {
             val account = account.value!!
-            val proxyToOld = if (account.options.votingAccount.uid == account.uid) AccountObject.PROXY_TO_SELF else account.options.votingAccount
+            val proxyToOld =
+                if (account.options.votingAccount.uid == account.uid) AccountObject.PROXY_TO_SELF else account.options.votingAccount
             val proxyToNew = proxyTo.value
             val proxyTo = proxyToNew ?: proxyToOld
             val votes = voting.value.orEmpty()

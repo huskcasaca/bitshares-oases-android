@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import modulon.extensions.livedata.*
+import modulon.extensions.stdlib.logcat
 import java.math.BigDecimal
 
 class TransferViewModel(application: Application) : AccountViewModel(application) {
@@ -113,7 +114,7 @@ class TransferViewModel(application: Application) : AccountViewModel(application
 
     override fun onActivityIntent(intent: Intent?) {
         intent ?: return
-        logcat("onActivityIntent", intent.action)
+        "onActivityIntent ${intent.action}".logcat()
         when (intent.action) {
             Intent.ACTION_MAIN -> return
             Intent.ACTION_VIEW -> {

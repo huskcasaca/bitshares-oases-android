@@ -21,7 +21,7 @@ inline fun <reified T: GrapheneObject> JSONArray.optGrapheneInstance(index: Int)
 inline fun <reified T: GrapheneObject> JSONArray.optGrapheneInstance(index: Int, defaultValue: T): T = optString(index).let { if (it.isEmpty()) defaultValue else createGraphene(it) }
 inline fun <reified T: GrapheneObject> JSONArray.optGrapheneInstance(index: Int, defaultValue: Nothing?): T? = optString(index).let { if (it.isEmpty()) defaultValue else createGraphene(it) }
 
-inline fun <reified T: Any> JSONObject.optIterable(name: String): Iterable<T> = optJSONArray(name).mapNotNull { it.asOrNull<T>() }.asIterable()
+inline fun <reified T: Any> JSONObject.optIterable(name: String): Iterable<T> = optJSONArray(name).mapNotNull { it as? T }.asIterable()
 
 
 
