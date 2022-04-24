@@ -13,6 +13,7 @@ import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
 import modulon.component.ComponentCell
 import modulon.extensions.content.optBoolean
+import modulon.extensions.stdlib.logcat
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.layout.recycler.*
@@ -39,7 +40,10 @@ class AccountBrowserFragment_Activity : ContainerFragment() {
                         doOnLongClick { showOperationBrowserDialog(it) }
                     }
                     distinctItemsBy { it }
-                    viewModel.activities.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    viewModel.activities.observe(viewLifecycleOwner) {
+                        "adapter.submitList(it)".logcat()
+                        adapter.submitList(it)
+                    }
                 }
                 viewModel.activities.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
             }

@@ -32,7 +32,7 @@ import java.math.BigDecimal
 
 
 //fun UnionContext.startAccountBrowser(uid: ULong) = startFragment<AccountBrowserFragment>{ putExtraJson(IntentParameters.Account.KEY_UID, uid) }
-fun UnionContext.startAccountBrowser(uid: Long) = startFragment<K_AccountBrowserFragment>{ putJson(IntentParameters.Account.KEY_UID, uid) }
+fun UnionContext.startAccountBrowser(uid: Long) = startFragment<AccountBrowserFragment>{ putJson(IntentParameters.Account.KEY_UID, uid) }
 
 fun UnionContext.startAssetBrowser(uid: Long) = startFragment<AssetBrowserFragment> {
     putJson(IntentParameters.Asset.KEY_UID, uid)

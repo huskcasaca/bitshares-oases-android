@@ -464,12 +464,13 @@ fun ComponentCell.bindOperation(op: Operation) {
 //            }
 //        }
 //    }
-    subtext(0) {
-        startScrolling()
-        text = buildContextSpannedString {
-            appendOperationDescriptionSpan(op)
-        }
+    subtext = buildContextSpannedString {
+        appendOperationDescriptionSpan(op)
     }
+    // FIXME: 2022/4/24  
+//    subtext(0) {
+//        startScrolling()
+//    }
     subtext(1) {
         startScrolling()
         text = buildContextSpannedString {

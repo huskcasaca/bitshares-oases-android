@@ -200,7 +200,7 @@ class MainFragment : ContainerFragment() {
                                     }
                                 }
                                 isUserInputEnabled = false
-                                offscreenPageLimit = 2
+                                offscreenPageLimit = 4
                                 doOnPageSelected { mainViewModel.currentMainTab.value = enableTabs[it] }
                                 doOnPageScrolled { position, positionOffset, _ -> mainViewModel.currentPosition.value = position + positionOffset }
                                 mainViewModel.selectedMainTab.observe { setCurrentItem(it.ordinal, false) }
