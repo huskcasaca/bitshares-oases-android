@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.main.explore
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.objects.WorkerObject
@@ -29,8 +27,7 @@ class ExploreFragment_Worker : ContainerFragment() {
     private val accountSearchingViewModel: AccountPickerViewModel by activityViewModels()
     private val assetSearchingViewModel: AssetPickerViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             section {
                 header = context.getString(R.string.voting_active_workers)
@@ -47,7 +44,7 @@ class ExploreFragment_Worker : ContainerFragment() {
                     }
                     payload { data, payload -> isChecked = (payload as Set<*>).contains(data.voteFor) }
                     distinctItemsBy { it.uid }
-                    votingViewModel.activeWorkersFiltered.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    votingViewModel.activeWorkersFiltered.observe(viewLifecycleOwner) { submitList(it) }
                 }
                 votingViewModel.activeWorkersFiltered.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
             }
@@ -62,7 +59,7 @@ class ExploreFragment_Worker : ContainerFragment() {
                     }
                     payload { data, payload -> isChecked = (payload as Set<*>).contains(data.voteFor) }
                     distinctItemsBy { it.uid }
-                    votingViewModel.workerList.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    votingViewModel.workerList.observe(viewLifecycleOwner) { submitList(it) }
                 }
                 votingViewModel.workerList.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
             }

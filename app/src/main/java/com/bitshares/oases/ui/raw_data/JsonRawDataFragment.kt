@@ -15,8 +15,7 @@ class JsonRawDataFragment : ContainerFragment() {
 
     private val viewModel: JsonRawDataViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             section {
                 cell {

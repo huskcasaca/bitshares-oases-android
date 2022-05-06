@@ -6,7 +6,10 @@ import modulon.extensions.viewbinder.createRecyclerLayout
 import modulon.extensions.view.doOnClick
 import modulon.layout.recycler.RecyclerLayout
 import modulon.layout.recycler.section
-import modulon.layout.recycler.section.HeaderSectionDelegate
+import modulon.layout.recycler.section.HeaderSectionImpl
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 fun BottomDialogFragment.doOnViewCreated(block: OnViewCreatedListener) = setOnViewCreatedListener(block)
 fun BottomDialogFragment.doOnDismiss(block: OnViewCreatedListener) = setOnDismissListener(block)
@@ -24,8 +27,9 @@ fun BottomDialogFragment.buttonCancel() = button {
     doOnClick { dismiss() }
 }
 
+// TODO: 2022/4/26 remove
 fun BottomDialogFragment.updateButton(index: Int, block: BottomDialogFragment.TextButton.() -> Unit) {
-    setButton(block, index)
+    (buttons[index] as BottomDialogFragment.TextButton).apply(block)
 }
 
 fun BottomDialogFragment.waitFor(block: suspend BottomDialogFragment.() -> Unit) {
@@ -37,7 +41,9 @@ fun BottomDialogFragment.waitFor(block: suspend BottomDialogFragment.() -> Unit)
 }
 
 // TODO: 27/1/2022 normalize
-fun BottomDialogFragment.section(block: HeaderSectionDelegate.() -> Unit = {}) {
+@OptIn(ExperimentalContracts::class)
+fun BottomDialogFragment.section(block: HeaderSectionImpl.() -> Unit = {}) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     customView = createRecyclerLayout {
 //        edgeEffectFactory = EmptyEdgeEffectFactory()
         // FIXME: 2022/2/22 remove

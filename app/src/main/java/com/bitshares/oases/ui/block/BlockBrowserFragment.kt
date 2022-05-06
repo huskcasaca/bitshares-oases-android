@@ -25,8 +25,7 @@ class BlockBrowserFragment : ContainerFragment() {
     private val viewModel: BlockViewModel by activityViewModels()
     private val rawViewModel: JsonRawDataViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupAction {
             titleConnectionState(getString(R.string.block_browser_title))
             websocketStateMenu()

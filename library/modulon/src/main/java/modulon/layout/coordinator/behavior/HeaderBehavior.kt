@@ -11,7 +11,7 @@ import androidx.core.view.ViewCompat
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
-abstract class HeaderBehavior<V : View> : OffsetBehavior<V>() {
+open class HeaderBehavior<V : View> : OffsetBehavior<V>() {
 
     companion object {
         private const val INVALID_POINTER = -1
@@ -67,7 +67,6 @@ abstract class HeaderBehavior<V : View> : OffsetBehavior<V>() {
         velocityTracker?.addMovement(ev)
         return false
     }
-
     override fun onTouchEvent(parent: CoordinatorLayout, child: V, ev: MotionEvent): Boolean {
         var consumeUp = false
         when (ev.actionMasked) {
@@ -124,7 +123,7 @@ abstract class HeaderBehavior<V : View> : OffsetBehavior<V>() {
         val curOffset = topAndBottomOffset
         var consumed = 0
         if (minOffset != 0 && curOffset >= minOffset && curOffset <= maxOffset) {
-            // If we have some scrolling range, and we're currently within the min and max
+            // If we have some scrolling range, and we're currentlywithin the min and max
             // offsets, calculate a new offset
             newOffset = MathUtils.clamp(newOffset, minOffset, maxOffset)
             if (curOffset != newOffset) {

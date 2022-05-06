@@ -28,8 +28,6 @@ import com.bitshares.oases.ui.transfer.ScannerFragment
 import com.bitshares.oases.ui.transfer.TransferFragment
 import modulon.UI
 import modulon.component.*
-import modulon.dialog.DialogState
-import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.font.typefaceBold
 import modulon.extensions.graphics.createSelectorDrawable
 import modulon.extensions.temp.drawShaders
@@ -49,23 +47,27 @@ class DashboardFragment : ContainerFragment() {
     private class Item(context: Context) : ComponentPaddingCell(context) {
         init {
             verticalLayout {
-                addWrap(iconView, width = resources.getDimensionPixelSize(IconSize.SIZE_5.size), height = resources.getDimensionPixelSize(IconSize.SIZE_5.size), gravity = Gravity.CENTER_HORIZONTAL)
-                addWrap(titleView, gravity = Gravity.CENTER_HORIZONTAL)
-            }
-            titleView.apply {
-                isAllCaps = true
-                typeface = typefaceBold
-                textSize = 15f
+                view(iconView) {
+                    layoutWidth = resources.getDimensionPixelSize(IconSize.SIZE_5.size)
+                    layoutHeight = resources.getDimensionPixelSize(IconSize.SIZE_5.size)
+                    layoutGravityLinear = Gravity.CENTER_HORIZONTAL
+                }
+                view(titleView) {
+                    isAllCaps = true
+                    typeface = typefaceBold
+                    textSize = 15f
+                    layoutGravityLinear = Gravity.CENTER_HORIZONTAL
+                }
             }
             background = createSelectorDrawable(context.getColor(R.color.background), UI.CORNER_RADIUS.dpf)
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             section {
                 horizontalLayout {
+                    layoutWidth = MATCH_PARENT
                     noClipping()
                     view<Item> {
                         drawShaders()

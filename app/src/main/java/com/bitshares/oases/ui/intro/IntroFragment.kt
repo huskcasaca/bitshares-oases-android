@@ -1,9 +1,8 @@
 package com.bitshares.oases.ui.intro
 
 import android.graphics.drawable.AnimatedVectorDrawable
-import android.os.Bundle
 import android.view.Gravity
-import android.view.View
+import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
@@ -24,9 +23,10 @@ import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.faucet.FaucetViewModel
 import com.bitshares.oases.ui.faucet.showFaucetRegisterDialog
 import com.bitshares.oases.ui.faucet.showFaucetSelectDialog
-import com.bitshares.oases.ui.settings.showLanguageSettingDialog
 import com.bitshares.oases.ui.wallet.startWalletUnlock
 import bitshareskit.chain.Authority
+import com.bitshares.oases.ui.asset.browser.actionBarLayout
+import com.bitshares.oases.ui.main.settings.showLanguageSettingDialog
 import kotlinx.coroutines.launch
 import modulon.component.IconSize
 import modulon.dialog.button
@@ -37,7 +37,7 @@ import modulon.extensions.animation.animationSet
 import modulon.extensions.animation.translate
 import modulon.extensions.charset.EMPTY_SPACE
 import modulon.extensions.compat.activity
-import modulon.extensions.compat.finish
+import modulon.extensions.compat.finishActivity
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.compat.showSoftKeyboard
 import modulon.extensions.font.typefaceBold
@@ -51,7 +51,6 @@ import modulon.extensions.text.buildContextSpannedString
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
-import modulon.layout.actionbar.ActionBarLayout
 import modulon.layout.actionbar.actionMenu
 import modulon.layout.actionbar.menu
 import modulon.union.Union
@@ -60,93 +59,95 @@ import modulon.widget.PlainTextView
 
 class IntroFragment : ContainerFragment() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupCoordinator {
-            backgroundTintColor = context.getColor(R.color.background)
-            scrollLayout {
-                setFrameParamsFill()
-                isFillViewport = true
-                verticalLayout {
-                    view<ImageView> {
-                        imageDrawable = R.drawable.logo_alpha_animated.contextDrawable().apply {
-                            mutate()
-                            setTint(context.getColor(R.color.cell_text_primary))
-                            post { (this as AnimatedVectorDrawable).start() }
-                        }
-                        scaleType = ImageView.ScaleType.FIT_CENTER
-                        adjustViewBounds = true
-                        updatePadding(left = 96.dp, right = 96.dp, top = 32.dp, bottom = 32.dp)
-                        layoutWidth = MATCH_PARENT
-                        layoutHeight = 0
-                        layoutWeightLinear = 1f
-                        animation = animationSet {
-                            translate(fromYDelta = (-200).dpf) {
-                                duration = 360L
-                                interpolator = DecelerateInterpolator()
-                            }
-                            post { start() }
-                        }
+    override fun ViewGroup.onCreateView() {
+        backgroundTintColor = context.getColor(R.color.background)
+        scrollLayout {
+            isFillViewport = true
+            layoutWidth = MATCH_PARENT
+            layoutHeight = MATCH_PARENT
+            verticalLayout {
+                view<ImageView> {
+                    imageDrawable = R.drawable.logo_alpha_animated.contextDrawable().apply {
+                        mutate()
+                        setTint(context.getColor(R.color.cell_text_primary))
+                        post { (this as AnimatedVectorDrawable).start() }
                     }
-                    verticalLayout {
-                        view<PlainTextView> {
-                            text = "Welcome to BitShares"
-                            textSize = 28f
-                            typeface = typefaceBold
-                            gravity = Gravity.CENTER_HORIZONTAL
-                            setParamsRow()
-                        }
-                        view<PlainTextView> {
-                            text = "Your Decentralized Platform"
-                            textSize = 20f
-                            gravity = Gravity.CENTER_HORIZONTAL
-                            setParamsRow()
-                        }
-                        updatePadding(top = 20.dp, bottom = 20.dp, left = 20.dp, right = 20.dp)
-                        animation = animationSet {
-                            translate(fromYDelta = 200.dpf)
-                            alpha(toAlpha = 1f)
+                    scaleType = ImageView.ScaleType.FIT_CENTER
+                    adjustViewBounds = true
+                    updatePadding(left = 96.dp, right = 96.dp, top = 32.dp, bottom = 32.dp)
+                    layoutWidth = MATCH_PARENT
+                    layoutHeight = 0
+                    layoutWeightLinear = 1f
+                    animation = animationSet {
+                        translate(fromYDelta = (-200).dpf) {
                             duration = 360L
                             interpolator = DecelerateInterpolator()
-                            post { start() }
+                        }
+                        post { start() }
+                    }
+                }
+                verticalLayout {
+                    view<PlainTextView> {
+                        text = "Welcome to BitShares"
+                        textSize = 28f
+                        typeface = typefaceBold
+                        gravity = Gravity.CENTER_HORIZONTAL
+                        layoutWidth = MATCH_PARENT // TODO: 2022/4/26 should remove?
+                    }
+                    view<PlainTextView> {
+                        text = "Your Decentralized Platform"
+                        textSize = 20f
+                        gravity = Gravity.CENTER_HORIZONTAL
+                        layoutWidth = MATCH_PARENT // TODO: 2022/4/26 should remove?
+                    }
+                    updatePadding(top = 20.dp, bottom = 20.dp, left = 20.dp, right = 20.dp)
+                    animation = animationSet {
+                        translate(fromYDelta = 200.dpf)
+                        alpha(toAlpha = 1f)
+                        duration = 360L
+                        interpolator = DecelerateInterpolator()
+                        post { start() }
+                    }
+                }
+                frameLayout {
+                    noClipping()
+                    view<FloatingButton> {
+                        icon = R.drawable.ic_test_continue.contextDrawable().apply {
+                            tint(R.color.background.contextColor())
+                        }
+                        iconSize = IconSize.SMALL
+                        // TODO: 2022/2/24 replace with component colr
+                        background = createRoundSelectorDrawable(56.dp, context.getColor(modulon.R.color.cell_text_primary))
+                        layoutGravityFrame = Gravity.CENTER
+                        doOnClick {
+                            showContinueDialog()
                         }
                     }
-                    frameLayout {
-                        noClipping()
-                        view<FloatingButton> {
-                            icon = R.drawable.ic_test_continue.contextDrawable().apply {
-                                tint(R.color.background.contextColor())
-                            }
-                            iconSize = IconSize.SMALL
-                            // TODO: 2022/2/24 replace with component colr
-                            background = createRoundSelectorDrawable(56.dp, context.getColor(modulon.R.color.cell_text_primary))
-                            layoutGravityFrame = Gravity.CENTER
-                            doOnClick {
-                                showContinueDialog()
-                            }
-                        }
-                        updatePadding(top = 20.dp, bottom = 20.dp, left = 48.dp, right = 48.dp)
-                        setLinearParamsFill(height = 0.dp, weight = 0.4f)
-                        animation = animationSet {
-                            translate(fromYDelta = 200.dpf)
-                            alpha(toAlpha = 1f)
-                            duration = 360
-                            interpolator = DecelerateInterpolator()
-                            post { start() }
-                        }
+                    updatePadding(top = 20.dp, bottom = 20.dp, left = 48.dp, right = 48.dp)
+                    layoutParams = linearParams {
+                        width = MATCH_PARENT
+                        height = 0
+                        weight = 0.4f
+                    }
+                    animation = animationSet {
+                        translate(fromYDelta = 200.dpf)
+                        alpha(toAlpha = 1f)
+                        duration = 360
+                        interpolator = DecelerateInterpolator()
+                        post { start() }
                     }
                 }
             }
-            viewRow<ActionBarLayout> {
-                backgroundTintColor = context.getColor(R.color.transparent)
-                actionMenu {
-                    icon = R.drawable.ic_cell_cross.contextDrawable()
-                    doOnClick { finish() }
-                }
-                menu {
-                    icon = R.drawable.ic_cell_language.contextDrawable()
-                    doOnClick { showLanguageSettingDialog() }
-                }
+        }
+        actionBarLayout {
+            backgroundTintColor = context.getColor(R.color.transparent)
+            actionMenu {
+                icon = R.drawable.ic_cell_cross.contextDrawable()
+                doOnClick { finishActivity() }
+            }
+            menu {
+                icon = R.drawable.ic_cell_language.contextDrawable()
+                doOnClick { showLanguageSettingDialog() }
             }
         }
     }

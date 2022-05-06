@@ -22,8 +22,7 @@ class VotingFragment_Proxy : ContainerFragment() {
 
     private val viewModel: VotingViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             section {
                 header = context.getString(R.string.voting_proxy_title)

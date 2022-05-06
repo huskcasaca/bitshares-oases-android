@@ -23,6 +23,7 @@ import modulon.extensions.graphics.createSelectorDrawable
 import modulon.extensions.temp.drawShaders
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.createHorizontalLayout
+import modulon.extensions.viewbinder.horizontalLayout
 import modulon.extensions.viewbinder.noClipping
 import modulon.interpolator.CubicBezierInterpolator
 import modulon.layout.linear.HorizontalLayout
@@ -34,16 +35,7 @@ class TabLayout(context: Context) : HorizontalScrollView(context), UnionContext 
 
     class TabView(context: Context) : BaseCell(context) {
 
-        private val container = createHorizontalLayout {
-            addWrap(iconView, width = 24.dp, height = 24.dp, gravity = Gravity.CENTER, end = 8.dp)
-            addWrap(textView, gravity = Gravity.CENTER)
-            setFrameParams(gravity = Gravity.CENTER)
-            updatePadding((12 + UI.SPACING).dp, 18.dp, (12 + UI.SPACING).dp, 18.dp)
-
-        }
-
         private var increased = false
-
         internal var progress = 0f
             set(value) {
                 if (increased != value < 0.5f) {
@@ -100,15 +92,28 @@ class TabLayout(context: Context) : HorizontalScrollView(context), UnionContext 
 
         init {
             minimumWidth = 42.dp
-            iconView.isVisible = false
-            textView.apply {
-                textSize = 15.5f
-                typeface = typefaceBold
-                isAllCaps = true
-            }
             background = createSelectorDrawable(inactiveBackgroundColor, Float.MAX_VALUE)
             layoutGravityLinear = Gravity.CENTER
-            addNoParams(container)
+
+            horizontalLayout {
+                updatePadding((12 + UI.SPACING).dp, 18.dp, (12 + UI.SPACING).dp, 18.dp)
+                layoutGravityFrame = Gravity.CENTER
+                view(iconView) {
+                    layoutWidth = 24.dp
+                    layoutHeight = 24.dp
+                    layoutMarginEnd = 8.dp
+                    layoutGravityLinear = Gravity.CENTER
+
+                    iconView.isVisible = false
+                }
+                view(textView) {
+                    layoutGravityLinear = Gravity.CENTER
+
+                    textSize = 15.5f
+                    typeface = typefaceBold
+                    isAllCaps = true
+                }
+            }
             drawShaders()
         }
 
@@ -162,7 +167,6 @@ class TabLayout(context: Context) : HorizontalScrollView(context), UnionContext 
         }
 
     private var lastScrollX = 0
-
     private val rectPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         isAntiAlias = true
         style = Paint.Style.FILL
@@ -170,13 +174,9 @@ class TabLayout(context: Context) : HorizontalScrollView(context), UnionContext 
     }
 
     private val tabCount get() = tabsContainer.childCount
-
     val tabs get() = tabsContainer.children as Sequence<TabView>
 
-    private val tabsContainer = create<HorizontalLayout> {
-        noClipping()
-        updatePadding(left = 8.dp, right = 8.dp)
-    }
+    private val tabsContainer: HorizontalLayout
 
     fun scrollToChild(position: Int, offset: Int = 0) {
         if (tabCount == 0 || position >= tabCount) return
@@ -205,6 +205,19 @@ class TabLayout(context: Context) : HorizontalScrollView(context), UnionContext 
         }
     }
 
+    fun removeAllTabs() {
+        tabsContainer.removeAllViews()
+    }
+
+    fun addTab(tab: TabView) {
+        tabsContainer.addView(tab)
+        if (tabCount == 1) {
+            // FIXME: 2022/2/22
+            tab.progress = 0f
+            selectTab(0)
+        }
+    }
+
     private fun invalidateTabs() {
         tabs.forEachIndexed { index, tab ->
             val offset = abs(currentPosition + currentPositionOffset - index).coerceIn(0f..1f)
@@ -218,21 +231,20 @@ class TabLayout(context: Context) : HorizontalScrollView(context), UnionContext 
 //        setWillNotDraw(false)
         overScrollMode = OVER_SCROLL_NEVER
         isScrollBarEnabled = false
-        addDefault(tabsContainer)
-        setParamsRow()
-    }
+        layoutWidth = MATCH_PARENT
 
-    fun removeAllTabs() {
-        tabsContainer.removeAllViews()
-    }
-
-    fun addTab(tab: TabView) {
-        tabsContainer.addViewIndexed(tab)
-        if (tabCount == 1) {
-            // FIXME: 2022/2/22
-            tab.progress = 0f
-            selectTab(0)
+        view<HorizontalLayout> {
+            tabsContainer = this
+            noClipping()
+            updatePadding(left = 8.dp, right = 8.dp)
         }
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(
+            MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.EXACTLY),
+            MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+        )
     }
 
 }

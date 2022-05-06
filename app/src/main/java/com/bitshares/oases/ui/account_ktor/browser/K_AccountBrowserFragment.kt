@@ -33,8 +33,7 @@ class K_AccountBrowserFragment : ContainerFragment() {
         RAW(R.string.tab_raw_data),
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         // TODO: 2022/2/17  distinct between fragments
 //        secureWindow()

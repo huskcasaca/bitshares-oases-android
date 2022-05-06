@@ -29,9 +29,9 @@ import kotlinx.serialization.modules.serializersModuleOf
 import modulon.extensions.compat.startActivity
 import modulon.extensions.compat.startActivityForResult
 import modulon.extensions.content.getExtra
-import modulon.extensions.view.ensureViewId
-import modulon.extensions.view.setParamsFill
+import modulon.extensions.view.*
 import modulon.extensions.viewbinder.createFragmentContainer
+import modulon.extensions.viewbinder.noClipping
 import modulon.union.Union
 import modulon.union.UnionContext
 import java.math.BigDecimal
@@ -50,8 +50,11 @@ class IntentActivity : BaseActivity() {
         val fragmentClazz: Class<out Fragment> = intent.getExtra(IntentParameters.KEY_FRAGMENT, MainFragment::class.java)
 
         createFragmentContainer {
+            layoutWidth = MATCH_PARENT
+            layoutHeight = MATCH_PARENT
+
+            noClipping()
             ensureViewId()
-            setParamsFill()
             addFragment(fragmentClazz)
             setContentView(this)
         }

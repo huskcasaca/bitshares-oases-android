@@ -86,16 +86,21 @@ suspend fun Union.showWalletBiometricUnlockDialog() = if (globalWalletManager.un
     message = context.getString(R.string.fingerprint_touch_sensor)
     isCancelableByButtons = true
     var usePassword = false
-    lateinit var fingerprint: SwirlView
+    val fingerprint: SwirlView
     section {
-        fingerprint = create<SwirlView> {
-            normalColor = context.getColor(R.color.component_inactive)
-            errorColor = context.getColor(R.color.component_error)
-        }
-        fingerprint.setState(SwirlView.State.ON)
         frameLayout {
-            addWrap(fingerprint, 60.dp, 60.dp, gravity = Gravity.CENTER)
-            setParamsRow(height = 140.dp)
+            layoutWidth = MATCH_PARENT
+            layoutHeight = 140.dp
+            view<SwirlView> {
+                fingerprint = this
+                normalColor = context.getColor(R.color.component_inactive)
+                errorColor = context.getColor(R.color.component_error)
+                setState(SwirlView.State.ON)
+
+                layoutWidth = 60.dp
+                layoutHeight = 60.dp
+                layoutGravityFrame = Gravity.CENTER
+            }
         }
     }
     button {
@@ -152,16 +157,21 @@ suspend fun Union.showWalletBiometricSetupDialog() = showBooleanSuspendedBottomD
     title = context.getString(R.string.wallet_unlock_wallet_title)
     message = context.getString(R.string.fingerprint_touch_sensor)
     isCancelableByButtons = true
-    lateinit var fingerprint: SwirlView
+    val fingerprint: SwirlView
     section {
-        fingerprint = create<SwirlView> {
-            normalColor = context.getColor(R.color.component_inactive)
-            errorColor = context.getColor(R.color.component_error)
-        }
-        fingerprint.setState(SwirlView.State.ON)
         frameLayout {
-            addWrap(fingerprint, 60.dp, 60.dp, gravity = Gravity.CENTER)
-            setParamsRow(height = 140.dp)
+            view<SwirlView> {
+                fingerprint = this
+                normalColor = context.getColor(R.color.component_inactive)
+                errorColor = context.getColor(R.color.component_error)
+                setState(SwirlView.State.ON)
+
+                layoutWidth = 60.dp
+                layoutHeight = 60.dp
+                layoutGravityFrame = Gravity.CENTER
+            }
+            layoutWidth = MATCH_PARENT
+            layoutHeight = 140.dp
         }
     }
     button { text = context.getString(R.string.button_cancel) }
@@ -438,6 +448,31 @@ fun Union.showWalletBackupDialog() = showBottomDialog {
                 isVisible = it == DialogState.EMPTY
             }
         }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
+        cell { }
         showSoftKeyboard()
     }
     button {

@@ -61,7 +61,7 @@ inline fun <reified C: View, D> ViewPager2.pageList(block: ListContainer<C, D>.(
 
 inline fun <reified V: View> ViewPager2.page(block: V.() -> Unit) {
     if (adapter !is ConcatAdapter) adapter = ConcatAdapter()
-    (adapter as ConcatAdapter).addAdapter(DefaultContainer(context.toUnion().create(block), ViewSize.FILL).adapter)
+    (adapter as ConcatAdapter).addAdapter(DefaultContainer(context.toUnion().create(block)).adapter)
 }
 
 inline fun <reified C : View, D : Any> ViewPager2.addStatic(data: List<D>, crossinline binder: C.(D) -> Unit = {}) {

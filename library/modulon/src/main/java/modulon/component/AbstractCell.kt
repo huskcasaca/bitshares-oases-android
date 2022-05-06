@@ -16,31 +16,42 @@ import modulon.widget.PlainTextView
 abstract class AbstractCell(context: Context) : FrameLayout(context), CellComponent {
 
     // TODO: 3/10/2021  lineSpacingMultiplier changed!
-    override val titleView: PlainTextView by lazyView {
-        isVisible = false
-        titleStyle()
-        startScrolling()
+    override val titleView: PlainTextView by lazy {
+        PlainTextView(context).apply {
+            isVisible = false
+            titleStyle()
+            startScrolling()
+        }
     }
 
-    override val subtitleView: PlainTextView by lazyView {
-        isVisible = false
-        subtitleStyle()
-        startScrolling()
-        gravity = Gravity.END
+    override val subtitleView: PlainTextView by lazy {
+        PlainTextView(context).apply {
+            isVisible = false
+            subtitleStyle()
+            startScrolling()
+            gravity = Gravity.END
+        }
     }
 
-    override val textView: PlainTextView by lazyView {
-        isVisible = false
-        textStyle()
-        isSingleLine = false
+    override val textView: PlainTextView by lazy {
+        PlainTextView(context).apply {
+            isVisible = false
+            textStyle()
+            isSingleLine = false
+        }
     }
 
-    override val subtextView: PlainTextView by lazyView {
-        isVisible = false
-        subtextStyle()
+    override val subtextView: PlainTextView by lazy {
+        PlainTextView(context).apply {
+            isVisible = false
+            subtextStyle()
+        }
     }
 
-    open val iconView: ImageView by lazyView()
+    open val iconView: ImageView by lazy {
+        ImageView(context).apply {
+        }
+    }
 
     override var title: CharSequence
         get() = titleView.text
@@ -89,10 +100,12 @@ abstract class AbstractCell(context: Context) : FrameLayout(context), CellCompon
 
     private var isCheckViewInitialized = false
 
-    open val checkView: FrameLayout by lazyView {
-        isCheckViewInitialized = true
-        isVisible = false
-        backgroundTintColor = context.getColor(R.color.component)
+    open val checkView: FrameLayout by lazy {
+        FrameLayout(context).apply {
+            isCheckViewInitialized = true
+            isVisible = false
+            backgroundTintColor = context.getColor(R.color.component)
+        }
     }
 
     open var backgroundColor = context.getColor(R.color.background)

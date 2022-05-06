@@ -1,22 +1,25 @@
 package com.bitshares.oases.ui.trading
 
-import android.os.Bundle
-import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.bitshares.oases.R
 import com.bitshares.oases.chain.Constants
 import com.bitshares.oases.chain.IntentParameters
 import com.bitshares.oases.preference.old.Settings
+import com.bitshares.oases.ui.asset.browser.actionBarLayout
+import com.bitshares.oases.ui.asset.browser.actionCoordinatorParams
+import com.bitshares.oases.ui.asset.browser.bodyCoordinatorParams
 import com.bitshares.oases.ui.base.ContainerFragment
 import modulon.component.toggleEnd
 import modulon.dialog.section
 import modulon.extensions.compat.arguments
-import modulon.extensions.compat.recreate
+import modulon.extensions.compat.recreateActivity
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.pagerLayout
 import modulon.extensions.viewbinder.tabLayout
+import modulon.extensions.viewbinder.verticalLayout
 import modulon.layout.actionbar.menu
 import modulon.layout.actionbar.subtitle
 import modulon.layout.actionbar.title
@@ -32,9 +35,9 @@ class TradingFragment : ContainerFragment() {
 
     private val viewModel: TradingViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupAction {
+    override fun ViewGroup.onCreateView() {
+        actionBarLayout {
+            layoutParams = actionCoordinatorParams()
             title(context.getString(R.string.market_title))
             websocketStateMenu()
             walletStateMenu()
@@ -44,7 +47,8 @@ class TradingFragment : ContainerFragment() {
             }
             viewModel.marketInternal.observe(viewLifecycleOwner) { subtitle(it.toString()) }
         }
-        setupVertical {
+        verticalLayout {
+            layoutParams = bodyCoordinatorParams()
             tabLayout {
                 post { attachEnumsViewPager2<Tabs>(nextView()) }
             }
@@ -91,7 +95,7 @@ class TradingFragment : ContainerFragment() {
                 doOnClick {
                     Settings.KEY_IS_VERTICAL_LAYOUT.value = !Settings.KEY_IS_VERTICAL_LAYOUT.value
                     dismissNow()
-                    recreate()
+                    recreateActivity()
                 }
             }
         }

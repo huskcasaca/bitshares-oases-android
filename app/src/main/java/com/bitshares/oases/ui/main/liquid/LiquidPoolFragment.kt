@@ -16,8 +16,7 @@ class LiquidPoolFragment : ContainerFragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupVertical {
             tabLayout {
                 tab { text = "Pool" }

@@ -144,7 +144,7 @@ class CollateralFragment : ContainerFragment() {
                 header = "Adjust"
                 // TODO: 2020/9/11 pay max debt
                 cell {
-                    custom {
+                    customHorizontal {
                         field {
                             inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
                             transformationMethod = TABULAR_TRANSFORMATION_METHOD
@@ -173,7 +173,7 @@ class CollateralFragment : ContainerFragment() {
                     }
                 }
                 cell {
-                    custom {
+                    customHorizontal {
                         field {
                             inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
                             transformationMethod = TABULAR_TRANSFORMATION_METHOD

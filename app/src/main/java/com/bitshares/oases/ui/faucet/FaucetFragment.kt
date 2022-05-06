@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.faucet
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
@@ -30,7 +28,7 @@ import modulon.dialog.section
 import modulon.dialog.updateButton
 import modulon.extensions.charset.EMPTY_SPACE
 import modulon.extensions.compat.activity
-import modulon.extensions.compat.finish
+import modulon.extensions.compat.finishActivity
 import modulon.extensions.compat.secureWindow
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.font.typefaceMonoRegular
@@ -48,8 +46,7 @@ class FaucetFragment : ContainerFragment() {
 
     val viewModel: FaucetViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         secureWindow()
         setupAction {
             titleConnectionState(getString(R.string.faucet_register_title))
@@ -233,7 +230,7 @@ fun Union.showFaucetRegisterDialog(info: FaucetRegister) = showBottomDialog {
                                             )
                                             blockchainDatabaseScope.launch { LocalUserRepository.add(globalWalletManager, user) }
                                         }
-                                        finish()
+                                        finishActivity()
                                         dismiss()
                                         activity
                                     } else {

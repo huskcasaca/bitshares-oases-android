@@ -3,8 +3,10 @@ package modulon.union
 import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.os.Build
 import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.ActivityResultRegistry
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LifecycleOwner
@@ -21,13 +23,15 @@ interface UnionContext {
         @JvmName("getContextUnion")
         get() = throw RuntimeException("Not implemented!")
 
+    // TODO: 2022/5/2 rename to toX()
     fun Int.contextDrawable(): Drawable = context.getDrawable( this)!!.apply { tint(R.color.component_dark_gray.contextColor()) }
     fun Int.contextDrawableNoTint(): Drawable = context.getDrawable( this)!!
-    fun Int.contextColor(): Int = context.getColor( this)
+    fun Int.contextColor(): Int = ContextCompat.getColor(context, this)
+
     fun Int.contextString(): String = context.getString(this)
     fun Int.contextString(vararg formatArgs: Any): String = context.getString(this, formatArgs)
 
-    fun Int.contextColorStateList() = context.getColorStateList( this)
+    fun Int.contextColorStateList() = ContextCompat.getColorStateList(context, this)
 
     fun Int.contextDimenPixelSize(): Int = context.resources.getDimensionPixelSize( this)
     fun Int.contextDimenPixelOffset(): Int = context.resources.getDimensionPixelOffset( this)

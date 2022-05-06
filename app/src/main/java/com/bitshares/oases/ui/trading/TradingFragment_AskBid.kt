@@ -1,6 +1,5 @@
 package com.bitshares.oases.ui.trading
 
-import android.os.Bundle
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
@@ -8,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
+import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import bitshareskit.entities.Order
@@ -52,12 +52,11 @@ class TradingFragment_AskBid : ContainerFragment() {
     private val isBuy by lazy { tab == TradingFragment.Tabs.BUY }
     private val viewModel: TradingViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setupRecycler {
+    override fun ViewGroup.onCreateView() {
+        recyclerLayout {
             section {
                 linearLayout {
+                    layoutWidth = MATCH_PARENT
                     orientation = if (viewModel.isHorizontalLayout) LinearLayout.HORIZONTAL else LinearLayout.VERTICAL
                     verticalLayout {
                         cell {
@@ -67,6 +66,7 @@ class TradingFragment_AskBid : ContainerFragment() {
                             updatePaddingBottom(2.dp)
                         }
                         frameLayout {
+                            layoutWidth = MATCH_PARENT
                             nestedScrollLayout {
                                 isNestedScrollingEnabled = false
                                 recyclerLayout {
@@ -84,14 +84,18 @@ class TradingFragment_AskBid : ContainerFragment() {
                                             doOnClick { viewModel.setPrice(it.price, isBuy) }
                                         }
                                         viewModel.roundedAsks.observe(viewLifecycleOwner) {
-                                            adapter.submitList(it)
+                                            submitList(it)
                                             post { if (!isOnTouch) fullScroll(View.FOCUS_DOWN) }
                                         }
                                     }
                                 }
                             }
-                            setLinearParamsRow {
-                                viewModel.roundedAsks.observe(viewLifecycleOwner) { height = if (it == null || it.size <= 8) ViewGroup.LayoutParams.WRAP_CONTENT else 180.dp }
+                            // FIXME: 2022/4/26
+                            viewModel.roundedAsks.observe(viewLifecycleOwner) {
+//                                layoutParams = linearParams {
+//                                    width = MATCH_PARENT
+                                    layoutHeight = if (it == null || it.size <= 8) ViewGroup.LayoutParams.WRAP_CONTENT else 180.dp
+//                                }
                             }
                         }
                         cell {
@@ -133,38 +137,40 @@ class TradingFragment_AskBid : ContainerFragment() {
                                             doOnClick { viewModel.setPrice(it.price, isBuy) }
                                         }
                                         viewModel.roundedBids.observe(viewLifecycleOwner) {
-                                            adapter.submitList(it)
+                                            submitList(it)
                                             postDelayed(320) { if (!isOnTouch) smoothScrollToPosition(0) }
                                         }
                                     }
                                 }
                             }
-                            setLinearParamsRow {
-                                viewModel.roundedBids.observe(viewLifecycleOwner) { height = if (it == null || it.size <= 8) ViewGroup.LayoutParams.WRAP_CONTENT else 180.dp }
+                            layoutWidth = MATCH_PARENT
+                            viewModel.roundedAsks.observe(viewLifecycleOwner) {
+                                layoutHeight = if (it == null || it.size <= 8) ViewGroup.LayoutParams.WRAP_CONTENT else 180.dp
                             }
                         }
                         spacer()
-                        setLinearParamsRow {
-                            if (viewModel.isHorizontalLayout) {
-                                width = 0
-                                height = ViewGroup.LayoutParams.WRAP_CONTENT
-                                viewModel.orderBook.observe(viewLifecycleOwner) {
-                                    weight = if (it != null && (it.bids.isNotEmpty() || it.asks.isNotEmpty())) 1f else 0f
-                                    requestLayout()
-                                }
-                            }
+                        layoutWidth = if (viewModel.isHorizontalLayout) 0 else MATCH_PARENT
+                        layoutWeightLinear = if (viewModel.isHorizontalLayout) 1f else 0f
+                        viewModel.orderBook.observe(viewLifecycleOwner) {
+                            layoutWeightLinear = if (it != null && (it.bids.isNotEmpty() || it.asks.isNotEmpty())) 1f else 0f
+//                            requestLayout()
                         }
                     }
                     frameLayout {
+                        layoutWidth = if (viewModel.isHorizontalLayout) 0 else MATCH_PARENT
+                        layoutWeightLinear = if (viewModel.isHorizontalLayout) 1.1f else 0f
                         nestedScrollLayout {
+                            layoutWidth = MATCH_PARENT
+                            layoutHeight = MATCH_PARENT
                             verticalLayout {
                                 cell {
                                     updatePaddingVertical4()
                                     updatePaddingTop(R.dimen.cell_padding_top.contextDimenPixelSize())
+                                    if (viewModel.isHorizontalLayout) updatePadding(left = 2.dp)
                                     title = context.getString(R.string.market_price)
                                     subtitleView.ellipsize = TextUtils.TruncateAt.END
                                     subtitleView.transformationMethod = TABULAR_TRANSFORMATION_METHOD
-                                    custom {
+                                    customHorizontal {
                                         field {
                                             inputType = InputTypeExtended.TYPE_NUMBER_DECIMAL
                                             transformationMethod = TABULAR_TRANSFORMATION_METHOD
@@ -180,11 +186,12 @@ class TradingFragment_AskBid : ContainerFragment() {
                                 }
                                 cell {
                                     updatePaddingVertical4()
+                                    if (viewModel.isHorizontalLayout) updatePadding(left = 2.dp)
                                     title = context.getString(R.string.market_amount)
                                     subtitleView.ellipsize = TextUtils.TruncateAt.END
                                     subtitleView.transformationMethod = TABULAR_TRANSFORMATION_METHOD
                                     if (!isBuy) viewModel.sellAmountLeft.observe(viewLifecycleOwner) { subtitleView.text = it.values }
-                                    custom {
+                                    customHorizontal {
                                         field {
                                             inputType = InputTypeExtended.TYPE_NUMBER_DECIMAL
                                             transformationMethod = TABULAR_TRANSFORMATION_METHOD
@@ -200,12 +207,13 @@ class TradingFragment_AskBid : ContainerFragment() {
                                 }
                                 cell {
                                     updatePaddingVertical4()
+                                    if (viewModel.isHorizontalLayout) updatePadding(left = 2.dp)
                                     layoutTransition = null
                                     title = context.getString(R.string.market_total)
                                     subtitleView.ellipsize = TextUtils.TruncateAt.END
                                     subtitleView.transformationMethod = TABULAR_TRANSFORMATION_METHOD
                                     if (isBuy) viewModel.buyTotalLeft.observe(viewLifecycleOwner) { subtitleView.text = it.values }
-                                    custom {
+                                    customHorizontal {
                                         field {
                                             inputType = InputTypeExtended.TYPE_NUMBER_DECIMAL
                                             transformationMethod = TABULAR_TRANSFORMATION_METHOD
@@ -221,13 +229,12 @@ class TradingFragment_AskBid : ContainerFragment() {
                                 }
                                 cell {
                                     updatePaddingVertical4()
+                                    if (viewModel.isHorizontalLayout) updatePadding(left = 2.dp)
                                     slider {
-                                        setFrameParams {
-                                            height = 32.dp
-                                            width = MATCH_PARENT
-                                            marginStart = (-12).dp
-                                            marginEnd = (-12).dp
-                                        }
+                                        layoutHeight = 32.dp
+                                        layoutWidth = MATCH_PARENT
+                                        layoutMarginStart = (-12).dp
+                                        layoutMarginEnd = (-12).dp
                                         doOnPercentChanged { percent, fromUser ->
                                             if (fromUser) viewModel.switchRatio(percent.toDouble(), isBuy)
                                         }
@@ -241,40 +248,36 @@ class TradingFragment_AskBid : ContainerFragment() {
                                         thumbColor = if (isBuy) context.getColor(R.color.component) else context.getColor(R.color.component_error)
                                     }
                                 }
-                                viewRow<ComponentPaddingCell> {
+                                view<ComponentPaddingCell> {
                                     updatePaddingVertical4()
-                                    val buttonContainer = createFrameLayout {
-                                        textView.typeface = textView.typefaceBold
-                                        textView.textColor = context.getColor(R.color.text_white)
-                                        textView.text = context.getString(if (isBuy) R.string.market_buy else R.string.market_sell).toUpperCase()
-                                        background = createRoundRectSelectorDrawable(context.getColor(R.color.component_cover), if (isBuy) context.getColor(R.color.component) else context.getColor(R.color.component_error), UI.CORNER_RADIUS.dpf)
-                                        textView.parentViewGroupOrNull?.removeView(textView)
-                                        addWrap(textView) {
-                                            leftMargin = context.resources.getDimensionPixelSize(modulon.R.dimen.cell_padding_start)
-                                            topMargin = 8.dp
-                                            rightMargin = context.resources.getDimensionPixelSize(modulon.R.dimen.cell_padding_end)
-                                            bottomMargin = 8.dp
-                                            width = ViewGroup.LayoutParams.WRAP_CONTENT
-                                            gravity = Gravity.CENTER
+                                    if (viewModel.isHorizontalLayout) updatePadding(left = 2.dp)
+                                    frameLayout {
+                                        layoutWidth = MATCH_PARENT
+                                        background = createRoundRectSelectorDrawable(context.getColor(R.color.component_cover), if (isBuy) context.getColor(R.color.component) else context.getColor(R.color.component_error), UI.CORNER_RADIUS.dpf / 2)
+                                        view(textView) {
+                                            parentViewGroupOrNull?.removeView(this)
+                                            textView.typeface = textView.typefaceBold
+                                            textView.textColor = context.getColor(R.color.text_white)
+                                            textView.text = context.getString(if (isBuy) R.string.market_buy else R.string.market_sell).toUpperCase()
+
+                                            layoutMarginStart = context.resources.getDimensionPixelSize(modulon.R.dimen.cell_padding_start)
+                                            layoutMarginTop = 8.dp
+                                            layoutMarginEnd = context.resources.getDimensionPixelSize(modulon.R.dimen.cell_padding_end)
+                                            layoutMarginBottom = 8.dp
+                                            layoutGravityFrame = Gravity.CENTER
                                         }
                                         doOnClick {
                                             viewModel.isBuy = isBuy
                                             lifecycleScope.launch {
-        //                                                      if (startPermissionCheck(Permission.ACTIVE)) showLimitOrderCreateDialog(isBuy)
+                                                // if (startPermissionCheck(Permission.ACTIVE)) showLimitOrderCreateDialog(isBuy)
                                                 showLimitOrderCreateDialog(isBuy)
                                             }
                                         }
                                     }
-                                    addRow(buttonContainer)
                                     viewModel.quoteAsset.observe(viewLifecycleOwner) { text = "${context.getString(if (isBuy) R.string.market_buy else R.string.market_sell).toUpperCase()} ${it.symbolOrId}" }
                                 }
                                 spacer()
                             }
-                            setParamsFill()
-                        }
-                        if (viewModel.isHorizontalLayout) setLinearParamsRow {
-                            width = 0
-                            weight = 1.1f
                         }
                     }
                     backgroundTintColor = R.color.background_component.contextColor()
@@ -285,6 +288,7 @@ class TradingFragment_AskBid : ContainerFragment() {
                 header = "History"
                 cell {
                 }
+                isVisible = false
             }
             logo()
         }

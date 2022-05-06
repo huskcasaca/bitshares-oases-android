@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.keychain
 
-import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -51,8 +49,7 @@ class KeychainFragment : ContainerFragment() {
 
     private val viewModel: PermissionViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         secureWindow()
         setupAction {
             titleConnectionState(getString(R.string.keychain_title))
@@ -118,7 +115,7 @@ class KeychainFragment : ContainerFragment() {
                             Authority.OWNER -> viewModel.ownerKeyAuthsLocalWithWeightOrEmpty
                             Authority.ACTIVE -> viewModel.activeKeyAuthsLocalWithWeightOrEmpty
                             Authority.MEMO -> viewModel.memoKeyAuthsLocalWithWeightOrEmpty
-                        }.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                        }.observe(viewLifecycleOwner) { submitList(it) }
                     }
                     cell {
                         buttonStyle()

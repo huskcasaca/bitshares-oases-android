@@ -79,10 +79,11 @@ private class DigitPasswordLayout(context: Context) : HorizontalLayout(context) 
                     inputType = EditorInfo.TYPE_NUMBER_VARIATION_PASSWORD or EditorInfo.TYPE_CLASS_NUMBER
                     transformationMethod = null
                     typeface = typefaceRegular
-                    gravity = Gravity.CENTER
-                    layoutGravity = Gravity.CENTER
                     layoutWidth = MATCH_PARENT
                     maxLines = 1
+                    gravity = Gravity.CENTER
+                    layoutGravityFrame = Gravity.CENTER
+
                     isEditable
                     filters = arrayOf(InputFilter.LengthFilter(1), PatternInputFilter(Regex("[0-9]")))
                     isCursorVisible = false
@@ -95,6 +96,7 @@ private class DigitPasswordLayout(context: Context) : HorizontalLayout(context) 
                             fun delKey() {
                                 currentPassword.value = currentPassword.value.dropLast(1)
                             }
+
                             fun numKey(key: String) {
                                 currentPassword.value = (currentPassword.value + key).take(6)
                             }

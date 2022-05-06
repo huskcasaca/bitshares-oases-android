@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.voting
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.objects.AccountObject
@@ -38,8 +36,7 @@ class VotingFragment_Tabs : ContainerFragment() {
     private val tab by lazy { requireArguments().getSerializable(IntentParameters.KEY_TAB_TYPE) as Tabs }
     private val viewModel: VotingViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         setupRecycler {
             when (tab) {
@@ -61,7 +58,7 @@ class VotingFragment_Tabs : ContainerFragment() {
                             }
                             payload { data, payload -> isChecked = (payload as Set<*>).contains(data.committee.vote) }
                             distinctItemsBy { it.committee.uid }
-                            viewModel.activeCommitteeMembers.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                            viewModel.activeCommitteeMembers.observe(viewLifecycleOwner) { submitList(it) }
                             viewModel.voting.observe(viewLifecycleOwner) { adapter.submitPayload(it, false) }
                         }
                         viewModel.activeCommitteeMembers.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
@@ -83,7 +80,7 @@ class VotingFragment_Tabs : ContainerFragment() {
                             }
                             payload { data, payload -> isChecked = (payload as Set<*>).contains(data.committee.vote) }
                             distinctItemsBy { it.committee.uid }
-                            viewModel.standbyCommitteeMembers.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                            viewModel.standbyCommitteeMembers.observe(viewLifecycleOwner) { submitList(it) }
                             viewModel.voting.observe(viewLifecycleOwner) { adapter.submitPayload(it, false) }
                         }
                         viewModel.standbyCommitteeMembers.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
@@ -107,7 +104,7 @@ class VotingFragment_Tabs : ContainerFragment() {
                             }
                             payload { data, payload -> isChecked = (payload as Set<*>).contains(data.vote) }
                             distinctItemsBy { it.uid }
-                            viewModel.activeWitnesses.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                            viewModel.activeWitnesses.observe(viewLifecycleOwner) { submitList(it) }
                             viewModel.voting.observe(viewLifecycleOwner) { adapter.submitPayload(it, false) }
                         }
                         viewModel.activeWitnesses.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
@@ -129,7 +126,7 @@ class VotingFragment_Tabs : ContainerFragment() {
                             }
                             payload { data, payload -> isChecked = (payload as Set<*>).contains(data.vote) }
                             distinctItemsBy { it.uid }
-                            viewModel.standbyWitnesses.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                            viewModel.standbyWitnesses.observe(viewLifecycleOwner) { submitList(it) }
                             viewModel.voting.observe(viewLifecycleOwner) { adapter.submitPayload(it, false) }
                         }
                         viewModel.standbyWitnesses.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
@@ -156,7 +153,7 @@ class VotingFragment_Tabs : ContainerFragment() {
                             }
                             payload { data, payload -> isChecked = (payload as Set<*>).contains(data.voteFor) }
                             distinctItemsBy { it.uid }
-                            viewModel.activeWorkersFiltered.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                            viewModel.activeWorkersFiltered.observe(viewLifecycleOwner) { submitList(it) }
                             viewModel.voting.observe(viewLifecycleOwner) { adapter.submitPayload(it, false) }
                         }
                         viewModel.activeWorkersFiltered.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
@@ -177,7 +174,7 @@ class VotingFragment_Tabs : ContainerFragment() {
                             }
                             payload { data, payload -> isChecked = (payload as Set<*>).contains(data.voteFor) }
                             distinctItemsBy { it.uid }
-                            viewModel.standbyWorkerFiltered.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                            viewModel.standbyWorkerFiltered.observe(viewLifecycleOwner) { submitList(it) }
                             viewModel.voting.observe(viewLifecycleOwner) { adapter.submitPayload(it, false) }
                         }
                         viewModel.standbyWorkerFiltered.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }

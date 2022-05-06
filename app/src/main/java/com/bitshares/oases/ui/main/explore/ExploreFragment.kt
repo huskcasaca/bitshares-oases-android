@@ -35,8 +35,7 @@ class ExploreFragment : ContainerFragment() {
     private val accountSearchingViewModel: AccountPickerViewModel by activityViewModels()
     private val assetSearchingViewModel: AssetPickerViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         setupVertical {
             tabLayout {
@@ -44,6 +43,8 @@ class ExploreFragment : ContainerFragment() {
                 post { attachViewPager2(nextView<ViewGroup>().getFirstChild()) }
             }
             nestedScrollableHost {
+                layoutWidth = MATCH_PARENT
+                layoutHeight = MATCH_PARENT
                 pagerLayout {
                     attachFragmentListAdapter(Tabs.values()) {
                         when (it) {
@@ -61,7 +62,6 @@ class ExploreFragment : ContainerFragment() {
                     exploreViewModel.notifyTab.observe { currentItem = it.ordinal }
                     doOnPageSelected { mainViewModel.exploreTab = Tabs.values()[it] }
                 }
-                setParamsFill()
             }
         }
         // FIXME: 22/1/2022     java.lang.NullPointerException: Attempt to invoke virtual method 'long java.lang.Number.longValue()' on a null object reference

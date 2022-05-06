@@ -10,7 +10,11 @@ import modulon.extensions.view.parentViewGroupOrNull
 import modulon.layout.recycler.ViewSize
 import modulon.layout.recycler.RecyclerLayout
 
-class DefaultContainer(private val view: View, private val fill: ViewSize, private val params: ViewGroup.LayoutParams? = null) : RecyclerLayout.Container<View>() {
+class DefaultContainer(
+    private val view: View,
+//    private val fill: ViewSize,
+    private val params: ViewGroup.LayoutParams? = null
+) : RecyclerLayout.Container<View>() {
 
     init {
         if (params != null) view.layoutParams = params
@@ -21,20 +25,20 @@ class DefaultContainer(private val view: View, private val fill: ViewSize, priva
     override val adapter = object : RecyclerView.Adapter<FrameViewHolder>() {
         override fun onBindViewHolder(holder: FrameViewHolder, position: Int) {}
         override fun onBindViewHolder(holder: FrameViewHolder, position: Int, dropped: MutableList<Any>) {}
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FrameViewHolder {
-            return FrameViewHolder(parent.context, fill).apply {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FrameViewHolder =
+            FrameViewHolder(parent.context).apply {
                 view.parentViewGroupOrNull?.removeView(view)
-                when (fill) {
-                    ViewSize.ROW -> container.addDefaultRow(view)
-                    ViewSize.FILL -> container.addDefaultFill(view)
-                }
+                container.addView(view)
+//                when (fill) {
+//                    ViewSize.ROW -> container.addDefaultRow(view)
+//                    ViewSize.FILL -> container.addDefaultFill(view)
+//                }
             }
-        }
         override fun getItemCount() = 1
     }
 }
 
 
 inline fun <reified V: View> RecyclerLayout.addViewDec(block: V.() -> Unit = {} ) {
-    addContainer(DefaultContainer(create(block), ViewSize.ROW))
+    addContainer(DefaultContainer(create(block)))
 }

@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.block
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.operations.Operation
@@ -18,8 +16,7 @@ class BlockBrowserFragment_Transactions : ContainerFragment() {
 
     private val viewModel: BlockViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         setupRecycler {
             section {
@@ -32,7 +29,7 @@ class BlockBrowserFragment_Transactions : ContainerFragment() {
                         doOnLongClick { showOperationBrowserDialog(it) }
                     }
                     distinctItemsBy { it }
-                    viewModel.ops.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    viewModel.ops.observe(viewLifecycleOwner) { submitList(it) }
                 }
                 // TODO: 24/10/2021 bindTransaction()
 //                addRecyclerGroup<BaseLinkedCell, Transaction> {

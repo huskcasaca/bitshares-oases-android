@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.whitelist
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.map
@@ -19,7 +17,7 @@ import kotlinx.coroutines.launch
 import modulon.component.IconSize
 import modulon.dialog.section
 import modulon.extensions.compat.arguments
-import modulon.extensions.compat.finish
+import modulon.extensions.compat.finishActivity
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.livedata.observeNonNull
 import modulon.extensions.text.appendItem
@@ -43,8 +41,7 @@ class WhitelistFragment : ContainerFragment() {
 
     private val viewModel: WhitelistViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupAction {
             titleConnectionState(context.getString(R.string.whitelist_settings_title))
             websocketStateMenu()
@@ -74,7 +71,7 @@ class WhitelistFragment : ContainerFragment() {
         }
         doOnBackPressed {
             lifecycleScope.launch(Dispatchers.Main.immediate) {
-                if (viewModel.isModified() && showChangesDiscardDialog(getString(R.string.whitelist_settings_changes_discard_message))) showChangeBlacklistDialog() else finish()
+                if (viewModel.isModified() && showChangesDiscardDialog(getString(R.string.whitelist_settings_changes_discard_message))) showChangeBlacklistDialog() else finishActivity()
             }
             false
         }

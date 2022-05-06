@@ -24,6 +24,8 @@ import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
 import modulon.layout.coordinator.behavior.ActionBarBehavior
 import modulon.layout.frame.FrameLayout
+import modulon.layout.linear.HorizontalLayout
+import modulon.layout.linear.VerticalLayout
 import modulon.widget.PlainTextView
 import modulon.widget.TextViewSwitcher
 
@@ -31,7 +33,7 @@ class ActionBarLayout(context: Context) : FrameLayout(context) {
 
     class Item(context: Context) : FrameLayout(context) {
 
-        val iconView: ImageView = create()
+        val iconView: ImageView
 
         // TODO: 2022/2/17
         var text: CharSequence = ""
@@ -44,7 +46,10 @@ class ActionBarLayout(context: Context) : FrameLayout(context) {
         init {
             background = createIconSelectorDrawable(context.getColor(R.color.background))
             isClickable = true
-            addWrap(iconView, gravity = Gravity.CENTER)
+            view<ImageView> {
+                iconView = this
+                layoutGravityFrame = Gravity.CENTER
+            }
         }
 
         override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -58,9 +63,9 @@ class ActionBarLayout(context: Context) : FrameLayout(context) {
     companion object {
         // TODO: 2022/2/17 move to dimens.xml
         private const val TITLE_FONT_SCALED = 36f
-        private const val TITLE_FONT_NORMAL = 20f
-        private const val SUBTITLE_FONT_SCALED = 17.5f
-        private const val SUBTITLE_FONT_NORMAL = 15.5f
+        private const val TITLE_FONT_NORMAL = 22f
+        private const val SUBTITLE_FONT_SCALED = 18f
+        private const val SUBTITLE_FONT_NORMAL = 16f
 
         private const val TITLE_FONT_SCALE = TITLE_FONT_SCALED / TITLE_FONT_NORMAL
         private const val SUBTITLE_FONT_SCALE = SUBTITLE_FONT_SCALED / SUBTITLE_FONT_NORMAL
@@ -71,10 +76,14 @@ class ActionBarLayout(context: Context) : FrameLayout(context) {
 
     }
 
-    val actionButton: Item = create {
-        icon = R.drawable.ic_cell_back_arrow.contextDrawable()
-        doOnClick { if (isExpanded) collapseActionView() else activity.onBackPressed() }
-    }
+    val actionButton: Item
+    val iconView: ImageView
+    private val titleView: TextViewSwitcher
+    private val subtitleView: TextViewSwitcher
+    private val titleSection: VerticalLayout
+    private val menuSection: HorizontalLayout
+    private val customSection: FrameLayout
+    private val components: FrameLayout
 
     var icon: Drawable?
         get() = iconView.drawable
@@ -82,88 +91,24 @@ class ActionBarLayout(context: Context) : FrameLayout(context) {
             iconView.isVisible = icon != null
             iconView.setImageDrawable(icon)
         }
-
-    val iconView: ImageView = create {
-        isVisible = false
-//        val backgroundColor = context.getColor(R.color.background_cover)
-//        val backgroundRadius = 44.dpf / 10
-//        background = createRoundRectDrawable(backgroundColor, backgroundRadius)
-    }
-
-    private val titleView: TextViewSwitcher = create {
-        setFactory {
-            create<PlainTextView> {
-                textSize = TITLE_FONT_SCALED
-                typeface = typefaceExtraBold
-                startScrolling()
-                textColor = context.getColor(R.color.title)
-            }
-        }
-// TODO: 16/1/2022 animation removed
-//        inAnimation = animationSet {
-//            translate((-16).dpf, 0f)
-//            alpha(0f, 1f)
-//            startOffset = 120
-//            duration = 180
-//            interpolator = DecelerateInterpolator()
-//        }
-//        outAnimation = animationSet {
-//            translate(0f, 16.dpf)
-//            alpha(1f, 0f)
-//            duration = 180
-//            interpolator = DecelerateInterpolator()
-//        }
-    }
-
-    private val subtitleView: TextViewSwitcher = create {
-        isVisible = false
-        setFactory {
-            create<PlainTextView> {
-                textSize = SUBTITLE_FONT_SCALED
-                typeface = typefaceBold
-                startScrolling()
-                textColor = context.getColor(R.color.subtitle)
-            }
-        }
-// TODO: 16/1/2022 animation removed
-//        inAnimation = animationSet {
-//            translate((-16).dpf, 0f)
-//            alpha(0f, 1f)
-//            startOffset = 120
-//            duration = 180
-//            interpolator = DecelerateInterpolator()
-//        }
-//        outAnimation = animationSet {
-//            translate(0f, 16.dpf)
-//            alpha(1f, 0f)
-//            duration = 180
-//            interpolator = DecelerateInterpolator()
-//        }
-    }
-
     var title: CharSequence
         get() = titleView.text
         set(text) {
             titleView.isVisible = true
             titleView.text = text
         }
-
     var subtitle: CharSequence
         get() = subtitleView.text
         set(text) {
             subtitleView.isVisible = text.isNotBlank()
             subtitleView.text = text
         }
-
     var actionView: View? = null
         set(value) {
             customSection.removeAllViews()
             if (value != null) customSection.addView(value)
             field = value
         }
-
-    private val collapseListeners = mutableListOf<() -> Unit>()
-    private val expandListeners = mutableListOf<() -> Unit>()
 
     var isCollapsed
         get() = !customSection.isVisible
@@ -189,41 +134,9 @@ class ActionBarLayout(context: Context) : FrameLayout(context) {
                 //            avatarView.isVisible = false
             }
         }
-
     var isExpanded
         get() = !isCollapsed
         set(value) { isCollapsed = !value }
-
-    private val titleSection = createVerticalLayout {
-        noClipping()
-        layoutAnimation = null
-        layoutTransition = visibilityLayoutTransition
-        addWrap(titleView)
-        addWrap(subtitleView)
-    }
-
-    private val menuSection = createHorizontalLayout {
-        noClipping()
-        noMotion()
-    }
-
-    private val customSection = createFrameLayout {
-        isVisible = false
-    }
-
-    private val components = createFrameLayout {
-        noClipping()
-        noMotion()
-        addRow(titleSection, gravity = Gravity.CENTER_VERTICAL or Gravity.START)
-        addWrap(iconView, width = 40.dp, height = 40.dp, gravity = Gravity.CENTER_VERTICAL or Gravity.START)
-        addDefaultFill(customSection)
-    }
-
-    private val titleScaleInterpolator = DecelerateInterpolator(1.5f)
-
-    val isOnBottom get() = translation == 0 && translationY == 0f
-
-    val isOnTop get() = translation == 64.dp && translationY == -64.dp.toFloat()
 
     var translation = -1
         set(value) {
@@ -261,17 +174,123 @@ class ActionBarLayout(context: Context) : FrameLayout(context) {
             field = scroll
         }
 
+    val isOnBottom get() = translation == 0 && translationY == 0f
+    val isOnTop get() = translation == 64.dp && translationY == -64.dp.toFloat()
+
+    private val collapseListeners = mutableListOf<() -> Unit>()
+    private val expandListeners = mutableListOf<() -> Unit>()
+
+    private val titleScaleInterpolator = DecelerateInterpolator(1.5f)
+
 
     init {
-        setPadding(12.dp, 8.dp, 8.dp, 12.dp)
         clipChildren = false
         clipToPadding = false
         layoutTransition = null
-        addWrap(actionButton, start = -6.dp, gravity = Gravity.TOP or Gravity.START)
-        addWrap(components, width = MATCH_PARENT, height = 48.dp, gravity = Gravity.TOP or Gravity.START)
-        addWrap(menuSection, gravity = Gravity.TOP or Gravity.END)
-        // TODO: 1/2/2022 backgroundColor as var
-        backgroundTintColor = context.getColor(R.color.background)
+        backgroundTintColor = context.getColor(R.color.background) // TODO: 1/2/2022 backgroundColor as var
+
+        frameLayout {
+            clipChildren = false
+            clipToPadding = false
+            layoutTransition = null
+            setPadding(12.dp, 8.dp, 8.dp, 12.dp)
+            view<Item> {
+                actionButton = this
+                layoutMarginStart = -6.dp
+                layoutGravityFrame = Gravity.TOP or Gravity.START
+                icon = R.drawable.ic_cell_back_arrow.contextDrawable()
+                doOnClick { if (isExpanded) collapseActionView() else activity.onBackPressed() }
+            }
+            frameLayout {
+                components = this
+                layoutWidth = MATCH_PARENT
+                layoutHeight= 48.dp
+                layoutGravityFrame = Gravity.TOP or Gravity.START
+                noClipping()
+                noMotion()
+                verticalLayout {
+                    titleSection = this
+                    noClipping()
+                    layoutAnimation = null
+                    layoutTransition = visibilityLayoutTransition
+                    layoutGravityFrame = Gravity.CENTER_VERTICAL or Gravity.START
+                    view<TextViewSwitcher> {
+                        titleView = this
+                        setFactory {
+                            create<PlainTextView> {
+                                textSize = TITLE_FONT_SCALED
+                                typeface = typefaceExtraBold
+                                startScrolling()
+                                textColor = context.getColor(R.color.title)
+                            }
+                        }
+// TODO: 16/1/2022 animation removed
+//        inAnimation = animationSet {
+//            translate((-16).dpf, 0f)
+//            alpha(0f, 1f)
+//            startOffset = 120
+//            duration = 180
+//            interpolator = DecelerateInterpolator()
+//        }
+//        outAnimation = animationSet {
+//            translate(0f, 16.dpf)
+//            alpha(1f, 0f)
+//            duration = 180
+//            interpolator = DecelerateInterpolator()
+//        }
+                    }
+                    view<TextViewSwitcher> {
+                        subtitleView = this
+                        setFactory {
+                            create<PlainTextView> {
+                                textSize = SUBTITLE_FONT_SCALED
+                                typeface = typefaceExtraBold
+                                startScrolling()
+                                textColor = context.getColor(R.color.subtitle)
+                            }
+                        }
+                        isVisible = false
+// TODO: 16/1/2022 animation removed
+//        inAnimation = animationSet {
+//            translate((-16).dpf, 0f)
+//            alpha(0f, 1f)
+//            startOffset = 120
+//            duration = 180
+//            interpolator = DecelerateInterpolator()
+//        }
+//        outAnimation = animationSet {
+//            translate(0f, 16.dpf)
+//            alpha(1f, 0f)
+//            duration = 180
+//            interpolator = DecelerateInterpolator()
+//        }
+                    }
+                }
+                view<ImageView> {
+                    iconView = this
+                    layoutWidth = 40.dp
+                    layoutHeight = 40.dp
+                    layoutGravityFrame = Gravity.CENTER_VERTICAL or Gravity.START
+                    isVisible = false
+//        val backgroundColor = context.getColor(R.color.background_cover)
+//        val backgroundRadius = 44.dpf / 10
+//        background = createRoundRectDrawable(backgroundColor, backgroundRadius)
+                }
+                view<FrameLayout> {
+                    customSection = this
+                    isVisible = false
+                    layoutWidth = MATCH_PARENT
+                    layoutHeight = MATCH_PARENT
+                }
+            }
+            horizontalLayout {
+                menuSection = this
+                layoutGravityFrame = Gravity.TOP or Gravity.END
+                noClipping()
+                noMotion()
+            }
+        }
+
         translation = 0
     }
 
@@ -293,6 +312,12 @@ class ActionBarLayout(context: Context) : FrameLayout(context) {
             MeasureSpec.makeMeasureSpec(components.measuredWidth - toMinus , MeasureSpec.EXACTLY),
             MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(heightMeasureSpec), MeasureSpec.AT_MOST)
         )
+        if (fitsSystemWindows) {
+            setMeasuredDimension(
+                measuredWidth,
+                measuredHeight + (rootWindowInsets?.systemWindowInsetTop ?: 0),
+            )
+        }
     }
 
     fun setActionBarView(view: View, params: ViewGroup.LayoutParams? = null) {

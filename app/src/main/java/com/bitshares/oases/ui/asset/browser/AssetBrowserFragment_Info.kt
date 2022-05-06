@@ -20,6 +20,10 @@ import com.bitshares.oases.extensions.viewbinder.setupTag
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.ui.asset.AssetViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import modulon.component.ComponentCell
 import modulon.extensions.compat.setClipboardToast
 import modulon.extensions.livedata.observeNonNull
 import modulon.extensions.text.appendSimpleColoredSpan
@@ -38,8 +42,7 @@ class AssetBrowserFragment_Info : ContainerFragment() {
 
     private val viewModel: AssetViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         setupRecycler {
             section {
@@ -251,6 +254,7 @@ class AssetBrowserFragment_Info : ContainerFragment() {
                 }
             }
             logo()
+
         }
     }
 

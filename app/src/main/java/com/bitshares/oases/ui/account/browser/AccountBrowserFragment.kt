@@ -9,6 +9,10 @@ import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.raw_data.JsonRawDataFragment
 import com.bitshares.oases.ui.raw_data.JsonRawDataViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import modulon.component.ComponentCell
 import modulon.dialog.section
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.compat.toast
@@ -39,9 +43,7 @@ class AccountBrowserFragment : ContainerFragment() {
         RAW(R.string.tab_raw_data),
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onCreateView() {
         // TODO: 2022/2/17  distinct between fragments
 //        secureWindow()
         setupAction {

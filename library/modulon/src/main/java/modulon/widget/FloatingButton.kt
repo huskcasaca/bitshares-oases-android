@@ -1,7 +1,6 @@
 package modulon.widget
 
 import android.animation.ObjectAnimator
-import android.animation.StateListAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Outline
@@ -9,7 +8,6 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.view.Gravity
 import android.view.View
-import android.widget.ImageView
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import androidx.core.view.isVisible
@@ -23,8 +21,6 @@ import modulon.extensions.graphics.outlineProvider
 import modulon.extensions.view.*
 import modulon.interpolator.CubicBezierInterpolator
 import modulon.layout.recycler.decorations.drawAllShaders
-import modulon.union.UnionContext
-import modulon.union.toUnion
 
 class FloatingButton(context: Context) : AbstractCell(context) {
 
@@ -71,7 +67,9 @@ class FloatingButton(context: Context) : AbstractCell(context) {
 
     init {
         background = createRoundSelectorDrawable(56.dp, context.getColor(R.color.background_component))
-        addWrap(iconView, gravity = Gravity.CENTER)
+        view(iconView) {
+            layoutGravityFrame = Gravity.CENTER
+        }
 //        iconView.scaleType = ImageView.ScaleType.CENTER
 //        stateListAnimator = StateListAnimator().apply {
 //            addState(intArrayOf(android.R.attr.state_pressed), ObjectAnimator.ofFloat(this, "translationZ", 2.dpf, 4.dpf).setDuration(200))

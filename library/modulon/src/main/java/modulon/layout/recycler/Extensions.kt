@@ -1,14 +1,13 @@
 package modulon.layout.recycler
 
 import android.view.View
-import androidx.recyclerview.widget.ConcatAdapter
 import modulon.component.ComponentCell
 import modulon.extensions.view.create
 import modulon.layout.recycler.containers.Comparator
 import modulon.layout.recycler.containers.ExpandableContainer
 import modulon.layout.recycler.containers.ListContainer
 import modulon.layout.recycler.containers.SpacerContainer
-import modulon.layout.recycler.section.HeaderSectionDelegate
+import modulon.layout.recycler.section.HeaderSectionImpl
 import modulon.layout.recycler.section.RecyclerContentLocator
 import modulon.layout.recycler.section.Section
 
@@ -50,7 +49,7 @@ fun <C : View, D, R> ListContainer<C, D>.distinctItemsBy(transform: (D) -> R) {
 
 
 inline fun Section.cells(block: ListContainer<ComponentCell, Any>.() -> Unit = {}) {
-    addContainer(ListContainer<ComponentCell, Any> { create() }.apply(block))
+    addContainer(ListContainer<ComponentCell, Any> { ComponentCell(context) }.apply(block))
 }
 
 
@@ -82,7 +81,7 @@ internal fun Section.locator(type: RecyclerContentLocator.SpacerType) {
 
 
 // Section
-fun RecyclerLayout.section(block: HeaderSectionDelegate.() -> Unit = {}) {
-    val section = HeaderSectionDelegate(context).apply(block)
-    (adapter as ConcatAdapter).addAdapter(section.adapter)
+inline fun RecyclerLayout.section(block: HeaderSectionImpl.() -> Unit = {}) {
+    val section = HeaderSectionImpl(context).apply(block)
+    adapter.addAdapter(section.adapter)
 }

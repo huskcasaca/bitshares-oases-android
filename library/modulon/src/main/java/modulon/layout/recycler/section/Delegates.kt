@@ -3,9 +3,9 @@ package modulon.layout.recycler.section
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.recyclerview.widget.ConcatAdapter
 import modulon.R
-import modulon.component.ComponentCell
 import modulon.extensions.viewbinder.headerCellStyle
 import modulon.layout.recycler.*
 import modulon.layout.recycler.containers.DefaultContainer
@@ -13,7 +13,7 @@ import modulon.layout.recycler.containers.ExpandableContainer
 import modulon.union.UnionContext
 import modulon.union.toUnion
 
-abstract class SectionDelegate(context: Context) : ViewGroup(context), Section, UnionContext by context.toUnion() {
+abstract class HeaderSection(context: Context) : FrameLayout(context), Section, UnionContext by context.toUnion() {
 
     protected val adapterInternal = ConcatAdapter()
 
@@ -27,31 +27,35 @@ abstract class SectionDelegate(context: Context) : ViewGroup(context), Section, 
     }
 
     override fun addView(child: View) {
-        addContainer(DefaultContainer(child, ViewSize.ROW))
+        addContainer(DefaultContainer(child, ))
     }
 
     override fun addView(child: View, index: Int) {
-        addContainer(DefaultContainer(child, ViewSize.ROW), index)
+        addContainer(DefaultContainer(child), index)
     }
 
-    override fun addView(child: View, params: LayoutParams) {
-        addContainer(DefaultContainer(child, ViewSize.ROW, params))
+    override fun addView(child: View, params: ViewGroup.LayoutParams?) {
+        addContainer(DefaultContainer(child, params))
     }
 
     override fun setVisibility(visibility: Int) {
+        // FIXME: 2022/5/3
         if (visibility == View.VISIBLE) {
-            adapter.addAdapter(adapterInternal)
+            if (adapter.adapters.size == 0) {
+                adapter.addAdapter(adapterInternal)
+            }
         } else {
-            adapter.removeAdapter(adapterInternal)
+            if (adapter.adapters.size == 1) {
+                adapter.removeAdapter(adapterInternal)
+            }
         }
     }
-
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
     }
 }
 
 // TODO: 2022/2/15 rename
-class HeaderSectionDelegate(context: Context) : SectionDelegate(context) {
+class HeaderSectionImpl(context: Context) : HeaderSection(context) {
 
     lateinit var headerContainer: ExpandableContainer<RecyclerHeader>
     lateinit var headerCell: RecyclerHeader
@@ -79,9 +83,6 @@ class HeaderSectionDelegate(context: Context) : SectionDelegate(context) {
                 backgroundColor = R.color.transparent.contextColor()
             }
         }
-        locator(RecyclerContentLocator.SpacerType.TOP)
-        locator(RecyclerContentLocator.SpacerType.BOTTOM)
-        isInit = true
         expandable<RecyclerHeader> {
             headerContainer = this
             isExpanded = false
@@ -90,6 +91,10 @@ class HeaderSectionDelegate(context: Context) : SectionDelegate(context) {
                 headerCell = this
             }
         }
+        locator(RecyclerContentLocator.SpacerType.TOP)
+        locator(RecyclerContentLocator.SpacerType.BOTTOM)
+
+        isInit = true
     }
 
 }

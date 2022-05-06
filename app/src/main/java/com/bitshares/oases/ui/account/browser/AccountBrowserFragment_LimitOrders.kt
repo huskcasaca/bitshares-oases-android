@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.browser
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.entities.LimitOrder
@@ -17,8 +15,7 @@ class AccountBrowserFragment_LimitOrders : ContainerFragment() {
 
     private val viewModel: AccountViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         setupRecycler {
             section {
@@ -31,7 +28,7 @@ class AccountBrowserFragment_LimitOrders : ContainerFragment() {
                     }
                     distinctItemsBy { it.order.uid }
                     distinctContentBy { it }
-                    viewModel.limitOrdersDetailed.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    viewModel.limitOrdersDetailed.observe(viewLifecycleOwner) { submitList(it) }
                 }
                 viewModel.limitOrdersDetailed.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
             }

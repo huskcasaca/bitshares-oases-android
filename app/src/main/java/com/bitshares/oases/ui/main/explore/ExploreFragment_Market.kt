@@ -19,8 +19,7 @@ class ExploreFragment_Market : ContainerFragment() {
     private val accountSearchingViewModel: AccountPickerViewModel by activityViewModels()
     private val assetSearchingViewModel: AssetPickerViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             logo()
         }

@@ -100,7 +100,7 @@ private fun Project.dependenciesKotlinStdlib() {
 private fun Project.dependenciesAndroidx() {
     dependencies {
         implementation("androidx.core:core-ktx:1.7.0")
-        implementation("androidx.appcompat:appcompat:1.2.0")
+        implementation("androidx.appcompat:appcompat:1.4.1")
         // Kotlin
         implementation("androidx.savedstate:savedstate:1.1.0")
         implementation("androidx.savedstate:savedstate-ktx:1.1.0")
@@ -173,7 +173,7 @@ private fun Project.basics() {
         buildToolsVersion = Constants.BUILD_TOOLS_VERSION
         compileSdkVersion = Constants.COMPILE_SDK_VERSION
         defaultConfig {
-            minSdk = 26
+            minSdk = 23
             targetSdk = 31
             multiDexEnabled = true
             testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.main.balance
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
 import androidx.fragment.app.activityViewModels
@@ -22,7 +20,7 @@ import com.bitshares.oases.ui.base.putJson
 import com.bitshares.oases.ui.main.MainFragment
 import com.bitshares.oases.ui.main.MainViewModel
 import modulon.component.ComponentCell
-import modulon.extensions.compat.finish
+import modulon.extensions.compat.finishActivity
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.doOnLongClick
@@ -36,8 +34,7 @@ class BalanceFragment_Internal : ContainerFragment() {
 
     private val tab by lazy { requireArguments().getSerializable(IntentParameters.KEY_TAB_TYPE) as BalanceFragment.Tabs }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             when (tab) {
                 BalanceFragment.Tabs.BALANCES -> {
@@ -50,7 +47,7 @@ class BalanceFragment_Internal : ContainerFragment() {
                                 doOnClick {
                                     // TODO: 2022/2/19 remove
                                     if (accountViewModel.isPicker) {
-                                        finish {
+                                        finishActivity {
                                             putJson(IntentParameters.AccountBalance.KEY_UID, it.balance.uid)
                                         }
                                     } else startAssetBrowser(it.balance.assetUid)
@@ -58,7 +55,7 @@ class BalanceFragment_Internal : ContainerFragment() {
                                 doOnLongClick { showAccountBalanceBrowserDialog(it.balance) }
                             }
                             distinctItemsBy { it.balance.assetUid }
-                            accountViewModel.balanceSorted.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                            accountViewModel.balanceSorted.observe(viewLifecycleOwner) { submitList(it) }
                         }
                         isVisible = false
                         accountViewModel.balanceSorted.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
@@ -76,7 +73,7 @@ class BalanceFragment_Internal : ContainerFragment() {
                             }
                             distinctItemsBy { it.order.uid }
                             distinctContentBy { it }
-                            accountViewModel.limitOrdersDetailed.observe { adapter.submitList(it) }
+                            accountViewModel.limitOrdersDetailed.observe { submitList(it) }
                         }
                         isVisible = false
                         accountViewModel.limitOrdersDetailed.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
@@ -91,7 +88,7 @@ class BalanceFragment_Internal : ContainerFragment() {
                                 doOnClick { startCollateral(it.borrower.uid, it.debt.asset.uid) }
                             }
                             distinctContentBy { }
-                            accountViewModel.callOrdersExtended.observe { adapter.submitList(it) }
+                            accountViewModel.callOrdersExtended.observe { submitList(it) }
                         }
                         isVisible = false
                         accountViewModel.callOrdersExtended.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }

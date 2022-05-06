@@ -1,21 +1,26 @@
 package com.bitshares.oases.ui.testlab
 
-import android.os.Bundle
-import android.view.View
+import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import graphene.chain.K102_AccountObject
 import graphene.chain.K103_AssetObject
 import bitshareskit.objects.AccountObject
 import bitshareskit.objects.AssetObject
-import graphene.rpc.GrapheneClient
-import graphene.rpc.K_Node
+import com.bitshares.oases.R
+import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.provider.chain_repo.GrapheneRepository
+import com.bitshares.oases.ui.asset.browser.actionBarLayout
+import com.bitshares.oases.ui.asset.browser.bodyCoordinatorParams
+import com.bitshares.oases.ui.asset.browser.actionCoordinatorParams
 import com.bitshares.oases.ui.base.ContainerFragment
 import graphene.protocol.*
 import graphene.serializers.GRAPHENE_JSON_PLATFORM_SERIALIZER
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.datetime.Clock
 import kotlinx.serialization.decodeFromString
 import modulon.component.ComponentCell
 import modulon.dialog.section
@@ -23,12 +28,14 @@ import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.cell
+import modulon.extensions.viewbinder.linearLayout
 import modulon.extensions.viewbinder.pagerLayout
 import modulon.extensions.viewbinder.tabLayout
+import modulon.layout.actionbar.subtitle
 import modulon.layout.actionbar.title
 import modulon.layout.recycler.*
-import modulon.layout.recycler.containers.submitList
 import modulon.layout.tab.tab
+import modulon.widget.PlainTextView
 
 class TestLabFragment : ContainerFragment() {
 
@@ -36,13 +43,15 @@ class TestLabFragment : ContainerFragment() {
 
     fun Any.console() = viewModel.console(System.currentTimeMillis(), this)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupAction {
-            title("TestLab")
-            websocketStateMenu()
+    override fun ViewGroup.onCreateView() {
+        fitsSystemWindows = true
+        actionBarLayout {
+            layoutParams = actionCoordinatorParams()
+            title(context.getString(R.string.about_title))
+            subtitle(AppConfig.APP_NAME)
         }
-        setupVertical {
+        linearLayout {
+            layoutParams = bodyCoordinatorParams()
             tabLayout {
                 tab { text = "General" }
                 tab { text = "Serialization" }
@@ -55,6 +64,35 @@ class TestLabFragment : ContainerFragment() {
                 page<RecyclerLayout> {
                     section {
                         cell {
+                            title = "Test Reflect Independent"
+                            doOnClick {
+                                val time = Clock.System.now()
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    repeat(100000) {
+                                        create<PlainTextView>()
+                                    }
+                                    withContext(Dispatchers.Main) {
+                                        subtitle = "${(Clock.System.now() - time).inWholeMilliseconds}"
+                                    }
+                                }
+                            }
+                        }
+                        cell {
+                            title = "Test Non Reflect "
+                            doOnClick {
+                                val time = Clock.System.now()
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    repeat(100000) {
+                                        PlainTextView(context)
+                                    }
+                                    withContext(Dispatchers.Main) {
+                                        subtitle = "${(Clock.System.now() - time).inWholeMilliseconds}"
+                                    }
+                                }
+                            }
+                        }
+
+                        cell {
                             title = "Test All"
                         }
 
@@ -65,6 +103,9 @@ class TestLabFragment : ContainerFragment() {
                             title = "Ktor Send"
                             doOnClick {
                             }
+                        }
+                        linearLayout {
+                            layoutHeight = 100.dp
                         }
                     }
                 }

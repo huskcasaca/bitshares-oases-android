@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
+import modulon.extensions.stdlib.logcat
+import modulon.extensions.view.dp
 
 abstract class HeaderScrollingBehavior : OffsetBehavior<View>() {
 
@@ -72,12 +74,16 @@ abstract class HeaderScrollingBehavior : OffsetBehavior<View>() {
     }
 
     override fun layoutChild(parent: CoordinatorLayout, child: View, layoutDirection: Int) {
-        val dependencies = parent.getDependencies(child)
-        val header = findFirstDependency(dependencies)
+        val header = findFirstDependency(parent.getDependencies(child))
         if (header != null) {
             val lp = child.layoutParams as CoordinatorLayout.LayoutParams
             val available = tempRect1
-            available[parent.paddingLeft + lp.leftMargin, header.bottom + lp.topMargin, parent.width - parent.paddingRight - lp.rightMargin] = parent.height + header.bottom - parent.paddingBottom - lp.bottomMargin
+            available.set(
+                parent.paddingLeft + lp.leftMargin,
+                header.bottom + lp.topMargin,
+                parent.width - parent.paddingRight - lp.rightMargin,
+                parent.height + header.bottom - parent.paddingBottom - lp.bottomMargin
+            )
             val parentInsets = parent.lastWindowInsets
             if (parentInsets != null && ViewCompat.getFitsSystemWindows(parent)
                 && !ViewCompat.getFitsSystemWindows(child)
@@ -89,7 +95,7 @@ abstract class HeaderScrollingBehavior : OffsetBehavior<View>() {
                 available.right -= parentInsets.systemWindowInsetRight
             }
             val out = tempRect2
-            GravityCompat.apply(resolveGravity(lp.gravity), child.measuredWidth, child.measuredHeight, available, out, layoutDirection)
+            Gravity.apply(resolveGravity(lp.gravity), child.measuredWidth, child.measuredHeight, available, out, layoutDirection)
             val overlap = getOverlapPixelsForOffset(header)
             child.layout(out.left, out.top - overlap, out.right, out.bottom - overlap)
             verticalLayoutGap = out.top - header.bottom

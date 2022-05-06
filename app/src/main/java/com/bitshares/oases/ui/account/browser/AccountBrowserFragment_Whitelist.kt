@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.browser
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.objects.AccountObject
@@ -24,8 +22,7 @@ class AccountBrowserFragment_Whitelist : ContainerFragment() {
 
     private val viewModel: AccountViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         setupRecycler {
             Tabs.values().forEach { type ->
@@ -52,7 +49,7 @@ class AccountBrowserFragment_Whitelist : ContainerFragment() {
                             doOnLongClick { showAccountBrowserDialog(account) }
                         }
                         distinctItemsBy { it.uid }
-                        source.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                        source.observe(viewLifecycleOwner) { submitList(it) }
                     }
                     source.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
                 }

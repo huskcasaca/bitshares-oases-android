@@ -26,8 +26,7 @@ class BalanceFragment : ContainerFragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
     private val accountViewModel: AccountViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         setupVertical {
             tabLayout {
@@ -35,6 +34,8 @@ class BalanceFragment : ContainerFragment() {
                 post { attachViewPager2(nextView<ViewGroup>().getFirstChild()) }
             }
             nestedScrollableHost {
+                layoutWidth = MATCH_PARENT
+                layoutHeight = MATCH_PARENT
                 pagerLayout {
                     offscreenPageLimit = 2
                     mainViewModel.selectedBalanceTab.observe { setCurrentItem(it.ordinal, false) }
@@ -43,7 +44,6 @@ class BalanceFragment : ContainerFragment() {
                     }
                     doOnPageSelected { mainViewModel.balanceTab = Tabs.values()[it] }
                 }
-                setParamsFill()
             }
 
         }

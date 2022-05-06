@@ -10,10 +10,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentContainerView
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2
-import modulon.extensions.view.addDefaultFill
-import modulon.extensions.view.addDefaultRow
-import modulon.extensions.view.edgeEffectFactory
-import modulon.extensions.view.doOnPageScrolled
+import modulon.extensions.view.*
+import modulon.layout.actionbar.ActionBarLayout
+import modulon.layout.coordinator.behavior.ActionBarBehavior
 import modulon.layout.frame.FrameLayout
 import modulon.layout.linear.HorizontalLayout
 import modulon.layout.linear.LinearLayout
@@ -23,6 +22,9 @@ import modulon.layout.recycler.BounceEdgeEffectFactory
 import modulon.layout.recycler.RecyclerLayout
 import modulon.layout.tab.TabLayout
 import modulon.union.UnionContext
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 /**
  * DSL extensions for creating different type of layouts
@@ -62,32 +64,54 @@ inline fun ViewGroup.drawerLayout(block: DrawerLayout.() -> Unit = {}) = addDefa
 
 // FrameLayout
 inline fun UnionContext.createFrameLayout(block: FrameLayout.() -> Unit = {}) = FrameLayout(context).apply(block)
-inline fun ViewGroup.frameLayout(block: FrameLayout.() -> Unit = {}) = addDefaultRow(FrameLayout(context).apply(block))
+@OptIn(ExperimentalContracts::class)
+inline fun ViewGroup.frameLayout(block: FrameLayout.() -> Unit = {}) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    addView(FrameLayout(context).apply(block))
+}
 
 // TableLayout
-inline fun UnionContext.createTableLayout(block: TableLayout.() -> Unit = {}) = TableLayout(context).apply(block)
 inline fun ViewGroup.tableLayout(block: TableLayout.() -> Unit = {}) = addDefaultRow(TableLayout(context).apply(block))
 
 // BaseVerticalLayout
 inline fun UnionContext.createVerticalLayout(block: VerticalLayout.() -> Unit = {}) = VerticalLayout(context).apply(block)
-inline fun ViewGroup.verticalLayout(block: VerticalLayout.() -> Unit = {}) = addDefaultRow(VerticalLayout(context).apply(block))
+
+// FIXME: 2022/5/4 addDefaultRow -> addView
+@OptIn(ExperimentalContracts::class)
+inline fun ViewGroup.verticalLayout(block: VerticalLayout.() -> Unit = {}) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    addView(VerticalLayout(context).apply(block))
+}
 
 // BaseHorizontalLayout
 inline fun UnionContext.createHorizontalLayout(block: HorizontalLayout.() -> Unit = {}) = HorizontalLayout(context).apply(block)
-inline fun ViewGroup.horizontalLayout(block: HorizontalLayout.() -> Unit = {}) = addDefaultRow(HorizontalLayout(context).apply(block))
+@OptIn(ExperimentalContracts::class)
+inline fun ViewGroup.horizontalLayout(block: HorizontalLayout.() -> Unit = {}) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    addView(HorizontalLayout(context).apply(block))
+}
 
 // BaseLinearLayout
-inline fun UnionContext.createLinearLayout(block: LinearLayout.() -> Unit = {}) = LinearLayout(context).apply(block)
-inline fun ViewGroup.linearLayout(block: LinearLayout.() -> Unit = {}) = addDefaultRow(LinearLayout(context).apply(block))
+@OptIn(ExperimentalContracts::class)
+inline fun ViewGroup.linearLayout(block: LinearLayout.() -> Unit = {}) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    addView(LinearLayout(context).apply(block))
+}
 
 // TabLayout
-inline fun UnionContext.createTabLayout(block: TabLayout.() -> Unit = {}) = TabLayout(context).apply(block)
-inline fun ViewGroup.tabLayout(block: TabLayout.() -> Unit = {}) = addDefaultRow(TabLayout(context).apply(block))
-
+@OptIn(ExperimentalContracts::class)
+inline fun ViewGroup.tabLayout(block: TabLayout.() -> Unit = {}) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    addView(TabLayout(context).apply(block))
+}
 
 // BaseRecyclerView
 inline fun UnionContext.createRecyclerLayout(block: RecyclerLayout.() -> Unit = {}) = RecyclerLayout(context).apply(block)
-inline fun ViewGroup.recyclerLayout(block: RecyclerLayout.() -> Unit = {}) = addDefaultFill(RecyclerLayout(context).apply(block))
+@OptIn(ExperimentalContracts::class)
+inline fun ViewGroup.recyclerLayout(block: RecyclerLayout.() -> Unit = {}) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    addDefaultFill(RecyclerLayout(context).apply(block))
+}
 
 // NestedScrollableHost
 inline fun UnionContext.createNestedScrollableHost(block: NestedHostLayout.() -> Unit = {}) = NestedHostLayout(context).apply(block)

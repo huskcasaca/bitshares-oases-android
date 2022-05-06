@@ -79,15 +79,33 @@ class BottomNavigationLayout(context: Context): FrameLayout(context) {
         }
 
         private val containerIcon = createFrameLayout {
-            addWrap(containerIconBackground, height = 32.dp, width = 64.dp, gravity = Gravity.CENTER)
-            addWrap(iconView, top = 4.dp, bottom = 4.dp, width = 24.dp, height = 24.dp, gravity = Gravity.CENTER)
+            view(containerIconBackground) {
+                layoutHeight = 32.dp
+                layoutWidth = 64.dp
+                layoutGravityFrame = Gravity.CENTER
+            }
+            view(iconView) {
+                layoutMarginTop = 4.dp
+                layoutMarginBottom = 4.dp
+                layoutWidth = 24.dp
+                layoutHeight = 24.dp
+                layoutGravityFrame = Gravity.CENTER
+            }
         }
 
         private val container = createVerticalLayout {
             minimumWidth = ITEM_WIDTH
-            addWrap(containerIcon, bottom = 4.dp, gravity = Gravity.CENTER_HORIZONTAL)
-            addWrap(textView, gravity = Gravity.CENTER_HORIZONTAL)
-            setFrameParamsFill(gravity = Gravity.CENTER)
+            layoutWidth = MATCH_PARENT
+            layoutHeight = MATCH_PARENT
+            layoutGravityFrame = Gravity.CENTER
+
+            view(containerIcon) {
+                layoutMarginBottom = 4.dp
+                layoutGravityLinear = Gravity.CENTER_HORIZONTAL
+            }
+            view(textView) {
+                layoutGravityLinear = Gravity.CENTER_HORIZONTAL
+            }
         }
 
         private val checkedBg = createOutBoundsSelectorDrawableNoAlpha(recoverAlpha(activeComponentColor, backgroundComponentColor), 64.dp)
@@ -145,7 +163,7 @@ class BottomNavigationLayout(context: Context): FrameLayout(context) {
             }
             isChecked = false
             setPadding(0.dp, 12.dp, 0.dp, 12.dp)
-            addWrap(container)
+            addView(container)
 //            setParams(ITEM_WIDTH, ViewGroup.LayoutParams.WRAP_CONTENT)
 //        expandTouchArea(top = -16.dp, bottom = 16.dp)
             background = null
@@ -159,7 +177,11 @@ class BottomNavigationLayout(context: Context): FrameLayout(context) {
         noClipping()
         updatePadding(12.dp, 0.dp, 12.dp, 0.dp)
         gravity = Gravity.CENTER
-        addWrap(create<Spacer>(), width = 0, height = MATCH_PARENT, weight = 0.2f)
+        view<Spacer> {
+            layoutWidth = 0
+            layoutHeight = MATCH_PARENT
+            layoutWeightLinear = 0.2f
+        }
     }
 
     companion object {
@@ -167,7 +189,7 @@ class BottomNavigationLayout(context: Context): FrameLayout(context) {
     }
 
     init {
-        addRow(buttonSection)
+        viewRow(buttonSection)
         backgroundTintColor = context.getColor(R.color.background)
     }
 
@@ -178,7 +200,11 @@ class BottomNavigationLayout(context: Context): FrameLayout(context) {
             layoutWeightLinear = 2f
         }
         buttonSection.addView(item, buttonSection.childCount)
-        buttonSection.addWrap(create<Spacer>(), width = 0, height = MATCH_PARENT, weight = 0.2f)
+        buttonSection.view<Spacer> {
+            layoutWidth = 0
+            layoutHeight = MATCH_PARENT
+            layoutWeightLinear = 0.2f
+        }
     }
 
 }

@@ -25,8 +25,7 @@ class AppearanceSettingsFragment : ContainerFragment() {
 
     private val viewModel: SettingsViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupAction {
             title(context.getString(R.string.appearance_settings_title))
             websocketStateMenu()

@@ -20,10 +20,10 @@ class AccountPickerListFragment : ContainerFragment() {
 //                            bindAccount(it, false)
 //                            doOnClick {
 //                                setActivityResult(Activity.RESULT_OK) { putLocalExtra(IntentParameters.Account.KEY_ACCOUNT, it) }
-//                                finish()
+//                                finishActivity()
 //                            }
 //                        }
-//                        viewModel.historyAccounts.observe(viewLifecycleOwner) { adapter.submitList(it) }
+//                        viewModel.historyAccounts.observe(viewLifecycleOwner) { submitList(it) }
 //                    }
 //                    addBaseShadowCell { viewModel.historyAccounts.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() } }
 //                    addBaseTextCell {
@@ -40,10 +40,10 @@ class AccountPickerListFragment : ContainerFragment() {
 //                            bindUser(it)
 //                            doOnClick {
 //                                setActivityResult(Activity.RESULT_OK) { putLocalExtra(IntentParameters.Account.KEY_ACCOUNT, it.toAccount()) }
-//                                finish()
+//                                finishActivity()
 //                            }
 //                        }
-//                        viewModel.localAccounts.observe(viewLifecycleOwner) { adapter.submitList(it) }
+//                        viewModel.localAccounts.observe(viewLifecycleOwner) { submitList(it) }
 //                    }
 //                    addBaseShadowCell { viewModel.localAccounts.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() } }
 //                }
@@ -54,10 +54,10 @@ class AccountPickerListFragment : ContainerFragment() {
 //                            bindAccount(it, false)
 //                            doOnClick {
 //                                setActivityResult(Activity.RESULT_OK) { putLocalExtra(IntentParameters.Account.KEY_ACCOUNT, it) }
-//                                finish()
+//                                finishActivity()
 //                            }
 //                        }
-//                        viewModel.whitelistAccounts.observe(viewLifecycleOwner) { adapter.submitList(it) }
+//                        viewModel.whitelistAccounts.observe(viewLifecycleOwner) { submitList(it) }
 //                    }
 //                    addBaseShadowCell { viewModel.whitelistAccounts.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() } }
 //                }

@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.permission
 
-import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -52,8 +50,7 @@ class PermissionFragment_Tabs : ContainerFragment() {
 
     private val viewModel: PermissionViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         if (tab == Tabs.CLOUD_WALLET) setupRecycler {
             section {
@@ -183,7 +180,7 @@ class PermissionFragment_Tabs : ContainerFragment() {
                     }
                     distinctItemsBy { it.first.address }
                     distinctContentBy { it }
-                    keySource.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    keySource.observe(viewLifecycleOwner) { submitList(it) }
                 }
                 cell {
                     buttonStyle()

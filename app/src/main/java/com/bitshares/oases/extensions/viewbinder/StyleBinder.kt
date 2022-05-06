@@ -11,7 +11,7 @@ import modulon.extensions.font.typefaceBold
 import modulon.extensions.font.typefaceDinMedium
 import modulon.extensions.graphics.createSelectorDrawable
 import modulon.extensions.view.*
-import modulon.extensions.viewbinder.createHorizontalLayout
+import modulon.extensions.viewbinder.horizontalLayout
 import modulon.extensions.viewbinder.startScrolling
 
 fun ComponentCell.setTickerStyle() {
@@ -21,11 +21,10 @@ fun ComponentCell.setTickerStyle() {
         typeface = typefaceBold
         textSize = 48f
         alpha = 0.15f
-        setFrameParams {
-            width = WRAP_CONTENT
-            height = WRAP_CONTENT
-            gravity = Gravity.END or Gravity.BOTTOM
-        }
+
+        layoutWidth = WRAP_CONTENT
+        layoutHeight = WRAP_CONTENT
+        layoutGravityFrame = Gravity.END or Gravity.BOTTOM
     }
     titleView.apply {
         textSize = 22f
@@ -36,53 +35,44 @@ fun ComponentCell.setTickerStyle() {
         ellipsize = TextUtils.TruncateAt.END
     }
     textView.parentViewGroup.removeView(textView)
-    addWrap(textView, gravity = Gravity.END or Gravity.BOTTOM)
+    addView(textView)
 }
 
 fun BaseCell.setTickerItemStyle() {
-    setPadding(
-        context.resources.getDimensionPixelSize(R.dimen.cell_padding_start),
-        0,
-        context.resources.getDimensionPixelSize(R.dimen.cell_padding_end),
-        0
-    )
+    setPadding(context.resources.getDimensionPixelSize(R.dimen.cell_padding_start), 0, context.resources.getDimensionPixelSize(R.dimen.cell_padding_end), 0)
     layoutAnimation = null
     layoutTransition = null
-
-    // TODO: 2022/2/11 extract to extensions
-    titleView.apply {
-        isVisible = true
-        ellipsize = TextUtils.TruncateAt.END
-        isSingleLine = true
-        gravity = Gravity.START
-        textSize = 15.5f
-        typeface = typefaceDinMedium
-    }
-    subtitleView.apply {
-        isVisible = true
-        ellipsize = TextUtils.TruncateAt.END
-        isSingleLine = true
-        gravity = Gravity.END
-        textSize = 15.5f
-        typeface = typefaceDinMedium
-    }
-    val container = createHorizontalLayout {
+    horizontalLayout {
         layoutAnimation = null
         layoutTransition = null
-        addRow(titleView,
-            weight = 1f,
-            width = 0,
-            end = 2.dp,
+        layoutWidth = MATCH_PARENT
+        view(titleView) {
+            isVisible = true
+            ellipsize = TextUtils.TruncateAt.END
+            isSingleLine = true
             gravity = Gravity.START
-        )
-        addRow(subtitleView,
-            weight = 1f,
-            width = 0,
-            start = 2.dp,
-            gravity = Gravity.END,
-        )
+            textSize = 15.5f
+            typeface = typefaceDinMedium
+
+            layoutWidth = 0
+            layoutMarginEnd = 2.dp
+            layoutWeightLinear = 1f
+            layoutGravityLinear = Gravity.START
+        }
+        view(subtitleView) {
+            isVisible = true
+            ellipsize = TextUtils.TruncateAt.END
+            isSingleLine = true
+            gravity = Gravity.END
+            textSize = 15.5f
+            typeface = typefaceDinMedium
+
+            layoutWidth = 0
+            layoutMarginEnd = 2.dp
+            layoutWeightLinear = 1f
+            layoutGravityLinear = Gravity.END
+        }
     }
-    addRow(container)
 }
 
 fun ComponentCell.setDrawerItemStyle() {

@@ -1,8 +1,6 @@
 package com.bitshares.oases.ui.settings
 
-import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.extensions.nameOrEmpty
@@ -11,22 +9,16 @@ import com.bitshares.oases.extensions.compat.startAccountBrowser
 import com.bitshares.oases.extensions.compat.startPermission
 import com.bitshares.oases.extensions.compat.startWhitelist
 import com.bitshares.oases.extensions.viewbinder.bindAccountV3
-import com.bitshares.oases.globalPreferenceManager
-import com.bitshares.oases.preference.old.I18N
 import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.startFragment
+import com.bitshares.oases.ui.main.settings.showLanguageSettingDialog
 import com.bitshares.oases.ui.settings.appearance.AppearanceSettingsFragment
 import com.bitshares.oases.ui.settings.network.NetworkSettingsFragment
 import com.bitshares.oases.ui.settings.node.NodeSettingsFragment
 import com.bitshares.oases.ui.settings.storage.StorageSettingsFragment
 import com.bitshares.oases.ui.wallet.WalletSettingsFragment
 import modulon.component.IconSize
-import modulon.dialog.button
-import modulon.dialog.section
-import modulon.extensions.compat.recreate
-import modulon.extensions.compat.showBottomDialog
-import modulon.extensions.lifecycle.parentViewModels
 import modulon.extensions.livedata.distinctUntilChangedBy
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.cell
@@ -34,15 +26,12 @@ import modulon.extensions.viewbinder.hint
 import modulon.extensions.viewbinder.spacer
 import modulon.layout.actionbar.title
 import modulon.layout.recycler.section
-import modulon.union.Union
-import modulon.widget.RadioView
 
 class SettingsFragment : ContainerFragment() {
 
     private val viewModel: SettingsViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             section {
                 cell {
@@ -130,45 +119,4 @@ class SettingsFragment : ContainerFragment() {
         }
     }
 
-}
-
-fun Union.showLanguageSettingDialog() = showBottomDialog {
-    val viewModel: SettingsViewModel by parentViewModels()
-    title = context.getString(R.string.language_settings_title)
-    isCancelableByButtons = true
-    section {
-        I18N.values().forEach { locale ->
-            cell {
-                customViewStart = create<RadioView> {
-                    setColors(context.getColor(R.color.component_disabled), context.getColor(R.color.component))
-                    setFrameParams {
-                        width =  context.resources.getDimensionPixelSize(modulon.R.dimen.icon_size_tiny)
-                        height = context.resources.getDimensionPixelSize(modulon.R.dimen.icon_size_tiny)
-                        gravity = Gravity.START or Gravity.CENTER_VERTICAL
-                    }
-                    viewModel.language.observe(viewLifecycleOwner) {
-                        setChecked(it == locale, true)
-                    }
-                }
-                updatePaddingVerticalHalf()
-                text = when (locale) {
-                    I18N.DEFAULT                -> context.getString(R.string.language_settings_default)
-                    else                        -> locale.localizedName
-                }
-                subtext = when (locale) {
-                    I18N.DEFAULT                -> context.getString(R.string.language_settings_follow_system)
-                    I18N.ENGLISH                -> context.getString(R.string.language_settings_english)
-                    I18N.RUSSIAN                -> context.getString(R.string.language_settings_russian)
-                    I18N.SIMPLIFIED_CHINESE     -> context.getString(R.string.language_settings_simplified_chinese)
-                    I18N.TRADITIONAL_CHINESE    -> context.getString(R.string.language_settings_traditional_chinese)
-                }
-                doOnClick {
-                    globalPreferenceManager.LANGUAGE.value = locale
-                    dismissNow()
-                    recreate()
-                }
-            }
-        }
-    }
-    button { text = context.getString(R.string.button_cancel) }
 }

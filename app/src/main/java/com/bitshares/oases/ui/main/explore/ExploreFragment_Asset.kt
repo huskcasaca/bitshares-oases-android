@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.main.explore
 
-import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -35,8 +33,7 @@ class ExploreFragment_Asset : ContainerFragment() {
     private val accountSearchingViewModel: AccountPickerViewModel by activityViewModels()
     private val assetSearchingViewModel: AssetPickerViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             section {
                 header = "Search Asset"
@@ -58,7 +55,7 @@ class ExploreFragment_Asset : ContainerFragment() {
                         bindAssetV3(it, true)
                         doOnClick { startAssetBrowser(it.uid) }
                     }
-                    assetSearchingViewModel.searchResult.observe{ adapter.submitList(it) }
+                    assetSearchingViewModel.searchResult.observe{ submitList(it) }
                 }
                 isVisible = false
                 assetSearchingViewModel.searchResult.observe{ isVisible = it.isNotEmpty() }

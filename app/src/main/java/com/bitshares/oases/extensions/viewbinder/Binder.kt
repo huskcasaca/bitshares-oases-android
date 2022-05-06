@@ -47,24 +47,24 @@ import kotlin.math.abs
 
 // avatar
 fun BaseCell.bindKdenticonAvatar(value: String, size: IconSize) {
-    iconSize = size
-    val backgroundColor = context.getColor(R.color.background_cover)
-    val backgroundRadius = resources.getDimension(iconSize.size) / 10
-    val drawableSize = resources.getDimensionPixelSize(iconSize.size)
-    val hashString = HashUtils.sha256(value)
-    val s = Kdenticon.toSvg(hashString, drawableSize, 0.1f)
-    iconView.apply {
-        updateLayoutParams<LinearLayout.LayoutParams> {
-            // TODO: 23/1/2022 should be 4dp?
-            leftMargin = (-2).dp
-            rightMargin = (-2).dp + componentOffset
-            gravity = Gravity.TOP or Gravity.START
-        }
-        isVisible = true
-        background = createRoundRectDrawable(backgroundColor, backgroundRadius)
-        val drawable = PictureDrawable(SVG.getFromString(s).renderToPicture())
-        setImageDrawable(drawable)
-    }
+//    iconSize = size
+//    val backgroundColor = context.getColor(R.color.background_cover)
+//    val backgroundRadius = resources.getDimension(iconSize.size) / 10
+//    val drawableSize = resources.getDimensionPixelSize(iconSize.size)
+//    val hashString = HashUtils.sha256(value)
+//    val s = Kdenticon.toSvg(hashString, drawableSize, 0.1f)
+//    iconView.apply {
+//        updateLayoutParams<LinearLayout.LayoutParams> {
+//            // TODO: 23/1/2022 should be 4dp?
+//            leftMargin = (-2).dp
+//            rightMargin = (-2).dp + componentOffset
+//            gravity = Gravity.TOP or Gravity.START
+//        }
+//        isVisible = true
+//        background = createRoundRectDrawable(backgroundColor, backgroundRadius)
+//        val drawable = PictureDrawable(SVG.getFromString(s).renderToPicture())
+//        setImageDrawable(drawable)
+//    }
 }
 
 // committees / witnesses / workers

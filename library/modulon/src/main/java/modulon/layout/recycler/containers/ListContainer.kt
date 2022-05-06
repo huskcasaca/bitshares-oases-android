@@ -55,6 +55,13 @@ class ListContainer<C : View, D>(override var creator: () -> C) : RecyclerLayout
 
     override val adapter = PayloadsAdapter()
 
+    fun submitList(list: List<D>) {
+        adapter.submitList(list)
+    }
+    fun submitPayload(payload: Any, notify: Boolean = true) {
+        adapter.submitPayload(payload, notify)
+    }
+
     fun setViewCreator(block: C.() -> Unit) {
         viewBinder = block
         adapter.notifyDataSetChanged()
@@ -80,7 +87,6 @@ class ListContainer<C : View, D>(override var creator: () -> C) : RecyclerLayout
 
 }
 
-
 typealias Comparator<D> = (old: D, new: D) -> Boolean
 
 
@@ -103,17 +109,8 @@ class StaticContainer<C : View, D>(private val data: List<D>, override var creat
     }
 
     override val adapter = PayloadsAdapter().apply {
-        // TODO: 2022/2/7
+        // TODO: 2022/2/7 remove
         notifyDataSetChanged()
     }
 
-}
-
-// TODO: 5/2/2022 apply to all
-fun <C : View, D> ListContainer<C, D>.submitList(list: List<D>) {
-    adapter.submitList(list)
-}
-
-fun <C : View, D> ListContainer<C, D>.submitPayload(list: List<Any>) {
-    adapter.submitPayload(list)
 }

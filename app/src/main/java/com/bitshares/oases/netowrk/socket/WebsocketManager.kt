@@ -63,7 +63,9 @@ class WebsocketManager(
     private suspend fun collectLatestConfig() {
         application.preferenceManager.NODE_ID.asFlow().flatMapLatest {
             repo.getAsync(it)
-        }.distinctUntilChanged(nodeConfigAreEquivalent).collectLatest {
+        }.filterNotNull(
+
+        ).distinctUntilChanged(nodeConfigAreEquivalent).collectLatest {
             startClient(it.toClient(), true)
         }
     }

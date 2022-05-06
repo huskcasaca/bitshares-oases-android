@@ -65,16 +65,16 @@ fun Union.secureWindow() {
 inline fun <reified T> UnionContext.getSystemService() = context.getSystemService(T::class.java)
 
 
-fun Fragment.finish(resultCode: Int = Activity.RESULT_OK, intent: Intent.() -> Unit) {
+fun Fragment.finishActivity(resultCode: Int = Activity.RESULT_OK, intent: Intent.() -> Unit) {
     activity?.setResult(resultCode, Intent().apply(intent))
     activity?.finish()
 }
 
-fun Fragment.finish() {
+fun Fragment.finishActivity() {
     activity?.finish()
 }
 
-fun Fragment.recreate() {
+fun Fragment.recreateActivity() {
     activity?.recreate()
 }
 

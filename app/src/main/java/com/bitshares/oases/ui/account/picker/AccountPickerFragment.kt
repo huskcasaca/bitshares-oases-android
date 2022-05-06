@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.picker
 
-import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -19,7 +17,7 @@ import com.bitshares.oases.ui.base.putJson
 import modulon.component.ComponentCell
 import modulon.component.IconSize
 import modulon.component.buttonStyle
-import modulon.extensions.compat.finish
+import modulon.extensions.compat.finishActivity
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
 import modulon.layout.actionbar.SearchLayout
@@ -37,8 +35,7 @@ class AccountPickerFragment : ContainerFragment() {
 
     private val viewModel: AccountPickerViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupAction {
             titleConnectionState(getString(R.string.account_picker_title))
             actionView = create<SearchLayout> {
@@ -63,6 +60,8 @@ class AccountPickerFragment : ContainerFragment() {
         }
         setupCoordinator {
             verticalLayout {
+                layoutWidth = MATCH_PARENT
+                layoutHeight = MATCH_PARENT
                 tabLayout {
                     viewModel.availableTabs.observe {
                         removeAllTabs()
@@ -74,7 +73,10 @@ class AccountPickerFragment : ContainerFragment() {
                 }
                 pagerLayout {
                     pageList<RecyclerLayout, Tabs> {
-                        construct { setParamsFill() }
+                        construct {
+                            layoutWidth = MATCH_PARENT
+                            layoutHeight = MATCH_PARENT
+                        }
                         // FIXME: 8/12/2021 potential memory leak
                         data {
                             removeAllViews()
@@ -86,13 +88,13 @@ class AccountPickerFragment : ContainerFragment() {
                                             data {
                                                 bindAccountV3(it, false, IconSize.COMPONENT_0)
                                                 doOnClick {
-                                                    finish {
+                                                    finishActivity {
                                                         putJson(IntentParameters.Account.KEY_ACCOUNT, it)
                                                         putJson(IntentParameters.Account.KEY_UID, it.uid)
                                                     }
                                                 }
                                             }
-                                            viewModel.historyAccounts.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                                            viewModel.historyAccounts.observe(viewLifecycleOwner) { submitList(it) }
                                         }
                                         viewModel.historyAccounts.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
                                     }
@@ -111,13 +113,13 @@ class AccountPickerFragment : ContainerFragment() {
                                             data {
                                                 bindUserV3(it, IconSize.COMPONENT_0)
                                                 doOnClick {
-                                                    finish {
+                                                    finishActivity {
                                                         putJson(IntentParameters.Account.KEY_ACCOUNT, it.toAccount())
                                                         putJson(IntentParameters.Account.KEY_UID, it.uid)
                                                     }
                                                 }
                                             }
-                                            viewModel.localAccounts.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                                            viewModel.localAccounts.observe(viewLifecycleOwner) { submitList(it) }
                                         }
                                         viewModel.localAccounts.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
                                     }
@@ -129,27 +131,29 @@ class AccountPickerFragment : ContainerFragment() {
                                             data {
                                                 bindAccountV3(it, false, IconSize.COMPONENT_0)
                                                 doOnClick {
-                                                    finish {
+                                                    finishActivity {
                                                         putJson(IntentParameters.Account.KEY_ACCOUNT, it)
                                                         putJson(IntentParameters.Account.KEY_UID, it.uid)
                                                     }
                                                 }
                                             }
-                                            viewModel.whitelistAccounts.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                                            viewModel.whitelistAccounts.observe(viewLifecycleOwner) { submitList(it) }
                                         }
                                         viewModel.whitelistAccounts.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
                                     }
                                 }
                             }
                         }
-                        viewModel.availableTabs.observe { adapter.submitList(it) }
+                        viewModel.availableTabs.observe { submitList(it) }
                     }
                 }
-                setParamsFill()
                 viewModel.searchState.observe { isVisible = it == AccountPickerViewModel.STATE_HISTORY_SHOWN }
             }
             recyclerLayout {
+                layoutWidth = MATCH_PARENT
+                layoutHeight = MATCH_PARENT
                 isVisible = false
+                viewModel.searchState.observe { isVisible = it != AccountPickerViewModel.STATE_HISTORY_SHOWN }
                 section {
                     list<ComponentCell, AccountObject> {
                         construct { updatePaddingVerticalHalf() }
@@ -157,13 +161,13 @@ class AccountPickerFragment : ContainerFragment() {
                             bindAccountV3(it, false, IconSize.COMPONENT_0)
                             doOnClick {
                                 viewModel.addSearchHistory(it)
-                                finish {
+                                finishActivity {
                                     putJson(IntentParameters.Account.KEY_ACCOUNT, it)
                                     putJson(IntentParameters.Account.KEY_UID, it.uid)
                                 }
                             }
                         }
-                        viewModel.searchResult.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                        viewModel.searchResult.observe(viewLifecycleOwner) { submitList(it) }
                     }
                     viewModel.searchResult.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
                 }
@@ -198,8 +202,6 @@ class AccountPickerFragment : ContainerFragment() {
                         isVisible = it == AccountPickerViewModel.STATE_NO_CONNECTION
                     }
                 }
-                setParamsFill()
-                viewModel.searchState.observe { isVisible = it != AccountPickerViewModel.STATE_HISTORY_SHOWN }
             }
         }
     }

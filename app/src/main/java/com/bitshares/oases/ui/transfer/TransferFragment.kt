@@ -44,8 +44,7 @@ class TransferFragment : ContainerFragment() {
 
     private val viewModel: TransferViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupAction {
             titleConnectionState(getString(R.string.transfer_title))
             websocketStateMenu()
@@ -194,7 +193,7 @@ class TransferFragment : ContainerFragment() {
                         updatePaddingVerticalHalf()
                         title = context.getString(R.string.transfer_amount)
                         subtitleView.transformationMethod = TABULAR_TRANSFORMATION_METHOD
-                        custom {
+                        customHorizontal {
                             field {
                                 inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
                                 doAfterTextChanged { viewModel.changeAmountField(it.toStringOrEmpty()) }

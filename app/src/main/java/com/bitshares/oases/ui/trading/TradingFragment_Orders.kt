@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.trading
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.entities.LimitOrder
@@ -23,8 +21,7 @@ class TradingFragment_Orders : ContainerFragment() {
 
     private val viewModel: TradingViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             section {
                 list<ComponentCell, LimitOrder> {
@@ -33,7 +30,7 @@ class TradingFragment_Orders : ContainerFragment() {
                         doOnLongClick { showDetailedOrderDialog(it) }
                     }
                     distinctItemsBy { it.order.id }
-                    viewModel.currentMarketLimitOrders.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    viewModel.currentMarketLimitOrders.observe(viewLifecycleOwner) { submitList(it) }
                 }
                 isVisible = false
                 viewModel.currentMarketLimitOrders.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }

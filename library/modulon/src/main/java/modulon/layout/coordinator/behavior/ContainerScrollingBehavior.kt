@@ -27,7 +27,7 @@ class ContainerScrollingBehavior() : HeaderScrollingBehavior() {
     }
 
     override fun onRequestChildRectangleOnScreen(parent: CoordinatorLayout, child: View, rectangle: Rect, immediate: Boolean): Boolean {
-        val header = findFirstDependency(parent.getDependencies(child))
+//        val header = findFirstDependency(parent.getDependencies(child))
 //        if (header != null) {
 //            // Offset the rect by the child's left/top
 //            rectangle.offset(child.left, child.top)
@@ -49,7 +49,7 @@ class ContainerScrollingBehavior() : HeaderScrollingBehavior() {
     }
 
     override fun findFirstDependency(views: List<View>): View? {
-        return views.firstOrNull { it is ActionBarLayout } as ActionBarLayout?
+        return views.firstOrNull { it is ActionBarLayout }
     }
 
     override fun getScrollRange(v: View): Int {

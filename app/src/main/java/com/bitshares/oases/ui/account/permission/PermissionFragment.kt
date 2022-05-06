@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.permission
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.distinctUntilChanged
@@ -42,8 +40,7 @@ class PermissionFragment : ContainerFragment() {
 
     private val viewModel: PermissionViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         secureWindow()
         setupAction {
             title(context.getString(R.string.permission_settings_title))
@@ -78,7 +75,7 @@ class PermissionFragment : ContainerFragment() {
             lifecycleScope.launch {
                 if (viewModel.isModified()) {
                     if (showChangesDiscardDialog() && showThresholdCheckDialog()) showPermissionChangeDialog()
-                } else finish()
+                } else finishActivity()
             }
             false
         }

@@ -11,6 +11,8 @@
     <color name="background_cover_1">#1cffffff</color>
     <color name="background_component">#ff1f1f1f</color>
 
+    <color name="background_dialog">#ff3f3f3f</color>
+
     <color name="background_component_light">#08344A</color>
 
     <color name="component_separator">#ff1e1e1e</color>

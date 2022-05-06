@@ -14,6 +14,7 @@ import modulon.layout.recycler.decorations.ShaderOverlay
 import modulon.union.UnionContext
 import modulon.union.toUnion
 
+// TODO: 2022/4/28 rename
 class RecyclerLayout(context: Context) : RecyclerView(context), Section, UnionContext by context.toUnion() {
 
     companion object {
@@ -26,46 +27,54 @@ class RecyclerLayout(context: Context) : RecyclerView(context), Section, UnionCo
     private val shaderOverlay = ShaderOverlay(context)
     private val separatorOverlay = SeparatorOverlay(context)
 
+    override fun getAdapter(): ConcatAdapter {
+        return super.getAdapter() as ConcatAdapter
+    }
+    override fun setAdapter(adapter: Adapter<*>?) {
+        if (adapter is ConcatAdapter) {
+            super.setAdapter(adapter)
+        } else {
+            throw IllegalArgumentException("ConcatAdapter required!")
+        }
+    }
+
     init {
         noClipping()
-
+        adapter = ConcatAdapter()
         layoutManager = FixedLinearLayoutManager(context)
         itemAnimator = DefaultItemAnimator()
-        adapter = ConcatAdapter()
-        edgeEffectFactory = BounceEdgeEffectFactory(VERTICAL)
+//        edgeEffectFactory = BounceEdgeEffectFactory(VERTICAL)
+        edgeEffectFactory = EdgeEffectFactory()
 
-        setItemViewCacheSize(12)
         setPadding(context.resources.getDimensionPixelSize(R.dimen.global_spacer_size), 0, context.resources.getDimensionPixelSize(R.dimen.global_spacer_size), 0)
         addItemDecoration(shaderOverlay)
         addItemDecoration(separatorOverlay)
-
     }
 
     override fun addView(child: View) {
-        addContainer(DefaultContainer(child, ViewSize.ROW))
+        addContainer(DefaultContainer(child))
     }
 
     override fun addView(child: View, params: ViewGroup.LayoutParams) {
-        addContainer(DefaultContainer(child, ViewSize.ROW, params))
+        addContainer(DefaultContainer(child, params))
     }
 
     override fun removeAllViews() {
         // TODO: 2022/2/8 test
-        (adapter as ConcatAdapter?)?.apply {
+        with(adapter) {
             adapters.forEach { removeAdapter(it) }
         }
-        adapter = ConcatAdapter()
     }
 
     // prevent logcat output
     override fun scrollTo(x: Int, y: Int) { }
 
     override fun addContainer(block: Container<*>) {
-        (adapter as ConcatAdapter).addAdapter(block.adapter)
+        adapter.addAdapter(block.adapter)
     }
 
     override fun addContainer(block: Container<*>, index: Int) {
-        (adapter as ConcatAdapter).addAdapter(index, block.adapter)
+        adapter.addAdapter(index, block.adapter)
     }
 
     abstract class Container<C : View> {

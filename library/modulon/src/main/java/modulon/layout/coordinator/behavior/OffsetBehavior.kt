@@ -67,7 +67,7 @@ open class OffsetBehavior<V : View> : CoordinatorLayout.Behavior<V>() {
 //            offset
 //        }
 //        return false
-        return offsetHelper?.setLeftAndRightOffset(offset) ?: false.also { tempTopBottomOffset = offset }
+        return offsetHelper?.setLeftAndRightOffset(offset) ?: false.also { tempLeftRightOffset = offset }
     }
 
 

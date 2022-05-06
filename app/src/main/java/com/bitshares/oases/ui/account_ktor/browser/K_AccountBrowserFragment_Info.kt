@@ -20,8 +20,7 @@ class K_AccountBrowserFragment_Info : ContainerFragment() {
 
     private val viewModel: K_AccountViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         setupRecycler {
             // account container

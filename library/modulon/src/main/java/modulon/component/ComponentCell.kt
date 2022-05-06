@@ -5,7 +5,6 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TableLayout
 import androidx.core.view.*
 import modulon.R
@@ -14,10 +13,18 @@ import modulon.extensions.viewbinder.*
 import modulon.layout.frame.FrameLayout
 import modulon.layout.linear.HorizontalLayout
 import modulon.layout.linear.VerticalLayout
-import modulon.union.Union
 import modulon.widget.*
 
 class ComponentCell(context: Context) : ComponentPaddingCell(context) {
+
+    override val iconView: ImageView by lazy { ImageView(context) }
+    private val containerHeader: FrameLayout by lazy { FrameLayout(context) }
+    private val containerBody: VerticalLayout by lazy { VerticalLayout(context) }
+    private val containerText: FrameLayout by lazy { FrameLayout(context) }
+
+    private val containerForm: VerticalLayout by lazy { VerticalLayout(context) }
+    private val containerStart: FrameLayout
+    private val containerEnd: FrameLayout by lazy { FrameLayout(context) }
 
     override var text: CharSequence
         get() = textView.text
@@ -25,79 +32,14 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
             textView.textWithVisibility = text
         }
 
-    override val iconView = create<ImageView> {
-        isVisible = false
-    }
-
     override var iconSize: IconSize = IconSize.TINY
         set(value) {
-            iconView.layoutWidth = resources.getDimensionPixelSize(value.size)
-            iconView.layoutHeight = resources.getDimensionPixelSize(value.size)
-            requestLayout()
+//            if (::iconView.isLazyInitialized) {
+                iconView.layoutWidth = resources.getDimensionPixelSize(value.size)
+                iconView.layoutHeight = resources.getDimensionPixelSize(value.size)
+//            }
             field = value
         }
-
-    private val containerHeader: FrameLayout by lazyView {
-        noMotion()
-        addRow(titleView)
-        addRow(subtitleView, gravity = Gravity.END or Gravity.CENTER_VERTICAL)
-    }
-
-    private val containerBody = create<VerticalLayout> {
-        noClipping()
-        isVisible = false
-    }
-
-    private val containerText = createFrameLayout {
-        addRow(textView)
-    }
-
-    private val containerForm = createVerticalLayout {
-        noMotion()
-        noClipping()
-        addRow(containerHeader)
-        addRow(containerText)
-        addRow(containerBody)
-        addRow(subtextView)
-        addRow(containerSubviews)
-    }
-
-    private val containerStart = createFrameLayout {
-        isVisible = false
-    }
-
-    private val containerEnd = createFrameLayout {
-        isVisible = false
-    }
-
-    private val container = createHorizontalLayout {
-        noClipping()
-        noMotion()
-        addWrap(
-            containerStart,
-            end = componentOffset,
-            gravity = Gravity.START or Gravity.CENTER_VERTICAL
-        )
-        addWrap(
-            iconView,
-            height = resources.getDimensionPixelSize(iconSize.size),
-            width = resources.getDimensionPixelSize(iconSize.size),
-            end = componentOffset,
-            gravity = Gravity.START or Gravity.CENTER_VERTICAL
-        )
-        // TODO: 23/1/2022 consider ui time consumption
-        addWrap(
-            containerForm,
-            weight = 1f,
-            width = 0,
-            height = ViewGroup.LayoutParams.WRAP_CONTENT,
-            gravity = Gravity.START or Gravity.CENTER_VERTICAL
-        )
-        addWrap(containerEnd,
-            start = componentOffset,
-            gravity = Gravity.END or Gravity.CENTER_VERTICAL
-        )
-    }
 
     // TODO: 22/1/2022 remove
     open var isChecked = false
@@ -117,7 +59,7 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
         set(value) {
             field = value
             containerForm.removeView(field)
-            if (value != null) containerForm.addRow(value)
+            if (value != null) containerForm.addView(value)
         }
 
     var customViewStart: View? = null
@@ -125,7 +67,7 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
             field = value
             containerStart.removeView(field)
             containerStart.isVisible = value != null
-            if (value != null) containerStart.addDefault(value)
+            if (value != null) containerStart.addView(value)
         }
 
     var customViewEnd: View? = null
@@ -133,20 +75,86 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
             field = value
             containerEnd.removeView(field)
             containerEnd.isVisible = value != null
-            if (value != null) containerEnd.addDefault(value)
+            if (value != null) containerEnd.addView(value)
         }
 
     init {
-        addRow(container)
-        addWrap(checkView, 6.dp, ViewGroup.LayoutParams.MATCH_PARENT, -paddingStart, -paddingTop, -paddingEnd, -paddingBottom, Gravity.CENTER_VERTICAL)
+        noMotion()
+        horizontalLayout {
+            noClipping()
+            noMotion()
+            view<FrameLayout> {
+                noMotion()
+                containerStart = this
+                isVisible = false
+                layoutMarginEnd = componentOffset
+                layoutGravityLinear = Gravity.START or Gravity.CENTER_VERTICAL
+            }
+            view(iconView) {
+                noMotion()
+                isVisible = false
+                layoutHeight = resources.getDimensionPixelSize(iconSize.size)
+                layoutWidth = resources.getDimensionPixelSize(iconSize.size)
+                layoutMarginEnd = componentOffset
+                layoutGravityLinear = Gravity.START or Gravity.CENTER_VERTICAL
+            }
+            // TODO: 23/1/2022 consider ui time consumption
+            view(containerForm) {
+                noMotion()
+                noClipping()
+                layoutWidth = 0
+                layoutHeight = ViewGroup.LayoutParams.WRAP_CONTENT
+                layoutWeightLinear = 1f
+                layoutGravityLinear = Gravity.START or Gravity.CENTER_VERTICAL
+                viewRow(containerHeader) {
+                    noMotion()
+                    viewRow(titleView)
+                    viewRow(subtitleView) {
+                        layoutGravityFrame = Gravity.END or Gravity.CENTER_VERTICAL
+                    }
+                }
+                viewRow(containerText) {
+                    viewRow(textView)
+                }
+                viewRow(containerBody) {
+                    noClipping()
+                    isVisible = false
+                }
+                viewRow(subtextView)
+                viewRow(containerSubviews)
+            }
+            view(containerEnd) {
+                noMotion()
+                isVisible = false
+                layoutMarginStart = componentOffset
+                layoutGravityLinear = Gravity.END or Gravity.CENTER_VERTICAL
+            }
+        }
+        view(checkView) {
+            noMotion()
+            layoutWidth = 6.dp
+            layoutHeight = MATCH_PARENT
+            layoutMarginStart = -paddingStart
+            layoutMarginTop = -paddingTop
+            layoutMarginEnd = -paddingEnd
+            layoutMarginBottom = -paddingBottom
+            layoutGravityFrame = Gravity.CENTER_VERTICAL
+        }
         backgroundSelectorColor = R.color.background_component.contextColor()
     }
 
     override fun setPadding(start: Int, top: Int, end: Int, bottom: Int) {
         super.setPadding(start, top, end, bottom)
-        checkView.setFrameParams(6.dp, MATCH_PARENT, -start, -top, -end, -bottom, Gravity.CENTER_VERTICAL)
+        checkView.apply {
+            layoutWidth = 6.dp
+            layoutHeight = MATCH_PARENT
+            layoutMarginStart = -start
+            layoutMarginTop = -top
+            layoutMarginEnd = -end
+            layoutMarginBottom = -bottom
+            layoutGravityFrame = Gravity.CENTER_VERTICAL
+        }
     }
-
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
@@ -190,53 +198,73 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
         }
     }
 
-    fun ComponentCell.custom(block: ComponentCustomHorizontalLayout.() -> Unit = {}) {
+    fun ComponentCell.customHorizontal(block: ComponentCustomHorizontalLayout.() -> Unit = {}) {
         containerBody.isVisible = true
-        containerBody.addRow(create(block).apply {
+        containerBody.viewRow(create(block)) {
             layoutTransition = null
             noClipping()
             updatePaddingTop(2.dp)
-        })
+        }
     }
 
     fun ComponentCell.field(block: FieldTextView.() -> Unit = {}) {
-        custom { field(block) }
+        customHorizontal { field(block) }
     }
-
     fun ComponentCell.slider(block: SliderView.() -> Unit = {}) {
-        custom { slider(block) }
+        customHorizontal { slider(block) }
     }
     fun ComponentCell.table(block: TableLayout.() -> Unit = {}) {
-        custom { table(block) }
+        customHorizontal { table(block) }
     }
-//    fun ComponentCell.text(block: PlainTextView.() -> Unit = {}) {
-//        custom { text(block) }
-//    }
 
     fun ComponentCustomHorizontalLayout.field(block: FieldTextView.() -> Unit = {}) {
-        addWrap(create(block), weight = 1f, width = 0, start = (-4).dp, end = (-4).dp, gravity = Gravity.CENTER_VERTICAL)
+        view<FieldTextView> {
+            block()
+            layoutWidth = 0
+            layoutMarginStart = (-4).dp
+            layoutMarginEnd = (-4).dp
+            layoutWeightLinear = 1f
+            layoutGravityLinear = Gravity.CENTER_VERTICAL
+        }
     }
 
     fun ComponentCustomHorizontalLayout.slider(block: SliderView.() -> Unit = {}) {
-        addWrap(create(block), weight = 1f, width = 0, start = (-12).dp, end = (-12).dp, height = 32.dp, gravity = Gravity.CENTER_VERTICAL)
+        view<SliderView> {
+            block()
+            layoutWidth = 0
+            layoutHeight = 32.dp
+            layoutMarginStart = (-12).dp
+            layoutMarginEnd = (-12).dp
+            layoutWeightLinear = 1f
+            layoutGravityLinear = Gravity.CENTER_VERTICAL
+        }
     }
 
     fun ComponentCustomHorizontalLayout.text(block: PlainTextView.() -> Unit = {}) {
-        addWrap(create(block), start = componentOffset, gravity = Gravity.CENTER_VERTICAL)
+        view<PlainTextView> {
+            block()
+            layoutMarginStart = componentOffset
+            layoutGravityLinear = Gravity.CENTER_VERTICAL
+        }
     }
 
     fun ComponentCustomHorizontalLayout.toggle(block: ToggleView.() -> Unit) {
-        val toggle = create<ToggleView>().apply {
+        view<ToggleView> {
+            block()
             setColors(context.getColor(R.color.component), context.getColor(R.color.component_inactive))
             expandTouchArea(32.dp, 32.dp, 32.dp, 32.dp)
+            layoutMarginStart = componentOffset
+            layoutGravityLinear = Gravity.CENTER_VERTICAL
         }
-        addWrap(toggle.apply(block), start = componentOffset, gravity = Gravity.CENTER_VERTICAL)
     }
-
+    // TODO: 2022/4/26
     fun ComponentCustomHorizontalLayout.table(block: TableLayout.() -> Unit = {}) {
-        addRow(create(block), gravity = Gravity.CENTER_VERTICAL)
+        view<TableLayout> {
+            block()
+            layoutWidth = MATCH_PARENT
+            layoutGravityLinear = Gravity.CENTER_VERTICAL
+        }
     }
-
     class ComponentCustomHorizontalLayout(context: Context) : HorizontalLayout(context)
 
     val ComponentCell.tableView: TableLayout

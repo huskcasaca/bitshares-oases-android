@@ -8,8 +8,7 @@ import modulon.layout.recycler.section
 
 class ScannerFragment : ContainerFragment() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupAction {
             titleConnectionState("Scan")
             websocketStateMenu()

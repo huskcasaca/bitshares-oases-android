@@ -1,6 +1,6 @@
 package com.bitshares.oases.extensions.text
 
-import android.text.SpannedString
+import android.text.Spanned
 import com.bitshares.oases.R
 import modulon.extensions.charset.EMPTY_SPACE
 import modulon.extensions.text.*
@@ -53,10 +53,10 @@ private fun String.atMost(len: Int) = length <= len
 private fun String.endsWithDash() = endsWith('-')
 
 
-private fun UnionContext.color(string: String, valid: Boolean): SpannedString {
+private fun UnionContext.color(string: String, valid: Boolean): Spanned {
     val validColor = context.getColor(R.color.component_active)
     val invalidColor = context.getColor(R.color.component_error)
-    return createColored(string, if (valid) validColor else invalidColor )
+    return createColored(string, if (valid) validColor else invalidColor)
 }
 
 

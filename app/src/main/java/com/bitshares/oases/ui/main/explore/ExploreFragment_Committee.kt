@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.main.explore
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.bitshares.oases.R
@@ -30,8 +28,7 @@ class ExploreFragment_Committee : ContainerFragment() {
     private val accountSearchingViewModel: AccountPickerViewModel by activityViewModels()
     private val assetSearchingViewModel: AssetPickerViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             section {
                 header = context.getString(R.string.voting_active_committee_member)
@@ -43,7 +40,7 @@ class ExploreFragment_Committee : ContainerFragment() {
                         doOnLongClick { showCommitteeBrowserDialog(it.committee) }
                     }
                     distinctItemsBy { it.committee.uid }
-                    votingViewModel.activeCommitteeMembersFiltered.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    votingViewModel.activeCommitteeMembersFiltered.observe(viewLifecycleOwner) { submitList(it) }
                 }
                 votingViewModel.activeCommitteeMembersFiltered.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
             }
@@ -57,7 +54,7 @@ class ExploreFragment_Committee : ContainerFragment() {
                         doOnLongClick { showCommitteeBrowserDialog(it.committee) }
                     }
                     distinctItemsBy { it.committee.uid }
-                    votingViewModel.standbyCommitteeMembersFiltered.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    votingViewModel.standbyCommitteeMembersFiltered.observe(viewLifecycleOwner) { submitList(it) }
                 }
                 votingViewModel.standbyCommitteeMembersFiltered.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
             }

@@ -9,8 +9,6 @@ import androidx.core.widget.doAfterTextChanged
 import modulon.R
 import modulon.extensions.animation.*
 import modulon.extensions.view.*
-import modulon.extensions.view.addFill
-import modulon.extensions.view.addWrap
 import modulon.extensions.view.doOnClick
 import modulon.layout.linear.LinearLayout
 import modulon.widget.FieldTextView
@@ -22,20 +20,20 @@ class SearchLayout(context: Context) : LinearLayout(context) {
         textColor = context.getColor(R.color.cell_text_primary)
         isSingleLine = true
         textSize = 18f
+        layoutWidth = MATCH_PARENT
         doAfterTextChanged {
             containerButton.isVisible = !text.isNullOrEmpty()
         }
     }
 
-    private val clearButton: ImageView = create {
-        // TODO: 27/1/2022 replace image
-        imageDrawable = R.drawable.ic_cell_back_arrow.contextDrawable()
-        gravity = Gravity.CENTER
-    }
-
     private val containerButton = create<FrameLayout> {
-        addWrap(clearButton, gravity = Gravity.CENTER)
         isVisible = false
+        layoutWidth = MATCH_PARENT
+        view<ImageView> {
+            imageDrawable = R.drawable.ic_cell_back_arrow.contextDrawable() // TODO: 27/1/2022 replace image
+            gravity = Gravity.CENTER
+            layoutGravityFrame = Gravity.CENTER
+        }
         doOnClick {
             fieldtextView.text?.clear()
         }
@@ -51,8 +49,9 @@ class SearchLayout(context: Context) : LinearLayout(context) {
         setPadding(0.dp, 0, 0.dp, 0)
         orientation = HORIZONTAL
         layoutTransition = TransitionExtended.EXTENDED
-        addFill(fieldtextView)
-        addFill(containerButton)
+        addView(fieldtextView)
+        addView(containerButton)
+
         fieldtextView.requestFocus()
     }
 

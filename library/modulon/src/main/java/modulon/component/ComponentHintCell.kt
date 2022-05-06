@@ -6,7 +6,6 @@ import modulon.R
 import modulon.widget.PlainTextView
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
-import modulon.extensions.view.addRow
 
 class ComponentHintCell(context: Context) : ComponentPaddingCell(context) {
 
@@ -29,7 +28,7 @@ class ComponentHintCell(context: Context) : ComponentPaddingCell(context) {
 
     init {
         setPadding(0, 0, 0, 0)
-        addRow(textView)
+        viewRow(textView)
         backgroundColor = context.getColor(R.color.transparent)
     }
 

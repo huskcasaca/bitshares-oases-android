@@ -32,9 +32,7 @@ class AccountBrowserFragment_Authority : ContainerFragment() {
 
     private val viewModel: AccountViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onCreateView() {
         setupRecycler {
             Authority.values().forEach { permission ->
                 val source = viewModel.account.map {

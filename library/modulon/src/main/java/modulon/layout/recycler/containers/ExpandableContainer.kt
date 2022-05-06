@@ -19,7 +19,7 @@ class ExpandableContainer<C : View>(override var creator: () -> C) : RecyclerLay
         override fun onBindViewHolder(holder: FrameViewHolder, position: Int) {}
         override fun onBindViewHolder(holder: FrameViewHolder, position: Int, dropped: MutableList<Any>) {}
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FrameViewHolder {
-            return FrameViewHolder(parent.context, ViewSize.ROW).apply {
+            return FrameViewHolder(parent.context).apply {
                 view.parentViewGroupOrNull?.removeView(view)
                 container.addDefaultRow(view)
             }
@@ -38,27 +38,29 @@ class ExpandableContainer<C : View>(override var creator: () -> C) : RecyclerLay
             field = value
         }
 
-    private val setter = throttleFirst(CoroutineScope(Dispatchers.Main)) { it: Boolean ->
-        _isExpanded = it
-    }
-
-    private var _isExpanded = true
-        set(value) {
-            field = value
-            setter.invoke(value)
-        }
-
     fun setViewCreator(block: C.() -> Unit) {
         view.apply(block)
         adapter.notifyDataSetChanged()
     }
 
-    fun expandView() {
-        isExpanded = true
-    }
 
-    fun collapseView() {
-        isExpanded = false
-    }
+//
+//    private val setter = throttleFirst(CoroutineScope(Dispatchers.Main)) { it: Boolean ->
+//        _isExpanded = it
+//    }
+//
+//    private var _isExpanded = true
+//        set(value) {
+//            field = value
+//            setter.invoke(value)
+//        }
+//
+//    fun expandView() {
+//        isExpanded = true
+//    }
+//
+//    fun collapseView() {
+//        isExpanded = false
+//    }
 
 }

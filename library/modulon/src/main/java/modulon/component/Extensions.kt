@@ -15,6 +15,10 @@ import modulon.extensions.view.getChildAt
 import modulon.extensions.view.textWithVisibility
 import modulon.extensions.viewbinder.subtextStyle
 
+fun ComponentCell.secondayStyle() {
+    backgroundTintColor = R.color.background.contextColor()
+}
+
 fun ComponentCell.toggleEnd(block: ToggleView.() -> Unit) {
     (customViewEnd as ToggleView?)?.block() ?: run {
         customViewEnd = create<ToggleView>().apply {
@@ -40,7 +44,7 @@ var ComponentCell.isButtonEnabled: Boolean
     }
 
 fun TableLayout.row(key: CharSequence = EMPTY_SPACE, value: CharSequence = EMPTY_SPACE) {
-    viewNoParams<TableRow> {
+    view<TableRow> {
         view<PlainTextView> {
             subtextStyle()
             textWithVisibility = key

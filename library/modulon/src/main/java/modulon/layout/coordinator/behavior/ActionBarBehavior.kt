@@ -7,6 +7,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
+import modulon.extensions.stdlib.logcat
 import modulon.extensions.view.*
 import modulon.extensions.view.isOnTop
 import modulon.layout.actionbar.ActionBarLayout
@@ -29,6 +30,8 @@ class ActionBarBehavior(var scrollEnabled: Boolean = true) : HeaderBehavior<Acti
     }
 
     private var lastDirection = 0
+
+
 
     override fun onNestedPreScroll(coordinatorLayout: CoordinatorLayout, child: ActionBarLayout, target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
 //        if (!scrollEnabled || isLocked) return super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)

@@ -1,8 +1,6 @@
 package com.bitshares.oases.ui.main.explore
 
-import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.distinctUntilChanged
@@ -47,8 +45,7 @@ class ExploreFragment_Blockchain : ContainerFragment() {
     private val accountSearchingViewModel: AccountPickerViewModel by activityViewModels()
     private val assetSearchingViewModel: AssetPickerViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             section {
                 cell {
@@ -197,7 +194,7 @@ class ExploreFragment_Blockchain : ContainerFragment() {
                     }
                     distinctItemsBy { it.blockNum }
                     distinctContentBy { it }
-                    viewModel.recentBlocksFiltered.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    viewModel.recentBlocksFiltered.observe(viewLifecycleOwner) { submitList(it) }
                 }
                 isVisible = false
                 combineNonNull(viewModel.recentBlocksFiltered, viewModel.isBlockHistory).observe(viewLifecycleOwner) { (list, show) -> isVisible = list.isNotEmpty() && show }
@@ -214,7 +211,7 @@ class ExploreFragment_Blockchain : ContainerFragment() {
                     }
                     distinctItemsBy { it.hashCode() }
                     distinctContentBy { it }
-                    viewModel.opListLive.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    viewModel.opListLive.observe(viewLifecycleOwner) { submitList(it) }
                 }
                 isVisible = false
                 combineNonNull(viewModel.opListLive, viewModel.isBlockHistory).observe(viewLifecycleOwner) { (list, show) -> isVisible = list.isNotEmpty() && !show }

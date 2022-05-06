@@ -29,13 +29,12 @@ class MarketFragment : ContainerFragment() {
 
     private val viewModel: MarketViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupVertical {
             tabLayout {
                 viewModel.marketGroupInternal.observe(viewLifecycleOwner) {
                     removeAllTabs()
-                    "[ui_trace] viewModel.marketGroupInternal.observe(viewLifecycleOwner) removeAllTabs()".logcat()
+                    "removeAllTabs()".logcat()
                     tab { text = context.getString(R.string.market_all_groups) }
                     it.forEach {
                         tab {
@@ -55,6 +54,8 @@ class MarketFragment : ContainerFragment() {
                 viewModel.selectedMarket.observe(viewLifecycleOwner) { selectTab(it) }
             }
             nestedScrollableHost {
+                layoutWidth = MATCH_PARENT
+                layoutHeight = MATCH_PARENT
                 pagerLayout {
                     offscreenPageLimit = 2
                     viewModel.selectedMarket.observe { currentItem = it }
@@ -64,7 +65,6 @@ class MarketFragment : ContainerFragment() {
                         }
                     }
                 }
-                setParamsFill()
             }
         }
     }

@@ -17,8 +17,7 @@ class StorageSettingsFragment : ContainerFragment() {
 
     private val viewModel: SettingsViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupAction {
             title(getString(R.string.storage_settings_title))
             websocketStateMenu()

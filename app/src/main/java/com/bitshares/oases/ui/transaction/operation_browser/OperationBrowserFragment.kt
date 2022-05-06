@@ -23,8 +23,7 @@ class OperationBrowserFragment : ContainerFragment() {
     private val viewModel: OperationViewModel by activityViewModels()
     private val rawViewModel: JsonRawDataViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupAction {
             titleConnectionState(context.getString(R.string.operation_browser_title))
             websocketStateMenu()

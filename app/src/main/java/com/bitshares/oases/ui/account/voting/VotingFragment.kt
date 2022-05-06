@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.voting
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
@@ -26,7 +24,7 @@ import modulon.component.IconSize
 import modulon.dialog.section
 import modulon.extensions.charset.EMPTY_SPACE
 import modulon.extensions.compat.arguments
-import modulon.extensions.compat.finish
+import modulon.extensions.compat.finishActivity
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.compat.showSoftKeyboard
 import modulon.extensions.livedata.filterNotNull
@@ -52,8 +50,7 @@ class VotingFragment : ContainerFragment() {
 
     private val viewModel: VotingViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         setupAction {
             titleConnectionState(getString(R.string.voting_title))
@@ -115,7 +112,7 @@ class VotingFragment : ContainerFragment() {
             lifecycleScope.launch(Dispatchers.Main.immediate) {
                 if (viewModel.isModified()) {
                     if (showChangesDiscardDialog()) showVotingChangeDialog()
-                } else finish()
+                } else finishActivity()
             }
             false
         }

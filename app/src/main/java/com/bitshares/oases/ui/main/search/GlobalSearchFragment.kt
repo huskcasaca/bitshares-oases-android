@@ -10,8 +10,7 @@ class GlobalSearchFragment : ContainerFragment() {
 
     private val viewModel: GlobalSearchViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupAction {
             titleConnectionState("Global Search")
             websocketStateMenu()

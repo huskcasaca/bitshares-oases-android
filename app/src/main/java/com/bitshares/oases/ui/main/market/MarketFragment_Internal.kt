@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.main.market
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.models.Ticker
@@ -25,8 +23,7 @@ class MarketFragment_Internal : ContainerFragment() {
 
     private val assetUid by lazy { requireArguments().get(IntentParameters.KEY_ASSET_UID) as Long }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             val tickersFiltered = viewModel.getFilteredTickers(assetUid)
             section {
@@ -40,7 +37,7 @@ class MarketFragment_Internal : ContainerFragment() {
                     }
                     distinctItemsBy { it.base.uid to it.quote.uid }
                     distinctContentBy { it }
-                    tickersFiltered.observe(viewLifecycleOwner) { adapter.submitList(it) }
+                    tickersFiltered.observe(viewLifecycleOwner) { submitList(it) }
                     viewModel.invertColor.observe(viewLifecycleOwner) { adapter.notifyDataSetChanged() }
                 }
                 tickersFiltered.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }

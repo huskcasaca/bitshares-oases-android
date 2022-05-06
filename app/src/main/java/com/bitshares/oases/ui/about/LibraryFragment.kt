@@ -25,9 +25,7 @@ class LibraryFragment : ContainerFragment() {
     private val viewModel: PermissionViewModel by activityViewModels()
     private val library: Library by activityParam1()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onCreateView() {
         setupAction {
             title("Library")
             subtitle(library.name)
@@ -61,7 +59,7 @@ class LibraryFragment : ContainerFragment() {
             section {
                 header = "License"
                 cell {
-                    custom {
+                    customHorizontal {
                         horizontalScrollLayout {
                             view<PlainTextView> {
                                 text = library.licenseFile

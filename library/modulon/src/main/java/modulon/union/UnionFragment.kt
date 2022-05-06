@@ -15,10 +15,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import modulon.extensions.view.AdapterBuilder
-
-import modulon.extensions.view.create
-import modulon.extensions.view.setParamsFill
+import modulon.extensions.view.*
 
 abstract class UnionFragment : Fragment(), Union {
 
@@ -111,7 +108,12 @@ abstract class UnionFragment : Fragment(), Union {
 
     // TODO: 2022/2/18 move to extensions
     protected inline fun <reified V: View, D> ViewPager2.attachStaticAdapter(data: List<D>, crossinline block: V.(D) -> Unit) {
-        adapter = AdapterBuilder { context.toUnion().create<V>().apply { setParamsFill() } }.apply {
+        adapter = AdapterBuilder {
+            context.toUnion().create<V>().apply {
+                layoutWidth = MATCH_PARENT
+                layoutHeight = MATCH_PARENT
+            }
+        }.apply {
             onCountItem { data.size }
             onBindData { block.invoke(this, data[it]) }
         }.build()
@@ -119,7 +121,12 @@ abstract class UnionFragment : Fragment(), Union {
 
     // TODO: 2022/2/18 move to extensions
     protected inline fun <reified V: View, D> ViewPager2.attachStaticAdapter(data: Array<D>, crossinline block: V.(D) -> Unit) {
-        adapter = AdapterBuilder<V> { context.toUnion().create<V>().apply { setParamsFill() } }.apply {
+        adapter = AdapterBuilder<V> {
+            context.toUnion().create<V>().apply {
+                layoutWidth = MATCH_PARENT
+                layoutHeight = MATCH_PARENT
+            }
+        }.apply {
             onCountItem { data.size }
             onBindData { block.invoke(this, data[it]) }
         }.build()

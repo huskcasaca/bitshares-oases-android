@@ -32,8 +32,7 @@ class WhitelistTabFragment : ContainerFragment() {
 
     private val viewModel: WhitelistViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         setupRecycler {
             when (tab) {

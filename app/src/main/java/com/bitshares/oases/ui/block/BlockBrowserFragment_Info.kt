@@ -21,8 +21,7 @@ class BlockBrowserFragment_Info : ContainerFragment() {
 
     private val viewModel: BlockViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         setupRecycler {
             section {

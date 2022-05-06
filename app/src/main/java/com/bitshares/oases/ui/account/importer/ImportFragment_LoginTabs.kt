@@ -2,6 +2,7 @@ package com.bitshares.oases.ui.account.importer
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -31,6 +32,7 @@ import modulon.extensions.view.doOnClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.isTextError
+import modulon.extensions.viewbinder.recyclerLayout
 import modulon.layout.recycler.construct
 import modulon.layout.recycler.data
 import modulon.layout.recycler.list
@@ -41,9 +43,8 @@ class ImportFragment_LoginTabs : ContainerFragment() {
     private val tab by lazy { requireArguments().getSerializable(IntentParameters.KEY_TAB_TYPE) as ImportFragment.Tabs }
     private val viewModel: ImportViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupRecycler {
+    override fun ViewGroup.onCreateView() {
+        recyclerLayout {
             section {
                 header = "Account to Import"
                 list<ComponentCell, AccountObject> {

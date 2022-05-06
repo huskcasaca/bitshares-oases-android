@@ -3,6 +3,7 @@ package com.bitshares.oases
 import android.content.Context
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.runtime.Composable
 import androidx.core.content.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import com.bitshares.oases.database.BlockchainDatabase
@@ -83,8 +84,4 @@ val AndroidViewModel.globalWalletManager get() = getApplication<MainApplication>
 val AndroidViewModel.globalWebsocketManager get() = getApplication<MainApplication>().websocketManager
 
 val UnionContext.localPreferenceManager get() = PreferenceManager(context)
-
-
-
-
 

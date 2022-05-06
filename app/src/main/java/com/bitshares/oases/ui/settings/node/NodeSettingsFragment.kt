@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.settings.node
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
@@ -31,8 +29,7 @@ class NodeSettingsFragment : ContainerFragment() {
 
     val viewModel: NodeSettingsViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupAction {
             title(context.getString(R.string.node_settings_title))
             walletStateMenu()
@@ -113,8 +110,8 @@ class NodeSettingsFragment : ContainerFragment() {
                     }
                     distinctItemsBy { it.id }
                     distinctContentBy { it }
-                    viewModel.nodeList.observe(viewLifecycleOwner) { adapter.submitList(it) }
-                    viewModel.nodeStateList.observe(viewLifecycleOwner) { adapter.submitPayload(it) }
+                    viewModel.nodeList.observe(viewLifecycleOwner) { submitList(it) }
+                    viewModel.nodeStateList.observe(viewLifecycleOwner) { submitPayload(it) }
                 }
                 cell {
                     buttonStyle()

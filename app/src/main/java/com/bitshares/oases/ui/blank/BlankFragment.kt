@@ -10,8 +10,7 @@ class BlankFragment : ContainerFragment() {
 
     private val viewModel: BlankViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupAction {
             titleConnectionState("CONTAINER_TITLE")
             websocketStateMenu()

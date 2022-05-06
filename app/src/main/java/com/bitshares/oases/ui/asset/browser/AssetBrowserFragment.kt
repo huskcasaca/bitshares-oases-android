@@ -1,7 +1,8 @@
 package com.bitshares.oases.ui.asset.browser
 
-import android.os.Bundle
+import android.content.Intent
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import bitshareskit.objects.AssetObjectType
 import com.bitshares.oases.R
@@ -9,11 +10,37 @@ import com.bitshares.oases.ui.asset.AssetViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.raw_data.JsonRawDataFragment
 import com.bitshares.oases.ui.raw_data.JsonRawDataViewModel
+import modulon.extensions.compat.activity
 import modulon.extensions.view.*
-import modulon.extensions.viewbinder.pagerLayout
-import modulon.extensions.viewbinder.tabLayout
+import modulon.extensions.viewbinder.*
+import modulon.layout.actionbar.ActionBarLayout
+import modulon.layout.actionbar.actionMenu
 import modulon.layout.actionbar.subtitle
+import modulon.layout.coordinator.behavior.ActionBarBehavior
+import modulon.layout.coordinator.behavior.ContainerScrollingBehavior
+import modulon.layout.coordinator.behavior.HeaderBehavior
 import java.util.*
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
+
+
+@OptIn(ExperimentalContracts::class)
+inline fun ViewGroup.actionBarLayout(block: ActionBarLayout.() -> Unit = {}) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    val view = ActionBarLayout(context).apply {
+        fitsSystemWindows = true
+        actionMenu {
+            icon = if (activity.intent.data != null && activity.intent.action == Intent.ACTION_VIEW) R.drawable.ic_cell_cross.contextDrawable() else R.drawable.ic_cell_back_arrow.contextDrawable()
+        }
+        block()
+    }
+    addView(view)
+}
+
+fun actionCoordinatorParams() = coordinatorParams(MATCH_PARENT, WRAP_CONTENT, behavior = ActionBarBehavior(true))
+fun bodyCoordinatorParams() = coordinatorParams(MATCH_PARENT, MATCH_PARENT, behavior = ContainerScrollingBehavior())
+
 
 class AssetBrowserFragment : ContainerFragment() {
 
@@ -27,16 +54,18 @@ class AssetBrowserFragment : ContainerFragment() {
     private val viewModel: AssetViewModel by activityViewModels()
     private val rawViewModel: JsonRawDataViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupAction {
+    override fun ViewGroup.onCreateView() {
+        fitsSystemWindows = true
+        actionBarLayout {
+            layoutParams = actionCoordinatorParams()
             titleConnectionState(context.getString(R.string.asset_browser_title))
             websocketStateMenu()
             walletStateMenu()
             viewModel.assetSymbol.observe(viewLifecycleOwner) { subtitle(it.toUpperCase(Locale.ROOT)) }
             viewModel.assetNonNull.observe(viewLifecycleOwner) { rawViewModel.setContent(it) }
         }
-        setupVertical {
+        verticalLayout {
+            layoutParams = bodyCoordinatorParams()
             tabLayout {
                 viewModel.assetType.observe(viewLifecycleOwner) {
                     val list = when (it) {
@@ -44,7 +73,8 @@ class AssetBrowserFragment : ContainerFragment() {
                         AssetObjectType.MPA, AssetObjectType.PREDICTION -> Tabs.values().toList()
                     }
                     attachTabs(list)
-                    post { attachViewPager2(nextView()) }
+                    post {
+                        attachViewPager2(nextView()) }
                 }
             }
             pagerLayout {
@@ -67,5 +97,6 @@ class AssetBrowserFragment : ContainerFragment() {
         }
 
     }
+
 
 }

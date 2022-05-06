@@ -19,8 +19,26 @@ class BounceEdgeEffectFactory(private val parentDirection: Int) : RecyclerView.E
 
         return object : EdgeEffect(recyclerView.context) {
 
+            var translationY
+                get() = recyclerView.translationY
+                set(value) {
+                    recyclerView.translationY = value
+                }
+
+            var translationX
+                get() = recyclerView.translationX
+                set(value) {
+                    recyclerView.translationX = value
+                }
+
+            val height
+                get() = recyclerView.height
+
+            val width
+                get() = recyclerView.width
+
             // A reference to the [SpringAnimation] for this RecyclerView used to bring the item back after the over-scroll effect.
-            var translationAnim: SpringAnimation? = null
+            var animation: SpringAnimation? = null
 
             override fun onPull(deltaDistance: Float) {
                 super.onPull(deltaDistance)
@@ -37,19 +55,26 @@ class BounceEdgeEffectFactory(private val parentDirection: Int) : RecyclerView.E
 
                 // Translate the recyclerView with the distance
                 if (parentDirection == RecyclerView.VERTICAL) {
+                    if (height == 0) {
+                        translationY = 0f
+                        return
+                    }
                     val sign = if (direction == DIRECTION_BOTTOM) -1 else if (direction == DIRECTION_TOP) 1  else return
-                    val percent = if (recyclerView.height == 0) 0f else 1 - abs(recyclerView.translationY / recyclerView.height).coerceIn(0f..1f)
-                    val translationYDelta = percent * percent * sign * recyclerView.height * deltaDistance * OVERSCROLL_TRANSLATION_MAGNITUDE
-                    recyclerView.translationY += translationYDelta
+                    val percent = if (height == 0) 0f else 1 - abs(translationY / height).coerceIn(0f..1f)
+                    val translationYDelta = percent * percent * sign * height * deltaDistance * OVERSCROLL_TRANSLATION_MAGNITUDE
+                    translationY += translationYDelta
                 } else {
-                    if (recyclerView.width == 0) return
+                    if (width == 0) {
+                        translationX = 0f
+                        return
+                    }
                     val sign = if (direction == DIRECTION_RIGHT) -1 else if (direction == DIRECTION_LEFT) 1 else return
-                    val percent = if (recyclerView.width == 0) 0f else 1 - abs(recyclerView.translationX / recyclerView.width).coerceIn(0f..1f)
-                    val translationYDelta = percent * percent * sign * recyclerView.width * deltaDistance * OVERSCROLL_TRANSLATION_MAGNITUDE
-                    recyclerView.translationX += translationYDelta
+                    val percent = if (width == 0) 0f else 1 - abs(translationX / width).coerceIn(0f..1f)
+                    val translationYDelta = percent * percent * sign * width * deltaDistance * OVERSCROLL_TRANSLATION_MAGNITUDE
+                    translationX += translationYDelta
                 }
 
-                translationAnim?.cancel()
+                animation?.cancel()
             }
 
             override fun onRelease() {
@@ -57,12 +82,12 @@ class BounceEdgeEffectFactory(private val parentDirection: Int) : RecyclerView.E
                 // The finger is lifted. Start the animation to bring translation back to the resting state.
 
                 if (parentDirection == RecyclerView.VERTICAL) {
-                    if (recyclerView.translationY != 0f) {
-                        translationAnim = createAnim().also { it.start() }
+                    if (translationY != 0f) {
+                        animation = createAnim().also { it.start() }
                     }
                 } else {
-                    if (recyclerView.translationX != 0f) {
-                        translationAnim = createAnim().also { it.start() }
+                    if (translationX != 0f) {
+                        animation = createAnim().also { it.start() }
                     }
                 }
             }
@@ -77,8 +102,8 @@ class BounceEdgeEffectFactory(private val parentDirection: Int) : RecyclerView.E
                     if (direction == DIRECTION_RIGHT) -1 else 1
                 }
                 val translationVelocity = sign * velocity * FLING_TRANSLATION_MAGNITUDE
-                translationAnim?.cancel()
-                translationAnim = createAnim().setStartVelocity(translationVelocity)?.also { it.start() }
+                animation?.cancel()
+                animation = createAnim().setStartVelocity(translationVelocity)?.also { it.start() }
             }
 
             override fun draw(canvas: Canvas?): Boolean {
@@ -88,7 +113,7 @@ class BounceEdgeEffectFactory(private val parentDirection: Int) : RecyclerView.E
 
             override fun isFinished(): Boolean {
                 // Without this, will skip future calls to onAbsorb()
-                return translationAnim?.isRunning?.not() ?: true
+                return animation?.isRunning?.not() ?: true
             }
 
             private fun createAnim() = SpringAnimation(recyclerView, if (parentDirection == RecyclerView.VERTICAL) SpringAnimation.TRANSLATION_Y else SpringAnimation.TRANSLATION_X).apply {

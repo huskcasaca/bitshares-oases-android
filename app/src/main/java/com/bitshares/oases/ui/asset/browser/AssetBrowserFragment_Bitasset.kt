@@ -22,8 +22,7 @@ class AssetBrowserFragment_Bitasset : ContainerFragment() {
 
     private val viewModel: AssetViewModel by activityViewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
 
         setupRecycler {
             section {

@@ -8,6 +8,7 @@ import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import androidx.core.graphics.ColorUtils
+import androidx.core.text.toSpanned
 import modulon.R
 import modulon.extensions.charset.BLANK_SPACE
 import modulon.extensions.charset.NEWLINE
@@ -25,7 +26,8 @@ import java.util.*
 // TODO: 2022/2/10 remove toUnion()
 class ContextSpannableStringBuilder(override val context: Context): SpannableStringBuilder(), UnionContext by context.toUnion()
 
-fun UnionContext.buildContextSpannedString(block: ContextSpannableStringBuilder.() -> Unit) = SpannedString(ContextSpannableStringBuilder(context).apply(block))
+fun UnionContext.buildContextSpannedString(block: ContextSpannableStringBuilder.() -> Unit) =
+    ContextSpannableStringBuilder(context).apply(block).toSpanned()
 
 
 fun ContextSpannableStringBuilder.appendBlankSpan(): CharSequence = appendScaled(BLANK_SPACE, 0.8f)

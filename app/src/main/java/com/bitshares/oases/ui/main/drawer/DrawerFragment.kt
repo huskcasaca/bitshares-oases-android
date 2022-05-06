@@ -81,36 +81,16 @@ class DrawerFragment : ContainerFragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView() {
         setupRecycler {
             noPadding()
             verticalLayout {
-                viewRow<ComponentPaddingCell> {
+                view<ComponentPaddingCell> {
                     background = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(0x14000000, 0x00000000))
                     doOnAttach {
                         updatePadding(top = 16.dp + (rootWindowInsets?.systemWindowInsetTop ?: 0))
                     }
                     iconSize = IconSize.SIZE_9
-                    titleView.apply {
-                        setTextColor(context.getColor(R.color.cell_text_primary))
-                        textSize = 16f
-                        typeface = typefaceBold
-                        isAllCaps = true
-                        startScrolling()
-                        updatePadding(top = context.resources.getDimensionPixelSize(R.dimen.navigation_drawer_top_offset))
-                    }
-                    subtextView.apply {
-                        setTextColor(context.getColor(R.color.cell_text_secondary))
-                        textSize = 14f
-                        isAllCaps = true
-                        text = context.getString(R.string.import_no_id_hint)
-                    }
-                    iconView.apply {
-                        val backgroundColor = context.getColor(R.color.drawer_background_avatar)
-                        val backgroundRadius = context.resources.getDimension(iconSize.size) / 10
-                        background = createRoundRectDrawable(backgroundColor, backgroundRadius)
-                    }
                     val expander = R.drawable.ic_arrow_closed.contextDrawable() as AnimatedVectorDrawable
                     val closer = R.drawable.ic_arrow_expanded.contextDrawable() as AnimatedVectorDrawable
                     val imageView = ImageView(context).apply {
@@ -126,16 +106,35 @@ class DrawerFragment : ContainerFragment() {
                         }
                         setBackgroundDrawable(expander)
                     }
-
                     setPadding(24.dp, 16.dp, 24.dp, 16.dp)
                     title = context.getString(R.string.import_no_account_hint)
                     subtext = context.getString(R.string.import_no_id_hint)
                     verticalLayout {
-                        addWrap(iconView, context.resources.getDimensionPixelSize(iconSize.size), context.resources.getDimensionPixelSize(iconSize.size))
-                        addRow(titleView)
-                        addRow(subtextView)
+                        view(iconView) {
+                            val backgroundColor = context.getColor(R.color.drawer_background_avatar)
+                            val backgroundRadius = context.resources.getDimension(iconSize.size) / 10
+                            background = createRoundRectDrawable(backgroundColor, backgroundRadius)
+                            layoutWidth = context.resources.getDimensionPixelSize(iconSize.size)
+                            layoutHeight = context.resources.getDimensionPixelSize(iconSize.size)
+                        }
+                        viewRow(titleView) {
+                            setTextColor(context.getColor(R.color.cell_text_primary))
+                            textSize = 16f
+                            typeface = typefaceBold
+                            isAllCaps = true
+                            startScrolling()
+                            updatePadding(top = context.resources.getDimensionPixelSize(R.dimen.navigation_drawer_top_offset))
+                        }
+                        viewRow(subtextView) {
+                            setTextColor(context.getColor(R.color.cell_text_secondary))
+                            textSize = 14f
+                            isAllCaps = true
+                            text = context.getString(R.string.import_no_id_hint)
+                        }
                     }
-                    addWrap(imageView, gravity = Gravity.BOTTOM or Gravity.END)
+                    view(imageView) {
+                        layoutGravityFrame = Gravity.BOTTOM or Gravity.END
+                    }
                     background = GradientDrawable(GradientDrawable.Orientation.TL_BR, intArrayOf(R.color.background_dark.contextColor(), R.color.background_component.contextColor()))
                     fun setExpanded(value: Boolean) {
                         if (closer.isRunning || expander.isRunning) {
@@ -145,6 +144,7 @@ class DrawerFragment : ContainerFragment() {
                         }
                         if (value) expander.start() else closer.start()
                     }
+
                     val fadeOut = ObjectAnimator.ofFloat(iconView, "alpha", 1f, 0f).apply {
                         duration = 240
                         interpolator = AccelerateInterpolator()
@@ -169,7 +169,7 @@ class DrawerFragment : ContainerFragment() {
                                 mainViewModel.closeDrawer()
                             }
                             bindKdenticonAvatar(System.currentTimeMillis().toString(), iconSize)
-//                                subtextView.isMonospaced = false
+            //                                subtextView.isMonospaced = false
                             title = context.getString(R.string.import_no_account_hint).toUpperCase()
                             subtextView.typeface = subtextView.typefaceBold
                             subtext = context.getString(R.string.import_no_id_hint)
@@ -194,7 +194,7 @@ class DrawerFragment : ContainerFragment() {
                         setExpanded(it)
                     }
                     doOnClick { mainViewModel.changeExpandState() }
-            }
+                }
                 spacer {
                     height = 3
                     val divider = Paint().apply {
