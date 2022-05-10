@@ -11,8 +11,6 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2
 import modulon.extensions.view.*
-import modulon.layout.actionbar.ActionBarLayout
-import modulon.layout.coordinator.behavior.ActionBarBehavior
 import modulon.layout.frame.FrameLayout
 import modulon.layout.linear.HorizontalLayout
 import modulon.layout.linear.LinearLayout
@@ -63,7 +61,8 @@ inline fun UnionContext.createDrawerLayout(block: DrawerLayout.() -> Unit = {}) 
 inline fun ViewGroup.drawerLayout(block: DrawerLayout.() -> Unit = {}) = addDefaultRow(DrawerLayout(context).apply(block))
 
 // FrameLayout
-inline fun UnionContext.createFrameLayout(block: FrameLayout.() -> Unit = {}) = FrameLayout(context).apply(block)
+inline fun UnionContext.createFrameLayout(block: FrameLayout.() -> Unit = {}) = FrameLayout(context)
+    .apply(block)
 @OptIn(ExperimentalContracts::class)
 inline fun ViewGroup.frameLayout(block: FrameLayout.() -> Unit = {}) {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }

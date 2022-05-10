@@ -8,14 +8,17 @@ import androidx.recyclerview.widget.ConcatAdapter
 import modulon.R
 import modulon.extensions.viewbinder.headerCellStyle
 import modulon.layout.recycler.*
-import modulon.layout.recycler.containers.DefaultContainer
+import modulon.layout.recycler.containers.SectionItemContainer
 import modulon.layout.recycler.containers.ExpandableContainer
 import modulon.union.UnionContext
 import modulon.union.toUnion
 
 abstract class HeaderSection(context: Context) : FrameLayout(context), Section, UnionContext by context.toUnion() {
 
-    protected val adapterInternal = ConcatAdapter()
+    protected val adapterInternal = ConcatAdapter().apply {
+
+//        this.stateRestorationPolicy
+    }
 
     val adapter = ConcatAdapter().apply {
         addAdapter(adapterInternal)
@@ -27,15 +30,15 @@ abstract class HeaderSection(context: Context) : FrameLayout(context), Section, 
     }
 
     override fun addView(child: View) {
-        addContainer(DefaultContainer(child, ))
+        addContainer(SectionItemContainer(child, ))
     }
 
     override fun addView(child: View, index: Int) {
-        addContainer(DefaultContainer(child), index)
+        addContainer(SectionItemContainer(child), index)
     }
 
     override fun addView(child: View, params: ViewGroup.LayoutParams?) {
-        addContainer(DefaultContainer(child, params))
+        addContainer(SectionItemContainer(child, params))
     }
 
     override fun setVisibility(visibility: Int) {
@@ -68,6 +71,8 @@ class HeaderSectionImpl(context: Context) : HeaderSection(context) {
         } else {
             adapterInternal.addAdapter(block.adapter)
         }
+
+
     }
     var header: CharSequence
         get() = headerCell.title

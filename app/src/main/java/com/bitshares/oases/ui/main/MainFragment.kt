@@ -15,6 +15,7 @@ import com.bitshares.oases.preference.old.Settings
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.account.picker.AccountPickerViewModel
 import com.bitshares.oases.ui.account.voting.VotingViewModel
+import com.bitshares.oases.ui.asset.browser.actionCoordinatorParams
 import com.bitshares.oases.ui.asset.browser.bodyCoordinatorParams
 import com.bitshares.oases.ui.asset.picker.AssetPickerViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
@@ -181,7 +182,7 @@ class MainFragment : ContainerFragment() {
                         title = context.getString(R.string.app_name)
                         subtitle = context.getString(it.stringRes).uppercase()
                     }
-                    layoutParams = CoordinatorLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply { behavior = ActionBarBehavior() }
+                    layoutParams = actionCoordinatorParams()
                 }
                 pagerLayout {
                     attachFragmentListAdapter(enableTabs) { tab ->
@@ -195,7 +196,7 @@ class MainFragment : ContainerFragment() {
                         }
                     }
                     isUserInputEnabled = false
-                    offscreenPageLimit = 2
+                    offscreenPageLimit = 5
                     doOnPageSelected { mainViewModel.currentMainTab.value = enableTabs[it] }
                     doOnPageScrolled { position, positionOffset, _ -> mainViewModel.currentPosition.value = position + positionOffset }
                     mainViewModel.selectedMainTab.observe { setCurrentItem(it.ordinal, false) }

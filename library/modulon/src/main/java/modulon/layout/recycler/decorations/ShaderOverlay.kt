@@ -9,11 +9,53 @@ import androidx.core.view.forEach
 import androidx.recyclerview.widget.RecyclerView
 import modulon.R
 import modulon.extensions.view.dpf
-import modulon.layout.recycler.containers.FrameHolderLayout
+import modulon.layout.recycler.containers.SectionHolder
+import modulon.layout.recycler.containers.SectionItem
 import modulon.layout.recycler.section.RecyclerContentLocator
 import modulon.union.UnionContext
 import modulon.union.toUnion
 import kotlin.math.roundToInt
+
+
+class ItemHolderDispatcher(context: Context) : RecyclerView.ItemDecoration() {
+
+    data class CellShader(
+        var top: Boolean,
+        var bottom: Boolean,
+    )
+
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        super.onDraw(c, parent, state)
+
+        val drawType: CellShader = CellShader(false, false)
+        var previousView: View? = null
+        fun attach(previous: View?, current: View?) {
+            if (previous == null) {
+                previousView = current
+                drawType.top = false
+            } else {
+                val previousViewHolder = parent.getChildViewHolder(previous)
+                if (previousViewHolder is SectionHolder) {
+                    drawType.bottom = current != null && parent.getChildViewHolder(current) !is SectionHolder
+
+                    previousViewHolder.drawType = drawType
+                    previousView = current
+                    drawType.top = false
+                    drawType.bottom = false
+                } else {
+                    previousView = current
+                    drawType.top = true
+                    drawType.bottom = false
+                }
+            }
+        }
+        parent.forEach {
+            attach(previousView, it)
+        }
+        attach(previousView, null)
+    }
+
+}
 
 // TODO: 2022/2/12 make transparent
 class ShaderOverlay(context: Context) : RecyclerView.ItemDecoration(), UnionContext by context.toUnion() {
@@ -49,24 +91,28 @@ class ShaderOverlay(context: Context) : RecyclerView.ItemDecoration(), UnionCont
         drawVerticalShader(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
     }
 
+    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        super.onDrawOver(c, parent, state)
+    }
+
     // TODO: 2022/2/22  not stable
-    override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        super.onDrawOver(canvas, parent, state)
+    override fun onDraw(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        super.onDraw(canvas, parent, state)
         var draw = false
         var t: View? = null
         var b: View? = null
         fun drawCorners() {
             if (!draw) return
             t?.let {
-                parent.getDecoratedBoundsWithMargins(it, bounds)
-                moveBoundsWithTranslation(it, bounds)
-                drawTopCorners(canvas) to drawTopShader(canvas)
+                parent.getDecoratedBoundsWithMarginsAndTranslations(it, bounds)
+                drawTopCorners(canvas)
+                drawTopShader(canvas)
                 t = null
             }
             b?.let {
-                parent.getDecoratedBoundsWithMargins(it, bounds)
-                moveBoundsWithTranslation(it, bounds)
-                drawBottomCorner(canvas) to drawBottomShader(canvas)
+                parent.getDecoratedBoundsWithMarginsAndTranslations(it, bounds)
+                drawBottomCorner(canvas)
+                drawBottomShader(canvas)
                 b = null
             }
         }
@@ -82,8 +128,7 @@ class ShaderOverlay(context: Context) : RecyclerView.ItemDecoration(), UnionCont
                 }
             } else {
                 if (shouldDrawShader(it)) {
-                    parent.getDecoratedBoundsWithMargins(it, bounds)
-                    moveBoundsWithTranslation(it, bounds)
+                    parent.getDecoratedBoundsWithMarginsAndTranslations(it, bounds)
                     drawVerticalShader(canvas)
                     draw = true
                 }
@@ -104,10 +149,15 @@ class ShaderOverlay(context: Context) : RecyclerView.ItemDecoration(), UnionCont
         }
 
     private fun shouldDrawShader(view: View) : Boolean {
-        val inner = if (view is FrameHolderLayout) view.child ?: return false else view
+        val inner = if (view is SectionItem) view.child ?: return false else view
         return inner.background?.tintCompat.let { it != null && it != transparentBackground }
     }
 
+}
+
+fun RecyclerView.getDecoratedBoundsWithMarginsAndTranslations(view: View, bounds: Rect) {
+    getDecoratedBoundsWithMargins(view, bounds)
+    moveBoundsWithTranslation(view, bounds)
 }
 
 fun moveBoundsWithTranslation(view: View, bounds: Rect) {

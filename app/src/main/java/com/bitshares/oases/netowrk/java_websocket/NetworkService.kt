@@ -108,7 +108,7 @@ object NetworkService : ActivityLifecycleCallbacks, NetworkCallback() {
 
     @Synchronized
     private suspend fun switch(node: Node?, from: String = ""): GrapheneSocket {
-        "Synchronized switch from ${from} ${node?.url}".logcat()
+//        "Synchronized switch from ${from} ${node?.url}".logcat()
         try {
             if (node == null) {
                 lastConnection?.disconnect()

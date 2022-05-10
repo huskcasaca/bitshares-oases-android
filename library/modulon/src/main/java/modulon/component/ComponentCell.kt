@@ -18,7 +18,11 @@ import modulon.widget.*
 class ComponentCell(context: Context) : ComponentPaddingCell(context) {
 
     override val iconView: ImageView by lazy { ImageView(context) }
-    private val containerHeader: FrameLayout by lazy { FrameLayout(context) }
+
+    private val titleContainer: FrameLayout by lazy { FrameLayout(context) }
+    private val textContainer: FrameLayout by lazy { FrameLayout(context) }
+    private val subtextContainer: FrameLayout by lazy { FrameLayout(context) }
+
     private val containerBody: VerticalLayout by lazy { VerticalLayout(context) }
     private val containerText: FrameLayout by lazy { FrameLayout(context) }
 
@@ -26,10 +30,26 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
     private val containerStart: FrameLayout
     private val containerEnd: FrameLayout by lazy { FrameLayout(context) }
 
+
+    override var title: CharSequence
+        get() = titleView.text
+        set(text) {
+            titleContainer.isVisible = text.isNotEmpty() || subtitle.isNotEmpty()
+            titleView.text = text
+        }
+
+    override var subtitle: CharSequence
+        get() = subtitleView.text
+        set(text) {
+            titleContainer.isVisible = text.isNotEmpty() || title.isNotEmpty()
+            subtitleView.text = text
+        }
+
     override var text: CharSequence
         get() = textView.text
         set(text) {
-            textView.textWithVisibility = text
+            textContainer.isVisible = text.isNotEmpty()
+            textView.text = text
         }
 
     override var iconSize: IconSize = IconSize.TINY
@@ -51,7 +71,8 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
     var allowMultiLine = false
         set(value) {
             field = value
-            requestLayout()
+            // FIXME: 2022/5/8  
+//            requestLayout()
         }
 
     // TODO: 21/1/2022 avoid conflicts
@@ -79,19 +100,20 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
         }
 
     init {
+        noClipping()
         noMotion()
         horizontalLayout {
             noClipping()
             noMotion()
             view<FrameLayout> {
                 noMotion()
+                noClipping()
                 containerStart = this
                 isVisible = false
                 layoutMarginEnd = componentOffset
                 layoutGravityLinear = Gravity.START or Gravity.CENTER_VERTICAL
             }
             view(iconView) {
-                noMotion()
                 isVisible = false
                 layoutHeight = resources.getDimensionPixelSize(iconSize.size)
                 layoutWidth = resources.getDimensionPixelSize(iconSize.size)
@@ -106,25 +128,33 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
                 layoutHeight = ViewGroup.LayoutParams.WRAP_CONTENT
                 layoutWeightLinear = 1f
                 layoutGravityLinear = Gravity.START or Gravity.CENTER_VERTICAL
-                viewRow(containerHeader) {
-                    noMotion()
-                    viewRow(titleView)
+                viewRow(titleContainer) {
+                    isVisible = false
+                    viewRow(titleView) {
+                        layoutGravityFrame = Gravity.START or Gravity.CENTER_VERTICAL
+                    }
                     viewRow(subtitleView) {
+                        gravity = Gravity.END
                         layoutGravityFrame = Gravity.END or Gravity.CENTER_VERTICAL
                     }
                 }
-                viewRow(containerText) {
+                viewRow(textContainer) {
+                    isVisible = false
                     viewRow(textView)
+                }
+                viewRow(subtextContainer) {
+                    isVisible = false
+                    viewRow(subtextView)
                 }
                 viewRow(containerBody) {
                     noClipping()
                     isVisible = false
                 }
-                viewRow(subtextView)
-                viewRow(containerSubviews)
+                viewRow(subviewsContainer)
             }
             view(containerEnd) {
                 noMotion()
+                noClipping()
                 isVisible = false
                 layoutMarginStart = componentOffset
                 layoutGravityLinear = Gravity.END or Gravity.CENTER_VERTICAL
@@ -132,6 +162,7 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
         }
         view(checkView) {
             noMotion()
+            noClipping()
             layoutWidth = 6.dp
             layoutHeight = MATCH_PARENT
             layoutMarginStart = -paddingStart

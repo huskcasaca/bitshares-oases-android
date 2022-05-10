@@ -32,47 +32,77 @@ fun FieldTextView.typefaceBold() {
 val UnionContext.typefaceDinMedium: Typeface
     get() = Typeface.create(context.resources.getFont(R.font.dinb), Typeface.NORMAL)
 
+private var hack_bold: Typeface? = null
+
 // TODO: 2022/2/11 consider replace with tabular inter
 val UnionContext.typefaceMonoRegular: Typeface
-    get() = Typeface.create(context.resources.getFont(R.font.hack_bold), Typeface.NORMAL)
+    get() = hack_bold ?: Typeface.create(context.resources.getFont(R.font.hack_bold), Typeface.NORMAL).also { hack_bold = it }
 
 val UnionContext.typefaceMonoBold: Typeface
-    get() = Typeface.create(context.resources.getFont(R.font.hack_bold), Typeface.NORMAL)
+    get() = hack_bold ?: Typeface.create(context.resources.getFont(R.font.hack_bold), Typeface.NORMAL).also { hack_bold = it }
+
+
+private var inter_medium: Typeface? = null
+private var inter_semi_bold: Typeface? = null
+private var cnfix_inter_family: Typeface? = null
 
 
 val UnionContext.typefaceRegular: Typeface
     get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
         if (isChinese()) {
 //            Typeface.create(context.resources.getFont(R.font.cnfix_inter_family), 600, false)
-            Typeface.create(context.resources.getFont(R.font.inter_medium),  Typeface.NORMAL)
+            inter_medium ?: Typeface.create(context.resources.getFont(R.font.inter_medium),  Typeface.NORMAL).also {
+                inter_medium = it
+            }
+
         } else {
 //            Typeface.create(context.resources.getFont(R.font.inter_family), 600, false)
-            Typeface.create(context.resources.getFont(R.font.inter_semi_bold),  Typeface.NORMAL)
+            inter_semi_bold ?: Typeface.create(context.resources.getFont(R.font.inter_semi_bold),  Typeface.NORMAL).also {
+                inter_semi_bold = it
+            }
         }
 //        Typeface.create(context.resources.getFont(R.font.inter_semi_bold), Typeface.NORMAL)
     } else {
         if (isChinese()) {
-            Typeface.create(context.resources.getFont(R.font.cnfix_inter_family), Typeface.NORMAL)
+            cnfix_inter_family ?: Typeface.create(context.resources.getFont(R.font.cnfix_inter_family), Typeface.NORMAL).also {
+                cnfix_inter_family = it
+            }
         } else {
-            Typeface.create(context.resources.getFont(R.font.inter_semi_bold), Typeface.NORMAL)
+            inter_semi_bold ?: Typeface.create(context.resources.getFont(R.font.inter_semi_bold), Typeface.NORMAL).also {
+                inter_semi_bold = it
+            }
         }
     }
+
+
+private var inter_semi_bold_bold: Typeface? = null
+private var inter_bold: Typeface? = null
+
+private var cnfix_inter_family_bold: Typeface? = null
 
 val UnionContext.typefaceBold: Typeface
     get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
         if (isChinese()) {
 //            Typeface.create(context.resources.getFont(R.font.cnfix_inter_family), 700, false)
-            Typeface.create(context.resources.getFont(R.font.inter_semi_bold),  Typeface.BOLD)
+            inter_semi_bold_bold ?: Typeface.create(context.resources.getFont(R.font.inter_semi_bold), Typeface.BOLD).also {
+                inter_semi_bold_bold = it
+            }
         } else {
 //            Typeface.create(context.resources.getFont(R.font.inter_family), 700, false)
-            Typeface.create(context.resources.getFont(R.font.inter_bold),  Typeface.BOLD)
+            inter_bold ?: Typeface.create(context.resources.getFont(R.font.inter_bold), Typeface.BOLD).also {
+                inter_bold = it
+            }
         }
 //        Typeface.create(context.resources.getFont(R.font.inter_bold), Typeface.NORMAL)
     } else {
         if (isChinese()) {
-            Typeface.create(context.resources.getFont(R.font.cnfix_inter_family), Typeface.BOLD)
+            cnfix_inter_family_bold ?: Typeface.create(context.resources.getFont(R.font.cnfix_inter_family), Typeface.BOLD).also {
+                cnfix_inter_family_bold = it
+            }
         } else {
-            Typeface.create(context.resources.getFont(R.font.inter_bold), Typeface.BOLD)
+            inter_bold ?: Typeface.create(context.resources.getFont(R.font.inter_bold), Typeface.BOLD).also {
+                inter_bold = it
+            }
         }
     }
 

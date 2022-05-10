@@ -21,10 +21,10 @@ var TextView.textSpecVisibility: CharSequence
     }
 
 var TextView.textWithVisibility: CharSequence
-    get() = text.toStringOrEmpty()
+    get() = text ?: ""
     set(text) {
-        isVisible = text.isNotBlank()
         this.text = text
+        isVisible = text.isNotEmpty()
     }
 
 var TextView.textVisible: CharSequence

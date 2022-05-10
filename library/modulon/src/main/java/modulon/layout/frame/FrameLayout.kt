@@ -2,7 +2,6 @@ package modulon.layout.frame
 
 import android.content.Context
 import android.widget.FrameLayout
-import modulon.extensions.compat.activity
 import modulon.extensions.compat.isForceDarkAllowedCompat
 
 import modulon.union.UnionContext

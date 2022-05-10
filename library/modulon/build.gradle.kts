@@ -7,7 +7,7 @@ android {
     buildToolsVersion = Constants.BUILD_TOOLS_VERSION
     compileSdkVersion = Constants.COMPILE_SDK_VERSION
     defaultConfig {
-        minSdk = 21
+        minSdk = 23
         targetSdk = 31
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

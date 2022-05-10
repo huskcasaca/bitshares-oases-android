@@ -1,5 +1,6 @@
 package modulon.layout.recycler.containers
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import modulon.layout.recycler.RecyclerLayout
 
-class ListContainer<C : View, D>(override var creator: () -> C) : RecyclerLayout.Container<C>() {
+class SectionListContainer<C : View, D>(override var creator: () -> C) : RecyclerLayout.Container<C>() {
 
     private var viewBinder: (C) -> Unit = { }
     private var dataBinder: C.(D) -> Unit = { }
@@ -23,11 +24,17 @@ class ListContainer<C : View, D>(override var creator: () -> C) : RecyclerLayout
         override fun areContentsTheSame(oldItem: D, newItem: D): Boolean = contentsComparator.invoke(oldItem, newItem)
     }
 
-    inner class GroupItemHolder<C : View>(val childView: C) : RecyclerView.ViewHolder(childView)
+    inner class GroupItemHolder<C : View>(val childView: C) : SectionHolder(childView.context) {
+
+        init {
+            container.replace(childView)
+        }
+    }
 
     inner class PayloadsAdapter : ListAdapter<D, GroupItemHolder<C>>(diffCallback) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = GroupItemHolder(creator.invoke().apply(viewBinder))
+        @SuppressLint("PendingBindings")
         override fun onBindViewHolder(holder: GroupItemHolder<C>, position: Int) {
             val data = currentList[position]
             val payload = currentPayload

@@ -2,7 +2,6 @@ package modulon.component
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.view.Gravity
 import android.widget.ImageView
 import androidx.core.view.isVisible
 import modulon.R
@@ -18,7 +17,6 @@ abstract class AbstractCell(context: Context) : FrameLayout(context), CellCompon
     // TODO: 3/10/2021  lineSpacingMultiplier changed!
     override val titleView: PlainTextView by lazy {
         PlainTextView(context).apply {
-            isVisible = false
             titleStyle()
             startScrolling()
         }
@@ -26,16 +24,13 @@ abstract class AbstractCell(context: Context) : FrameLayout(context), CellCompon
 
     override val subtitleView: PlainTextView by lazy {
         PlainTextView(context).apply {
-            isVisible = false
             subtitleStyle()
             startScrolling()
-            gravity = Gravity.END
         }
     }
 
     override val textView: PlainTextView by lazy {
         PlainTextView(context).apply {
-            isVisible = false
             textStyle()
             isSingleLine = false
         }
@@ -43,7 +38,6 @@ abstract class AbstractCell(context: Context) : FrameLayout(context), CellCompon
 
     override val subtextView: PlainTextView by lazy {
         PlainTextView(context).apply {
-            isVisible = false
             subtextStyle()
         }
     }
@@ -86,16 +80,16 @@ abstract class AbstractCell(context: Context) : FrameLayout(context), CellCompon
 
     open var iconSize: IconSize = IconSize.TINY
 
-    protected val containerSubviews= createVerticalLayout()
+    protected val subviewsContainer= createVerticalLayout()
 
     fun AbstractCell.subtext(index: Int, block: PlainTextView.() -> Unit) {
-        while (containerSubviews.getChildOrNullAt<PlainTextView>(index) == null) {
-            containerSubviews.view<PlainTextView> {
+        while (subviewsContainer.getChildOrNullAt<PlainTextView>(index) == null) {
+            subviewsContainer.view<PlainTextView> {
                 subtextStyle()
                 lineSpacingExtra = 3.dpf
             }
         }
-        containerSubviews.getChildAt<PlainTextView>(index).block()
+        subviewsContainer.getChildAt<PlainTextView>(index).block()
     }
 
     private var isCheckViewInitialized = false

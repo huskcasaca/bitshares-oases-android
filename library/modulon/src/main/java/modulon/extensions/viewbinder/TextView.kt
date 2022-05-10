@@ -13,7 +13,7 @@ fun PlainTextView.titleStyle() {
 //    isSingleLine = true
     typeface = typefaceRegular
     textColor = context.getColor(R.color.cell_text_primary)
-    autoSpacing()
+//    autoSpacing() fixme
 }
 
 fun PlainTextView.subtitleStyle() {
@@ -21,7 +21,7 @@ fun PlainTextView.subtitleStyle() {
 //    isSingleLine = true
     typeface = typefaceRegular
     textColor = context.getColor(R.color.cell_text_secondary)
-    autoSpacing()
+//    autoSpacing() fixme
 }
 
 fun PlainTextView.textStyle() {
@@ -29,14 +29,14 @@ fun PlainTextView.textStyle() {
 //    isSingleLine = true
     typeface = typefaceRegular
     textColor = context.getColor(R.color.cell_text_primary)
-    autoSpacing()
+//    autoSpacing() fixme
 }
 
 fun PlainTextView.subtextStyle() {
     textSize = 15f
     typeface = typefaceRegular
     textColor = context.getColor(R.color.cell_text_secondary)
-    autoSpacing()
+//    autoSpacing() fixme
 }
 
 fun PlainTextView.autoSpacing(multiplier: Float = 1f) {

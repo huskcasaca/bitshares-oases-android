@@ -3,23 +3,19 @@ package modulon.layout.recycler.containers
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import modulon.extensions.view.addDefaultRow
 import modulon.extensions.view.parentViewGroupOrNull
-import modulon.layout.recycler.ViewSize
 import modulon.layout.recycler.RecyclerLayout
-import modulon.extensions.coroutine.*
 
 class ExpandableContainer<C : View>(override var creator: () -> C) : RecyclerLayout.Container<C>() {
 
     private val view: C = creator.invoke()
 
-    override val adapter = object : RecyclerView.Adapter<FrameViewHolder>() {
-        override fun onBindViewHolder(holder: FrameViewHolder, position: Int) {}
-        override fun onBindViewHolder(holder: FrameViewHolder, position: Int, dropped: MutableList<Any>) {}
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FrameViewHolder {
-            return FrameViewHolder(parent.context).apply {
+    override val adapter = object : RecyclerView.Adapter<SectionHolder>() {
+        override fun onBindViewHolder(holder: SectionHolder, position: Int) {}
+        override fun onBindViewHolder(holder: SectionHolder, position: Int, dropped: MutableList<Any>) {}
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionHolder {
+            return SectionHolder(parent.context).apply {
                 view.parentViewGroupOrNull?.removeView(view)
                 container.addDefaultRow(view)
             }

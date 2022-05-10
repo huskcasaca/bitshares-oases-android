@@ -9,7 +9,7 @@ import modulon.widget.FieldTextView
 import modulon.widget.PlainTextView
 
 // ComponentCell
-inline fun ViewGroup.cell(block: ComponentCell.() -> Unit) = addView(ComponentCell(context).apply(block))
+inline fun ViewGroup.cell(block: ComponentCell.() -> Unit) = addDefaultRow(ComponentCell(context).apply(block))
 inline fun ViewGroup.title(block: ComponentCell.() -> Unit) = addDefaultRow(ComponentCell(context).apply { titleCellStyle() }.apply(block))
 
 inline fun ViewGroup.hint(block: ComponentHintCell.() -> Unit) = addDefaultRow(ComponentHintCell(context).apply(block))

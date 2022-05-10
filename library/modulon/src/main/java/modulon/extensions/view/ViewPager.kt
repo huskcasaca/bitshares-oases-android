@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import modulon.layout.frame.FrameLayout
-import modulon.layout.recycler.ViewSize
-import modulon.layout.recycler.containers.DefaultContainer
-import modulon.layout.recycler.containers.ListContainer
+import modulon.layout.recycler.containers.SectionItemContainer
+import modulon.layout.recycler.containers.SectionListContainer
 import modulon.layout.recycler.containers.StaticContainer
 import modulon.union.toUnion
 
@@ -54,14 +53,14 @@ fun ViewPager2.attachEmptyAdapter() {
     adapter = createEmptyAdapter()
 }
 
-inline fun <reified C: View, D> ViewPager2.pageList(block: ListContainer<C, D>.() -> Unit) {
+inline fun <reified C: View, D> ViewPager2.pageList(block: SectionListContainer<C, D>.() -> Unit) {
     if (adapter !is ConcatAdapter) adapter = ConcatAdapter()
-    (adapter as ConcatAdapter).addAdapter(ListContainer<C, D>(context.toUnion()::create).apply(block).adapter)
+    (adapter as ConcatAdapter).addAdapter(SectionListContainer<C, D>(context.toUnion()::create).apply(block).adapter)
 }
 
 inline fun <reified V: View> ViewPager2.page(block: V.() -> Unit) {
     if (adapter !is ConcatAdapter) adapter = ConcatAdapter()
-    (adapter as ConcatAdapter).addAdapter(DefaultContainer(context.toUnion().create(block)).adapter)
+    (adapter as ConcatAdapter).addAdapter(SectionItemContainer(context.toUnion().create(block)).adapter)
 }
 
 inline fun <reified C : View, D : Any> ViewPager2.addStatic(data: List<D>, crossinline binder: C.(D) -> Unit = {}) {

@@ -9,6 +9,7 @@ import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.ui.account.permission.PermissionViewModel
 import com.bitshares.oases.ui.asset.browser.*
 import com.bitshares.oases.ui.base.*
+import com.bitshares.oases.ui.main.MainFragment
 import modulon.component.IconSize
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.compat.startUriBrowser
@@ -32,6 +33,14 @@ class AboutFragment : ContainerFragment() {
         verticalLayout {
             layoutParams = bodyCoordinatorParams()
             recyclerLayout {
+                section {
+                    cell {
+                        title = "MF"
+                        doOnClick {
+                            startFragment<MainFragment>()
+                        }
+                    }
+                }
 //            section {
 //                cell {
 //                    iconSize = IconSize.LARGE
@@ -55,62 +64,62 @@ class AboutFragment : ContainerFragment() {
                 section {
                     cell {
                         updatePaddingVerticalHalf()
-                        title = context.getString(R.string.about_app_name)
-                        subtitle = AppConfig.APP_NAME
+//                        title = context.getString(R.string.about_app_name)
+//                        subtitle = AppConfig.APP_NAME
                     }
-                    cell {
-                        updatePaddingVerticalHalf()
-                        title = context.getString(R.string.about_version)
-                        subtitle = AppConfig.APP_VERSION
-                    }
-                    cell {
-                        updatePaddingVerticalHalf()
-                        title = context.getString(R.string.about_author)
-                        subtitle = AppConfig.AUTHOR
-                    }
-                    cell {
-                        updatePaddingVerticalHalf()
-                        title = "Licenses"
-                        doOnClick {
-                            showBottomDialog {
-                                title = "Licenses"
-                            }
-                        }
-                    }
-                    cell {
-                        updatePaddingVerticalHalf()
-                        title = context.getString(R.string.about_privacy_policy)
-                        doOnClick {
-                        }
-                    }
-                    cell {
-                        updatePaddingVerticalHalf()
-//                    title = context.getString(R.string.about_source_code)
-                        title = "Website"
-                        subtitle = "Goto"
-                        doOnClick {
-                            startUriBrowser(AppConfig.PROJECT_SOURCE_CODE_URL.toUri())
-                        }
-                    }
+//                    cell {
+//                        updatePaddingVerticalHalf()
+//                        title = context.getString(R.string.about_version)
+//                        subtitle = AppConfig.APP_VERSION
+//                    }
+//                    cell {
+//                        updatePaddingVerticalHalf()
+//                        title = context.getString(R.string.about_author)
+//                        subtitle = AppConfig.AUTHOR
+//                    }
+//                    cell {
+//                        updatePaddingVerticalHalf()
+//                        title = "Licenses"
+//                        doOnClick {
+//                            showBottomDialog {
+//                                title = "Licenses"
+//                            }
+//                        }
+//                    }
+//                    cell {
+//                        updatePaddingVerticalHalf()
+//                        title = context.getString(R.string.about_privacy_policy)
+//                        doOnClick {
+//                        }
+//                    }
+//                    cell {
+//                        updatePaddingVerticalHalf()
+////                    title = context.getString(R.string.about_source_code)
+//                        title = "Website"
+//                        subtitle = "Goto"
+//                        doOnClick {
+//                            startUriBrowser(AppConfig.PROJECT_SOURCE_CODE_URL.toUri())
+//                        }
+//                    }
                 }
-                section {
-//                title = context.getString(R.string.about_library)
-                    header = "Libraries"
-                    AppConfig.libraries.forEach { library ->
-                        cell {
-                            updatePaddingVerticalHalf()
-                            iconSize = IconSize.SMALL
-                            icon = library.icon.contextDrawable()
-                            text = library.name
-                            subtextView.isSingleLine = true
-                            subtext = library.url
-                            doOnClick {
-                                startFragment<LibraryFragment> { putParam1(library) }
-                            }
-                        }
-                    }
-                }
-                logo()
+//                section {
+////                title = context.getString(R.string.about_library)
+//                    header = "Libraries"
+//                    AppConfig.libraries.forEach { library ->
+//                        cell {
+//                            updatePaddingVerticalHalf()
+//                            iconSize = IconSize.SMALL
+//                            icon = library.icon.contextDrawable()
+//                            text = library.name
+//                            subtextView.isSingleLine = true
+//                            subtext = library.url
+//                            doOnClick {
+//                                startFragment<LibraryFragment> { putParam1(library) }
+//                            }
+//                        }
+//                    }
+//                }
+//                logo()
             }
         }
     }

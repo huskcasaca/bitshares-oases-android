@@ -22,9 +22,9 @@ abstract class BaseActivity : UnionActivity() {
 
     @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_exit_hold)
-        }
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+//            overridePendingTransition(R.anim.activity_slide_in, R.anim.activity_exit_hold)
+//        }
 
         window.apply {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -33,23 +33,10 @@ abstract class BaseActivity : UnionActivity() {
             } else {
                 decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
             }
-
             statusBarColor = context.getColor(R.color.transparent)
             navigationBarColor = context.getColor(R.color.transparent)
             setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
-//            decorView.backgroundTintColor = R.color.background.contextColor()
-//            addFlags(
-//                WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS,
-//            )
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-//            window.statusBarColor = Color.TRANSPARENT
-//            window.navigationBarColor = Color.TRANSPARENT
-//            decorView.backgroundTintColor = context.getColor(R.color.background)
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-//                isNavigationBarContrastEnforced = false
-//            }
         }
         actionBar?.hide()
         setTaskDescription(ActivityManager.TaskDescription(null, null, getColor(R.color.background)))
@@ -60,13 +47,14 @@ abstract class BaseActivity : UnionActivity() {
         super.attachBaseContext(newBase.createLocalContext(newBase.toUnion().localPreferenceManager.LANGUAGE.value.locale))
     }
 
-    override fun finish() {
-        super.finish()
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            overridePendingTransition(R.anim.activity_exit_hold, R.anim.activity_slide_out)
-        }
-    }
+//    override fun finish() {
+//        super.finish()
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+//            overridePendingTransition(R.anim.activity_exit_hold, R.anim.activity_slide_out)
+//        }
+//    }
 
+    // TODO: 2022/5/10 remove
     final override fun onBackPressed() {
         backPressedCallback.invoke()
     }

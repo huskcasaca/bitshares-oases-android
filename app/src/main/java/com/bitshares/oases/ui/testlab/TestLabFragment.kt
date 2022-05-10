@@ -1,6 +1,7 @@
 package com.bitshares.oases.ui.testlab
 
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import graphene.chain.K102_AccountObject
@@ -27,10 +28,7 @@ import modulon.dialog.section
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
-import modulon.extensions.viewbinder.cell
-import modulon.extensions.viewbinder.linearLayout
-import modulon.extensions.viewbinder.pagerLayout
-import modulon.extensions.viewbinder.tabLayout
+import modulon.extensions.viewbinder.*
 import modulon.layout.actionbar.subtitle
 import modulon.layout.actionbar.title
 import modulon.layout.recycler.*
@@ -50,7 +48,7 @@ class TestLabFragment : ContainerFragment() {
             title(context.getString(R.string.about_title))
             subtitle(AppConfig.APP_NAME)
         }
-        linearLayout {
+        verticalLayout {
             layoutParams = bodyCoordinatorParams()
             tabLayout {
                 tab { text = "General" }
@@ -63,6 +61,20 @@ class TestLabFragment : ContainerFragment() {
                 post { setCurrentItem(1, false) }
                 page<RecyclerLayout> {
                     section {
+                        cell {
+                            title = "Test FrameLayout"
+                            doOnClick {
+                                val time = Clock.System.now()
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    repeat(1000) {
+                                        create<FrameLayout>()
+                                    }
+                                    withContext(Dispatchers.Main) {
+                                        subtitle = "${(Clock.System.now() - time).inWholeMilliseconds}"
+                                    }
+                                }
+                            }
+                        }
                         cell {
                             title = "Test Reflect Independent"
                             doOnClick {

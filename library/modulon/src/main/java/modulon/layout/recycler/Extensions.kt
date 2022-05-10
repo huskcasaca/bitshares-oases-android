@@ -5,7 +5,7 @@ import modulon.component.ComponentCell
 import modulon.extensions.view.create
 import modulon.layout.recycler.containers.Comparator
 import modulon.layout.recycler.containers.ExpandableContainer
-import modulon.layout.recycler.containers.ListContainer
+import modulon.layout.recycler.containers.SectionListContainer
 import modulon.layout.recycler.containers.SpacerContainer
 import modulon.layout.recycler.section.HeaderSectionImpl
 import modulon.layout.recycler.section.RecyclerContentLocator
@@ -22,53 +22,53 @@ fun <C : View> ExpandableContainer<C>.construct(block: C.() -> Unit = {}) {
 
 // List Container
 // TODO: 2022/2/28 replace with Section.cells()
-inline fun <reified C : View, D : Any> Section.list(block: ListContainer<C, D>.() -> Unit = {}) {
-    addContainer(ListContainer<C, D> { create() }.apply(block))
+inline fun <reified C : View, D : Any> Section.list(block: SectionListContainer<C, D>.() -> Unit = {}) {
+    addContainer(SectionListContainer<C, D> { create() }.apply(block))
 }
 
 
-fun <C : View, D> ListContainer<C, D>.construct(block: C.() -> Unit = {}) {
+fun <C : View, D> SectionListContainer<C, D>.construct(block: C.() -> Unit = {}) {
     setViewCreator(block)
 }
-fun <C : View, D> ListContainer<C, D>.data(block: C.(D) -> Unit = {}) {
+fun <C : View, D> SectionListContainer<C, D>.data(block: C.(D) -> Unit = {}) {
     setDataBinder(block)
 }
-fun <C : View, D> ListContainer<C, D>.payload(block: C.(data: D, payload: Any) -> Unit) {
+fun <C : View, D> SectionListContainer<C, D>.payload(block: C.(data: D, payload: Any) -> Unit) {
     setPayloadBinder(block)
 }
-fun <C : View, D, R> ListContainer<C, D>.distinctContentBy(transform: (D) -> R) {
+fun <C : View, D, R> SectionListContainer<C, D>.distinctContentBy(transform: (D) -> R) {
     setContentComparator { d1, d2 ->
         transform(d1) == transform(d2)
     }
 }
-fun <C : View, D, R> ListContainer<C, D>.distinctItemsBy(transform: (D) -> R) {
+fun <C : View, D, R> SectionListContainer<C, D>.distinctItemsBy(transform: (D) -> R) {
     setItemComparator { d1, d2 ->
         transform(d1) == transform(d2)
     }
 }
 
 
-inline fun Section.cells(block: ListContainer<ComponentCell, Any>.() -> Unit = {}) {
-    addContainer(ListContainer<ComponentCell, Any> { ComponentCell(context) }.apply(block))
+inline fun Section.cells(block: SectionListContainer<ComponentCell, Any>.() -> Unit = {}) {
+    addContainer(SectionListContainer<ComponentCell, Any> { ComponentCell(context) }.apply(block))
 }
 
 
 // TODO: 5/2/2022 rename
-fun <C : View, D, R> ListContainer<C, D>.compareContent(transform: (D) -> R) {
+fun <C : View, D, R> SectionListContainer<C, D>.compareContent(transform: (D) -> R) {
     setContentComparator { d1, d2 ->
         transform(d1) == transform(d2)
     }
 }
-fun <C : View, D, R> ListContainer<C, D>.compareItems(transform: (D) -> R) {
+fun <C : View, D, R> SectionListContainer<C, D>.compareItems(transform: (D) -> R) {
     setItemComparator { d1, d2 ->
         transform(d1) == transform(d2)
     }
 }
-fun <C : View, D> ListContainer<C, D>.areContentsSame(comparator: Comparator<D>) {
+fun <C : View, D> SectionListContainer<C, D>.areContentsSame(comparator: Comparator<D>) {
     setContentComparator(comparator)
 }
 
-fun <C : View, D> ListContainer<C, D>.areItemsSame(comparator: Comparator<D>) {
+fun <C : View, D> SectionListContainer<C, D>.areItemsSame(comparator: Comparator<D>) {
     setItemComparator(comparator)
 }
 

@@ -16,7 +16,6 @@ import modulon.layout.actionbar.ActionBarLayout
 import modulon.layout.actionbar.actionMenu
 import modulon.layout.coordinator.CoordinatorLayout
 import modulon.layout.coordinator.behavior.ActionBarBehavior
-import modulon.layout.coordinator.behavior.ContainerScrollingBehavior
 import modulon.layout.frame.FrameLayout
 import modulon.layout.linear.VerticalLayout
 import modulon.layout.recycler.RecyclerLayout
@@ -29,7 +28,7 @@ abstract class ContainerFragment : BaseFragment() {
     }
 
     val actionLayout: ActionBarLayout by lazyView {
-        layoutParams = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply { behavior = ActionBarBehavior(true) }
+        layoutParams = actionCoordinatorParams()
         actionMenu {
             icon = if (activity.intent.data != null && activity.intent.action == Intent.ACTION_VIEW) R.drawable.ic_cell_cross.contextDrawable() else R.drawable.ic_cell_back_arrow.contextDrawable()
         }

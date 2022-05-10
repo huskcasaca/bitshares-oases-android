@@ -11,9 +11,8 @@ import androidx.core.graphics.ColorUtils
 import androidx.core.view.forEach
 import androidx.recyclerview.widget.RecyclerView
 import modulon.R
-import modulon.component.ComponentHintCell
 import modulon.extensions.view.dpf
-import modulon.layout.recycler.containers.FrameHolderLayout
+import modulon.layout.recycler.containers.SectionItem
 import modulon.layout.recycler.section.RecyclerContentLocator
 import modulon.layout.recycler.section.RecyclerHeader
 import modulon.layout.recycler.section.RecyclerHeaderSpacer
@@ -72,7 +71,7 @@ class SeparatorOverlay(context: Context) : RecyclerView.ItemDecoration(), UnionC
 
 
     private fun shouldDrawOver(view: View) : Boolean {
-        val inner = if (view is FrameHolderLayout) view.child ?: return false else view
+        val inner = if (view is SectionItem) view.child ?: return false else view
         return inner !is RecyclerHeaderSpacer && inner !is RecyclerContentLocator  && inner !is RecyclerHeader && inner.background?.tintCompat.let { it != null && it != transparentBackground }
     }
 
