@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.browser
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.map
@@ -16,17 +14,17 @@ import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
 import bitshareskit.chain.Authority
-import modulon.component.ComponentCell
-import modulon.component.IconSize
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.IconSize
 import modulon.extensions.compat.setClipboardToast
 import modulon.extensions.livedata.emptyLiveData
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.cell
-import modulon.layout.recycler.construct
-import modulon.layout.recycler.data
-import modulon.layout.recycler.list
-import modulon.layout.recycler.section
+import modulon.layout.lazy.construct
+import modulon.layout.lazy.data
+import modulon.layout.lazy.list
+import modulon.layout.lazy.section
 
 class AccountBrowserFragment_Authority : ContainerFragment() {
 

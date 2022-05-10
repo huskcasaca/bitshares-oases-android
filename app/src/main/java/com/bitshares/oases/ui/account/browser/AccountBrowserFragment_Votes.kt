@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.browser
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.objects.WitnessObject
@@ -14,13 +12,13 @@ import com.bitshares.oases.extensions.viewbinder.*
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.account.browser.AccountBrowserFragment_Votes.Votes.*
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.component.ComponentCell
-import modulon.component.IconSize
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.IconSize
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.cell
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 import java.util.*
 
 class AccountBrowserFragment_Votes : ContainerFragment() {

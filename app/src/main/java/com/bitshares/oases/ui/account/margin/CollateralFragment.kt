@@ -17,8 +17,8 @@ import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.startAssetPicker
 import com.bitshares.oases.ui.transaction.bindTransaction
-import modulon.component.buttonStyle
-import modulon.component.isButtonEnabled
+import modulon.component.cell.buttonStyle
+import modulon.component.cell.isButtonEnabled
 import modulon.dialog.section
 import modulon.extensions.charset.toHexString
 import modulon.extensions.compat.secureWindow
@@ -35,9 +35,9 @@ import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.view.updatePaddingVerticalV6
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.hint
-import modulon.layout.actionbar.subtitle
-import modulon.layout.actionbar.title
-import modulon.layout.recycler.section
+import modulon.component.appbar.subtitle
+import modulon.component.appbar.title
+import modulon.layout.lazy.section
 import modulon.union.Union
 import modulon.widget.doOnProgressChanged
 import modulon.widget.doOnTrackingTouchChanged

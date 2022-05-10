@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
-import modulon.extensions.stdlib.logcat
-import modulon.extensions.view.dp
 
 abstract class HeaderScrollingBehavior : OffsetBehavior<View>() {
 

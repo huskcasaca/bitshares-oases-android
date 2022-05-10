@@ -20,9 +20,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import modulon.component.ComponentCell
-import modulon.component.buttonStyle
-import modulon.component.toggleEnd
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.buttonStyle
+import modulon.component.cell.toggleEnd
 import modulon.dialog.*
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.compat.showSoftKeyboard
@@ -31,8 +31,8 @@ import modulon.extensions.view.*
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.linearLayout
 import modulon.extensions.viewbinder.recyclerLayout
-import modulon.layout.actionbar.title
-import modulon.layout.recycler.*
+import modulon.component.appbar.title
+import modulon.layout.lazy.*
 import modulon.union.Union
 
 class NetworkSettingsFragment : ContainerFragment() {

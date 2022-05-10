@@ -28,7 +28,7 @@ import com.bitshares.oases.ui.settings.node.NodeSettingsFragment
 import com.mattprecious.swirl.SwirlView
 import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
-import modulon.component.IconSize
+import modulon.component.cell.IconSize
 import modulon.dialog.*
 import modulon.extensions.charset.EMPTY_SPACE
 import modulon.extensions.compat.*

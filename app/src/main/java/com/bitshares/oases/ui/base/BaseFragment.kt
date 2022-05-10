@@ -29,8 +29,8 @@ import modulon.extensions.view.doOnClick
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.ensuredViewId
 import modulon.extensions.view.parentViewGroup
-import modulon.layout.actionbar.ActionBarLayout
-import modulon.layout.actionbar.menu
+import modulon.component.appbar.AppbarView
+import modulon.component.appbar.menu
 import modulon.union.UnionFragment
 
 abstract class BaseFragment : UnionFragment() {
@@ -54,7 +54,7 @@ abstract class BaseFragment : UnionFragment() {
     // TODO: 2022/2/19 move to extensions
 
 
-    fun ActionBarLayout.titleConnectionState(text: CharSequence) {
+    fun AppbarView.titleConnectionState(text: CharSequence) {
         title = text
         NetworkService.connectionState.map {
             when (it) {
@@ -65,7 +65,7 @@ abstract class BaseFragment : UnionFragment() {
         }.distinctUntilChanged().observe { title = it }
     }
 
-    fun ActionBarLayout.websocketStateMenuInternal() = menu {
+    fun AppbarView.websocketStateMenuInternal() = menu {
         text = "Network State"
         isVisible = false
         globalPreferenceManager.INDICATOR.observe(viewLifecycleOwner) { isVisible = it }
@@ -118,7 +118,7 @@ abstract class BaseFragment : UnionFragment() {
         doOnLongClick { startFragment<NetworkSettingsFragment>() }
     }
 
-    fun ActionBarLayout.walletStateMenu() = menu {
+    fun AppbarView.walletStateMenu() = menu {
         text = "Network State"
         isVisible = false
         globalPreferenceManager.INDICATOR.observe(viewLifecycleOwner) { isVisible = it }
@@ -156,11 +156,11 @@ abstract class BaseFragment : UnionFragment() {
 
     }
 
-    fun ActionBarLayout.websocketStateMenu() {
+    fun AppbarView.websocketStateMenu() {
         websocketStateMenuInternal()
     }
 
-    fun ActionBarLayout.broadcastMenu(block: ActionBarLayout.Item.() -> Unit) = menu {
+    fun AppbarView.broadcastMenu(block: AppbarView.Item.() -> Unit) = menu {
         text = "Transaction Broadcast"
         icon = R.drawable.ic_test_outline_done_24.contextDrawable()
         isClickable = false

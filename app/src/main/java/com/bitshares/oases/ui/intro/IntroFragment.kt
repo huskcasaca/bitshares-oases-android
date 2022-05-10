@@ -28,7 +28,7 @@ import bitshareskit.chain.Authority
 import com.bitshares.oases.ui.asset.browser.actionBarLayout
 import com.bitshares.oases.ui.main.settings.showLanguageSettingDialog
 import kotlinx.coroutines.launch
-import modulon.component.IconSize
+import modulon.component.cell.IconSize
 import modulon.dialog.button
 import modulon.dialog.doOnDismiss
 import modulon.dialog.section
@@ -51,8 +51,8 @@ import modulon.extensions.text.buildContextSpannedString
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
-import modulon.layout.actionbar.actionMenu
-import modulon.layout.actionbar.menu
+import modulon.component.appbar.actionMenu
+import modulon.component.appbar.menu
 import modulon.union.Union
 import modulon.widget.FloatingButton
 import modulon.widget.PlainTextView

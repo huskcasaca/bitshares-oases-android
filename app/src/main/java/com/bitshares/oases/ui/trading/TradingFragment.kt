@@ -10,7 +10,7 @@ import com.bitshares.oases.ui.asset.browser.actionBarLayout
 import com.bitshares.oases.ui.asset.browser.actionCoordinatorParams
 import com.bitshares.oases.ui.asset.browser.bodyCoordinatorParams
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.component.toggleEnd
+import modulon.component.cell.toggleEnd
 import modulon.dialog.section
 import modulon.extensions.compat.arguments
 import modulon.extensions.compat.recreateActivity
@@ -20,9 +20,9 @@ import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.pagerLayout
 import modulon.extensions.viewbinder.tabLayout
 import modulon.extensions.viewbinder.verticalLayout
-import modulon.layout.actionbar.menu
-import modulon.layout.actionbar.subtitle
-import modulon.layout.actionbar.title
+import modulon.component.appbar.menu
+import modulon.component.appbar.subtitle
+import modulon.component.appbar.title
 import modulon.widget.doOnStepChanged
 
 class TradingFragment : ContainerFragment() {

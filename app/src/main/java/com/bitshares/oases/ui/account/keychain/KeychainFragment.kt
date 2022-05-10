@@ -19,8 +19,8 @@ import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.wallet.startWalletUnlock
 import bitshareskit.chain.Authority
 import kotlinx.coroutines.launch
-import modulon.component.ComponentCell
-import modulon.component.buttonStyle
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.buttonStyle
 import modulon.dialog.button
 import modulon.dialog.doOnDismiss
 import modulon.dialog.section
@@ -38,11 +38,11 @@ import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.view.updatePaddingVerticalV6
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.hint
-import modulon.layout.actionbar.subtitle
-import modulon.layout.recycler.construct
-import modulon.layout.recycler.data
-import modulon.layout.recycler.list
-import modulon.layout.recycler.section
+import modulon.component.appbar.subtitle
+import modulon.layout.lazy.construct
+import modulon.layout.lazy.data
+import modulon.layout.lazy.list
+import modulon.layout.lazy.section
 import java.util.*
 
 class KeychainFragment : ContainerFragment() {

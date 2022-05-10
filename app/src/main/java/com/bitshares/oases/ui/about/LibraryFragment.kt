@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.about
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import com.bitshares.oases.extensions.viewbinder.logo
@@ -15,9 +13,9 @@ import modulon.extensions.view.doOnClick
 import modulon.extensions.view.view
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.horizontalScrollLayout
-import modulon.layout.actionbar.subtitle
-import modulon.layout.actionbar.title
-import modulon.layout.recycler.section
+import modulon.component.appbar.subtitle
+import modulon.component.appbar.title
+import modulon.layout.lazy.section
 import modulon.widget.PlainTextView
 
 class LibraryFragment : ContainerFragment() {

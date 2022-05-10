@@ -7,9 +7,9 @@ import com.bitshares.oases.extensions.viewbinder.bindLimitOrderTable
 import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.component.ComponentCell
+import modulon.component.cell.ComponentCell
 import modulon.extensions.view.doOnClick
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 
 class AccountBrowserFragment_LimitOrders : ContainerFragment() {
 

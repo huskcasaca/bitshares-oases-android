@@ -5,8 +5,8 @@ import android.view.Gravity
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import com.bitshares.oases.R
-import modulon.component.BaseCell
-import modulon.component.ComponentCell
+import modulon.component.cell.BaseCell
+import modulon.component.cell.ComponentCell
 import modulon.extensions.font.typefaceBold
 import modulon.extensions.font.typefaceDinMedium
 import modulon.extensions.graphics.createSelectorDrawable

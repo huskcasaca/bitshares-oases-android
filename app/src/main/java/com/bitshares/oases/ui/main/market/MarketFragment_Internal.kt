@@ -10,12 +10,12 @@ import com.bitshares.oases.extensions.viewbinder.bindTicker
 import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.extensions.viewbinder.setTickerStyle
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.component.ComponentCell
-import modulon.component.buttonStyle
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.buttonStyle
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.viewbinder.cell
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 
 class MarketFragment_Internal : ContainerFragment() {
 

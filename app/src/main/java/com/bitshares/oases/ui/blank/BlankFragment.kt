@@ -1,10 +1,8 @@
 package com.bitshares.oases.ui.blank
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.layout.recycler.section
+import modulon.layout.lazy.section
 
 class BlankFragment : ContainerFragment() {
 

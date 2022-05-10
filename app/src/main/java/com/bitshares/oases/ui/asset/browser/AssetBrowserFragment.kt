@@ -1,7 +1,6 @@
 package com.bitshares.oases.ui.asset.browser
 
 import android.content.Intent
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import bitshareskit.objects.AssetObjectType
@@ -13,12 +12,11 @@ import com.bitshares.oases.ui.raw_data.JsonRawDataViewModel
 import modulon.extensions.compat.activity
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
-import modulon.layout.actionbar.ActionBarLayout
-import modulon.layout.actionbar.actionMenu
-import modulon.layout.actionbar.subtitle
-import modulon.layout.coordinator.behavior.ActionBarBehavior
-import modulon.layout.coordinator.behavior.ContainerScrollingBehavior
-import modulon.layout.coordinator.behavior.HeaderBehavior
+import modulon.component.appbar.AppbarView
+import modulon.component.appbar.actionMenu
+import modulon.component.appbar.subtitle
+import modulon.component.appbar.ActionBarBehavior
+import modulon.component.appbar.ContainerScrollingBehavior
 import java.util.*
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
@@ -26,9 +24,9 @@ import kotlin.contracts.contract
 
 
 @OptIn(ExperimentalContracts::class)
-inline fun ViewGroup.actionBarLayout(block: ActionBarLayout.() -> Unit = {}) {
+inline fun ViewGroup.actionBarLayout(block: AppbarView.() -> Unit = {}) {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
-    val view = ActionBarLayout(context).apply {
+    val view = AppbarView(context).apply {
         fitsSystemWindows = true
         actionMenu {
             icon = if (activity.intent.data != null && activity.intent.action == Intent.ACTION_VIEW) R.drawable.ic_cell_cross.contextDrawable() else R.drawable.ic_cell_back_arrow.contextDrawable()

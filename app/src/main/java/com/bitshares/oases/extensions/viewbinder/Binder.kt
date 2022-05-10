@@ -29,10 +29,10 @@ import com.bitshares.oases.preference.old.Settings
 import com.caverock.androidsvg.SVG
 import kdenticon.HashUtils
 import kdenticon.Kdenticon
-import modulon.component.BaseCell
-import modulon.component.ComponentCell
-import modulon.component.IconSize
-import modulon.component.tables
+import modulon.component.cell.BaseCell
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.IconSize
+import modulon.component.cell.tables
 import modulon.extensions.font.typefaceMonoRegular
 import modulon.extensions.graphics.createRoundRectDrawable
 import modulon.extensions.text.*

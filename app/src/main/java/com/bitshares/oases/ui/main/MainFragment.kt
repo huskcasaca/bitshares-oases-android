@@ -2,7 +2,6 @@ package com.bitshares.oases.ui.main
 
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
 import androidx.core.widget.doAfterTextChanged
@@ -28,6 +27,7 @@ import com.bitshares.oases.ui.main.explore.ExploreViewModel
 import com.bitshares.oases.ui.main.market.MarketFragment
 import com.bitshares.oases.ui.main.market.MarketViewModel
 import com.bitshares.oases.ui.main.settings.MainSettingsFragment
+import modulon.component.appbar.*
 import modulon.dialog.button
 import modulon.extensions.compat.activity
 import modulon.extensions.compat.recreateActivity
@@ -38,10 +38,9 @@ import modulon.extensions.livedata.skipFirst
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
-import modulon.layout.actionbar.*
-import modulon.layout.coordinator.behavior.ActionBarBehavior
-import modulon.layout.navigation.BottomNavigationLayout
-import modulon.layout.navigation.button
+import modulon.component.appbar.*
+import modulon.component.navi.NaviView
+import modulon.component.navi.button
 import kotlin.math.abs
 
 class MainFragment : ContainerFragment() {
@@ -78,7 +77,7 @@ class MainFragment : ContainerFragment() {
                 layoutWidth = MATCH_PARENT
                 layoutHeight = 0
                 layoutWeightLinear = 1f
-                view<ActionBarLayout> {
+                view<AppbarView> {
                     actionMenu {
                         isVisible = AppConfig.ENABLE_DRAWER
                         translation = translation
@@ -89,7 +88,7 @@ class MainFragment : ContainerFragment() {
                         icon = R.drawable.ic_test_menu_search.contextDrawable()
                         // TODO: 27/1/2022 inline and prevent keyboard shows up
                         fun createActionView() {
-                            actionView = create<SearchLayout> {
+                            actionView = create<SearchView> {
                                 queryHint = "Search..."
                                 fieldtextView.parentViewGroup.isFocusableInTouchMode = false
                                 fieldtextView.doAfterTextChanged {
@@ -115,8 +114,8 @@ class MainFragment : ContainerFragment() {
                             if (actionView == null) createActionView()
                             expandActionView()
                             postDelayed(500) {
-                                (actionView as SearchLayout).fieldtextView.requestFocus()
-                                (actionView as SearchLayout).fieldtextView.showSoftKeyboard()
+                                (actionView as SearchView).fieldtextView.requestFocus()
+                                (actionView as SearchView).fieldtextView.showSoftKeyboard()
                             }
                         }
                         doOnExpand {
@@ -131,7 +130,7 @@ class MainFragment : ContainerFragment() {
                         }
                         doOnCollapse {
                             postDelayed(500) {
-                                (actionView as SearchLayout).fieldtextView.text = null
+                                (actionView as SearchView).fieldtextView.text = null
                             }
                             //                                    exploreViewModel.filter.value = EMPTY_SPACE
                             actionMenu {
@@ -220,7 +219,7 @@ class MainFragment : ContainerFragment() {
                 }
                 */
             }
-            view<BottomNavigationLayout> {
+            view<NaviView> {
                 layoutWidth = MATCH_PARENT
                 noClipping()
                 val interceptor = AccelerateDecelerateInterpolator()

@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import modulon.R
 import modulon.UI
-import modulon.component.ComponentSpacerCell
+import modulon.component.cell.ComponentSpacerCell
 import modulon.extensions.graphics.createRoundRectDrawable
 import modulon.extensions.view.dp
 import modulon.extensions.view.dpf

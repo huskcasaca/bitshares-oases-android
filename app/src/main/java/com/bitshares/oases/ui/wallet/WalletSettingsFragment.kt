@@ -18,10 +18,10 @@ import com.bitshares.oases.ui.asset.browser.bodyCoordinatorParams
 import com.bitshares.oases.ui.asset.browser.actionCoordinatorParams
 import com.bitshares.oases.ui.base.ContainerFragment
 import kotlinx.coroutines.launch
-import modulon.component.ComponentCell
-import modulon.component.IconSize
-import modulon.component.buttonStyle
-import modulon.component.toggleEnd
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.IconSize
+import modulon.component.cell.buttonStyle
+import modulon.component.cell.toggleEnd
 import modulon.dialog.buttonCancel
 import modulon.dialog.setupRecyclerLayout
 import modulon.extensions.compat.showBottomDialog
@@ -30,11 +30,10 @@ import modulon.extensions.view.doOnClick
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.cell
-import modulon.extensions.viewbinder.linearLayout
 import modulon.extensions.viewbinder.recyclerLayout
 import modulon.extensions.viewbinder.verticalLayout
-import modulon.layout.actionbar.title
-import modulon.layout.recycler.*
+import modulon.component.appbar.title
+import modulon.layout.lazy.*
 import modulon.union.Union
 
 class WalletSettingsFragment : ContainerFragment() {

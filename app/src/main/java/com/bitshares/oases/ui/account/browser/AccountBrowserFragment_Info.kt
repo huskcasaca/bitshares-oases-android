@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.browser
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.extensions.formatAssetBigDecimal
@@ -18,7 +16,7 @@ import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.component.IconSize
+import modulon.component.cell.IconSize
 import modulon.extensions.compat.setClipboardToast
 import modulon.extensions.compat.startUriBrowser
 import modulon.extensions.livedata.combineNonNull
@@ -28,7 +26,7 @@ import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.startScrolling
-import modulon.layout.recycler.section
+import modulon.layout.lazy.section
 import java.text.DateFormat
 
 class AccountBrowserFragment_Info : ContainerFragment() {

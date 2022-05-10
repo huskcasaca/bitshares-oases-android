@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.block
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.bitshares.oases.R
 import com.bitshares.oases.ui.base.ContainerFragment
@@ -12,7 +10,7 @@ import modulon.extensions.view.attachEnumsViewPager2
 import modulon.extensions.view.nextView
 import modulon.extensions.viewbinder.pagerLayout
 import modulon.extensions.viewbinder.tabLayout
-import modulon.layout.actionbar.subtitle
+import modulon.component.appbar.subtitle
 
 class BlockBrowserFragment : ContainerFragment() {
 

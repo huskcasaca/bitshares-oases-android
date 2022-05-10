@@ -18,9 +18,9 @@ import com.bitshares.oases.ui.base.startAccountPicker
 import bitshareskit.chain.Authority
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import modulon.component.ComponentCell
-import modulon.component.IconSize
-import modulon.component.buttonStyle
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.IconSize
+import modulon.component.cell.buttonStyle
 import modulon.dialog.button
 import modulon.dialog.dismissWith
 import modulon.dialog.doOnDismiss
@@ -34,7 +34,7 @@ import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.hint
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 
 class PermissionFragment_Tabs : ContainerFragment() {
 

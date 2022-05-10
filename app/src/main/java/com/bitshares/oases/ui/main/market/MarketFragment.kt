@@ -23,7 +23,7 @@ import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.nestedScrollableHost
 import modulon.extensions.viewbinder.pagerLayout
 import modulon.extensions.viewbinder.tabLayout
-import modulon.layout.tab.tab
+import modulon.component.tab.tab
 
 class MarketFragment : ContainerFragment() {
 

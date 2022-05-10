@@ -1,24 +1,19 @@
 package com.bitshares.oases.ui.about
 
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import com.bitshares.oases.R
-import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.ui.account.permission.PermissionViewModel
 import com.bitshares.oases.ui.asset.browser.*
 import com.bitshares.oases.ui.base.*
 import com.bitshares.oases.ui.main.MainFragment
-import modulon.component.IconSize
-import modulon.extensions.compat.showBottomDialog
-import modulon.extensions.compat.startUriBrowser
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.*
-import modulon.layout.actionbar.subtitle
-import modulon.layout.actionbar.title
-import modulon.layout.recycler.section
+import modulon.component.appbar.subtitle
+import modulon.component.appbar.title
+import modulon.layout.lazy.section
 
 class AboutFragment : ContainerFragment() {
 

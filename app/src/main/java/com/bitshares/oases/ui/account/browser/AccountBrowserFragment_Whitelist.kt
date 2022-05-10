@@ -11,12 +11,12 @@ import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.account.whitelist.WhitelistFragment.Tabs
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.component.ComponentCell
-import modulon.component.IconSize
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.IconSize
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.updatePaddingVerticalHalf
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 
 class AccountBrowserFragment_Whitelist : ContainerFragment() {
 

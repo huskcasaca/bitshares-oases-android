@@ -26,7 +26,7 @@ import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.transaction.bindTransaction
 import kotlinx.coroutines.launch
 import modulon.UI
-import modulon.component.ComponentPaddingCell
+import modulon.component.cell.ComponentPaddingCell
 import modulon.dialog.section
 import modulon.extensions.charset.EMPTY_SPACE
 import modulon.extensions.compat.showBottomDialog
@@ -37,11 +37,11 @@ import modulon.extensions.text.TABULAR_TRANSFORMATION_METHOD
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
-import modulon.layout.recycler.construct
-import modulon.layout.recycler.data
-import modulon.layout.recycler.list
-import modulon.layout.recycler.manager.ReversedLinearLayoutManager
-import modulon.layout.recycler.section
+import modulon.layout.lazy.construct
+import modulon.layout.lazy.data
+import modulon.layout.lazy.list
+import modulon.layout.lazy.manager.ReversedLinearLayoutManager
+import modulon.layout.lazy.section
 import modulon.widget.PlainTextView
 import modulon.widget.doOnPercentChanged
 import modulon.widget.doOnTrackingTouchChanged

@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.asset.browser
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.extensions.formatAssetBalance
@@ -16,7 +14,7 @@ import modulon.extensions.livedata.combineNonNull
 import modulon.extensions.text.formatTimeStringFromSec
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.cell
-import modulon.layout.recycler.section
+import modulon.layout.lazy.section
 
 class AssetBrowserFragment_Bitasset : ContainerFragment() {
 

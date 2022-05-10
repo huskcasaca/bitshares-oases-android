@@ -9,9 +9,7 @@ import android.graphics.Paint
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
-import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
@@ -39,9 +37,9 @@ import com.bitshares.oases.ui.main.MainViewModel
 import com.bitshares.oases.ui.testlab.TestLabFragment
 import com.bitshares.oases.ui.wallet.showUserOptionDialog
 import com.bitshares.oases.ui.wallet.showUserSwitchDialog
-import modulon.component.BaseCell
-import modulon.component.ComponentPaddingCell
-import modulon.component.IconSize
+import modulon.component.cell.BaseCell
+import modulon.component.cell.ComponentPaddingCell
+import modulon.component.cell.IconSize
 import modulon.extensions.animation.doOnAnimationEnd
 import modulon.extensions.compat.startUriBrowser
 import modulon.extensions.font.typefaceBold
@@ -50,9 +48,9 @@ import modulon.extensions.graphics.createRoundRectDrawable
 import modulon.extensions.livedata.combineFirst
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
-import modulon.layout.linear.VerticalLayout
-import modulon.layout.recycler.construct
-import modulon.layout.recycler.expandable
+import modulon.layout.linear.VerticalView
+import modulon.layout.lazy.construct
+import modulon.layout.lazy.expandable
 
 class DrawerFragment : ContainerFragment() {
 
@@ -204,7 +202,7 @@ class DrawerFragment : ContainerFragment() {
                     doOnDraw { it.drawLine(0f, measuredHeight / 2f, measuredWidth - 0f, measuredHeight / 2f, divider) }
                 }
             }
-            expandable<VerticalLayout> {
+            expandable<VerticalView> {
                 construct {
                     spacer { height = 4.dp }
                     verticalLayout {

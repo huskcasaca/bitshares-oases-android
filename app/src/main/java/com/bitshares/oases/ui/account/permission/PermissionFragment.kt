@@ -12,8 +12,8 @@ import com.bitshares.oases.extensions.viewbinder.bindAccountAuth
 import com.bitshares.oases.extensions.viewbinder.bindPublicKey
 import com.bitshares.oases.extensions.viewbinder.feeCell
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.layout.actionbar.subtitle
-import modulon.layout.actionbar.title
+import modulon.component.appbar.subtitle
+import modulon.component.appbar.title
 import com.bitshares.oases.ui.transaction.bindTransaction
 import kotlinx.coroutines.launch
 import modulon.dialog.button

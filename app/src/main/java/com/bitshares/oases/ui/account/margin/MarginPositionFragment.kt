@@ -12,9 +12,9 @@ import com.bitshares.oases.extensions.viewbinder.bindCallOrderTable
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.startAssetPicker
 import kotlinx.coroutines.launch
-import modulon.component.ComponentCell
-import modulon.component.buttonStyle
-import modulon.component.isButtonEnabled
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.buttonStyle
+import modulon.component.cell.isButtonEnabled
 import modulon.dialog.buttonCancel
 import modulon.dialog.dismissWith
 import modulon.dialog.section
@@ -25,9 +25,9 @@ import modulon.extensions.view.doOnClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.verticalLayout
-import modulon.layout.actionbar.subtitle
-import modulon.layout.actionbar.title
-import modulon.layout.recycler.*
+import modulon.component.appbar.subtitle
+import modulon.component.appbar.title
+import modulon.layout.lazy.*
 import modulon.union.Union
 import java.util.*
 

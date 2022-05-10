@@ -4,9 +4,9 @@ import kotlinx.coroutines.launch
 import modulon.R
 import modulon.extensions.viewbinder.createRecyclerLayout
 import modulon.extensions.view.doOnClick
-import modulon.layout.recycler.RecyclerLayout
-import modulon.layout.recycler.section
-import modulon.layout.recycler.section.HeaderSectionImpl
+import modulon.layout.lazy.LazyListView
+import modulon.layout.lazy.section
+import modulon.layout.lazy.section.HeaderSectionImpl
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -51,6 +51,6 @@ fun BottomDialogFragment.section(block: HeaderSectionImpl.() -> Unit = {}) {
         section()
     }
 }
-fun BottomDialogFragment.setupRecyclerLayout(block: RecyclerLayout.() -> Unit = {}) {
+fun BottomDialogFragment.setupRecyclerLayout(block: LazyListView.() -> Unit = {}) {
     customView = createRecyclerLayout(block)
 }

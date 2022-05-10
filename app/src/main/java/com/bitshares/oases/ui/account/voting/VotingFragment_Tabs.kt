@@ -19,8 +19,8 @@ import com.bitshares.oases.ui.account.voting.VotingFragment.Tabs
 import com.bitshares.oases.ui.account.voting.VotingFragment.Tabs.*
 import com.bitshares.oases.ui.base.ContainerFragment
 import kotlinx.coroutines.launch
-import modulon.component.ComponentCell
-import modulon.component.IconSize
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.IconSize
 import modulon.dialog.button
 import modulon.dialog.dismissWith
 import modulon.dialog.doOnDismiss
@@ -29,7 +29,7 @@ import modulon.extensions.compat.showBooleanSuspendedBottomDialog
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.updatePaddingVerticalHalf
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 
 class VotingFragment_Tabs : ContainerFragment() {
 

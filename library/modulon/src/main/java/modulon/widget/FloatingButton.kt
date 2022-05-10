@@ -12,15 +12,15 @@ import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import androidx.core.view.isVisible
 import modulon.R
-import modulon.component.AbstractCell
-import modulon.component.IconSize
+import modulon.component.cell.AbstractCell
+import modulon.component.cell.IconSize
 import modulon.extensions.animation.animatorSet
 import modulon.extensions.compat.isForceDarkAllowedCompat
 import modulon.extensions.graphics.createRoundSelectorDrawable
 import modulon.extensions.graphics.outlineProvider
 import modulon.extensions.view.*
 import modulon.interpolator.CubicBezierInterpolator
-import modulon.layout.recycler.decorations.drawAllShaders
+import modulon.layout.lazy.decorations.drawAllShaders
 
 class FloatingButton(context: Context) : AbstractCell(context) {
 

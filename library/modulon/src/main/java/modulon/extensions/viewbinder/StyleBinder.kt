@@ -2,7 +2,7 @@ package modulon.extensions.viewbinder
 
 import android.graphics.drawable.GradientDrawable
 import modulon.R
-import modulon.component.ComponentPaddingCell
+import modulon.component.cell.ComponentPaddingCell
 import modulon.extensions.font.typefaceBold
 import modulon.extensions.font.typefaceExtraBold
 import modulon.extensions.view.dp

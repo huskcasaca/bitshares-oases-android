@@ -11,12 +11,12 @@ import com.bitshares.oases.extensions.viewbinder.bindAccountBalance
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.putJson
-import modulon.component.ComponentCell
+import modulon.component.cell.ComponentCell
 import modulon.extensions.compat.finishActivity
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.doOnLongClick
-import modulon.layout.actionbar.subtitle
-import modulon.layout.recycler.*
+import modulon.component.appbar.subtitle
+import modulon.layout.lazy.*
 import java.util.*
 
 class AccountBalancePickerFragment : ContainerFragment() {

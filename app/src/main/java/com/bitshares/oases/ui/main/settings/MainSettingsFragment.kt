@@ -28,13 +28,13 @@ import com.bitshares.oases.ui.testlab.TestLabFragment
 import com.bitshares.oases.ui.wallet.WalletSettingsFragment
 import com.bitshares.oases.ui.wallet.showUserOptionDialog
 import com.bitshares.oases.ui.wallet.showUserSwitchDialog
-import modulon.component.IconSize
-import modulon.component.buttonStyle
+import modulon.component.cell.IconSize
+import modulon.component.cell.buttonStyle
 import modulon.extensions.compat.startUriBrowser
 import modulon.extensions.livedata.distinctUntilChangedBy
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 
 class MainSettingsFragment : ContainerFragment() {
 

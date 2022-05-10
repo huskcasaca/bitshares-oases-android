@@ -14,7 +14,7 @@ import modulon.extensions.lifecycle.parentViewModels
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.recyclerLayout
-import modulon.layout.recycler.section
+import modulon.layout.lazy.section
 import modulon.union.Union
 import modulon.widget.RadioView
 

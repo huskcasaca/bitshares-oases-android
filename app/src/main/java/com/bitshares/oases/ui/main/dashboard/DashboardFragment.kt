@@ -1,9 +1,7 @@
 package com.bitshares.oases.ui.main.dashboard
 
 import android.content.Context
-import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.entities.LimitOrder
@@ -28,6 +26,7 @@ import com.bitshares.oases.ui.transfer.ScannerFragment
 import com.bitshares.oases.ui.transfer.TransferFragment
 import modulon.UI
 import modulon.component.*
+import modulon.component.cell.*
 import modulon.extensions.font.typefaceBold
 import modulon.extensions.graphics.createSelectorDrawable
 import modulon.extensions.temp.drawShaders
@@ -37,7 +36,7 @@ import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.horizontalLayout
 import modulon.extensions.viewbinder.noClipping
 import modulon.extensions.viewbinder.verticalLayout
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 
 class DashboardFragment : ContainerFragment() {
 

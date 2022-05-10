@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.membership
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.map
@@ -17,8 +15,8 @@ import com.bitshares.oases.extensions.viewbinder.feeCell
 import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.transaction.bindTransaction
-import modulon.component.IconSize
-import modulon.component.buttonStyle
+import modulon.component.cell.IconSize
+import modulon.component.cell.buttonStyle
 import modulon.dialog.section
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.livedata.combineNonNull
@@ -28,7 +26,7 @@ import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.view.updatePaddingVerticalV6
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.hint
-import modulon.layout.recycler.section
+import modulon.layout.lazy.section
 
 class MembershipFragment : ContainerFragment() {
 

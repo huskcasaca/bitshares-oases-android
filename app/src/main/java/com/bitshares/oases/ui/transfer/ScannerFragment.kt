@@ -1,10 +1,8 @@
 package com.bitshares.oases.ui.transfer
 
-import android.os.Bundle
-import android.view.View
 import com.bitshares.oases.ui.base.ContainerFragment
 import modulon.extensions.viewbinder.cell
-import modulon.layout.recycler.section
+import modulon.layout.lazy.section
 
 class ScannerFragment : ContainerFragment() {
 

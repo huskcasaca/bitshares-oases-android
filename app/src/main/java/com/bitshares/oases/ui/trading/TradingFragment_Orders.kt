@@ -6,16 +6,16 @@ import bitshareskit.entities.LimitOrder
 import com.bitshares.oases.extensions.viewbinder.bindLimitOrderTable
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.transaction.showLimitOrderCancelDialog
-import modulon.component.ComponentCell
+import modulon.component.cell.ComponentCell
 import modulon.dialog.section
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.viewbinder.cell
-import modulon.layout.recycler.data
-import modulon.layout.recycler.distinctItemsBy
-import modulon.layout.recycler.list
-import modulon.layout.recycler.section
+import modulon.layout.lazy.data
+import modulon.layout.lazy.distinctItemsBy
+import modulon.layout.lazy.list
+import modulon.layout.lazy.section
 
 class TradingFragment_Orders : ContainerFragment() {
 

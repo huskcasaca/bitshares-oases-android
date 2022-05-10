@@ -13,11 +13,11 @@ import com.bitshares.oases.ui.account.voting.VotingViewModel
 import com.bitshares.oases.ui.asset.picker.AssetPickerViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.main.MainViewModel
-import modulon.component.ComponentCell
+import modulon.component.cell.ComponentCell
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.updatePaddingVerticalHalf
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 
 class ExploreFragment_Committee : ContainerFragment() {
 

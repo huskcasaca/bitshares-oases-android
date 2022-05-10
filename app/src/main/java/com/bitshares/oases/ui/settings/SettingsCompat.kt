@@ -10,7 +10,7 @@ import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.preference.DarkMode
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.preference.old.Settings
-import modulon.component.toggleEnd
+import modulon.component.cell.toggleEnd
 import modulon.dialog.button
 import modulon.dialog.section
 import modulon.extensions.charset.EMPTY_SPACE

@@ -23,16 +23,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import kotlinx.serialization.decodeFromString
-import modulon.component.ComponentCell
+import modulon.component.cell.ComponentCell
 import modulon.dialog.section
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
-import modulon.layout.actionbar.subtitle
-import modulon.layout.actionbar.title
-import modulon.layout.recycler.*
-import modulon.layout.tab.tab
+import modulon.component.appbar.subtitle
+import modulon.component.appbar.title
+import modulon.layout.lazy.*
+import modulon.component.tab.tab
 import modulon.widget.PlainTextView
 
 class TestLabFragment : ContainerFragment() {
@@ -59,7 +59,7 @@ class TestLabFragment : ContainerFragment() {
             }
             pagerLayout {
                 post { setCurrentItem(1, false) }
-                page<RecyclerLayout> {
+                page<LazyListView> {
                     section {
                         cell {
                             title = "Test FrameLayout"
@@ -121,7 +121,7 @@ class TestLabFragment : ContainerFragment() {
                         }
                     }
                 }
-                page<RecyclerLayout> {
+                page<LazyListView> {
                     section {
                         header = "Graphene Object Test"
                         cell {
@@ -222,7 +222,7 @@ class TestLabFragment : ContainerFragment() {
                     }
 
                 }
-                page<RecyclerLayout> {
+                page<LazyListView> {
                     section {
 
 
@@ -236,7 +236,7 @@ class TestLabFragment : ContainerFragment() {
                         }
                     }
                 }
-                page<RecyclerLayout> {
+                page<LazyListView> {
                     section {
                         list<ComponentCell, Pair<String, String>> {
                             construct { updatePaddingVerticalV6() }

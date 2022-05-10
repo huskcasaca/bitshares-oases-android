@@ -1,9 +1,9 @@
 package modulon.extensions.viewbinder
 
 import android.view.ViewGroup
-import modulon.component.ComponentSpacerCell
-import modulon.component.ComponentCell
-import modulon.component.ComponentHintCell
+import modulon.component.cell.ComponentSpacerCell
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.ComponentHintCell
 import modulon.extensions.view.addDefaultRow
 import modulon.widget.FieldTextView
 import modulon.widget.PlainTextView

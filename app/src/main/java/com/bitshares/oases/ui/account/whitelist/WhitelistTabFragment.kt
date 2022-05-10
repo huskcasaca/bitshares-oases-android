@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account.whitelist
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.objects.AccountObject
@@ -13,9 +11,9 @@ import com.bitshares.oases.extensions.viewbinder.bindAccountV3
 import com.bitshares.oases.ui.account.whitelist.WhitelistFragment.Tabs
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.startAccountPicker
-import modulon.component.ComponentCell
-import modulon.component.IconSize
-import modulon.component.buttonStyle
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.IconSize
+import modulon.component.cell.buttonStyle
 import modulon.dialog.button
 import modulon.dialog.section
 import modulon.extensions.compat.showBottomDialog
@@ -24,7 +22,7 @@ import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.view.updatePaddingVerticalV6
 import modulon.extensions.viewbinder.cell
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 
 class WhitelistTabFragment : ContainerFragment() {
 

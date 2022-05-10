@@ -9,12 +9,12 @@ import com.bitshares.oases.extensions.viewbinder.bindOperation
 import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.component.ComponentCell
+import modulon.component.cell.ComponentCell
 import modulon.extensions.content.optBoolean
 import modulon.extensions.stdlib.logcat
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.updatePaddingVerticalHalf
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 
 class AccountBrowserFragment_Activity : ContainerFragment() {
 

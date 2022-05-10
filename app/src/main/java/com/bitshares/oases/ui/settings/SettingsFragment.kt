@@ -18,14 +18,14 @@ import com.bitshares.oases.ui.settings.network.NetworkSettingsFragment
 import com.bitshares.oases.ui.settings.node.NodeSettingsFragment
 import com.bitshares.oases.ui.settings.storage.StorageSettingsFragment
 import com.bitshares.oases.ui.wallet.WalletSettingsFragment
-import modulon.component.IconSize
+import modulon.component.cell.IconSize
 import modulon.extensions.livedata.distinctUntilChangedBy
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.hint
 import modulon.extensions.viewbinder.spacer
-import modulon.layout.actionbar.title
-import modulon.layout.recycler.section
+import modulon.component.appbar.title
+import modulon.layout.lazy.section
 
 class SettingsFragment : ContainerFragment() {
 

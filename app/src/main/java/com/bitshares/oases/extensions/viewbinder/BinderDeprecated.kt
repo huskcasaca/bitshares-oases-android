@@ -14,8 +14,8 @@ import bitshareskit.objects.JsonSerializable
 import bitshareskit.operations.Operation
 import com.bitshares.oases.R
 import com.bitshares.oases.extensions.text.*
-import modulon.component.ComponentCell
-import modulon.component.tables
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.tables
 import modulon.extensions.charset.EMPTY_SPACE
 import modulon.extensions.font.typefaceMonoRegular
 import modulon.extensions.text.TABULAR_TRANSFORMATION_METHOD
@@ -27,7 +27,7 @@ import modulon.extensions.view.dp
 import modulon.extensions.view.updatePaddingVerticalV6
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.spacer
-import modulon.layout.linear.VerticalLayout
+import modulon.layout.linear.VerticalView
 import org.java_json.JSONArray
 import org.java_json.JSONObject
 
@@ -108,7 +108,7 @@ fun ComponentCell.bindPrice(price: Price) {
     }
 }
 
-fun VerticalLayout.bindTransaction(transaction: Transaction) {
+fun VerticalView.bindTransaction(transaction: Transaction) {
     removeAllViews()
     cell {
         title = "Transaction ${transaction}"

@@ -11,9 +11,9 @@ import com.bitshares.oases.extensions.viewbinder.bindNode
 import com.bitshares.oases.netowrk.java_websocket.WebSocketState
 import com.bitshares.oases.provider.local_repo.NodeRepository
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.component.ComponentCell
-import modulon.component.buttonStyle
-import modulon.component.toggleEnd
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.buttonStyle
+import modulon.component.cell.toggleEnd
 import modulon.dialog.button
 import modulon.dialog.section
 import modulon.extensions.compat.showBottomDialog
@@ -21,8 +21,8 @@ import modulon.extensions.compat.showSoftKeyboard
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.cell
-import modulon.layout.actionbar.title
-import modulon.layout.recycler.*
+import modulon.component.appbar.title
+import modulon.layout.lazy.*
 
 
 class NodeSettingsFragment : ContainerFragment() {

@@ -18,8 +18,8 @@ import modulon.extensions.livedata.combineNonNull
 import modulon.extensions.livedata.mapSuspend
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
-import modulon.layout.recycler.RecyclerLayout
-import modulon.layout.recycler.section
+import modulon.layout.lazy.LazyListView
+import modulon.layout.lazy.section
 import modulon.union.Union
 import modulon.widget.PlainTextView
 
@@ -43,7 +43,7 @@ fun ViewGroup.feeCell(union: Union, transactionBuilder: LiveData<TransactionBuil
     }
 }
 
-fun RecyclerLayout.logo() {
+fun LazyListView.logo() {
     section {
         horizontalLayout {
             backgroundTintColor = context.getColor(R.color.transparent)

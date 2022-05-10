@@ -15,7 +15,7 @@ import modulon.extensions.view.*
 import modulon.extensions.viewbinder.pagerLayout
 import modulon.extensions.viewbinder.tabLayout
 import modulon.extensions.viewbinder.verticalLayout
-import modulon.layout.actionbar.menu
+import modulon.component.appbar.menu
 
 class ImportFragment : ContainerFragment() {
 

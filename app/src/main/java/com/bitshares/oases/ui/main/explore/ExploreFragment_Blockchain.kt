@@ -21,9 +21,9 @@ import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.startFragment
 import com.bitshares.oases.ui.main.MainViewModel
 import com.bitshares.oases.ui.main.search.GlobalSearchFragment
-import modulon.component.ComponentCell
-import modulon.component.IconSize
-import modulon.component.buttonStyle
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.IconSize
+import modulon.component.cell.buttonStyle
 import modulon.extensions.animation.rotation45
 import modulon.extensions.font.typefaceMonoRegular
 import modulon.extensions.livedata.combineNonNull
@@ -33,7 +33,7 @@ import modulon.extensions.view.doOnClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.startScrolling
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 import java.text.DateFormat
 
 class ExploreFragment_Blockchain : ContainerFragment() {

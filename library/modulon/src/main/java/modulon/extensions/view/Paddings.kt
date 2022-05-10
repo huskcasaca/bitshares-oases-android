@@ -3,7 +3,7 @@ package modulon.extensions.view
 import android.view.View
 import androidx.annotation.Px
 import androidx.core.view.updatePadding
-import modulon.component.ComponentPaddingCell
+import modulon.component.cell.ComponentPaddingCell
 
 //fun View.stripReset() {
 //    updatePadding(top = 14.dp)

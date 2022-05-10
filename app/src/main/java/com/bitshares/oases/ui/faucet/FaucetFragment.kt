@@ -21,7 +21,7 @@ import com.bitshares.oases.provider.local_repo.LocalUserRepository
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.wallet.startWalletUnlock
 import kotlinx.coroutines.launch
-import modulon.component.buttonStyle
+import modulon.component.cell.buttonStyle
 import modulon.dialog.DialogState
 import modulon.dialog.button
 import modulon.dialog.section
@@ -39,7 +39,7 @@ import modulon.extensions.text.buildContextSpannedString
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.cell
-import modulon.layout.recycler.section
+import modulon.layout.lazy.section
 import modulon.union.Union
 
 class FaucetFragment : ContainerFragment() {

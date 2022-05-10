@@ -1,20 +1,18 @@
 package com.bitshares.oases.ui.block
 
-import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.bitshares.oases.R
 import com.bitshares.oases.extensions.compat.startAccountBrowser
 import com.bitshares.oases.extensions.text.createAccountSpan
 import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.component.buttonStyle
+import modulon.component.cell.buttonStyle
 import modulon.extensions.font.typefaceMonoRegular
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.cell
-import modulon.layout.recycler.section
+import modulon.layout.lazy.section
 import java.text.DateFormat
 
 class BlockBrowserFragment_Info : ContainerFragment() {

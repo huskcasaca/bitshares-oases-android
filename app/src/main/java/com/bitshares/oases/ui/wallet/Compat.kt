@@ -11,8 +11,8 @@ import androidx.core.widget.doAfterTextChanged
 import com.bitshares.oases.R
 import com.bitshares.oases.globalWalletManager
 import kotlinx.coroutines.*
-import modulon.component.ComponentCell
-import modulon.component.ComponentSpacerCell
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.ComponentSpacerCell
 import modulon.dialog.*
 import modulon.extensions.charset.EMPTY_SPACE
 import modulon.extensions.compat.showBooleanSuspendedBottomDialog
@@ -25,12 +25,12 @@ import modulon.extensions.text.PatternInputFilter
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
-import modulon.layout.linear.HorizontalLayout
+import modulon.layout.linear.HorizontalView
 import modulon.union.Union
 import modulon.widget.FieldTextView
 import graphene.extension.*
 
-private class DigitPasswordLayout(context: Context) : HorizontalLayout(context) {
+private class DigitPasswordView(context: Context) : HorizontalView(context) {
 
     private fun ViewGroup.fieldSpacer() = view<ComponentSpacerCell> {
         layoutWidth = context.resources.getDimensionPixelSize(R.dimen.global_spacer_size)
@@ -146,7 +146,7 @@ private class DigitPasswordLayout(context: Context) : HorizontalLayout(context) 
 
 }
 
-private fun ViewGroup.passcodeLayout(block: DigitPasswordLayout.() -> Unit = {}) = view(block)
+private fun ViewGroup.passcodeLayout(block: DigitPasswordView.() -> Unit = {}) = view(block)
 
 
 const val PASSWORD_ITERATION = 1_000_000
@@ -213,8 +213,8 @@ suspend fun Union.showWalletChangePasswordDialog() = showBooleanSuspendedBottomD
     val isUnderVerifyLayout = NonNullMutableLiveData(false)
     isUnderVerifyLayout.observe(viewLifecycleOwner) {
     }
-    var defPasscodeLayout: DigitPasswordLayout = DigitPasswordLayout(context)
-    var verPasscodeLayout: DigitPasswordLayout = DigitPasswordLayout(context)
+    var defPasscodeLayout: DigitPasswordView = DigitPasswordView(context)
+    var verPasscodeLayout: DigitPasswordView = DigitPasswordView(context)
 
     section {
         passcodeLayout { // password verify

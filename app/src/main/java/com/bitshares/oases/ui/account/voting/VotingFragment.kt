@@ -16,11 +16,11 @@ import com.bitshares.oases.extensions.viewbinder.bindWorkerSimple
 import com.bitshares.oases.extensions.viewbinder.feeCell
 import com.bitshares.oases.ui.account.permission.PermissionFragment
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.layout.actionbar.subtitle
+import modulon.component.appbar.subtitle
 import com.bitshares.oases.ui.transaction.bindTransaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import modulon.component.IconSize
+import modulon.component.cell.IconSize
 import modulon.dialog.section
 import modulon.extensions.charset.EMPTY_SPACE
 import modulon.extensions.compat.arguments
@@ -34,9 +34,9 @@ import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.pagerLayout
 import modulon.extensions.viewbinder.tabLayout
 import modulon.extensions.viewbinder.verticalLayout
-import modulon.layout.actionbar.SearchLayout
-import modulon.layout.actionbar.doOnCollapse
-import modulon.layout.actionbar.menu
+import modulon.component.appbar.SearchView
+import modulon.component.appbar.doOnCollapse
+import modulon.component.appbar.menu
 import java.util.*
 
 class VotingFragment : ContainerFragment() {
@@ -60,7 +60,7 @@ class VotingFragment : ContainerFragment() {
                 isVisible = false
                 icon = R.drawable.ic_test_search_24.contextDrawable()
                 doOnClick {
-                    actionView = create<SearchLayout> {
+                    actionView = create<SearchView> {
                         queryHint = context.getString(R.string.account_picker_search)
                         fieldtextView.doAfterTextChanged {
                             viewModel.filter.value = it.toStringOrEmpty()

@@ -10,11 +10,11 @@ import com.bitshares.oases.extensions.text.createAccountSpan
 import com.bitshares.oases.extensions.viewbinder.bindAccountV1
 import com.bitshares.oases.extensions.viewbinder.feeCell
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.layout.actionbar.subtitle
+import modulon.component.appbar.subtitle
 import com.bitshares.oases.ui.transaction.bindTransaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import modulon.component.IconSize
+import modulon.component.cell.IconSize
 import modulon.dialog.section
 import modulon.extensions.compat.arguments
 import modulon.extensions.compat.finishActivity

@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import modulon.layout.frame.FrameLayout
-import modulon.layout.recycler.containers.SectionItemContainer
-import modulon.layout.recycler.containers.SectionListContainer
-import modulon.layout.recycler.containers.StaticContainer
+import modulon.layout.stack.StackView
+import modulon.layout.lazy.containers.SectionItemContainer
+import modulon.layout.lazy.containers.SectionListContainer
+import modulon.layout.lazy.containers.StaticContainer
 import modulon.union.toUnion
 
-class ZViewHolder(context: Context): RecyclerView.ViewHolder(FrameLayout(context)) {
+class ZViewHolder(context: Context): RecyclerView.ViewHolder(StackView(context)) {
     fun replace(view: View) {
         itemView as ViewGroup
         itemView.removeAllViews()

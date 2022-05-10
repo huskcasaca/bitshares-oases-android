@@ -11,19 +11,19 @@ import com.bitshares.oases.chain.assetSymbolFilter
 import com.bitshares.oases.extensions.viewbinder.bindAssetV3
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.putJson
-import modulon.component.ComponentCell
+import modulon.component.cell.ComponentCell
 import modulon.extensions.compat.finishActivity
 import modulon.extensions.compat.showSoftKeyboard
 import modulon.extensions.livedata.combineNonNull
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.create
 import modulon.extensions.view.doOnClick
-import modulon.layout.actionbar.SearchLayout
-import modulon.layout.actionbar.menu
-import modulon.layout.recycler.data
-import modulon.layout.recycler.distinctItemsBy
-import modulon.layout.recycler.list
-import modulon.layout.recycler.section
+import modulon.component.appbar.SearchView
+import modulon.component.appbar.menu
+import modulon.layout.lazy.data
+import modulon.layout.lazy.distinctItemsBy
+import modulon.layout.lazy.list
+import modulon.layout.lazy.section
 
 class AssetPickerFragment : ContainerFragment() {
 
@@ -32,7 +32,7 @@ class AssetPickerFragment : ContainerFragment() {
     override fun onCreateView() {
         setupAction {
             titleConnectionState("Asset Picker")
-            actionView = create<SearchLayout> {
+            actionView = create<SearchView> {
                 queryHint = context.getString(R.string.account_picker_search)
                 fieldtextView.apply {
                     inputType = EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD or EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS

@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.asset.browser
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.models.PriceFeed
@@ -9,9 +7,9 @@ import com.bitshares.oases.extensions.compat.startAccountBrowser
 import com.bitshares.oases.extensions.viewbinder.bindFeed
 import com.bitshares.oases.ui.asset.AssetViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
-import modulon.component.ComponentCell
+import modulon.component.cell.ComponentCell
 import modulon.extensions.view.doOnClick
-import modulon.layout.recycler.*
+import modulon.layout.lazy.*
 
 class AssetBrowserFragment_Feeds : ContainerFragment() {
 

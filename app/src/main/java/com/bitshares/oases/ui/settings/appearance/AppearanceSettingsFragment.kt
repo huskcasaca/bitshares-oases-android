@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.settings.appearance
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.activityViewModels
 import bitshareskit.extensions.formatAssetBalance
 import bitshareskit.models.AssetAmount
@@ -13,13 +11,13 @@ import com.bitshares.oases.ui.settings.SettingsViewModel
 import com.bitshares.oases.ui.settings.showDarkModeSelectDialog
 import com.bitshares.oases.ui.settings.showFeeReservedDialog
 import com.bitshares.oases.ui.settings.showPriceUnitDialog
-import modulon.component.toggleEnd
+import modulon.component.cell.toggleEnd
 import modulon.extensions.charset.EMPTY_SPACE
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.cell
-import modulon.layout.actionbar.title
-import modulon.layout.recycler.section
+import modulon.component.appbar.title
+import modulon.layout.lazy.section
 
 class AppearanceSettingsFragment : ContainerFragment() {
 

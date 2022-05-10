@@ -16,7 +16,6 @@ import android.view.animation.Animation.RELATIVE_TO_SELF
 import android.widget.ImageView
 import android.widget.LinearLayout.*
 import android.widget.TextView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.animation.addListener
 import androidx.core.animation.doOnEnd
 import androidx.core.view.*
@@ -36,8 +35,8 @@ import modulon.extensions.viewbinder.coordinatorLayout
 import modulon.extensions.viewbinder.noMotion
 import modulon.extensions.viewbinder.verticalLayout
 import modulon.interpolator.CubicBezierInterpolator
-import modulon.layout.frame.FrameLayout
-import modulon.layout.linear.VerticalLayout
+import modulon.layout.stack.StackView
+import modulon.layout.linear.VerticalView
 import modulon.union.UnionDialogFragment
 import modulon.widget.PlainTextView
 import kotlin.math.abs
@@ -51,7 +50,7 @@ abstract class ExpandableFragment : UnionDialogFragment() {
 
     private val animController = SheetAnimationController()
     private val container by lazy {
-        FrameLayout(context).apply {
+        StackView(context).apply {
             clipToOutline = false
             clipChildren = false
             clipToPadding = false
@@ -68,7 +67,7 @@ abstract class ExpandableFragment : UnionDialogFragment() {
         }
     }
     override fun onCreateView(inflater: LayoutInflater, container1: ViewGroup?, savedInstanceState: Bundle?): View? =
-        object : FrameLayout(context), NestedScrollingParent {
+        object : StackView(context), NestedScrollingParent {
             private val touchSlop = ViewConfiguration.get(context).scaledTouchSlop
             private var velocityTracker: VelocityTracker = VelocityTracker.obtain()
             private var startedTrackingX = 0
@@ -350,7 +349,7 @@ abstract class ExpandableFragment : UnionDialogFragment() {
 
 
 
-class DialogHeaderLayout(context: Context) : FrameLayout(context) {
+class DialogHeaderLayout(context: Context) : StackView(context) {
 
     // TODO: 2022/2/21 replace with title()
     var title: CharSequence
@@ -424,7 +423,7 @@ class DialogHeaderLayout(context: Context) : FrameLayout(context) {
 
 
 
-    private val titleContainer: FrameLayout by lazyView {
+    private val titleContainer: StackView by lazyView {
         updatePadding(R.dimen.dialog_padding_vertical.contextDimenPixelSize(), 4.dp, R.dimen.dialog_padding_vertical.contextDimenPixelSize(), 4.dp)
         viewRow(titleView) {
             layoutMarginEnd = 30.dp
@@ -575,7 +574,7 @@ open class BottomDialogFragment : ExpandableFragment() {
 
 
 
-    private val titleContainer: FrameLayout by lazyView {
+    private val titleContainer: StackView by lazyView {
         updatePadding(R.dimen.dialog_padding_vertical.contextDimenPixelSize(), 4.dp, R.dimen.dialog_padding_vertical.contextDimenPixelSize(), 4.dp)
         viewRow(titleView) {
             layoutMarginEnd = 30.dp
@@ -659,12 +658,12 @@ open class BottomDialogFragment : ExpandableFragment() {
 
 
 
-    private val contentScrollView: FrameLayout by lazyView {
+    private val contentScrollView: StackView by lazyView {
 //        isNestedScrollingEnabled = true
 //        isVerticalScrollBarEnabled = false
     }
 
-    private val containerButton: VerticalLayout by lazyView {
+    private val containerButton: VerticalView by lazyView {
         setPadding(UI.SPACING.dp, UI.SPACING.dp, UI.SPACING.dp, UI.SPACING.dp)
         dividerDrawable = ShapeDrawable().apply {
             intrinsicHeight = 12.dp

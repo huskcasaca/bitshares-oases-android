@@ -5,8 +5,8 @@ import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import modulon.layout.tab.TabLayout
-import modulon.layout.tab.tab
+import modulon.component.tab.TabView
+import modulon.component.tab.tab
 
 
 typealias ItemClickListener = (View, Int) -> Unit
@@ -103,7 +103,7 @@ interface DrawableResTabs {
 }
 
 
-fun TabLayout.attachViewPager2(viewPager: ViewPager2) {
+fun TabView.attachViewPager2(viewPager: ViewPager2) {
     scrollToChild(viewPager.currentItem, 0)
     viewPager.apply {
         doOnPageScrolled { position, positionOffset, positionOffsetPixels -> scrollToPositionOffset(position, positionOffset) }
@@ -116,24 +116,24 @@ fun TabLayout.attachViewPager2(viewPager: ViewPager2) {
     selectTab(viewPager.currentItem)
 }
 
-internal fun TabLayout.TabView.setup(value: Any) {
+internal fun TabView.TabView.setup(value: Any) {
     if (value is StringResTabs) text = value.stringRes.contextString()
     if (value is DrawableResTabs) icon = value.iconRes.contextDrawable()
 }
 
-fun <T: Any> TabLayout.attachTabs(tabs: Collection<T>, block: TabLayout.TabView.(T) -> Unit = { setup(it) }) {
+fun <T: Any> TabView.attachTabs(tabs: Collection<T>, block: TabView.TabView.(T) -> Unit = { setup(it) }) {
     removeAllTabs()
     tabs.forEach { tab { block.invoke(this, it) } }
 }
 
 // TODO: 2022/2/10 normalize
-fun <T: Any> TabLayout.attachTabs(tabs: Array<T>, block: TabLayout.TabView.(T) -> Unit = { setup(it) }) {
+fun <T: Any> TabView.attachTabs(tabs: Array<T>, block: TabView.TabView.(T) -> Unit = { setup(it) }) {
     removeAllTabs()
     tabs.forEach { tab { block.invoke(this, it) } }
 }
 
 @Deprecated("Should be removed")
-inline fun <reified T: Enum<T>> TabLayout.attachEnumsViewPager2(viewPager: ViewPager2) {
+inline fun <reified T: Enum<T>> TabView.attachEnumsViewPager2(viewPager: ViewPager2) {
     val values = enumValues<T>()
     attachTabs(values.toList())
     attachViewPager2(viewPager)

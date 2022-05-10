@@ -13,7 +13,7 @@ import com.bitshares.oases.extensions.text.createAssetName
 import com.bitshares.oases.extensions.viewbinder.bindMarketGroup
 import com.bitshares.oases.extensions.viewbinder.bindTicker
 import com.bitshares.oases.extensions.viewbinder.setTickerStyle
-import modulon.component.ComponentCell
+import modulon.component.cell.ComponentCell
 import modulon.dialog.button
 import modulon.dialog.buttonCancel
 import modulon.dialog.doOnDismiss

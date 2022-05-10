@@ -1,30 +1,14 @@
 package modulon.layout.coordinator
 
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Rect
-import android.os.Parcel
-import android.os.Parcelable
-import android.os.Parcelable.ClassLoaderCreator
-import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
-import android.view.View.MeasureSpec
 import android.view.ViewGroup
-import android.view.animation.Interpolator
-import android.widget.ListView
-import android.widget.ScrollView
-import androidx.annotation.VisibleForTesting
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.math.MathUtils
 import androidx.core.view.GravityCompat
-import androidx.core.view.NestedScrollingChild
 import androidx.core.view.ViewCompat
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
-import androidx.customview.view.AbsSavedState
-import modulon.layout.actionbar.ActionBarLayout
-import java.lang.ref.WeakReference
 
 
 //open class BaseBehavior<T : AppBarLayout?> : com.google.android.material.appbar.HeaderBehavior<T> {

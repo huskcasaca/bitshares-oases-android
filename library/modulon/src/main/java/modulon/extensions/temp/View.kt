@@ -3,11 +3,10 @@ package modulon.extensions.temp
 import android.graphics.Paint
 import android.graphics.Rect
 import modulon.R
-import modulon.component.BaseCell
+import modulon.component.cell.BaseCell
 import modulon.extensions.view.dpf
-import modulon.layout.recycler.decorations.drawAllShaders
-import modulon.layout.tab.TabLayout
-import modulon.widget.FloatingButton
+import modulon.layout.lazy.decorations.drawAllShaders
+import modulon.component.tab.TabView
 
 fun BaseCell.drawShaders() {
     val bounds = Rect()
@@ -26,7 +25,7 @@ fun BaseCell.drawShaders() {
 
 }
 
-fun TabLayout.TabView.drawShaders() {
+fun TabView.TabView.drawShaders() {
     val bounds = Rect()
     val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     val shaderCenter = R.color.shader_center_floating.contextColor()

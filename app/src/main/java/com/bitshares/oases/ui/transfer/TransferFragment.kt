@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.transfer
 
-import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -19,10 +17,10 @@ import com.bitshares.oases.ui.base.suspendAccountBalanceIdPicker
 import com.bitshares.oases.ui.transaction.bindTransaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import modulon.component.ComponentCell
-import modulon.component.IconSize
-import modulon.component.buttonStyle
-import modulon.component.isButtonEnabled
+import modulon.component.cell.ComponentCell
+import modulon.component.cell.IconSize
+import modulon.component.cell.buttonStyle
+import modulon.component.cell.isButtonEnabled
 import modulon.dialog.section
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.font.typefaceMonoRegular
@@ -33,10 +31,10 @@ import modulon.extensions.view.doOnClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.view.updatePaddingVerticalV6
 import modulon.extensions.viewbinder.cell
-import modulon.layout.actionbar.subtitle
-import modulon.layout.recycler.construct
-import modulon.layout.recycler.expandable
-import modulon.layout.recycler.section
+import modulon.component.appbar.subtitle
+import modulon.layout.lazy.construct
+import modulon.layout.lazy.expandable
+import modulon.layout.lazy.section
 import modulon.union.Union
 import java.util.*
 

@@ -1,18 +1,12 @@
 package com.bitshares.oases.ui.account.browser
 
 import android.graphics.drawable.AnimatedVectorDrawable
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.bitshares.oases.R
 import com.bitshares.oases.ui.account.AccountViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.raw_data.JsonRawDataFragment
 import com.bitshares.oases.ui.raw_data.JsonRawDataViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import modulon.component.ComponentCell
 import modulon.dialog.section
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.compat.toast
@@ -23,8 +17,8 @@ import modulon.extensions.view.nextView
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.pagerLayout
 import modulon.extensions.viewbinder.tabLayout
-import modulon.layout.actionbar.menu
-import modulon.layout.actionbar.subtitle
+import modulon.component.appbar.menu
+import modulon.component.appbar.subtitle
 import java.util.*
 
 class AccountBrowserFragment : ContainerFragment() {

@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.asset.browser
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import bitshareskit.chain.ChainConfig
@@ -20,10 +18,6 @@ import com.bitshares.oases.extensions.viewbinder.setupTag
 import com.bitshares.oases.preference.old.Graphene
 import com.bitshares.oases.ui.asset.AssetViewModel
 import com.bitshares.oases.ui.base.ContainerFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import modulon.component.ComponentCell
 import modulon.extensions.compat.setClipboardToast
 import modulon.extensions.livedata.observeNonNull
 import modulon.extensions.text.appendSimpleColoredSpan
@@ -32,8 +26,8 @@ import modulon.extensions.text.buildContextSpannedString
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.cell
 import modulon.extensions.viewbinder.hint
-import modulon.layout.flow.FlowLayout
-import modulon.layout.recycler.section
+import modulon.component.flow.FlowView
+import modulon.layout.lazy.section
 import modulon.widget.PlainTextView
 import java.util.*
 
@@ -148,7 +142,7 @@ class AssetBrowserFragment_Info : ContainerFragment() {
                 header = context.getString(R.string.asset_permission_title)
                 cell {
                     title = context.getString(R.string.asset_permission_title)
-                    customView = create<FlowLayout> {
+                    customView = create<FlowView> {
                         viewModel.assetNonNull.observe(viewLifecycleOwner) {
                             val stringRes = listOf(
                                 R.string.asset_permission_charge_market_fee,

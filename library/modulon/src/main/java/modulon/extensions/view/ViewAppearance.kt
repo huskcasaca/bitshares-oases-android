@@ -5,7 +5,7 @@ import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import modulon.layout.recycler.RecyclerLayout
+import modulon.layout.lazy.LazyListView
 
 var TextView.textSolidColor: Int
     @JvmName("getTextColorKt") get() = currentTextColor
@@ -121,8 +121,8 @@ var RecyclerView.edgeEffectColor: Int
     }
 
 
-val RecyclerLayout.isOnTop
+val LazyListView.isOnTop
     get() = (layoutManager as? LinearLayoutManager)?.findFirstCompletelyVisibleItemPosition() == 0
 
-val RecyclerLayout.isOnBottom
+val LazyListView.isOnBottom
     get() = (layoutManager as? LinearLayoutManager)?.findLastCompletelyVisibleItemPosition() == (layoutManager as? LinearLayoutManager)!!.itemCount - 1

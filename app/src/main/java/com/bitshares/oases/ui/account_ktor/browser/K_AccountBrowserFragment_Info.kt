@@ -1,7 +1,5 @@
 package com.bitshares.oases.ui.account_ktor.browser
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.bitshares.oases.R
 import com.bitshares.oases.chain.Clipboard.LABEL_ACCOUNT_NAME
@@ -14,7 +12,7 @@ import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.cell
-import modulon.layout.recycler.section
+import modulon.layout.lazy.section
 
 class K_AccountBrowserFragment_Info : ContainerFragment() {
 
