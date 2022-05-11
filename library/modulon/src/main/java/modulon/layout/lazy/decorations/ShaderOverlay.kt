@@ -9,152 +9,111 @@ import androidx.core.view.forEach
 import androidx.recyclerview.widget.RecyclerView
 import modulon.R
 import modulon.extensions.view.dpf
-import modulon.layout.lazy.containers.SectionHolder
-import modulon.layout.lazy.containers.SectionItem
+import modulon.layout.lazy.containers.GroupedRowHolder
 import modulon.layout.lazy.section.RecyclerContentLocator
 import modulon.union.UnionContext
 import modulon.union.toUnion
 import kotlin.math.roundToInt
 
 
-class ItemHolderDispatcher(context: Context) : RecyclerView.ItemDecoration() {
-
-    data class CellShader(
-        var top: Boolean,
-        var bottom: Boolean,
-    )
-
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        super.onDraw(c, parent, state)
-
-        val drawType: CellShader = CellShader(false, false)
-        var previousView: View? = null
-        fun attach(previous: View?, current: View?) {
-            if (previous == null) {
-                previousView = current
-                drawType.top = false
-            } else {
-                val previousViewHolder = parent.getChildViewHolder(previous)
-                if (previousViewHolder is SectionHolder) {
-                    drawType.bottom = current != null && parent.getChildViewHolder(current) !is SectionHolder
-
-                    previousViewHolder.drawType = drawType
-                    previousView = current
-                    drawType.top = false
-                    drawType.bottom = false
-                } else {
-                    previousView = current
-                    drawType.top = true
-                    drawType.bottom = false
-                }
-            }
-        }
-        parent.forEach {
-            attach(previousView, it)
-        }
-        attach(previousView, null)
-    }
-
-}
-
 // TODO: 2022/2/12 make transparent
-class ShaderOverlay(context: Context) : RecyclerView.ItemDecoration(), UnionContext by context.toUnion() {
-
-    // TODO: 2022/2/8 add shaderColor to cells
-    private val shaderEnd = context.getColor(R.color.shader_end)
-    private val shaderCenter = context.getColor(R.color.shader_center)
-
-    private val backgroundColor = context.getColor(R.color.background)
-
-    private val bounds = Rect()
-    private val paint  = Paint(Paint.ANTI_ALIAS_FLAG)
-
-    private val radius = modulon.UI.CORNER_RADIUS.dpf
-    
-    private val shaderSize = R.dimen.global_corner_shader.contextDimen()
-
-    private fun drawTopCorners(canvas: Canvas) {
-        drawTopCorners(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-    }
-    private fun drawBottomCorner(canvas: Canvas) {
-        drawBottomCorner(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-    }
-
-    // TODO: 2022/2/7 test
-    private fun drawTopShader(canvas: Canvas) {
-        drawTopShader(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-    }
-    private fun drawBottomShader(canvas: Canvas) {
-        drawBottomShader(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-    }
-    private fun drawVerticalShader(canvas: Canvas) {
-        drawVerticalShader(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-    }
-
-    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        super.onDrawOver(c, parent, state)
-    }
-
-    // TODO: 2022/2/22  not stable
-    override fun onDraw(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        super.onDraw(canvas, parent, state)
-        var draw = false
-        var t: View? = null
-        var b: View? = null
-        fun drawCorners() {
-            if (!draw) return
-            t?.let {
-                parent.getDecoratedBoundsWithMarginsAndTranslations(it, bounds)
-                drawTopCorners(canvas)
-                drawTopShader(canvas)
-                t = null
-            }
-            b?.let {
-                parent.getDecoratedBoundsWithMarginsAndTranslations(it, bounds)
-                drawBottomCorner(canvas)
-                drawBottomShader(canvas)
-                b = null
-            }
-        }
-
-        parent.forEach {
-            if (it is RecyclerContentLocator) {
-                if (it.type == RecyclerContentLocator.SpacerType.TOP) {
-                    draw = false
-                    t = it
-                } else {
-                    b = it
-                    drawCorners()
-                }
-            } else {
-                if (shouldDrawShader(it)) {
-                    parent.getDecoratedBoundsWithMarginsAndTranslations(it, bounds)
-                    drawVerticalShader(canvas)
-                    draw = true
-                }
-            }
-        }
-        drawCorners()
-    }
-
-    private val transparentBackground = R.color.transparent.contextColor()
-
-    private val Drawable.tintCompat: Int
-        get() = when (this) {
-            is RippleDrawable -> getDrawable(0).tintCompat
-            is ColorDrawable -> color
-            is ShapeDrawable -> paint.color
-            is GradientDrawable -> colors?.let { ColorUtils.blendARGB(it.first(), it.last(), 0.5f) } ?: 0
-            else -> 0
-        }
-
-    private fun shouldDrawShader(view: View) : Boolean {
-        val inner = if (view is SectionItem) view.child ?: return false else view
-        return inner.background?.tintCompat.let { it != null && it != transparentBackground }
-    }
-
-}
-
+//class ShaderOverlay(context: Context) : RecyclerView.ItemDecoration(), UnionContext by context.toUnion() {
+//
+//    // TODO: 2022/2/8 add shaderColor to cells
+//    private val shaderEnd = context.getColor(R.color.shader_end)
+//    private val shaderCenter = context.getColor(R.color.shader_center)
+//
+//    private val backgroundColor = context.getColor(R.color.background)
+//
+//    private val bounds = Rect()
+//    private val paint  = Paint(Paint.ANTI_ALIAS_FLAG)
+//
+//    private val radius = modulon.UI.CORNER_RADIUS.dpf
+//
+//    private val shaderSize = R.dimen.global_corner_shader.contextDimen()
+//
+//    private fun drawTopCorners(canvas: Canvas) {
+//        drawTopCorners(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+//    }
+//    private fun drawBottomCorner(canvas: Canvas) {
+//        drawBottomCorner(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+//    }
+//
+//    // TODO: 2022/2/7 test
+//    private fun drawTopShader(canvas: Canvas) {
+//        drawTopShader(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+//    }
+//    private fun drawBottomShader(canvas: Canvas) {
+//        drawBottomShader(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+//    }
+//    private fun drawVerticalShader(canvas: Canvas) {
+//        drawVerticalShader(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+//    }
+//
+//    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+//        super.onDrawOver(c, parent, state)
+//    }
+//
+//    // TODO: 2022/2/22  not stable
+//    override fun onDraw(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+//        super.onDraw(canvas, parent, state)
+//        var draw = false
+//        var t: View? = null
+//        var b: View? = null
+//        fun drawCorners() {
+//            if (!draw) return
+//            t?.let {
+//                parent.getDecoratedBoundsWithMarginsAndTranslations(it, bounds)
+//                drawTopCorners(canvas)
+//                drawTopShader(canvas)
+//                t = null
+//            }
+//            b?.let {
+//                parent.getDecoratedBoundsWithMarginsAndTranslations(it, bounds)
+//                drawBottomCorner(canvas)
+//                drawBottomShader(canvas)
+//                b = null
+//            }
+//        }
+//
+//        parent.forEach {
+//            if (it is RecyclerContentLocator) {
+//                if (it.type == RecyclerContentLocator.SpacerType.TOP) {
+//                    draw = false
+//                    t = it
+//                } else {
+//                    b = it
+//                    drawCorners()
+//                }
+//            } else {
+//                if (shouldDrawShader(it)) {
+//                    parent.getDecoratedBoundsWithMarginsAndTranslations(it, bounds)
+//                    drawVerticalShader(canvas)
+//                    draw = true
+//                }
+//            }
+//        }
+//        drawCorners()
+//    }
+//
+//    private val transparentBackground = R.color.transparent.contextColor()
+//
+//    private val Drawable.tintCompat: Int
+//        get() = when (this) {
+//            is RippleDrawable -> getDrawable(0).tintCompat
+//            is ColorDrawable -> color
+//            is ShapeDrawable -> paint.color
+//            is GradientDrawable -> colors?.let { ColorUtils.blendARGB(it.first(), it.last(), 0.5f) } ?: 0
+//            else -> 0
+//        }
+//
+//    private fun shouldDrawShader(view: View) : Boolean {
+//        val inner = if (view is GroupedRowHolder.Item) view.child ?: return false else view
+//        return inner.background?.tintCompat.let { it != null && it != transparentBackground }
+//    }
+//
+//}
+//
 fun RecyclerView.getDecoratedBoundsWithMarginsAndTranslations(view: View, bounds: Rect) {
     getDecoratedBoundsWithMargins(view, bounds)
     moveBoundsWithTranslation(view, bounds)
@@ -181,6 +140,69 @@ fun drawVerticalShader(canvas: Canvas, bounds: Rect, paint: Paint, radius: Float
         lineTo(c.right, c.top)
         lineTo(c.right, c.bottom)
         lineTo(c.right + shaderSize, c.bottom)
+        close()
+    }, paint)
+}
+
+fun drawTopVerticalShader(canvas: Canvas, bounds: Rect, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
+    if (bounds.bottom - bounds.top <= radius) return
+    val c = RectF(bounds)
+    paint.shader = LinearGradient(c.left + radius, 0f, c.left - shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
+    canvas.drawPath(Path().apply {
+        moveTo(c.left - shaderSize, c.top + radius)
+        lineTo(c.left, c.top + radius)
+        lineTo(c.left, c.bottom)
+        lineTo(c.left - shaderSize, c.bottom)
+        close()
+    }, paint)
+    paint.shader = LinearGradient(c.right - radius, 0f, c.right + shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
+    canvas.drawPath(Path().apply {
+        moveTo(c.right + shaderSize, c.top + radius)
+        lineTo(c.right, c.top + radius)
+        lineTo(c.right, c.bottom)
+        lineTo(c.right + shaderSize, c.bottom)
+        close()
+    }, paint)
+}
+
+fun drawBottomVerticalShader(canvas: Canvas, bounds: Rect, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
+    if (bounds.bottom - bounds.top <= radius) return
+    val c = RectF(bounds)
+    paint.shader = LinearGradient(c.left + radius, 0f, c.left - shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
+    canvas.drawPath(Path().apply {
+        moveTo(c.left - shaderSize, c.top)
+        lineTo(c.left, c.top)
+        lineTo(c.left, c.bottom - radius)
+        lineTo(c.left - shaderSize, c.bottom - radius)
+        close()
+    }, paint)
+    paint.shader = LinearGradient(c.right - radius, 0f, c.right + shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
+    canvas.drawPath(Path().apply {
+        moveTo(c.right + shaderSize, c.top)
+        lineTo(c.right, c.top)
+        lineTo(c.right, c.bottom - radius)
+        lineTo(c.right + shaderSize, c.bottom - radius)
+        close()
+    }, paint)
+}
+
+fun drawBothVerticalShader(canvas: Canvas, bounds: Rect, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
+    if (bounds.bottom - bounds.top <= radius * 2) return
+    val c = RectF(bounds)
+    paint.shader = LinearGradient(c.left + radius, 0f, c.left - shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
+    canvas.drawPath(Path().apply {
+        moveTo(c.left - shaderSize, c.top + radius)
+        lineTo(c.left, c.top + radius)
+        lineTo(c.left, c.bottom - radius)
+        lineTo(c.left - shaderSize, c.bottom - radius)
+        close()
+    }, paint)
+    paint.shader = LinearGradient(c.right - radius, 0f, c.right + shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
+    canvas.drawPath(Path().apply {
+        moveTo(c.right + shaderSize, c.top + radius)
+        lineTo(c.right, c.top + radius)
+        lineTo(c.right, c.bottom - radius)
+        lineTo(c.right + shaderSize, c.bottom - radius)
         close()
     }, paint)
 }

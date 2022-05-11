@@ -24,10 +24,10 @@ class SectionListContainer<C : View, D>(override var creator: () -> C) : LazyLis
         override fun areContentsTheSame(oldItem: D, newItem: D): Boolean = contentsComparator.invoke(oldItem, newItem)
     }
 
-    inner class GroupItemHolder<C : View>(val childView: C) : SectionHolder(childView.context) {
+    inner class GroupItemHolder<C : View>(val childView: C) : GroupedRowHolder(childView.context) {
 
         init {
-            container.replace(childView)
+            replace(childView)
         }
     }
 

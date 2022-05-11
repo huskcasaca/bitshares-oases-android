@@ -20,6 +20,7 @@ import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
 import modulon.layout.lazy.LazyListView
 import modulon.layout.lazy.section
+import modulon.layout.linear.HorizontalView
 import modulon.union.Union
 import modulon.widget.PlainTextView
 
@@ -45,7 +46,7 @@ fun ViewGroup.feeCell(union: Union, transactionBuilder: LiveData<TransactionBuil
 
 fun LazyListView.logo() {
     section {
-        horizontalLayout {
+        view<HorizontalView> {
             backgroundTintColor = context.getColor(R.color.transparent)
             spacer {
                 layoutWidth = 0

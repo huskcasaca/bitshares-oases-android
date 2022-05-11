@@ -3,6 +3,7 @@ package modulon.extensions.view
 import android.view.View
 import android.view.ViewGroup
 import modulon.extensions.stdlib.logcat
+import modulon.layout.lazy.section.HeaderSection
 import modulon.union.UnionContext
 import modulon.union.toUnion
 import modulon.widget.PlainTextView
@@ -33,4 +34,11 @@ inline fun <reified V: View> ViewGroup.view(block: V.() -> Unit = {} ) {
 //    addDefault(toUnion().create(block))
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     addView(toUnion().create(block))
+}
+
+@OptIn(ExperimentalContracts::class)
+inline fun <reified V: View> HeaderSection.view(block: V.() -> Unit = {} ) {
+//    addDefault(toUnion().create(block))
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    addView(toUnion().create(block), false)
 }

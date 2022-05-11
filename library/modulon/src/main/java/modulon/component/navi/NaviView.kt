@@ -3,8 +3,11 @@ package modulon.component.navi
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.Outline
+import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.View
+import android.view.ViewOutlineProvider
 import android.view.animation.DecelerateInterpolator
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -20,8 +23,8 @@ import modulon.extensions.view.*
 import modulon.extensions.viewbinder.createFrameLayout
 import modulon.extensions.viewbinder.createVerticalLayout
 import modulon.extensions.viewbinder.noClipping
-import modulon.layout.stack.StackView
 import modulon.layout.linear.HorizontalView
+import modulon.layout.stack.StackView
 
 fun blendColor(fore: Int, back: Int): Int {
     val fgColor = Color(fore)
@@ -117,8 +120,9 @@ class NaviView(context: Context): StackView(context) {
                     iconView.filterColor = if (value) activeComponentColor else inactiveComponentColor
                     textView.textSolidColor = if (value) activeComponentColor else inactiveComponentColor
 //                    background = if (value) checkedBg else uncheckedBg
-                    if (!value) animator.cancel() to animatorDismiss.start()
-                    if (value) animatorDismiss.cancel() to animator.start()
+//                    if (!value) animator.cancel() to animatorDismiss.start()
+//                    if (value) animatorDismiss.cancel() to animator.start()
+                    containerIconBackground.alpha = if (value) 1f else 0f
                 }
             }
 
@@ -166,7 +170,6 @@ class NaviView(context: Context): StackView(context) {
             addView(container)
 //            setParams(ITEM_WIDTH, ViewGroup.LayoutParams.WRAP_CONTENT)
 //        expandTouchArea(top = -16.dp, bottom = 16.dp)
-            background = null
             foreground = checkedBg
         }
     }
@@ -174,7 +177,15 @@ class NaviView(context: Context): StackView(context) {
     class Spacer(context: Context): View(context)
 
     private val buttonSection = create<HorizontalView> {
-        noClipping()
+        outlineProvider = object : ViewOutlineProvider() {
+            override fun getOutline(view: View, outline: Outline) {
+                outline.setRect(0, 0, view.width, view.height + rootWindowInsets.systemWindowInsetBottom)
+            }
+        }
+        clipToOutline = true
+        clipChildren = false
+        clipToPadding = false
+
         updatePadding(12.dp, 0.dp, 12.dp, 0.dp)
         gravity = Gravity.CENTER
         view<Spacer> {
@@ -189,8 +200,9 @@ class NaviView(context: Context): StackView(context) {
     }
 
     init {
+        noClipping()
         viewRow(buttonSection)
-        backgroundTintColor = context.getColor(R.color.background)
+        backgroundTintColor = R.color.background_component.contextColor()
     }
 
 

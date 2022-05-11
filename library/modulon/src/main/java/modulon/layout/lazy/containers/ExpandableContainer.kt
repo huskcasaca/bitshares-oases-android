@@ -11,13 +11,13 @@ class ExpandableContainer<C : View>(override var creator: () -> C) : LazyListVie
 
     private val view: C = creator.invoke()
 
-    override val adapter = object : RecyclerView.Adapter<SectionHolder>() {
-        override fun onBindViewHolder(holder: SectionHolder, position: Int) {}
-        override fun onBindViewHolder(holder: SectionHolder, position: Int, dropped: MutableList<Any>) {}
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionHolder {
-            return SectionHolder(parent.context).apply {
-                view.parentViewGroupOrNull?.removeView(view)
-                container.addDefaultRow(view)
+    override val adapter = object : RecyclerView.Adapter<GroupedRowHolder>() {
+        override fun onBindViewHolder(holder: GroupedRowHolder, position: Int) {}
+        override fun onBindViewHolder(holder: GroupedRowHolder, position: Int, dropped: MutableList<Any>) {}
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupedRowHolder {
+            return GroupedRowHolder(parent.context).apply {
+                (view.parent as? ViewGroup)?.removeView(view)
+                replace(view)
             }
         }
         override fun getItemCount() = if (isExpanded) 1 else 0
@@ -38,25 +38,4 @@ class ExpandableContainer<C : View>(override var creator: () -> C) : LazyListVie
         view.apply(block)
         adapter.notifyDataSetChanged()
     }
-
-
-//
-//    private val setter = throttleFirst(CoroutineScope(Dispatchers.Main)) { it: Boolean ->
-//        _isExpanded = it
-//    }
-//
-//    private var _isExpanded = true
-//        set(value) {
-//            field = value
-//            setter.invoke(value)
-//        }
-//
-//    fun expandView() {
-//        isExpanded = true
-//    }
-//
-//    fun collapseView() {
-//        isExpanded = false
-//    }
-
 }

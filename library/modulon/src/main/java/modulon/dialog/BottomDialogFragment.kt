@@ -291,7 +291,6 @@ abstract class ExpandableFragment : UnionDialogFragment() {
             currentSheetAnimation = AnimatorSet().apply {
                 playTogether(
                     ObjectAnimator.ofFloat(container, View.TRANSLATION_Y, 0f),
-//                ObjectAnimator.ofInt<ColorDrawable>(backDrawable, AnimationProperties.COLOR_DRAWABLE_ALPHA, if (dimBehind) 51 else 0)
                 )
                 playTogether(
                     ValueAnimator.ofInt(0, 128).apply {
@@ -318,9 +317,6 @@ abstract class ExpandableFragment : UnionDialogFragment() {
                 playTogether(
                     ObjectAnimator.ofFloat(container, View.TRANSLATION_Y, container.measuredHeight.toFloat()),
                 )
-                duration = 480
-                startDelay = 20
-                interpolator = CubicBezierInterpolator.EASE_OUT_QUINT
                 playTogether(
                     ValueAnimator.ofInt(128, 0).apply {
                         addUpdateListener {
@@ -328,11 +324,10 @@ abstract class ExpandableFragment : UnionDialogFragment() {
                         }
                     }
                 )
+                duration = 480
+                startDelay = 20
+                interpolator = CubicBezierInterpolator.EASE_OUT_QUINT
                 doOnEnd {
-                    if (currentSheetAnimation == it) {
-//                        currentSheetAnimation = null
-//                    container.setLayerType(View.LAYER_TYPE_NONE, null)
-                    }
                     try {
                         super@ExpandableFragment.dismiss()
 //                        isDismissed = true fixme

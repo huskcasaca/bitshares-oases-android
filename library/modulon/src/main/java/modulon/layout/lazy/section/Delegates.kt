@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ConcatAdapter
 import modulon.R
+import modulon.extensions.view.view
 import modulon.extensions.viewbinder.headerCellStyle
 import modulon.layout.lazy.*
 import modulon.layout.lazy.containers.SectionItemContainer
@@ -29,16 +31,20 @@ abstract class HeaderSection(context: Context) : FrameLayout(context), Section, 
         addContainer(block)
     }
 
+    fun addView(child: View, isRounded: Boolean) {
+        addContainer(SectionItemContainer(child, null, isRounded))
+    }
+
     override fun addView(child: View) {
-        addContainer(SectionItemContainer(child, ))
+        addContainer(SectionItemContainer(child, null, true))
     }
 
     override fun addView(child: View, index: Int) {
-        addContainer(SectionItemContainer(child), index)
+        addContainer(SectionItemContainer(child, null, true), index)
     }
 
     override fun addView(child: View, params: ViewGroup.LayoutParams?) {
-        addContainer(SectionItemContainer(child, params))
+        addContainer(SectionItemContainer(child, params, true))
     }
 
     override fun setVisibility(visibility: Int) {
@@ -60,7 +66,7 @@ abstract class HeaderSection(context: Context) : FrameLayout(context), Section, 
 // TODO: 2022/2/15 rename
 class HeaderSectionImpl(context: Context) : HeaderSection(context) {
 
-    lateinit var headerContainer: ExpandableContainer<RecyclerHeader>
+//    lateinit var headerContainer: ExpandableContainer<RecyclerHeader>
     lateinit var headerCell: RecyclerHeader
 
     private var isInit = false
@@ -77,24 +83,19 @@ class HeaderSectionImpl(context: Context) : HeaderSection(context) {
     var header: CharSequence
         get() = headerCell.title
         set(value) {
-            headerContainer.isExpanded = value.isNotEmpty()
+            headerCell.isVisible = value.isNotEmpty()
             headerCell.title = value
         }
 
     init {
         // FIXME: 2022/2/22
-        expandable<RecyclerHeaderSpacer> {
-            construct {
-                backgroundColor = R.color.transparent.contextColor()
-            }
+        view<RecyclerHeaderSpacer>() {
+            backgroundColor = R.color.transparent.contextColor()
         }
-        expandable<RecyclerHeader> {
-            headerContainer = this
-            isExpanded = false
-            construct {
-                headerCellStyle()
-                headerCell = this
-            }
+        view<RecyclerHeader> {
+            headerCellStyle()
+            headerCell = this
+            isVisible = false
         }
         locator(RecyclerContentLocator.SpacerType.TOP)
         locator(RecyclerContentLocator.SpacerType.BOTTOM)

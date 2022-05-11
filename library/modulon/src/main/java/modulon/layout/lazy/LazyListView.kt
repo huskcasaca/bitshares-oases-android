@@ -5,13 +5,10 @@ import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
-import modulon.R
 import modulon.layout.lazy.containers.*
-import modulon.layout.lazy.decorations.ItemHolderDispatcher
+import modulon.layout.lazy.decorations.GroupedHolderTypeDispatcher
 import modulon.layout.lazy.manager.FixedLinearLayoutManager
 import modulon.layout.lazy.section.Section
-import modulon.layout.lazy.decorations.SeparatorOverlay
-import modulon.layout.lazy.decorations.ShaderOverlay
 import modulon.union.UnionContext
 import modulon.union.toUnion
 
@@ -25,8 +22,7 @@ class LazyListView(context: Context) : RecyclerView(context), Section, UnionCont
     var isOnTouch = false
         private set
 
-    private val shaderOverlay = ShaderOverlay(context)
-    private val separatorOverlay = SeparatorOverlay(context)
+//    private val separatorOverlay = SeparatorOverlay(context)
 
     override fun getAdapter(): ConcatAdapter {
         return super.getAdapter() as ConcatAdapter
@@ -40,7 +36,7 @@ class LazyListView(context: Context) : RecyclerView(context), Section, UnionCont
     }
 
     init {
-        clipToOutline = true
+        clipToOutline = false
         clipChildren = false
         clipToPadding = false
         adapter = ConcatAdapter().apply {
@@ -57,10 +53,8 @@ class LazyListView(context: Context) : RecyclerView(context), Section, UnionCont
             edgeEffectFactory = BounceEdgeEffectFactory(VERTICAL)
         }
 
-        setPadding(context.resources.getDimensionPixelSize(R.dimen.global_spacer_size), 0, context.resources.getDimensionPixelSize(R.dimen.global_spacer_size), 0)
-//        addItemDecoration(shaderOverlay)
-        addItemDecoration((ItemHolderDispatcher(context)))
-        addItemDecoration(separatorOverlay)
+        addItemDecoration((GroupedHolderTypeDispatcher(context)))
+//        addItemDecoration(SeparatorOverlay(context))
 
 
     }
