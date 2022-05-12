@@ -211,19 +211,6 @@ class MainSettingsFragment : ContainerFragment() {
 //                        mainViewModel.closeDrawer()
                     }
                 }
-                repeat(1000) {
-                    view<ComponentCell> {
-                        title = "Intro"
-                        icon = R.drawable.ic_cell_test_lab.contextDrawable()
-                        doOnThrottledClick {
-                            startFragment<IntroFragment>()
-//                        mainViewModel.closeDrawer()
-                        }
-                        mainViewModel.userAccount.observe(viewLifecycleOwner) {
-                            subtitle = it.toString()
-                        }
-                    }
-                }
             }
             logo()
         }
