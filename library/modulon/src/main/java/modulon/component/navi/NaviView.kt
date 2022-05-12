@@ -5,12 +5,15 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Outline
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.InsetDrawable
 import android.view.Gravity
 import android.view.View
 import android.view.ViewOutlineProvider
+import android.view.WindowInsets
 import android.view.animation.DecelerateInterpolator
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.core.view.doOnAttach
 import androidx.core.view.updatePadding
 import modulon.R
 import modulon.component.cell.ComponentPaddingCell
@@ -199,13 +202,6 @@ class NaviView(context: Context): StackView(context) {
         private val ITEM_WIDTH = 72.dp
     }
 
-    init {
-        noClipping()
-        viewRow(buttonSection)
-        backgroundTintColor = R.color.background_component.contextColor()
-    }
-
-
     fun addMenu(item: Item) {
         item.apply {
             layoutWidth = 0
@@ -217,6 +213,23 @@ class NaviView(context: Context): StackView(context) {
             layoutHeight = MATCH_PARENT
             layoutWeightLinear = 0.2f
         }
+    }
+
+    init {
+        noClipping()
+        viewRow(buttonSection)
+
+        doOnAttach {
+
+            background = InsetDrawable(
+                ColorDrawable(R.color.background_component.contextColor()),
+                0,
+                0,
+                0,
+                -rootWindowInsets.systemWindowInsetBottom
+            )
+        }
+        outlineProvider = ViewOutlineProvider.BOUNDS
     }
 
 }
