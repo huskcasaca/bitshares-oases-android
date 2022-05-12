@@ -221,7 +221,6 @@ class MainFragment : ContainerFragment() {
             }
             view<NaviView> {
                 layoutWidth = MATCH_PARENT
-                noClipping()
                 val interceptor = AccelerateDecelerateInterpolator()
                 enableTabs.forEach { tab: Tabs ->
                     button {

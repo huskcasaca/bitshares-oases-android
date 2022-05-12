@@ -46,7 +46,7 @@ fun ViewGroup.feeCell(union: Union, transactionBuilder: LiveData<TransactionBuil
 
 fun LazyListView.logo() {
     section {
-        view<HorizontalView> {
+        isolated<HorizontalView> {
             backgroundTintColor = context.getColor(R.color.transparent)
             spacer {
                 layoutWidth = 0

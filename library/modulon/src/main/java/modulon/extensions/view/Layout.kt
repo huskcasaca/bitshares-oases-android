@@ -2,7 +2,10 @@ package modulon.extensions.view
 
 import android.view.View
 import android.view.ViewGroup
+import modulon.component.cell.ComponentCell
 import modulon.extensions.stdlib.logcat
+import modulon.layout.lazy.containers.RawItemContainer
+import modulon.layout.lazy.containers.SectionItemContainer
 import modulon.layout.lazy.section.HeaderSection
 import modulon.union.UnionContext
 import modulon.union.toUnion
@@ -38,7 +41,19 @@ inline fun <reified V: View> ViewGroup.view(block: V.() -> Unit = {} ) {
 
 @OptIn(ExperimentalContracts::class)
 inline fun <reified V: View> HeaderSection.view(block: V.() -> Unit = {} ) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    addContainer(SectionItemContainer(toUnion().create(block), null, true))
+}
+
+@OptIn(ExperimentalContracts::class)
+inline fun <reified V: View> HeaderSection.isolated(block: V.() -> Unit = {} ) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    addContainer(SectionItemContainer(toUnion().create(block), null, false))
+}
+
+@OptIn(ExperimentalContracts::class)
+inline fun <reified V: View> HeaderSection.raw(block: V.() -> Unit = {} ) {
 //    addDefault(toUnion().create(block))
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
-    addView(toUnion().create(block), false)
+    addContainer(RawItemContainer(toUnion().create(block)))
 }

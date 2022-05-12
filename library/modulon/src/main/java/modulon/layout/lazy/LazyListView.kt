@@ -44,8 +44,6 @@ class LazyListView(context: Context) : RecyclerView(context), Section, UnionCont
         }
         layoutManager = FixedLinearLayoutManager(context)
         itemAnimator = DefaultItemAnimator()
-//
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             edgeEffectFactory = EdgeEffectFactory()
@@ -53,9 +51,7 @@ class LazyListView(context: Context) : RecyclerView(context), Section, UnionCont
             edgeEffectFactory = BounceEdgeEffectFactory(VERTICAL)
         }
 
-        addItemDecoration((GroupedHolderTypeDispatcher(context)))
-//        addItemDecoration(SeparatorOverlay(context))
-
+//        addItemDecoration((GroupedHolderTypeDispatcher(context)))
 
     }
 
@@ -76,7 +72,7 @@ class LazyListView(context: Context) : RecyclerView(context), Section, UnionCont
         }
     }
 
-    // prevent logcat output
+    // FIXME prevent log output
     override fun scrollTo(x: Int, y: Int) { }
 
     override fun addContainer(block: Container<*>) {

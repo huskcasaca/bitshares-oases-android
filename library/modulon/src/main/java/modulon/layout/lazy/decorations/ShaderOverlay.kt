@@ -1,18 +1,8 @@
 package modulon.layout.lazy.decorations
 
-import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.*
 import android.view.View
-import androidx.core.graphics.ColorUtils
-import androidx.core.view.forEach
 import androidx.recyclerview.widget.RecyclerView
-import modulon.R
-import modulon.extensions.view.dpf
-import modulon.layout.lazy.containers.GroupedRowHolder
-import modulon.layout.lazy.section.RecyclerContentLocator
-import modulon.union.UnionContext
-import modulon.union.toUnion
 import kotlin.math.roundToInt
 
 
@@ -114,10 +104,17 @@ import kotlin.math.roundToInt
 //
 //}
 //
-fun RecyclerView.getDecoratedBoundsWithMarginsAndTranslations(view: View, bounds: Rect) {
-    getDecoratedBoundsWithMargins(view, bounds)
-    moveBoundsWithTranslation(view, bounds)
+
+fun RecyclerView.getDecoratedBoundsWithoutMargins(view: View, bounds: Rect) {
+    val lp = view.layoutParams as RecyclerView.LayoutParams
+    bounds.set(
+        view.left,
+        view.top,
+        view.right,
+        view.bottom
+    )
 }
+
 
 fun moveBoundsWithTranslation(view: View, bounds: Rect) {
     bounds.offset(view.translationX.roundToInt(), view.translationY.roundToInt())

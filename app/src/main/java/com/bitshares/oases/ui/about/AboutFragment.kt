@@ -1,8 +1,10 @@
 package com.bitshares.oases.ui.about
 
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import com.bitshares.oases.R
+import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.ui.account.permission.PermissionViewModel
 import com.bitshares.oases.ui.asset.browser.*
@@ -13,6 +15,9 @@ import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.*
 import modulon.component.appbar.subtitle
 import modulon.component.appbar.title
+import modulon.component.cell.IconSize
+import modulon.extensions.compat.showBottomDialog
+import modulon.extensions.compat.startUriBrowser
 import modulon.layout.lazy.section
 
 class AboutFragment : ContainerFragment() {
@@ -30,12 +35,21 @@ class AboutFragment : ContainerFragment() {
             recyclerLayout {
                 section {
                     cell {
-                        title = "MF"
-                        doOnClick {
-                            startFragment<MainFragment>()
-                        }
+                        title = "AAAAAAAAA"
+                        subtitle = "BBBBBBBBBBBBBBBBBBBBB"
+                    }
+                    cell {
+                        title = "AAAAAAAAA"
+                        subtitle = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+                    }
+                    cell {
+                        title = "AAAAAAAAA"
+                        subtitle = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+                        allowMultiLine = true
                     }
                 }
+
+
 //            section {
 //                cell {
 //                    iconSize = IconSize.LARGE
@@ -59,62 +73,62 @@ class AboutFragment : ContainerFragment() {
                 section {
                     cell {
                         updatePaddingVerticalHalf()
-//                        title = context.getString(R.string.about_app_name)
-//                        subtitle = AppConfig.APP_NAME
+                        title = context.getString(R.string.about_app_name)
+                        subtitle = AppConfig.APP_NAME
                     }
-//                    cell {
-//                        updatePaddingVerticalHalf()
-//                        title = context.getString(R.string.about_version)
-//                        subtitle = AppConfig.APP_VERSION
-//                    }
-//                    cell {
-//                        updatePaddingVerticalHalf()
-//                        title = context.getString(R.string.about_author)
-//                        subtitle = AppConfig.AUTHOR
-//                    }
-//                    cell {
-//                        updatePaddingVerticalHalf()
-//                        title = "Licenses"
-//                        doOnClick {
-//                            showBottomDialog {
-//                                title = "Licenses"
-//                            }
-//                        }
-//                    }
-//                    cell {
-//                        updatePaddingVerticalHalf()
-//                        title = context.getString(R.string.about_privacy_policy)
-//                        doOnClick {
-//                        }
-//                    }
-//                    cell {
-//                        updatePaddingVerticalHalf()
-////                    title = context.getString(R.string.about_source_code)
-//                        title = "Website"
-//                        subtitle = "Goto"
-//                        doOnClick {
-//                            startUriBrowser(AppConfig.PROJECT_SOURCE_CODE_URL.toUri())
-//                        }
-//                    }
+                    cell {
+                        updatePaddingVerticalHalf()
+                        title = context.getString(R.string.about_version)
+                        subtitle = AppConfig.APP_VERSION
+                    }
+                    cell {
+                        updatePaddingVerticalHalf()
+                        title = context.getString(R.string.about_author)
+                        subtitle = AppConfig.AUTHOR
+                    }
+                    cell {
+                        updatePaddingVerticalHalf()
+                        title = "Licenses"
+                        doOnClick {
+                            showBottomDialog {
+                                title = "Licenses"
+                            }
+                        }
+                    }
+                    cell {
+                        updatePaddingVerticalHalf()
+                        title = context.getString(R.string.about_privacy_policy)
+                        doOnClick {
+                        }
+                    }
+                    cell {
+                        updatePaddingVerticalHalf()
+//                    title = context.getString(R.string.about_source_code)
+                        title = "Website"
+                        subtitle = "Goto"
+                        doOnClick {
+                            startUriBrowser(AppConfig.PROJECT_SOURCE_CODE_URL.toUri())
+                        }
+                    }
                 }
-//                section {
-////                title = context.getString(R.string.about_library)
-//                    header = "Libraries"
-//                    AppConfig.libraries.forEach { library ->
-//                        cell {
-//                            updatePaddingVerticalHalf()
-//                            iconSize = IconSize.SMALL
-//                            icon = library.icon.contextDrawable()
-//                            text = library.name
-//                            subtextView.isSingleLine = true
-//                            subtext = library.url
-//                            doOnClick {
-//                                startFragment<LibraryFragment> { putParam1(library) }
-//                            }
-//                        }
-//                    }
-//                }
-//                logo()
+                section {
+//                title = context.getString(R.string.about_library)
+                    header = "Libraries"
+                    AppConfig.libraries.forEach { library ->
+                        cell {
+                            updatePaddingVerticalHalf()
+                            iconSize = IconSize.SMALL
+                            icon = library.icon.contextDrawable()
+                            text = library.name
+                            subtextView.isSingleLine = true
+                            subtext = library.url
+                            doOnClick {
+                                startFragment<LibraryFragment> { putParam1(library) }
+                            }
+                        }
+                    }
+                }
+                logo()
             }
         }
     }

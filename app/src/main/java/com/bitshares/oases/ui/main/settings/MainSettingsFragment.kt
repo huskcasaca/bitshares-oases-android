@@ -28,6 +28,7 @@ import com.bitshares.oases.ui.testlab.TestLabFragment
 import com.bitshares.oases.ui.wallet.WalletSettingsFragment
 import com.bitshares.oases.ui.wallet.showUserOptionDialog
 import com.bitshares.oases.ui.wallet.showUserSwitchDialog
+import modulon.component.cell.ComponentCell
 import modulon.component.cell.IconSize
 import modulon.component.cell.buttonStyle
 import modulon.extensions.compat.startUriBrowser
@@ -211,7 +212,7 @@ class MainSettingsFragment : ContainerFragment() {
                     }
                 }
                 repeat(1000) {
-                    cell {
+                    view<ComponentCell> {
                         title = "Intro"
                         icon = R.drawable.ic_cell_test_lab.contextDrawable()
                         doOnThrottledClick {

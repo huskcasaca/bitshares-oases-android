@@ -6,9 +6,7 @@ import modulon.extensions.view.create
 import modulon.layout.lazy.containers.Comparator
 import modulon.layout.lazy.containers.ExpandableContainer
 import modulon.layout.lazy.containers.SectionListContainer
-import modulon.layout.lazy.containers.SpacerContainer
 import modulon.layout.lazy.section.HeaderSectionImpl
-import modulon.layout.lazy.section.RecyclerContentLocator
 import modulon.layout.lazy.section.Section
 
 // Expandable Container
@@ -72,10 +70,10 @@ fun <C : View, D> SectionListContainer<C, D>.areItemsSame(comparator: Comparator
     setItemComparator(comparator)
 }
 
-// Spacer Container
-internal fun Section.locator(type: RecyclerContentLocator.SpacerType) {
-    addContainer(SpacerContainer(type))
-}
+//// Spacer Container
+//internal fun Section.locator(type: RecyclerContentLocator.SpacerType) {
+//    addContainer(SpacerContainer(type))
+//}
 
 // Single Container
 

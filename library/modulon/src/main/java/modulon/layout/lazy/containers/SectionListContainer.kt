@@ -24,25 +24,25 @@ class SectionListContainer<C : View, D>(override var creator: () -> C) : LazyLis
         override fun areContentsTheSame(oldItem: D, newItem: D): Boolean = contentsComparator.invoke(oldItem, newItem)
     }
 
-    inner class GroupItemHolder<C : View>(val childView: C) : GroupedRowHolder(childView.context) {
+    inner class GroupItemMarginHolder<C : View>(val childView: C) : ItemSetMarginHolder(childView.context) {
 
         init {
             replace(childView)
         }
     }
 
-    inner class PayloadsAdapter : ListAdapter<D, GroupItemHolder<C>>(diffCallback) {
+    inner class PayloadsAdapter : ListAdapter<D, GroupItemMarginHolder<C>>(diffCallback) {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = GroupItemHolder(creator.invoke().apply(viewBinder))
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = GroupItemMarginHolder(creator.invoke().apply(viewBinder))
         @SuppressLint("PendingBindings")
-        override fun onBindViewHolder(holder: GroupItemHolder<C>, position: Int) {
+        override fun onBindViewHolder(holder: GroupItemMarginHolder<C>, position: Int) {
             val data = currentList[position]
             val payload = currentPayload
 
             dataBinder.invoke(holder.childView, data)
             if (payload != null) payloadBinder.invoke(holder.childView, data, payload)
         }
-        override fun onBindViewHolder(holder: GroupItemHolder<C>, position: Int, payloads: MutableList<Any>) {
+        override fun onBindViewHolder(holder: GroupItemMarginHolder<C>, position: Int, payloads: MutableList<Any>) {
             if (payloads.isEmpty()) {
                 onBindViewHolder(holder, position)
             } else {

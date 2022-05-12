@@ -3,19 +3,17 @@ package modulon.layout.lazy.containers
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import modulon.extensions.view.addDefaultRow
-import modulon.extensions.view.parentViewGroupOrNull
 import modulon.layout.lazy.LazyListView
 
 class ExpandableContainer<C : View>(override var creator: () -> C) : LazyListView.Container<C>() {
 
     private val view: C = creator.invoke()
 
-    override val adapter = object : RecyclerView.Adapter<GroupedRowHolder>() {
-        override fun onBindViewHolder(holder: GroupedRowHolder, position: Int) {}
-        override fun onBindViewHolder(holder: GroupedRowHolder, position: Int, dropped: MutableList<Any>) {}
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupedRowHolder {
-            return GroupedRowHolder(parent.context).apply {
+    override val adapter = object : RecyclerView.Adapter<ItemSetMarginHolder>() {
+        override fun onBindViewHolder(holder: ItemSetMarginHolder, position: Int) {}
+        override fun onBindViewHolder(holder: ItemSetMarginHolder, position: Int, dropped: MutableList<Any>) {}
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemSetMarginHolder {
+            return ItemSetMarginHolder(parent.context).apply {
                 (view.parent as? ViewGroup)?.removeView(view)
                 replace(view)
             }

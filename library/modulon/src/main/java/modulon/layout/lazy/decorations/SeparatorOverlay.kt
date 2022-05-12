@@ -1,24 +1,5 @@
 package modulon.layout.lazy.decorations
 
-import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Rect
-import android.graphics.RectF
-import android.graphics.drawable.*
-import android.view.View
-import androidx.core.graphics.ColorUtils
-import androidx.core.view.forEach
-import androidx.recyclerview.widget.RecyclerView
-import modulon.R
-import modulon.extensions.view.dpf
-import modulon.layout.lazy.containers.GroupedRowHolder
-import modulon.layout.lazy.section.RecyclerContentLocator
-import modulon.layout.lazy.section.RecyclerHeader
-import modulon.layout.lazy.section.RecyclerHeaderSpacer
-import modulon.union.UnionContext
-import modulon.union.toUnion
-
 //class SeparatorOverlay(context: Context) : RecyclerView.ItemDecoration(), UnionContext by context.toUnion() {
 //
 //    private val bounds = Rect()

@@ -18,14 +18,14 @@ abstract class AbstractCell(context: Context) : StackView(context), CellComponen
     override val titleView: PlainTextView by lazy {
         PlainTextView(context).apply {
             titleStyle()
-            startScrolling()
+//            startScrolling()
         }
     }
 
     override val subtitleView: PlainTextView by lazy {
         PlainTextView(context).apply {
             subtitleStyle()
-            startScrolling()
+//            startScrolling()
         }
     }
 

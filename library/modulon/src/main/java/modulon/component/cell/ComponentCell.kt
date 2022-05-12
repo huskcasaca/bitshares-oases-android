@@ -52,6 +52,13 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
             textView.text = text
         }
 
+    override var subtext: CharSequence
+        get() = subtextView.text
+        set(text) {
+            subtextContainer.isVisible = text.isNotEmpty()
+            subtextView.text = text
+        }
+
     override var iconSize: IconSize = IconSize.TINY
         set(value) {
 //            if (::iconView.isLazyInitialized) {
@@ -187,6 +194,10 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
         }
     }
 
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
         super.onMeasure(
@@ -194,18 +205,15 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
             MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
         )
 
-        val available = MeasureSpec.getSize(widthMeasureSpec) - paddingStart - paddingEnd
-        subtitleView.measure(MeasureSpec.makeMeasureSpec(available, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
-        titleView.measure(MeasureSpec.makeMeasureSpec(available, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
+//        val available = MeasureSpec.getSize(widthMeasureSpec) - paddingStart - paddingEnd
+        val available = containerForm.measuredWidth
 
         if (subtitleView.measuredWidth + titleView.measuredWidth + componentOffsetHalf > available) {
             if (allowMultiLine) {
                 subtitleView.updatePadding(top = titleView.measuredHeight)
-                subtitleView.layoutGravityFrame = Gravity.START or Gravity.CENTER_VERTICAL
-                subtitleView.gravity = Gravity.START
-                titleView.measure(MeasureSpec.makeMeasureSpec(available, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
-                subtitleView.measure(MeasureSpec.makeMeasureSpec(available, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
-//                containerHeader.updateViewLayout(subtitleView, subtitleView.layoutParams)
+                subtitleView.layoutGravityFrame = Gravity.START or Gravity.TOP
+                titleView.layoutGravityFrame = Gravity.START or Gravity.TOP
+
                 super.onMeasure(
                     MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.EXACTLY),
                     MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
@@ -213,7 +221,8 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
             } else {
                 subtitleView.updatePadding(top = 0)
                 subtitleView.layoutGravityFrame = Gravity.END or Gravity.CENTER_VERTICAL
-                subtitleView.gravity = Gravity.END
+                titleView.layoutGravityFrame = Gravity.START or Gravity.CENTER_VERTICAL
+//                subtitleView.gravity = Gravity.END
                 titleView.measure(MeasureSpec.makeMeasureSpec(available * 4 / 5, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
                 subtitleView.measure(MeasureSpec.makeMeasureSpec(available - titleView.measuredWidth - componentOffsetHalf, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
 
@@ -221,11 +230,12 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
         } else {
             subtitleView.updatePadding(top = 0)
             subtitleView.layoutGravityFrame = Gravity.END or Gravity.CENTER_VERTICAL
-            subtitleView.gravity = Gravity.END
-            super.onMeasure(
-                MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.EXACTLY),
-                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
-            )
+            titleView.layoutGravityFrame = Gravity.START or Gravity.CENTER_VERTICAL
+//            subtitleView.gravity = Gravity.END
+//            super.onMeasure(
+//                MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.EXACTLY),
+//                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+//            )
         }
     }
 

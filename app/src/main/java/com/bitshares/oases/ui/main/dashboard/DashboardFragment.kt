@@ -37,6 +37,7 @@ import modulon.extensions.viewbinder.horizontalLayout
 import modulon.extensions.viewbinder.noClipping
 import modulon.extensions.viewbinder.verticalLayout
 import modulon.layout.lazy.*
+import modulon.layout.linear.HorizontalView
 
 class DashboardFragment : ContainerFragment() {
 
@@ -65,7 +66,7 @@ class DashboardFragment : ContainerFragment() {
     override fun onCreateView() {
         setupRecycler {
             section {
-                horizontalLayout {
+                isolated<HorizontalView> {
                     layoutWidth = MATCH_PARENT
                     noClipping()
                     view<Item> {

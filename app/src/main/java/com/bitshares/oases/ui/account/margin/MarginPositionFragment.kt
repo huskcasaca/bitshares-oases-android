@@ -9,6 +9,7 @@ import bitshareskit.objects.AssetObject
 import bitshareskit.objects.CallOrder
 import com.bitshares.oases.extensions.compat.startCollateral
 import com.bitshares.oases.extensions.viewbinder.bindCallOrderTable
+import com.bitshares.oases.extensions.viewbinder.logo
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.startAssetPicker
 import kotlinx.coroutines.launch
@@ -73,6 +74,7 @@ class MarginPositionFragment : ContainerFragment() {
                     }
                 }
             }
+            logo()
         }
     }
 

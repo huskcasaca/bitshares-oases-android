@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ConcatAdapter
 import modulon.R
+import modulon.extensions.view.isolated
 import modulon.extensions.view.view
 import modulon.extensions.viewbinder.headerCellStyle
 import modulon.layout.lazy.*
@@ -17,10 +18,7 @@ import modulon.union.toUnion
 
 abstract class HeaderSection(context: Context) : FrameLayout(context), Section, UnionContext by context.toUnion() {
 
-    protected val adapterInternal = ConcatAdapter().apply {
-
-//        this.stateRestorationPolicy
-    }
+    protected val adapterInternal = ConcatAdapter()
 
     val adapter = ConcatAdapter().apply {
         addAdapter(adapterInternal)
@@ -66,20 +64,12 @@ abstract class HeaderSection(context: Context) : FrameLayout(context), Section, 
 // TODO: 2022/2/15 rename
 class HeaderSectionImpl(context: Context) : HeaderSection(context) {
 
-//    lateinit var headerContainer: ExpandableContainer<RecyclerHeader>
-    lateinit var headerCell: RecyclerHeader
-
-    private var isInit = false
+    private var headerCell: RecyclerHeader
 
     override fun addContainer(block: LazyListView.Container<*>) {
-        if (isInit) {
-            adapterInternal.addAdapter((adapterInternal.adapters.size - 1).coerceAtLeast(0), block.adapter)
-        } else {
-            adapterInternal.addAdapter(block.adapter)
-        }
-
-
+        adapterInternal.addAdapter(block.adapter)
     }
+
     var header: CharSequence
         get() = headerCell.title
         set(value) {
@@ -89,18 +79,14 @@ class HeaderSectionImpl(context: Context) : HeaderSection(context) {
 
     init {
         // FIXME: 2022/2/22
-        view<RecyclerHeaderSpacer>() {
+        isolated<RecyclerHeaderSpacer> {
             backgroundColor = R.color.transparent.contextColor()
         }
-        view<RecyclerHeader> {
+        isolated<RecyclerHeader> {
             headerCellStyle()
             headerCell = this
             isVisible = false
         }
-        locator(RecyclerContentLocator.SpacerType.TOP)
-        locator(RecyclerContentLocator.SpacerType.BOTTOM)
-
-        isInit = true
     }
 
 }
