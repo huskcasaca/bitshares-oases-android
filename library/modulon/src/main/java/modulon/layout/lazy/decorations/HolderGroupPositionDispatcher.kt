@@ -14,24 +14,11 @@ import modulon.UI.USE_FALLBACK_SHADER
 import modulon.extensions.view.dpf
 import modulon.layout.lazy.containers.*
 
-class GroupedHolderTypeDispatcher(context: Context) : RecyclerView.ItemDecoration() {
-
-    companion object {
-        const val USE_DIVIDER = true
-    }
+class HolderGroupPositionDispatcher(context: Context) : RecyclerView.ItemDecoration() {
 
     private val bounds = Rect()
     private val boundsF = RectF()
-    private val dividerBounds = RectF()
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private val dividerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = context.getColor(R.color.component_separator)
-    }
-    private fun moveBoundsWithTranslation(view: View, bounds: RectF) {
-        bounds.offset(view.translationX, view.translationY)
-    }
-    private val dividerHeight = 1.5.dpf
-
 
     private val radius = UI.CORNER_RADIUS.dpf
     private val shaderEnd = context.getColor(R.color.shader_end)
@@ -60,15 +47,6 @@ class GroupedHolderTypeDispatcher(context: Context) : RecyclerView.ItemDecoratio
                     drawEnd = current != null && (parent.getChildViewHolder(current) !is ItemSetMarginHolder)
                     if (!USE_FALLBACK_SHADER) {
                         (previousViewHolder as ItemSetMarginHolder).setDrawType(drawStart, drawEnd)
-                        if (USE_DIVIDER && !drawStart) {
-                            if (bounds.top != bounds.bottom) {
-                                dividerBounds.left = (bounds.left).toFloat()
-                                dividerBounds.right = (bounds.right).toFloat()
-                                dividerBounds.top = bounds.top + dividerHeight / 2
-                                dividerBounds.bottom = bounds.top - dividerHeight / 2
-                                canvas.drawRect(dividerBounds, dividerPaint)
-                            }
-                        }
                     } else {
                         boundsF.set(bounds)
                         when {
@@ -91,15 +69,6 @@ class GroupedHolderTypeDispatcher(context: Context) : RecyclerView.ItemDecoratio
                             }
                             else -> {
                                 drawVS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                            }
-                        }
-                        if (USE_DIVIDER && !drawStart) {
-                            if (bounds.top != bounds.bottom) {
-                                dividerBounds.left = (bounds.left).toFloat()
-                                dividerBounds.right = (bounds.right).toFloat()
-                                dividerBounds.top = bounds.top + dividerHeight / 2
-                                dividerBounds.bottom = bounds.top - dividerHeight / 2
-                                canvas.drawRect(dividerBounds, dividerPaint)
                             }
                         }
                     }

@@ -10,6 +10,7 @@ object UI {
 
     const val ENABLE_CHINESE_FONT_FIXES = false
 
-    const val USE_FALLBACK_SHADER = false
+    const val ENABLE_SHADER = true
+    const val USE_FALLBACK_SHADER = true
 
 }

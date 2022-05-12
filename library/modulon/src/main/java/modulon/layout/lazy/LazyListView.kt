@@ -5,8 +5,10 @@ import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
+import modulon.UI.ENABLE_SHADER
 import modulon.layout.lazy.containers.*
-import modulon.layout.lazy.decorations.GroupedHolderTypeDispatcher
+import modulon.layout.lazy.decorations.HolderGroupPositionDispatcher
+import modulon.layout.lazy.decorations.SeperatorDecoration
 import modulon.layout.lazy.manager.FixedLinearLayoutManager
 import modulon.layout.lazy.section.Section
 import modulon.union.UnionContext
@@ -51,7 +53,11 @@ class LazyListView(context: Context) : RecyclerView(context), Section, UnionCont
             edgeEffectFactory = BounceEdgeEffectFactory(VERTICAL)
         }
 
-//        addItemDecoration((GroupedHolderTypeDispatcher(context)))
+        if (ENABLE_SHADER) {
+            addItemDecoration(HolderGroupPositionDispatcher(context))
+        }
+        addItemDecoration(SeperatorDecoration(context))
+
 
     }
 

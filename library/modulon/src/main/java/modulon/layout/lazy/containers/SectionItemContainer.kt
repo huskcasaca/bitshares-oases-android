@@ -79,8 +79,8 @@ open class ItemSetMarginHolder(context: Context) : ItemSetHolder(Item(context)) 
 
         private val outlined: StackView = StackView(context).apply {
             layoutWidth = MATCH_PARENT
-            if (!UI.USE_FALLBACK_SHADER) clipToOutline = true
-            if (!UI.USE_FALLBACK_SHADER) outlineProvider = object : ViewOutlineProvider() {
+            if (UI.ENABLE_SHADER && !UI.USE_FALLBACK_SHADER) clipToOutline = true
+            if (UI.ENABLE_SHADER && !UI.USE_FALLBACK_SHADER) outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View, outline: Outline) {
                     outline.setRoundRect(0, 0, view.width, view.height, 0.dpf)
                     when {
@@ -106,7 +106,7 @@ open class ItemSetMarginHolder(context: Context) : ItemSetHolder(Item(context)) 
                 leftMargin = context.resources.getDimensionPixelSize(R.dimen.global_spacer_size)
                 rightMargin = context.resources.getDimensionPixelSize(R.dimen.global_spacer_size)
             }
-            if (!UI.USE_FALLBACK_SHADER) {
+            if (UI.ENABLE_SHADER &&  !UI.USE_FALLBACK_SHADER) {
                 setWillNotDraw(false)
             }
             addView(outlined)
