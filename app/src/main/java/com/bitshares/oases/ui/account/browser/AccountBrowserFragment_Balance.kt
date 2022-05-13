@@ -3,6 +3,7 @@ package com.bitshares.oases.ui.account.browser
 import androidx.core.view.isVisible
 import androidx.core.view.postDelayed
 import androidx.fragment.app.activityViewModels
+import com.bitshares.oases.R
 import com.bitshares.oases.chain.AccountBalance
 import com.bitshares.oases.chain.IntentParameters
 import com.bitshares.oases.extensions.compat.showAccountBalanceBrowserDialog
@@ -18,6 +19,7 @@ import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.doOnLongClick
 import modulon.extensions.view.updatePaddingVerticalHalf
+import modulon.extensions.viewbinder.cell
 import modulon.layout.lazy.*
 
 class AccountBrowserFragment_Balance : ContainerFragment() {
@@ -26,16 +28,15 @@ class AccountBrowserFragment_Balance : ContainerFragment() {
 
     override fun onCreateView() {
         setupRecycler {
-//            addExpandable<GrapheneComponentCell> {
-//                initView {
-//                    roundCorner()
+//            section {
+//                cell {
 //                    titleView.textSize = 22f
 //                    title = context.getString(R.string.account_balance_total_balance)
 //                    viewModel.totalAmount.observe(viewLifecycleOwner) { text = it.toString() }
-//                }
-//                isExpanded = false
-//                viewModel.totalAmount.observe(viewLifecycleOwner) { isExpanded = !viewModel.isPicker }
+//                    // expandable
+//                    viewModel.totalAmount.observe(viewLifecycleOwner) { isVisible = !viewModel.isPicker }
 //
+//                }
 //            }
             section {
                 list<ComponentCell, AccountBalance> {

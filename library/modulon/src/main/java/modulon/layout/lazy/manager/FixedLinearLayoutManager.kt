@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 
 class FixedLinearLayoutManager(context: Context) : LinearLayoutManager(context) {
     override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
-        try { super.onLayoutChildren(recycler, state) } catch (e: Throwable) { }
+        try { super.onLayoutChildren(recycler, state) } catch (e: Throwable) {
+            e.printStackTrace()
+        }
     }
 
     override fun onAdapterChanged(oldAdapter: RecyclerView.Adapter<*>?, newAdapter: RecyclerView.Adapter<*>?) {

@@ -16,10 +16,6 @@ fun RecyclerView.getDecoratedBoundsWithoutMargins(view: View, bounds: Rect) {
 }
 
 
-fun moveBoundsWithTranslation(view: View, bounds: Rect) {
-    bounds.offset(view.translationX.roundToInt(), view.translationY.roundToInt())
-}
-
 fun drawVerticalShader(canvas: Canvas, bounds: Rect, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
     if (bounds.top == bounds.bottom) return
     val c = RectF(bounds)
@@ -37,69 +33,6 @@ fun drawVerticalShader(canvas: Canvas, bounds: Rect, paint: Paint, radius: Float
         lineTo(c.right, c.top)
         lineTo(c.right, c.bottom)
         lineTo(c.right + shaderSize, c.bottom)
-        close()
-    }, paint)
-}
-
-fun drawTopVerticalShader(canvas: Canvas, bounds: Rect, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
-    if (bounds.bottom - bounds.top <= radius) return
-    val c = RectF(bounds)
-    paint.shader = LinearGradient(c.left + radius, 0f, c.left - shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
-    canvas.drawPath(Path().apply {
-        moveTo(c.left - shaderSize, c.top + radius)
-        lineTo(c.left, c.top + radius)
-        lineTo(c.left, c.bottom)
-        lineTo(c.left - shaderSize, c.bottom)
-        close()
-    }, paint)
-    paint.shader = LinearGradient(c.right - radius, 0f, c.right + shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
-    canvas.drawPath(Path().apply {
-        moveTo(c.right + shaderSize, c.top + radius)
-        lineTo(c.right, c.top + radius)
-        lineTo(c.right, c.bottom)
-        lineTo(c.right + shaderSize, c.bottom)
-        close()
-    }, paint)
-}
-
-fun drawBottomVerticalShader(canvas: Canvas, bounds: Rect, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
-    if (bounds.bottom - bounds.top <= radius) return
-    val c = RectF(bounds)
-    paint.shader = LinearGradient(c.left + radius, 0f, c.left - shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
-    canvas.drawPath(Path().apply {
-        moveTo(c.left - shaderSize, c.top)
-        lineTo(c.left, c.top)
-        lineTo(c.left, c.bottom - radius)
-        lineTo(c.left - shaderSize, c.bottom - radius)
-        close()
-    }, paint)
-    paint.shader = LinearGradient(c.right - radius, 0f, c.right + shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
-    canvas.drawPath(Path().apply {
-        moveTo(c.right + shaderSize, c.top)
-        lineTo(c.right, c.top)
-        lineTo(c.right, c.bottom - radius)
-        lineTo(c.right + shaderSize, c.bottom - radius)
-        close()
-    }, paint)
-}
-
-fun drawBothVerticalShader(canvas: Canvas, bounds: Rect, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
-    if (bounds.bottom - bounds.top <= radius * 2) return
-    val c = RectF(bounds)
-    paint.shader = LinearGradient(c.left + radius, 0f, c.left - shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
-    canvas.drawPath(Path().apply {
-        moveTo(c.left - shaderSize, c.top + radius)
-        lineTo(c.left, c.top + radius)
-        lineTo(c.left, c.bottom - radius)
-        lineTo(c.left - shaderSize, c.bottom - radius)
-        close()
-    }, paint)
-    paint.shader = LinearGradient(c.right - radius, 0f, c.right + shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
-    canvas.drawPath(Path().apply {
-        moveTo(c.right + shaderSize, c.top + radius)
-        lineTo(c.right, c.top + radius)
-        lineTo(c.right, c.bottom - radius)
-        lineTo(c.right + shaderSize, c.bottom - radius)
         close()
     }, paint)
 }
@@ -223,6 +156,7 @@ fun drawBottomCorner(canvas: Canvas, bounds: Rect, paint: Paint, radius: Float, 
     }, paint)
 }
 
+// TODO: 2022/5/13 remove
 fun drawAllShaders(canvas: Canvas, bounds: Rect, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
     drawVerticalShader(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
     drawTopCorners(canvas, bounds, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)

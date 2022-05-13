@@ -8,15 +8,6 @@ import modulon.layout.lazy.containers.SectionListContainer
 import modulon.layout.lazy.section.HeaderSectionImpl
 import modulon.layout.lazy.section.Section
 
-//// Expandable Container
-//// FIXME: 20/1/2022 may disappear
-//inline fun <reified C : View> Section.expandable(block: ExpandableContainer<C>.() -> Unit = {}) {
-//    addContainer(ExpandableContainer<C> { create() }.apply(block))
-//}
-//fun <C : View> ExpandableContainer<C>.construct(block: C.() -> Unit = {}) {
-//    setViewCreator(block)
-//}
-
 // List Container
 // TODO: 2022/2/28 replace with Section.cells()
 inline fun <reified C : View, D : Any> Section.list(block: SectionListContainer<C, D>.() -> Unit = {}) {
@@ -68,14 +59,6 @@ fun <C : View, D> SectionListContainer<C, D>.areContentsSame(comparator: Compara
 fun <C : View, D> SectionListContainer<C, D>.areItemsSame(comparator: Comparator<D>) {
     setItemComparator(comparator)
 }
-
-//// Spacer Container
-//internal fun Section.locator(type: RecyclerContentLocator.SpacerType) {
-//    addContainer(SpacerContainer(type))
-//}
-
-// Single Container
-
 
 // Section
 inline fun LazyListView.section(block: HeaderSectionImpl.() -> Unit = {}) {
