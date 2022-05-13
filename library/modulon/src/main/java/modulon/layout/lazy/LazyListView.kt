@@ -41,9 +41,7 @@ class LazyListView(context: Context) : RecyclerView(context), Section, UnionCont
         clipToOutline = false
         clipChildren = false
         clipToPadding = false
-        adapter = ConcatAdapter().apply {
-
-        }
+        adapter = ConcatAdapter()
         layoutManager = FixedLinearLayoutManager(context)
         itemAnimator = DefaultItemAnimator()
 
@@ -52,7 +50,7 @@ class LazyListView(context: Context) : RecyclerView(context), Section, UnionCont
 //        } else {
 //            edgeEffectFactory = BounceEdgeEffectFactory(VERTICAL)
 //        }
-        edgeEffectFactory = BounceEdgeEffectFactory(VERTICAL)
+        edgeEffectFactory = EdgeEffectFactory()
 
         if (ENABLE_SHADER) {
             addItemDecoration(HolderGroupPositionDispatcher(context))

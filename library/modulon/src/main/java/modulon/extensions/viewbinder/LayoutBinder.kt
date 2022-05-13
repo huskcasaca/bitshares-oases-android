@@ -125,7 +125,7 @@ fun ViewPager2.setup() = apply {
 // TODO: 15/11/2021 move to child class
 
 //    edgeEffectColor = context.getColor(R.color.component_dark_gray)
-    edgeEffectFactory = BounceEdgeEffectFactory(HORIZONTAL)
+//    edgeEffectFactory = BounceEdgeEffectFactory(HORIZONTAL)
     doOnPageScrolled { position, positionOffset, positionOffsetPixels ->
 
     }
