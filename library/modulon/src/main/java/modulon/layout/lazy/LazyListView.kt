@@ -38,9 +38,9 @@ class LazyListView(context: Context) : RecyclerView(context), Section, UnionCont
     }
 
     init {
-        clipToOutline = false
-        clipChildren = false
-        clipToPadding = false
+        clipToOutline = true
+        clipChildren = true
+        clipToPadding = true
         adapter = ConcatAdapter()
         layoutManager = FixedLinearLayoutManager(context)
         itemAnimator = DefaultItemAnimator()

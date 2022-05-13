@@ -4,21 +4,18 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
-import graphene.chain.K102_AccountObject
-import graphene.chain.K103_AssetObject
 import bitshareskit.objects.AccountObject
 import bitshareskit.objects.AssetObject
 import com.bitshares.oases.R
 import com.bitshares.oases.extensions.viewbinder.logo
-import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.provider.chain_repo.GrapheneRepository
-import com.bitshares.oases.ui.asset.browser.actionBarLayout
-import com.bitshares.oases.ui.asset.browser.bodyCoordinatorParams
-import com.bitshares.oases.ui.asset.browser.actionCoordinatorParams
 import com.bitshares.oases.ui.base.ContainerFragment
 import com.bitshares.oases.ui.base.startFragment
 import com.bitshares.oases.ui.intro.IntroFragment
-import graphene.protocol.*
+import graphene.chain.K102_AccountObject
+import graphene.chain.K103_AssetObject
+import graphene.protocol.ImplementationType
+import graphene.protocol.ProtocolType
 import graphene.serializers.GRAPHENE_JSON_PLATFORM_SERIALIZER
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -31,11 +28,8 @@ import modulon.dialog.section
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.text.toStringOrEmpty
 import modulon.extensions.view.*
-import modulon.extensions.viewbinder.*
-import modulon.component.appbar.subtitle
-import modulon.component.appbar.title
+import modulon.extensions.viewbinder.cell
 import modulon.layout.lazy.*
-import modulon.component.tab.tab
 import modulon.widget.PlainTextView
 
 class TestCaseAFragment : ContainerFragment() {
@@ -97,9 +91,6 @@ class TestCaseAFragment : ContainerFragment() {
                     title = "Ktor Send"
                     doOnClick {
                     }
-                }
-                linearLayout {
-                    layoutHeight = 100.dp
                 }
             }
             logo()

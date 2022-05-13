@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 abstract class HeaderScrollingBehavior : OffsetBehavior<View>() {
 
@@ -42,13 +43,19 @@ abstract class HeaderScrollingBehavior : OffsetBehavior<View>() {
                     if (ViewCompat.getFitsSystemWindows(header)) {
                         val parentInsets = parent.lastWindowInsets
                         if (parentInsets != null) {
-                            availableHeight += (parentInsets.systemWindowInsetTop + parentInsets.systemWindowInsetBottom)
+//                            availableHeight += (parentInsets.systemWindowInsetTop + parentInsets.systemWindowInsetBottom)
+                            if (WindowInsetsCompat(parentInsets).isVisible(WindowInsetsCompat.Type.ime())) {
+                                availableHeight += (parentInsets.systemWindowInsetTop)
+                            } else {
+                                availableHeight += parentInsets.systemWindowInsetTop + parentInsets.systemWindowInsetBottom
+                            }
                         }
                     }
                 } else {
                     // If the measure spec doesn't specify a size, use the current height
                     availableHeight = parent.height
                 }
+
                 var height = availableHeight + getScrollRange(header)
                 val headerHeight = header.measuredHeight
                 if (shouldHeaderOverlapScrollingChild()) {
@@ -71,6 +78,7 @@ abstract class HeaderScrollingBehavior : OffsetBehavior<View>() {
         return false
     }
 
+    @SuppressLint("RestrictedApi")
     override fun layoutChild(parent: CoordinatorLayout, child: View, layoutDirection: Int) {
         val header = findFirstDependency(parent.getDependencies(child))
         if (header != null) {
