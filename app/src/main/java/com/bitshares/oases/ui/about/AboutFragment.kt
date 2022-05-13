@@ -9,7 +9,6 @@ import com.bitshares.oases.preference.AppConfig
 import com.bitshares.oases.ui.account.permission.PermissionViewModel
 import com.bitshares.oases.ui.asset.browser.*
 import com.bitshares.oases.ui.base.*
-import com.bitshares.oases.ui.main.MainFragment
 import modulon.extensions.view.doOnClick
 import modulon.extensions.view.updatePaddingVerticalHalf
 import modulon.extensions.viewbinder.*
@@ -33,23 +32,6 @@ class AboutFragment : ContainerFragment() {
         verticalLayout {
             layoutParams = bodyCoordinatorParams()
             recyclerLayout {
-                section {
-                    cell {
-                        title = "AAAAAAAAA"
-                        subtitle = "BBBBBBBBBBBBBBBBBBBBB"
-                    }
-                    cell {
-                        title = "AAAAAAAAA"
-                        subtitle = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
-                    }
-                    cell {
-                        title = "AAAAAAAAA"
-                        subtitle = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
-                        allowMultiLine = true
-                    }
-                }
-
-
 //            section {
 //                cell {
 //                    iconSize = IconSize.LARGE

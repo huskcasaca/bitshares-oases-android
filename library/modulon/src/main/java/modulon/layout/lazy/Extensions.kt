@@ -4,19 +4,18 @@ import android.view.View
 import modulon.component.cell.ComponentCell
 import modulon.extensions.view.create
 import modulon.layout.lazy.containers.Comparator
-import modulon.layout.lazy.containers.ExpandableContainer
 import modulon.layout.lazy.containers.SectionListContainer
 import modulon.layout.lazy.section.HeaderSectionImpl
 import modulon.layout.lazy.section.Section
 
-// Expandable Container
-// FIXME: 20/1/2022 may disappear
-inline fun <reified C : View> Section.expandable(block: ExpandableContainer<C>.() -> Unit = {}) {
-    addContainer(ExpandableContainer<C> { create() }.apply(block))
-}
-fun <C : View> ExpandableContainer<C>.construct(block: C.() -> Unit = {}) {
-    setViewCreator(block)
-}
+//// Expandable Container
+//// FIXME: 20/1/2022 may disappear
+//inline fun <reified C : View> Section.expandable(block: ExpandableContainer<C>.() -> Unit = {}) {
+//    addContainer(ExpandableContainer<C> { create() }.apply(block))
+//}
+//fun <C : View> ExpandableContainer<C>.construct(block: C.() -> Unit = {}) {
+//    setViewCreator(block)
+//}
 
 // List Container
 // TODO: 2022/2/28 replace with Section.cells()

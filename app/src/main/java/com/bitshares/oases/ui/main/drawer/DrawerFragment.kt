@@ -16,6 +16,7 @@ import android.widget.ImageView
 import androidx.core.animation.doOnEnd
 import androidx.core.net.toUri
 import androidx.core.view.doOnAttach
+import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.activityViewModels
 import com.bitshares.oases.R
@@ -50,7 +51,6 @@ import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
 import modulon.layout.linear.VerticalView
 import modulon.layout.lazy.construct
-import modulon.layout.lazy.expandable
 
 class DrawerFragment : ContainerFragment() {
 
@@ -202,61 +202,61 @@ class DrawerFragment : ContainerFragment() {
                     doOnDraw { it.drawLine(0f, measuredHeight / 2f, measuredWidth - 0f, measuredHeight / 2f, divider) }
                 }
             }
-            expandable<VerticalView> {
-                construct {
-                    spacer { height = 4.dp }
-                    verticalLayout {
-                        mainViewModel.users.observe(viewLifecycleOwner) { list ->
-                            removeAllViews()
-                            list.forEach { user ->
-                                frameLayout {
-                                    updatePadding(right = 16.dp)
-                                    cell {
-                                        setDrawerItemStyle()
-                                        bindUserDrawer(user, IconSize.SMALL)
-                                        iconView.apply {
-                                            layoutMarginStart = (-4).dp
-                                            layoutMarginTop = (-4).dp
-                                            layoutMarginEnd = (-4).dp + componentOffset
-                                            layoutMarginBottom = (-4).dp
-                                            layoutGravity = Gravity.START or Gravity.CENTER_VERTICAL
-                                        }
-//                                    radRT: Float, radLB: Float, radRB: Float, radLT: Float
-                                        doOnClick {
-                                            mainViewModel.closeDrawer()
-                                            showUserSwitchDialog(user)
-                                        }
-                                        doOnLongClick { showUserOptionDialog(user) }
+            // expandable
+            verticalLayout {
+                spacer { height = 4.dp }
+                verticalLayout {
+                    mainViewModel.users.observe(viewLifecycleOwner) { list ->
+                        removeAllViews()
+                        list.forEach { user ->
+                            frameLayout {
+                                updatePadding(right = 16.dp)
+                                cell {
+                                    setDrawerItemStyle()
+                                    bindUserDrawer(user, IconSize.SMALL)
+                                    iconView.apply {
+                                        layoutMarginStart = (-4).dp
+                                        layoutMarginTop = (-4).dp
+                                        layoutMarginEnd = (-4).dp + componentOffset
+                                        layoutMarginBottom = (-4).dp
+                                        layoutGravity = Gravity.START or Gravity.CENTER_VERTICAL
                                     }
+//                                    radRT: Float, radLB: Float, radRB: Float, radLT: Float
+                                    doOnClick {
+                                        mainViewModel.closeDrawer()
+                                        showUserSwitchDialog(user)
+                                    }
+                                    doOnLongClick { showUserOptionDialog(user) }
                                 }
                             }
                         }
                     }
-                    // TODO: 2022/2/24 remove frameLayout
-                    frameLayout {
-                        updatePadding(right = 16.dp)
-                        cell {
-                            setDrawerItemStyle()
-                            title = context.getString(R.string.drawer_import)
-                            icon = R.drawable.ic_cell_add_account.contextDrawable()
-                            doOnClick {
-                                startFragment<ImportFragment>()
-                                mainViewModel.closeDrawer()
-                            }
+                }
+                // TODO: 2022/2/24 remove frameLayout
+                frameLayout {
+                    updatePadding(right = 16.dp)
+                    cell {
+                        setDrawerItemStyle()
+                        title = context.getString(R.string.drawer_import)
+                        icon = R.drawable.ic_cell_add_account.contextDrawable()
+                        doOnClick {
+                            startFragment<ImportFragment>()
+                            mainViewModel.closeDrawer()
                         }
-                    }
-                    spacer { height = 4.dp }
-                    spacer {
-                        height = 3
-                        val divider = Paint().apply {
-                            color = context.getColor(R.color.component_separator)
-                            strokeWidth = 3f
-                        }
-                        doOnDraw { it.drawLine(0f, measuredHeight / 2f, measuredWidth - 0f, measuredHeight / 2f, divider) }
                     }
                 }
-                isExpanded = false
-                mainViewModel.isUsersExpanded.observe(viewLifecycleOwner) { isExpanded = it }
+                spacer { height = 4.dp }
+                spacer {
+                    height = 3
+                    val divider = Paint().apply {
+                        color = context.getColor(R.color.component_separator)
+                        strokeWidth = 3f
+                    }
+                    doOnDraw { it.drawLine(0f, measuredHeight / 2f, measuredWidth - 0f, measuredHeight / 2f, divider) }
+                }
+
+                isVisible = false
+                mainViewModel.isUsersExpanded.observe(viewLifecycleOwner) { isVisible = it }
             }
             verticalLayout {
                 verticalLayout {

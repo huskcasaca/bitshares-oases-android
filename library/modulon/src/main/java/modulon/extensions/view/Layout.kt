@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import modulon.component.cell.ComponentCell
 import modulon.extensions.stdlib.logcat
+import modulon.layout.lazy.containers.LazySectionItemContainer
 import modulon.layout.lazy.containers.RawItemContainer
 import modulon.layout.lazy.containers.SectionItemContainer
 import modulon.layout.lazy.section.HeaderSection
@@ -43,6 +44,12 @@ inline fun <reified V: View> ViewGroup.view(block: V.() -> Unit = {} ) {
 inline fun <reified V: View> HeaderSection.view(block: V.() -> Unit = {} ) {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     addContainer(SectionItemContainer(toUnion().create(block), null, true))
+}
+
+@OptIn(ExperimentalContracts::class)
+inline fun <reified V: View> HeaderSection.lazyView(crossinline block: V.() -> Unit = {} ) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    addContainer(LazySectionItemContainer({ toUnion().create(block) }, true))
 }
 
 @OptIn(ExperimentalContracts::class)

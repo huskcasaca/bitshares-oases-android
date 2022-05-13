@@ -226,9 +226,9 @@ class TestCaseCFragment : ContainerFragment() {
                 }
             }
             section {
-                repeat(1000) {
-                    view<ComponentCell> {
-                        title = "Intro"
+                repeat(10_000) {
+                    lazyView<ComponentCell> {
+                        title = "Index $it"
                         icon = R.drawable.ic_cell_test_lab.contextDrawable()
                         doOnThrottledClick {
                             startFragment<IntroFragment>()

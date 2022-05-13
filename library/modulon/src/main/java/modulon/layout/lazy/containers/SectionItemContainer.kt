@@ -143,7 +143,9 @@ open class ItemSetMarginHolder(context: Context) : ItemSetHolder(Item(context)) 
         }
     }
 
-    fun replace(view: View) = container.replace(view)
+    fun replace(view: View) {
+        container.replace(view)
+    }
 
 }
 open class ItemSigMarginHolder(context: Context) : ItemSigHolder(Item(context)) {

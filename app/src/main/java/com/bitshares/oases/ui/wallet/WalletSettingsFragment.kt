@@ -121,18 +121,17 @@ class WalletSettingsFragment : ContainerFragment() {
                             }
                         }
                     }
-                    expandable<ComponentCell> {
-                        construct {
-                            buttonStyle()
-                            text = context.getString(R.string.wallet_settings_change_password)
-                            isVisible = false
-                            doOnClick {
-                                lifecycleScope.launch {
-                                    startWalletPasswordChange()
-                                }
+                    cell {
+                        buttonStyle()
+                        text = context.getString(R.string.wallet_settings_change_password)
+                        isVisible = false
+                        doOnClick {
+                            lifecycleScope.launch {
+                                startWalletPasswordChange()
                             }
                         }
-                        globalPreferenceManager.USE_PASSWORD.observe(viewLifecycleOwner) { isExpanded = it }
+                        // isExpanded
+                        globalPreferenceManager.USE_PASSWORD.observe(viewLifecycleOwner) { isVisible = it }
                     }
                     cell {
                         updatePaddingVerticalHalf()

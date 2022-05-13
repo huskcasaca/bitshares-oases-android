@@ -47,11 +47,12 @@ class LazyListView(context: Context) : RecyclerView(context), Section, UnionCont
         layoutManager = FixedLinearLayoutManager(context)
         itemAnimator = DefaultItemAnimator()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            edgeEffectFactory = EdgeEffectFactory()
-        } else {
-            edgeEffectFactory = BounceEdgeEffectFactory(VERTICAL)
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            edgeEffectFactory = EdgeEffectFactory()
+//        } else {
+//            edgeEffectFactory = BounceEdgeEffectFactory(VERTICAL)
+//        }
+        edgeEffectFactory = BounceEdgeEffectFactory(VERTICAL)
 
         if (ENABLE_SHADER) {
             addItemDecoration(HolderGroupPositionDispatcher(context))

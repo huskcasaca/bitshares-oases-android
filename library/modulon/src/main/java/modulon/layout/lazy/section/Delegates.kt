@@ -12,7 +12,6 @@ import modulon.extensions.view.view
 import modulon.extensions.viewbinder.headerCellStyle
 import modulon.layout.lazy.*
 import modulon.layout.lazy.containers.SectionItemContainer
-import modulon.layout.lazy.containers.ExpandableContainer
 import modulon.union.UnionContext
 import modulon.union.toUnion
 
@@ -25,24 +24,20 @@ abstract class HeaderSection(context: Context) : FrameLayout(context), Section, 
     }
 
     abstract override fun addContainer(block: LazyListView.Container<*>)
+
     override fun addContainer(block: LazyListView.Container<*>, index: Int) {
+        // FIXME: 2022/5/13 index
         addContainer(block)
     }
-
-    fun addView(child: View, isRounded: Boolean) {
-        addContainer(SectionItemContainer(child, null, isRounded))
-    }
-
-    override fun addView(child: View) {
-        addContainer(SectionItemContainer(child, null, true))
-    }
-
     override fun addView(child: View, index: Int) {
         addContainer(SectionItemContainer(child, null, true), index)
     }
-
-    override fun addView(child: View, params: ViewGroup.LayoutParams?) {
+    override fun addView(child: View, index: Int, params: ViewGroup.LayoutParams) {
+        addContainer(SectionItemContainer(child, params, true), index)
+    }
+    override fun addViewInLayout(child: View, index: Int, params: ViewGroup.LayoutParams?, preventRequestLayout: Boolean): Boolean {
         addContainer(SectionItemContainer(child, params, true))
+        return true
     }
 
     override fun setVisibility(visibility: Int) {

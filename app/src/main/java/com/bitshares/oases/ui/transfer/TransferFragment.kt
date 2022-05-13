@@ -33,7 +33,6 @@ import modulon.extensions.view.updatePaddingVerticalV6
 import modulon.extensions.viewbinder.cell
 import modulon.component.appbar.subtitle
 import modulon.layout.lazy.construct
-import modulon.layout.lazy.expandable
 import modulon.layout.lazy.section
 import modulon.union.Union
 import java.util.*
@@ -130,105 +129,100 @@ class TransferFragment : ContainerFragment() {
         //                        }
         //                    }
         //                }
-                expandable<ComponentCell> {
-                    isExpanded = false
-                    construct {
-                        updatePaddingVerticalHalf()
-                        title = context.getString(R.string.transfer_asset)
-                        viewModel.sender.observe(viewLifecycleOwner) {
+                cell {
+                    updatePaddingVerticalHalf()
+                    title = context.getString(R.string.transfer_asset)
+                    viewModel.sender.observe(viewLifecycleOwner) {
 //                            if (it != null) doOnClick { startAccountBalanceIdPicker(it.uid) { if (it != null) viewModel.setBalanceUid(it.uid) } }
-                            doOnClick {
-                                if (it != null) lifecycleScope.launch(Dispatchers.Main) {
-                                    suspendAccountBalanceIdPicker(it.uid)?.let {
-                                        viewModel.setBalanceUid(it)
-                                    }
+                        doOnClick {
+                            if (it != null) lifecycleScope.launch(Dispatchers.Main) {
+                                suspendAccountBalanceIdPicker(it.uid)?.let {
+                                    viewModel.setBalanceUid(it)
                                 }
                             }
                         }
-                        viewModel.balanceAmount.observe(viewLifecycleOwner) {
-                            if (it != null) subtitle = it.asset.symbol
-                        }
-                        viewModel.balance.observe(viewLifecycleOwner) { isExpanded = it != null }
                     }
+                    viewModel.balanceAmount.observe(viewLifecycleOwner) {
+                        if (it != null) subtitle = it.asset.symbol
+                    }
+//                    isExpanded = false
+                    isVisible = false
+                    viewModel.balance.observe(viewLifecycleOwner) { isVisible = it != null }
                 }
-                expandable<ComponentCell> {
-                    isExpanded = false
-                    construct {
-                        updatePaddingVerticalHalf()
-        //                        title = context.getString(R.string.transfer_amount_total
-                        title = "Available"
-                        doOnClick { viewModel.setFullBalance() }
-                        subtitleView.transformationMethod = TABULAR_TRANSFORMATION_METHOD
-                        viewModel.balanceAmount.observe(viewLifecycleOwner) {
-                            subtextView.isClickable = it != null
-                            if (it != null) subtitle = "${formatAssetBigDecimal(it).toPlainString()} ${it.asset.symbol}"
-                        }
-                        viewModel.balance.observe(viewLifecycleOwner) { isExpanded = it != null }
+                cell {
+                    updatePaddingVerticalHalf()
+                    //                        title = context.getString(R.string.transfer_amount_total
+                    title = "Available"
+                    doOnClick { viewModel.setFullBalance() }
+                    subtitleView.transformationMethod = TABULAR_TRANSFORMATION_METHOD
+                    viewModel.balanceAmount.observe(viewLifecycleOwner) {
+                        subtextView.isClickable = it != null
+                        if (it != null) subtitle = "${formatAssetBigDecimal(it).toPlainString()} ${it.asset.symbol}"
                     }
+//                    isExpanded = false
+                    isVisible = false
+                    viewModel.balance.observe(viewLifecycleOwner) { isVisible = it != null }
                 }
-                expandable<ComponentCell> {
-                    isExpanded = false
-                    construct {
-                        updatePaddingVerticalHalf()
-                        isVisible = false
-        //                        title = context.getString(R.string.transfer_amount_total
-                        title = "Left"
-                        doOnClick { viewModel.setFullBalance() }
-                        subtitleView.transformationMethod = TABULAR_TRANSFORMATION_METHOD
-                        viewModel.leftAmount.observe(viewLifecycleOwner) {
-                            if (it != null) {
-                                subtitle = "${formatAssetBigDecimal(it).toPlainString()} ${it.asset.symbol}"
-                                subtitleView.textColor = if (it.amount < 0) context.getColor(R.color.component_error) else context.getColor(modulon.R.color.cell_text_secondary)
-                            }
-                            isVisible = it != null
+                cell {
+                    updatePaddingVerticalHalf()
+                    isVisible = false
+                    //                        title = context.getString(R.string.transfer_amount_total
+                    title = "Left"
+                    doOnClick { viewModel.setFullBalance() }
+                    subtitleView.transformationMethod = TABULAR_TRANSFORMATION_METHOD
+                    viewModel.leftAmount.observe(viewLifecycleOwner) {
+                        if (it != null) {
+                            subtitle = "${formatAssetBigDecimal(it).toPlainString()} ${it.asset.symbol}"
+                            subtitleView.textColor = if (it.amount < 0) context.getColor(R.color.component_error) else context.getColor(modulon.R.color.cell_text_secondary)
                         }
-                        viewModel.balance.observe(viewLifecycleOwner) { isExpanded = it != null }
+                        isVisible = it != null
                     }
+//                    isExpanded = false
+                    isVisible = false
+                    viewModel.balance.observe(viewLifecycleOwner) { isVisible = it != null }
                 }
-                expandable<ComponentCell> {
-                    isExpanded = false
-                    construct{
-                        updatePaddingVerticalHalf()
-                        title = context.getString(R.string.transfer_amount)
-                        subtitleView.transformationMethod = TABULAR_TRANSFORMATION_METHOD
-                        customHorizontal {
-                            field {
-                                inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
-                                doAfterTextChanged { viewModel.changeAmountField(it.toStringOrEmpty()) }
-                                viewModel.sendFieldNotice.observe(viewLifecycleOwner) { fieldtext = it }
-                            }
-                            text {
-                                viewModel.balanceAmount.observe(viewLifecycleOwner) {
-                                    if (it != null) text = it.asset.symbol
-                                }
+                cell {
+                    updatePaddingVerticalHalf()
+                    title = context.getString(R.string.transfer_amount)
+                    subtitleView.transformationMethod = TABULAR_TRANSFORMATION_METHOD
+                    customHorizontal {
+                        field {
+                            inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
+                            doAfterTextChanged { viewModel.changeAmountField(it.toStringOrEmpty()) }
+                            viewModel.sendFieldNotice.observe(viewLifecycleOwner) { fieldtext = it }
+                        }
+                        text {
+                            viewModel.balanceAmount.observe(viewLifecycleOwner) {
+                                if (it != null) text = it.asset.symbol
                             }
                         }
-                        viewModel.sender.observe(viewLifecycleOwner) {
-                            doOnClick {
-                                if (it != null) lifecycleScope.launch {
-                                    suspendAccountBalanceIdPicker(it.uid)?.let { viewModel.setBalanceUid(it) }
-                                }
-                            }
-                        }
-        //                        viewModel.leftAmount.observe(viewLifecycleOwner) {
-        //                            subtitle = if (it == null) "" else "${it.values} ${context.getString(R.string.transfer_amount_left)}"
-        //                            isError = it != null && it.amount < 0
-        //                        }
-                        viewModel.balance.observe(viewLifecycleOwner) { isExpanded = it != null }
                     }
+                    viewModel.sender.observe(viewLifecycleOwner) {
+                        doOnClick {
+                            if (it != null) lifecycleScope.launch {
+                                suspendAccountBalanceIdPicker(it.uid)?.let { viewModel.setBalanceUid(it) }
+                            }
+                        }
+                    }
+                    //                        viewModel.leftAmount.observe(viewLifecycleOwner) {
+                    //                            subtitle = if (it == null) "" else "${it.values} ${context.getString(R.string.transfer_amount_left)}"
+                    //                            isError = it != null && it.amount < 0
+                    //                        }
+//                    isExpanded = false
+                    isVisible = false
+                    viewModel.balance.observe(viewLifecycleOwner) { isVisible = it != null }
                 }
                 // TODO: 25/1/2022 remove expandable
-                expandable<ComponentCell> {
-                    isExpanded = false
-                    construct {
-                        updatePaddingVerticalHalf()
-                        title = context.getString(R.string.transfer_memo)
-                        field {
-                            hint = context.getString(R.string.transfer_memo_hint)
-                            doAfterTextChanged { viewModel.changeMemo(it.toStringOrEmpty()) }
-                        }
-                        viewModel.isMemoAuthorizedLive.observe(viewLifecycleOwner) { isExpanded = it }
+                cell {
+                    updatePaddingVerticalHalf()
+                    title = context.getString(R.string.transfer_memo)
+                    field {
+                        hint = context.getString(R.string.transfer_memo_hint)
+                        doAfterTextChanged { viewModel.changeMemo(it.toStringOrEmpty()) }
                     }
+//                    isExpanded = false
+                    isVisible = false
+                    viewModel.isMemoAuthorizedLive.observe(viewLifecycleOwner) { isVisible = it }
                 }
                 isVisible = false
                 viewModel.balance.observe(viewLifecycleOwner) { isVisible = it != null }
