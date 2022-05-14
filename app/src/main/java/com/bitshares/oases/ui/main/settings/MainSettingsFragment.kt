@@ -25,12 +25,15 @@ import com.bitshares.oases.ui.settings.network.NetworkSettingsFragment
 import com.bitshares.oases.ui.settings.node.NodeSettingsFragment
 import com.bitshares.oases.ui.settings.storage.StorageSettingsFragment
 import com.bitshares.oases.ui.testlab.TestLabFragment
+import com.bitshares.oases.ui.testlab.testSettings
 import com.bitshares.oases.ui.wallet.WalletSettingsFragment
 import com.bitshares.oases.ui.wallet.showUserOptionDialog
 import com.bitshares.oases.ui.wallet.showUserSwitchDialog
 import modulon.component.cell.ComponentCell
 import modulon.component.cell.IconSize
 import modulon.component.cell.buttonStyle
+import modulon.component.cell.toggleEnd
+import modulon.extensions.compat.recreateActivity
 import modulon.extensions.compat.startUriBrowser
 import modulon.extensions.livedata.distinctUntilChangedBy
 import modulon.extensions.view.*
@@ -43,6 +46,7 @@ class MainSettingsFragment : ContainerFragment() {
 
     override fun ViewGroup.onCreateView() {
         recyclerLayout {
+            testSettings()
             section {
                 cell {
                     bindAccountV3(AccountObject.EMPTY, true, IconSize.COMPONENT_1)

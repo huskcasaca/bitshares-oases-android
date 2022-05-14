@@ -79,7 +79,7 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
         set(value) {
             field = value
             // FIXME: 2022/5/8  
-//            requestLayout()
+            titleContainer.requestLayout()
         }
 
     // TODO: 21/1/2022 avoid conflicts
@@ -210,6 +210,7 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
                     subtitleView.updatePadding(top = titleView.measuredHeight)
                     subtitleView.layoutGravityFrame = Gravity.START or Gravity.TOP
                     titleView.layoutGravityFrame = Gravity.START or Gravity.TOP
+                    subtitleView.gravity = Gravity.START
                     setMeasuredDimension(measuredWidth, subtitleView.measuredHeight)
                 } else {
                     subtitleView.updatePadding(top = 0)
@@ -223,6 +224,7 @@ class ComponentCell(context: Context) : ComponentPaddingCell(context) {
                 subtitleView.updatePadding(top = 0)
                 subtitleView.layoutGravityFrame = Gravity.END or Gravity.CENTER_VERTICAL
                 titleView.layoutGravityFrame = Gravity.START or Gravity.CENTER_VERTICAL
+                subtitleView.gravity = Gravity.END
             }
         }
     }

@@ -133,10 +133,10 @@ class ExploreFragment_Blockchain : ContainerFragment() {
                         subtitle = it
                     }
                     allowMultiLine = true
-//                                                viewModel.blockTimeOffset.observe(viewLifecycleOwner) {
-//                                                    val sec = it.toInt() / 1000
-//                                                    subtitleView.textWithVisibility = if (sec == 0) context.getString(R.string.chain_explore_block_time_now) else context.getString(R.string.chain_explore_block_time_ago, formatTimeStringFromSec(sec))
-//                                                }
+//                    viewModel.blockTimeOffset.observe(viewLifecycleOwner) {
+//                        val sec = it.toInt() / 1000
+//                        subtitleView.textWithVisibility = if (sec == 0) context.getString(R.string.chain_explore_block_time_now) else context.getString(R.string.chain_explore_block_time_ago, formatTimeStringFromSec(sec))
+//                    }
                 }
                 cell {
                     updatePaddingVerticalHalf()

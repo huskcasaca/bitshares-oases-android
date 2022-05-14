@@ -12,13 +12,17 @@ import modulon.R
 import modulon.UI
 import modulon.UI.USE_FALLBACK_SHADER
 import modulon.extensions.view.dpf
+import modulon.extensions.view.isSmallScreenCompat
 import modulon.layout.lazy.containers.*
+import kotlin.math.min
 
 class HolderGroupPositionDispatcher(context: Context) : RecyclerView.ItemDecoration() {
 
     private val bounds = Rect()
     private val boundsF = RectF()
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    private val isRoundCorner = !context.isSmallScreenCompat
 
     private val radius = UI.CORNER_RADIUS.dpf
     private val shaderEnd = context.getColor(R.color.shader_end)
@@ -49,26 +53,46 @@ class HolderGroupPositionDispatcher(context: Context) : RecyclerView.ItemDecorat
                         (previousViewHolder as ItemSetMarginHolder).setDrawType(drawStart, drawEnd)
                     } else {
                         boundsF.set(bounds)
-                        when {
-                            drawStart && drawEnd -> {
-                                drawAVS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                                drawTC(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                                drawBC(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                                drawTS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                                drawBS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                        if (isRoundCorner) {
+                            when {
+                                drawStart && drawEnd -> {
+                                    val newRadius = min((boundsF.bottom - bounds.top) / 2, radius)
+                                    drawAVS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                    drawTC(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                    drawBC(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                    drawTS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                    drawBS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                }
+                                drawStart -> {
+                                    val newRadius = min(boundsF.bottom - bounds.top, radius)
+                                    drawTC(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                    drawTS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                    drawTVS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                }
+                                drawEnd -> {
+                                    val newRadius = min(boundsF.bottom - bounds.top, radius)
+                                    drawBC(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                    drawBS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                    drawBVS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                }
+                                else -> {
+                                    drawVS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                }
                             }
-                            drawStart -> {
-                                drawTC(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                                drawTS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                                drawTVS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                            }
-                            drawEnd -> {
-                                drawBC(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                                drawBS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                                drawBVS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                            }
-                            else -> {
-                                drawVS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                        } else {
+                            when {
+                                drawStart && drawEnd -> {
+                                    drawTopShadow(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                    drawBottomShadow(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                }
+                                drawStart -> {
+                                    drawTopShadow(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                }
+                                drawEnd -> {
+                                    drawBottomShadow(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                                }
+                                else -> {
+                                }
                             }
                         }
                     }

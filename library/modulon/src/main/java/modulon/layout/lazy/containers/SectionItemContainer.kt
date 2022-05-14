@@ -8,12 +8,10 @@ import android.view.ViewOutlineProvider
 import androidx.recyclerview.widget.RecyclerView
 import modulon.R
 import modulon.UI
-import modulon.extensions.view.MATCH_PARENT
-import modulon.extensions.view.WRAP_CONTENT
-import modulon.extensions.view.dpf
-import modulon.extensions.view.layoutWidth
+import modulon.extensions.view.*
 import modulon.layout.lazy.LazyListView
 import modulon.layout.stack.StackView
+import kotlin.math.min
 
 class SectionItemContainer(
     private val view: View,
@@ -68,7 +66,10 @@ open class ItemSetMarginHolder(context: Context) : ItemSetHolder(Item(context)) 
                 invalidate()
             }
         }
-        private val radius = modulon.UI.CORNER_RADIUS.dpf
+
+        private val isRoundCorner = !context.isSmallScreenCompat
+
+        private val radius = UI.CORNER_RADIUS.dpf
         private val shaderEnd = context.getColor(R.color.shader_end)
         private val shaderCenter = context.getColor(R.color.shader_center)
         private val backgroundColor = context.getColor(R.color.background)
@@ -99,12 +100,13 @@ open class ItemSetMarginHolder(context: Context) : ItemSetHolder(Item(context)) 
 
         val child: View? get() = (getChildAt(0) as StackView).getChildAt(0)
 
-
         init {
             clipToOutline = false
             layoutParams = RecyclerView.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
-                leftMargin = context.resources.getDimensionPixelSize(R.dimen.global_spacer_size)
-                rightMargin = context.resources.getDimensionPixelSize(R.dimen.global_spacer_size)
+                if (isRoundCorner) {
+                    leftMargin = context.resources.getDimensionPixelSize(R.dimen.global_spacer_size)
+                    rightMargin = context.resources.getDimensionPixelSize(R.dimen.global_spacer_size)
+                }
             }
             if (UI.ENABLE_SHADER &&  !UI.USE_FALLBACK_SHADER) {
                 setWillNotDraw(false)
@@ -119,17 +121,20 @@ open class ItemSetMarginHolder(context: Context) : ItemSetHolder(Item(context)) 
             boundsF.set(bounds)
             when {
                 drawStart && drawEnd -> {
-                    drawTS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                    drawBS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                    drawAVS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                    val newRadius = min((boundsF.bottom - bounds.top) / 2, radius)
+                    drawTS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                    drawBS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                    drawAVS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
                 }
                 drawStart -> {
-                    drawTS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                    drawTVS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                    val newRadius = min(boundsF.bottom - bounds.top, radius)
+                    drawTS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                    drawTVS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
                 }
                 drawEnd -> {
-                    drawBS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
-                    drawBVS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                    val newRadius = min(boundsF.bottom - bounds.top, radius)
+                    drawBS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
+                    drawBVS(canvas, boundsF, paint, newRadius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
                 }
                 else -> {
                     drawVS(canvas, boundsF, paint, radius, shaderSize, shaderCenter, shaderEnd, backgroundColor)
@@ -174,6 +179,7 @@ open class ItemHolder(val item: View) : RecyclerView.ViewHolder(item)
 
 internal fun drawTS(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
     // top
+    if (bounds.isEmpty) return
     paint.shader = LinearGradient(0f, bounds.top + radius, 0f, bounds.top - shaderSize, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
     canvas.drawRect(bounds.left + radius,  bounds.top, bounds.right - radius, bounds.top - shaderSize, paint)
 
@@ -197,6 +203,7 @@ internal fun drawTS(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, 
 }
 internal fun drawBS(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
     // bottom
+    if (bounds.isEmpty) return
     paint.shader = LinearGradient(0f, bounds.bottom - radius, 0f, bounds.bottom + shaderSize, shaderCenter, shaderEnd, Shader.TileMode.MIRROR);
     canvas.drawRect(bounds.left + radius,  bounds.bottom, bounds.right - radius, bounds.bottom + shaderSize, paint)
 
@@ -218,7 +225,7 @@ internal fun drawBS(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, 
     }, paint)
 }
 internal fun drawVS(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
-    if (bounds.bottom - bounds.top <= 0f) return
+    if (bounds.isEmpty) return
     paint.shader = LinearGradient(bounds.left + radius, 0f, bounds.left - shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
     canvas.drawRect(bounds.left, bounds.top, bounds.left - shaderSize, bounds.bottom, paint)
 
@@ -226,7 +233,7 @@ internal fun drawVS(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, 
     canvas.drawRect(bounds.right, bounds.top, bounds.right + shaderSize, bounds.bottom, paint)
 }
 internal fun drawTVS(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
-    if (bounds.bottom - bounds.top <= radius) return
+    if (bounds.bottom - bounds.top < radius) return
     paint.shader = LinearGradient(bounds.left + radius, 0f, bounds.left - shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
     canvas.drawRect(bounds.left, bounds.top + radius, bounds.left - shaderSize, bounds.bottom, paint)
 
@@ -234,7 +241,7 @@ internal fun drawTVS(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float,
     canvas.drawRect(bounds.right, bounds.top + radius, bounds.right + shaderSize, bounds.bottom, paint)
 }
 internal fun drawBVS(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
-    if (bounds.bottom - bounds.top <= radius) return
+    if (bounds.bottom - bounds.top < radius) return
     paint.shader = LinearGradient(bounds.left + radius, 0f, bounds.left - shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
     canvas.drawRect(bounds.left, bounds.top, bounds.left - shaderSize, bounds.bottom - radius, paint)
 
@@ -242,7 +249,7 @@ internal fun drawBVS(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float,
     canvas.drawRect(bounds.right, bounds.top, bounds.right + shaderSize, bounds.bottom - radius, paint)
 }
 internal fun drawAVS(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
-    if (bounds.bottom - bounds.top <= radius * 2) return
+    if (bounds.bottom - bounds.top < radius * 2) return
     paint.shader = LinearGradient(bounds.left + radius, 0f, bounds.left - shaderSize, 0f, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
     canvas.drawRect(bounds.left, bounds.top + radius, bounds.left - shaderSize, bounds.bottom - radius, paint)
 
@@ -250,6 +257,7 @@ internal fun drawAVS(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float,
     canvas.drawRect(bounds.right, bounds.top + radius, bounds.right + shaderSize, bounds.bottom - radius, paint)
 }
 internal fun drawTC(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
+    var radius = radius
     paint.color = backgroundColor
     paint.shader = null
     canvas.drawColor(Color.TRANSPARENT)
@@ -278,6 +286,7 @@ internal fun drawTC(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, 
     }, paint)
 }
 internal fun drawBC(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
+    var radius = radius
     paint.color = backgroundColor
     paint.shader = null
     canvas.drawColor(Color.TRANSPARENT)
@@ -304,4 +313,16 @@ internal fun drawBC(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, 
         lineTo(bounds.right + shaderSize, bounds.bottom - radius)
         close()
     }, paint)
+}
+internal fun drawTopShadow(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
+    // top
+    paint.shader = LinearGradient(0f, bounds.top + radius, 0f, bounds.top - shaderSize, shaderCenter, shaderEnd, Shader.TileMode.MIRROR)
+    canvas.drawRect(bounds.left,  bounds.top, bounds.right, bounds.top - shaderSize, paint)
+
+}
+internal fun drawBottomShadow(canvas: Canvas, bounds: RectF, paint: Paint, radius: Float, shaderSize: Float, shaderCenter: Int, shaderEnd: Int, backgroundColor: Int){
+    // bottom
+    paint.shader = LinearGradient(0f, bounds.bottom - radius, 0f, bounds.bottom + shaderSize, shaderCenter, shaderEnd, Shader.TileMode.MIRROR);
+    canvas.drawRect(bounds.left,  bounds.bottom, bounds.right, bounds.bottom + shaderSize, paint)
+
 }

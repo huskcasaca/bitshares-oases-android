@@ -1,5 +1,6 @@
 package modulon.extensions.view
 
+import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Point
@@ -46,3 +47,12 @@ val displaySize: Point = Point()
         }
         return field
     }
+
+@Suppress("DEPRECATION")
+val Context.isSmallScreenCompat: Boolean
+    get() {
+//    activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val displayMetrics = Resources.getSystem().displayMetrics
+        return displayMetrics.widthPixels <= 400.dp
+    }
+

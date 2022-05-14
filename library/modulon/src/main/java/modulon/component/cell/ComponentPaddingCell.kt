@@ -4,24 +4,27 @@ import android.content.Context
 import androidx.core.view.updatePadding
 import modulon.R
 import modulon.extensions.view.backgroundSelectorColor
+import modulon.extensions.view.dp
+import modulon.extensions.view.isSmallScreenCompat
 
 open class ComponentPaddingCell(context: Context) : BaseCell(context) {
 
     init {
-        updatePadding(
-            context.resources.getDimensionPixelSize(R.dimen.cell_padding_start),
-            context.resources.getDimensionPixelSize(R.dimen.cell_padding_top),
-            context.resources.getDimensionPixelSize(R.dimen.cell_padding_end),
-            context.resources.getDimensionPixelSize(R.dimen.cell_padding_bottom),
-        )
+        if (context.isSmallScreenCompat) {
+            updatePadding(
+                24.dp,
+                context.resources.getDimensionPixelSize(R.dimen.cell_padding_top),
+                24.dp,
+                context.resources.getDimensionPixelSize(R.dimen.cell_padding_bottom),
+            )
+        } else {
+            updatePadding(
+                context.resources.getDimensionPixelSize(R.dimen.cell_padding_start),
+                context.resources.getDimensionPixelSize(R.dimen.cell_padding_top),
+                context.resources.getDimensionPixelSize(R.dimen.cell_padding_end),
+                context.resources.getDimensionPixelSize(R.dimen.cell_padding_bottom),
+            )
+        }
     }
-
-//    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-//        super.onMeasure(
-//            MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.EXACTLY),
-//            MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
-//        )
-//    }
-
 
 }

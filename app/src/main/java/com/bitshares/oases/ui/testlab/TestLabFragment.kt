@@ -31,8 +31,10 @@ import modulon.extensions.view.*
 import modulon.extensions.viewbinder.*
 import modulon.component.appbar.subtitle
 import modulon.component.appbar.title
+import modulon.component.cell.toggleEnd
 import modulon.layout.lazy.*
 import modulon.component.tab.tab
+import modulon.extensions.compat.recreateActivity
 import modulon.widget.PlainTextView
 
 class TestLabFragment : ContainerFragment() {
@@ -73,4 +75,13 @@ class TestLabFragment : ContainerFragment() {
 
     }
 
+}
+
+fun LazyListView.testSettings() {
+    section {
+        header = "Test Settings"
+        cell {
+            text = ""
+        }
+    }
 }
