@@ -16,6 +16,7 @@ import android.view.animation.Animation.RELATIVE_TO_SELF
 import android.widget.ImageView
 import android.widget.LinearLayout.*
 import android.widget.TextView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.animation.addListener
 import androidx.core.animation.doOnEnd
 import androidx.core.view.*
@@ -35,6 +36,7 @@ import modulon.extensions.viewbinder.coordinatorLayout
 import modulon.extensions.viewbinder.noMotion
 import modulon.extensions.viewbinder.verticalLayout
 import modulon.interpolator.CubicBezierInterpolator
+import modulon.layout.lazy.LazyListView
 import modulon.layout.stack.StackView
 import modulon.layout.linear.VerticalView
 import modulon.union.UnionDialogFragment
@@ -62,7 +64,7 @@ abstract class ExpandableFragment : UnionDialogFragment() {
             layoutGravityFrame = Gravity.BOTTOM
             background = createRoundRectDrawable(context.getColor(R.color.background), UI.CORNER_RADIUS_DIALOG.dpf, 0.dpf, 0.dpf, UI.CORNER_RADIUS_DIALOG.dpf)
             coordinatorLayout {
-                onCreateView()
+                onCreateCoordinatorView()
             }
         }
     }
@@ -268,7 +270,7 @@ abstract class ExpandableFragment : UnionDialogFragment() {
 
     }
 
-    abstract fun ViewGroup.onCreateView()
+    abstract fun ViewGroup.onCreateCoordinatorView()
 
     private inner class SheetAnimationController {
         private val backgroundDrawable: ColorDrawable by lazy {
@@ -343,8 +345,46 @@ abstract class ExpandableFragment : UnionDialogFragment() {
 }
 
 
+abstract class AlertFragment() : ExpandableFragment() {
 
-class DialogHeaderLayout(context: Context) : StackView(context) {
+    abstract fun VerticalView.onCreateAlertView()
+
+    final override fun ViewGroup.onCreateCoordinatorView() {
+        verticalLayout {
+            onCreateAlertView()
+        }
+    }
+
+    inline fun ViewGroup.alertHeader(block: AlertHeaderView.() -> Unit) {
+        view<AlertHeaderView> {
+            layoutWidth = MATCH_PARENT
+            layoutHeight = WRAP_CONTENT
+            block()
+        }
+    }
+
+    inline fun ViewGroup.alertBody(block: LazyListView.() -> Unit) {
+        view<LazyListView> {
+            layoutWidth = MATCH_PARENT
+            layoutHeight = 0
+            layoutWeightLinear = 1f
+            block()
+        }
+    }
+
+    inline fun ViewGroup.alertFooter(block: VerticalView.() -> Unit) {
+        view<VerticalView> {
+            layoutWidth = MATCH_PARENT
+            layoutHeight = WRAP_CONTENT
+            block()
+        }
+    }
+
+}
+
+
+
+class AlertHeaderView(context: Context) : StackView(context) {
 
     // TODO: 2022/2/21 replace with title()
     var title: CharSequence
@@ -416,8 +456,6 @@ class DialogHeaderLayout(context: Context) : StackView(context) {
             }
         }
 
-
-
     private val titleContainer: StackView by lazyView {
         updatePadding(R.dimen.dialog_padding_vertical.contextDimenPixelSize(), 4.dp, R.dimen.dialog_padding_vertical.contextDimenPixelSize(), 4.dp)
         viewRow(titleView) {
@@ -479,6 +517,11 @@ class DialogHeaderLayout(context: Context) : StackView(context) {
 
             }
         }
+    }
+
+
+    init {
+        addView(titleContainer)
     }
 }
 
@@ -632,7 +675,7 @@ open class BottomDialogFragment : ExpandableFragment() {
         }
     }
 
-    override fun ViewGroup.onCreateView() {
+    override fun ViewGroup.onCreateCoordinatorView() {
         verticalLayout {
             noMotion()
             clipping()

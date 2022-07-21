@@ -2,28 +2,36 @@ package com.bitshares.oases.ui.main.settings
 
 import android.view.Gravity
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import com.bitshares.oases.R
 import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.preference.old.I18N
 import com.bitshares.oases.ui.settings.SettingsViewModel
-import modulon.dialog.ExpandableFragment
+import modulon.dialog.AlertFragment
+import modulon.dialog.AlertHeaderView
 import modulon.dialog.button
 import modulon.extensions.compat.recreateActivity
 import modulon.extensions.compat.showBottomDialog
 import modulon.extensions.lifecycle.parentViewModels
 import modulon.extensions.view.*
 import modulon.extensions.viewbinder.cell
-import modulon.extensions.viewbinder.recyclerLayout
+import modulon.extensions.viewbinder.verticalLayout
+import modulon.layout.lazy.LazyListView
 import modulon.layout.lazy.section
+import modulon.layout.linear.VerticalView
 import modulon.union.Union
+import modulon.union.UnionFragment
 import modulon.widget.RadioView
 
-class LanguageSettingDialog : ExpandableFragment() {
+class LanguageSettingDialog : AlertFragment() {
 
     val viewModel: SettingsViewModel by parentViewModels()
 
-    override fun ViewGroup.onCreateView() {
-        recyclerLayout {
+    override fun VerticalView.onCreateAlertView() {
+        alertHeader {
+            title = "Languages"
+        }
+        alertBody {
             section {
                 I18N.values().forEach { locale ->
                     cell {
@@ -57,10 +65,20 @@ class LanguageSettingDialog : ExpandableFragment() {
                 }
             }
         }
+        alertFooter {
 
+
+        }
     }
 
+}
 
+inline fun <reified F: DialogFragment> UnionFragment.showDialogFragment() {
+    F::class.constructors.first().call().show(parentFragmentManager, null)
+}
+
+fun UnionFragment.startLanguageSettingDialog() {
+    showDialogFragment<LanguageSettingDialog>()
 }
 
 fun Union.showLanguageSettingDialog() = showBottomDialog {

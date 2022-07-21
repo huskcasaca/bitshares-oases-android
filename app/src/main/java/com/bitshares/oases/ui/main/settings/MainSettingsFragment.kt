@@ -186,7 +186,7 @@ class MainSettingsFragment : ContainerFragment() {
                     title = context.getString(R.string.language_settings_title)
 //                    subtext = "Languages and locals"
                     icon = R.drawable.ic_cell_language.contextDrawable()
-                    doOnThrottledClick { showLanguageSettingDialog() }
+                    doOnThrottledClick { startLanguageSettingDialog() }
                 }
             }
             section {
