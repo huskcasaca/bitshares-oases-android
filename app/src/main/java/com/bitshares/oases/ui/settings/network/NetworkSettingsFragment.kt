@@ -14,7 +14,7 @@ import com.bitshares.oases.ui.asset.browser.actionBarLayout
 import com.bitshares.oases.ui.asset.browser.actionCoordinatorParams
 import com.bitshares.oases.ui.asset.browser.bodyCoordinatorParams
 import com.bitshares.oases.ui.base.ContainerFragment
-import graphene.protocol.AccountId
+import graphene.protocol.AccountIdType
 import graphene.rpc.GrapheneClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -144,7 +144,7 @@ class NetworkSettingsFragment : ContainerFragment() {
                         doOnClick {
                             text = "Loading..."
                             lifecycleScope.launch(Dispatchers.IO) {
-                                globalWebsocketManager.getObject(AccountId(0U)).let {
+                                globalWebsocketManager.getObject(AccountIdType(0U)).let {
                                     withContext(Dispatchers.Main.immediate) {
                                         text = it.toString()
                                     }

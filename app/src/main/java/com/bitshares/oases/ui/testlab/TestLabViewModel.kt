@@ -58,11 +58,11 @@ class TestLabViewModel(application: Application) : BaseViewModel(application) {
                     }
                 }.onSuccess {
                     launch(Dispatchers.Main) {
-                        info[ProtocolType.ACCOUNT]?.value = if (it != null) "Success ${it.standardId}" else "Skipping $instance"
+                        info[ProtocolType.ACCOUNT]?.value = if (it != null) "Success ${it.id.standardId}" else "Skipping $instance"
                     }
                 }.onFailure {
                     launch(Dispatchers.Main) {
-                        info[ProtocolType.ACCOUNT]?.value = "Failed ${AccountId(instance).standardId}\n" +
+                        info[ProtocolType.ACCOUNT]?.value = "Failed ${AccountIdType(instance).standardId}\n" +
                                 it.stackTraceToString()
                         it.printStackTrace()
                     }
@@ -91,11 +91,11 @@ class TestLabViewModel(application: Application) : BaseViewModel(application) {
                     }
                 }.onSuccess {
                     launch(Dispatchers.Main) {
-                        info[ProtocolType.ASSET]?.value = if (it != null) "Success ${it.standardId}" else "Skipping $instance"
+                        info[ProtocolType.ASSET]?.value = if (it != null) "Success ${it.id.standardId}" else "Skipping $instance"
                     }
                 }.onFailure {
                     launch(Dispatchers.Main) {
-                        info[ProtocolType.ASSET]?.value = "Failed ${AssetId(instance).standardId}\n" +
+                        info[ProtocolType.ASSET]?.value = "Failed ${AssetIdType(instance).standardId}\n" +
                                 it.stackTraceToString()
                         it.printStackTrace()
                     }

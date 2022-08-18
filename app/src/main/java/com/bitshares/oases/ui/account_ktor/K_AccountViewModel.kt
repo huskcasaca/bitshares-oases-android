@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Intent
 import androidx.lifecycle.*
 import bitshareskit.chain.ChainConfig
-import bitshareskit.extensions.*
 import com.bitshares.oases.chain.IntentParameters
 import com.bitshares.oases.chain.resolveAccountPath
 import com.bitshares.oases.ui.base.BaseViewModel
@@ -12,7 +11,6 @@ import com.bitshares.oases.ui.base.getJson
 import graphene.chain.K102_AccountObject
 import graphene.protocol.*
 import graphene.rpc.GrapheneClient
-import graphene.rpc.K_Node
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -31,7 +29,7 @@ open class K_AccountViewModel(application: Application) : BaseViewModel(applicat
     val accountUID = mutableLiveDataOf(0UL)
 
     val account = accountUID.mapSuspend {
-        (databaseApi.getObject(it.toAccount()) as K102_AccountObject?).orEmpty()
+        (databaseApi.getObject(it.toAccountIdType()) as K102_AccountObject?).orEmpty()
     }
 
     override fun onActivityIntent(intent: Intent?) {

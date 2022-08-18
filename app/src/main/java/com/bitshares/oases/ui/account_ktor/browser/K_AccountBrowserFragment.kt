@@ -47,10 +47,10 @@ class K_AccountBrowserFragment : ContainerFragment() {
                 emptyIdType(),
                 PriceType.INVALID
             )
-            
-            if (a.bidder is K102_AccountObject) {
-                a.bidder.blackListedAccounts
-            }
+//
+//            if (a.bidder is K102_AccountObject) {
+//                a.bidder.blackListedAccounts
+//            }
 
 //            menu {
 //                text = context.getString(R.string.account_observe)
