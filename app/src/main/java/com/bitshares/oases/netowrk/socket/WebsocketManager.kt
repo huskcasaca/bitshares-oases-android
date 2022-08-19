@@ -37,10 +37,10 @@ class WebsocketManager(
         var lazy = lazyStart
         "startClient $newClient LazyStart $lazy".logcat()
         val tempSession = lastSession
-            if (client.value.state.value == GrapheneClient.State.CLOSED) {
+            if (client.value.state.value == GrapheneClient.State.Closed) {
                 lazy = false
             } else {
-                if (client.value == newClient && newClient.state.last().let { it == GrapheneClient.State.CONNECTED || it == GrapheneClient.State.CONNECTING }) {
+                if (client.value == newClient && newClient.state.last().let { it == GrapheneClient.State.Connected || it == GrapheneClient.State.Connecting }) {
                     return
                 }
             }
@@ -71,7 +71,7 @@ class WebsocketManager(
     }
 
     override suspend fun broadcast(method: API, params: JsonArray): SocketResult {
-        if (client.value.state.value == GrapheneClient.State.CLOSED) {
+        if (client.value.state.value == GrapheneClient.State.Closed) {
             startClient()
         }
         awaitConnection()

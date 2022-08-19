@@ -60,12 +60,12 @@ class NetworkSettingsFragment : ContainerFragment() {
                             globalWebsocketManager.state.collectLatest {
                                 @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
                                 subtitle = when (it) {
-                                    GrapheneClient.State.CONNECTING -> context.getString(R.string.node_settings_websocket_state_connecting)
-                                    GrapheneClient.State.CONNECTED -> context.getString(R.string.node_settings_websocket_state_connected)
-                                    GrapheneClient.State.LOGGING_IN -> "Logging In" // context.getString(R.string.node_settings_websocket_state_messaging)
-                                    GrapheneClient.State.CLOSED -> context.getString(R.string.node_settings_websocket_state_closed)
+                                    GrapheneClient.State.Connecting -> context.getString(R.string.node_settings_websocket_state_connecting)
+                                    GrapheneClient.State.Connected -> context.getString(R.string.node_settings_websocket_state_connected)
+                                    GrapheneClient.State.LoggedIn -> "Logging In" // context.getString(R.string.node_settings_websocket_state_messaging)
+                                    GrapheneClient.State.Closed -> context.getString(R.string.node_settings_websocket_state_closed)
                                 }
-                                subtitleView.textColor = if (it == GrapheneClient.State.CLOSED) context.getColor(R.color.component_error) else context.getColor(R.color.component)
+                                subtitleView.textColor = if (it == GrapheneClient.State.Closed) context.getColor(R.color.component_error) else context.getColor(R.color.component)
                             }
                         }
                     }
@@ -119,7 +119,7 @@ class NetworkSettingsFragment : ContainerFragment() {
                         @Suppress("UNCHECKED_CAST")
                         payload { node, payload ->
                             payload as WebsocketState
-                            bindNode(node, node.id == payload.selected, node.id == payload.config.id)
+//                            bindNode(node, node.id == payload.selected, node.id == payload.config.id)
                         }
                         distinctItemsBy { it.id }
                         distinctContentBy { it }

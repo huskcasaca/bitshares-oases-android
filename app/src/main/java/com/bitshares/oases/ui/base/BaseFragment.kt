@@ -84,13 +84,13 @@ abstract class BaseFragment : UnionFragment() {
         }
         globalWebsocketManager.state.asLiveData().observe(viewLifecycleOwner) {
             when (it) {
-                GrapheneClient.State.CONNECTING -> run {
+                GrapheneClient.State.Connecting -> run {
                     if (icon != connecting) {
                         icon = connecting
                         oa.start()
                     }
                 }
-                GrapheneClient.State.CONNECTED -> run {
+                GrapheneClient.State.Connected -> run {
                     if (icon != connected) {
                         connecting.reset()
                         connected.reset()
@@ -101,7 +101,7 @@ abstract class BaseFragment : UnionFragment() {
                         iconView.rotation = 0f
                     }
                 }
-                GrapheneClient.State.CLOSED -> run {
+                GrapheneClient.State.Closed -> run {
                     if (icon != closed) {
                         connecting.reset()
                         connected.reset()
