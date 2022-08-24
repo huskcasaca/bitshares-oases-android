@@ -3,9 +3,6 @@ package com.bitshares.oases.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import graphene.rpc.GrapheneClient
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -67,12 +64,3 @@ data class BitsharesNode(
 val nodeConfigAreEquivalent: (BitsharesNode, BitsharesNode) -> Boolean = { old, new ->
     old.id == new.id && old.url == new.url && old.username == new.username && old.password == new.password
 }
-
-fun BitsharesNode.toClient() =
-    GrapheneClient {
-        id = this@toClient.id
-        name = this@toClient.name
-        url = this@toClient.url
-        enableFallback = false
-        debug = true
-    }

@@ -37,19 +37,19 @@ class K_AccountBrowserFragment_Info : ContainerFragment() {
                 cell {
                     updatePaddingVerticalHalf()
                     title = context.getString(R.string.account_info_name)
-                    viewModel.account.observe(viewLifecycleOwner) {
-                        subtitle = it?.name ?: ""
-                        doOnLongClick { setClipboardToast(LABEL_ACCOUNT_NAME, subtitle.toString()) }
-                    }
+//                    viewModel.account.observe(viewLifecycleOwner) {
+//                        subtitle = it?.name ?: ""
+//                        doOnLongClick { setClipboardToast(LABEL_ACCOUNT_NAME, subtitle.toString()) }
+//                    }
                 }
                 cell {
                     updatePaddingVerticalHalf()
                     title = context.getString(R.string.account_info_graphene_id)
 //                    subtitleView.typeface = typefaceMonoRegular
-                    viewModel.account.observe(viewLifecycleOwner) {
-                        subtitle = it?.id.toStringOrEmpty()
-                        doOnLongClick { setClipboardToast(LABEL_GRAPHENE_ID, subtitle.toString()) }
-                    }
+//                    viewModel.account.observe(viewLifecycleOwner) {
+//                        subtitle = it?.id.toStringOrEmpty()
+//                        doOnLongClick { setClipboardToast(LABEL_GRAPHENE_ID, subtitle.toString()) }
+//                    }
                 }
 //                cell {
 //                    updatePaddingVerticalHalf()

@@ -13,14 +13,12 @@ import androidx.lifecycle.*
 import com.bitshares.oases.R
 import com.bitshares.oases.globalPreferenceManager
 import com.bitshares.oases.globalWalletManager
-import com.bitshares.oases.globalWebsocketManager
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.netowrk.java_websocket.WebSocketState
 import com.bitshares.oases.preference.DarkMode
 import com.bitshares.oases.ui.settings.network.NetworkSettingsFragment
 import com.bitshares.oases.ui.wallet.WalletSettingsFragment
 import com.bitshares.oases.ui.wallet.startWalletUnlock
-import graphene.rpc.GrapheneClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -82,38 +80,38 @@ abstract class BaseFragment : UnionFragment() {
             interpolator = LinearInterpolator()
             repeatCount = ObjectAnimator.INFINITE
         }
-        globalWebsocketManager.state.asLiveData().observe(viewLifecycleOwner) {
-            when (it) {
-                GrapheneClient.State.Connecting -> run {
-                    if (icon != connecting) {
-                        icon = connecting
-                        oa.start()
-                    }
-                }
-                GrapheneClient.State.Connected -> run {
-                    if (icon != connected) {
-                        connecting.reset()
-                        connected.reset()
-                        closed.reset()
-                        icon = connected
-                        startAnimation()
-                        oa.cancel()
-                        iconView.rotation = 0f
-                    }
-                }
-                GrapheneClient.State.Closed -> run {
-                    if (icon != closed) {
-                        connecting.reset()
-                        connected.reset()
-                        closed.reset()
-                        icon = closed
-                        startAnimation()
-                        oa.cancel()
-                        iconView.rotation = 0f
-                    }
-                }
-            }
-        }
+//        globalWebsocketManager.state.asLiveData().observe(viewLifecycleOwner) {
+//            when (it) {
+//                GrapheneClient.State.Connecting -> run {
+//                    if (icon != connecting) {
+//                        icon = connecting
+//                        oa.start()
+//                    }
+//                }
+//                GrapheneClient.State.Connected -> run {
+//                    if (icon != connected) {
+//                        connecting.reset()
+//                        connected.reset()
+//                        closed.reset()
+//                        icon = connected
+//                        startAnimation()
+//                        oa.cancel()
+//                        iconView.rotation = 0f
+//                    }
+//                }
+//                GrapheneClient.State.Closed -> run {
+//                    if (icon != closed) {
+//                        connecting.reset()
+//                        connected.reset()
+//                        closed.reset()
+//                        icon = closed
+//                        startAnimation()
+//                        oa.cancel()
+//                        iconView.rotation = 0f
+//                    }
+//                }
+//            }
+//        }
         doOnClick { startFragment<NetworkSettingsFragment>() }
         doOnLongClick { startFragment<NetworkSettingsFragment>() }
     }

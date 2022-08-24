@@ -3,14 +3,12 @@ package com.bitshares.oases
 import android.content.Context
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.runtime.Composable
 import androidx.core.content.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import com.bitshares.oases.database.BlockchainDatabase
 import com.bitshares.oases.database.LocalDatabase
 import com.bitshares.oases.netowrk.java_websocket.NetworkService
 import com.bitshares.oases.netowrk.java_websocket.SocketConnectionManager
-import com.bitshares.oases.netowrk.socket.WebsocketManager
 import com.bitshares.oases.preference.ChainPreferenceManager
 import com.bitshares.oases.preference.PreferenceManager
 import com.bitshares.oases.provider.chain_repo.ChainPropertyRepository
@@ -31,7 +29,6 @@ class MainApplication : ModulonApplication() {
         fun requireContext() = context
         val applicationJob: CompletableJob = Job()
 //        val applicationScope: CoroutineScope = CoroutineScope(Dispatchers.IO + applicationJob)
-
     }
 
     val preferenceManager by lazy { PreferenceManager(this) }
@@ -41,7 +38,7 @@ class MainApplication : ModulonApplication() {
     val connectivityManager by lazy { getSystemService<ConnectivityManager>() }
     @Deprecated("use websocketManager")
     val socketConnectionManager by lazy { SocketConnectionManager(this) }
-    val websocketManager by lazy { WebsocketManager(this) }
+//    val websocketManager by lazy { WebsocketManager(this) }
 
     override fun onCreate() {
         super.onCreate()
@@ -67,7 +64,6 @@ class MainApplication : ModulonApplication() {
         applicationJob.cancel()
     }
 
-
 }
 
 val Union.globalPreferenceManager get() = (activity.application as MainApplication).preferenceManager
@@ -76,12 +72,12 @@ val Union.globalWalletManager get() = (activity.application as MainApplication).
 val UnionContext.globalPreferenceManager get() = (context.application as MainApplication).preferenceManager
 val UnionContext.globalConnectivityManager get() = (context.application as MainApplication).connectivityManager
 val UnionContext.globalWalletManager get() = (context.application as MainApplication).walletManager
-val UnionContext.globalWebsocketManager get() = (context.application as MainApplication).websocketManager
+//val UnionContext.globalWebsocketManager get() = (context.application as MainApplication).websocketManager
 
 val AndroidViewModel.globalPreferenceManager get() = getApplication<MainApplication>().preferenceManager
 val AndroidViewModel.globalConnectivityManager get() = getApplication<MainApplication>().connectivityManager
 val AndroidViewModel.globalWalletManager get() = getApplication<MainApplication>().walletManager
-val AndroidViewModel.globalWebsocketManager get() = getApplication<MainApplication>().websocketManager
+//val AndroidViewModel.globalWebsocketManager get() = getApplication<MainApplication>().websocketManager
 
 val UnionContext.localPreferenceManager get() = PreferenceManager(context)
 

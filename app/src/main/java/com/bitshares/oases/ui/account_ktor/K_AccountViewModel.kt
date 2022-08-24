@@ -10,7 +10,6 @@ import com.bitshares.oases.ui.base.BaseViewModel
 import com.bitshares.oases.ui.base.getJson
 import graphene.chain.K102_AccountObject
 import graphene.protocol.*
-import graphene.rpc.GrapheneClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,18 +18,18 @@ import modulon.extensions.stdlib.logcat
 
 open class K_AccountViewModel(application: Application) : BaseViewModel(application) {
 
-    private val databaseApi by lazy {
-        GrapheneClient {
-            name = "XN_DELEGATE"
-            url = "wss://api.btsgo.net/ws"
-        }
-    }
+//    private val databaseApi by lazy {
+//        GrapheneClient {
+//            name = "XN_DELEGATE"
+//            url = "wss://api.btsgo.net/ws"
+//        }
+//    }
 
     val accountUID = mutableLiveDataOf(0UL)
 
-    val account = accountUID.mapSuspend {
-        (databaseApi.getObject(it.toAccountIdType()) as K102_AccountObject?).orEmpty()
-    }
+//    val account = accountUID.mapSuspend {
+//        (databaseApi.getObject(it.toAccountIdType()) as K102_AccountObject?).orEmpty()
+//    }
 
     override fun onActivityIntent(intent: Intent?) {
         super.onActivityIntent(intent)
