@@ -115,15 +115,15 @@ dependencies {
 //    implementation("androidx.activity:activity:1.4.0")
 //    implementation("androidx.activity:activity-ktx:1.4.0")
 //    implementation("androidx.activity:activity-compose:1.4.0")
-    api(files("${rootProject.projectDir}/androidx/activity/activity-debug.aar"))
-    api(files("${rootProject.projectDir}/androidx/activity/activity-ktx-debug.aar"))
-    api(files("${rootProject.projectDir}/androidx/activity/activity-compose-debug.aar"))
+    api(files("${rootProject.projectDir}/library/androidx/activity/activity-debug.aar"))
+    api(files("${rootProject.projectDir}/library/androidx/activity/activity-ktx-debug.aar"))
+    api(files("${rootProject.projectDir}/library/androidx/activity/activity-compose-debug.aar"))
 }
 
 // androidx fragment
 dependencies {
 //    implementation("androidx.fragment:fragment:1.4.1")
 //    implementation("androidx.fragment:fragment-ktx:1.4.1")
-    api(files("${rootProject.projectDir}/androidx/fragment/fragment-debug.aar"))
-    api(files("${rootProject.projectDir}/androidx/fragment/fragment-ktx-debug.aar"))
+    api(files("${rootProject.projectDir}/library/androidx/fragment/fragment-debug.aar"))
+    api(files("${rootProject.projectDir}/library/androidx/fragment/fragment-ktx-debug.aar"))
 }

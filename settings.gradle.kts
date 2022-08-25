@@ -59,9 +59,9 @@ dependencyResolutionManagement {
 
 
 include(":app")
-include(":bitshares-kit")
-include(":deprecated-bitshares-kit")
-include(":modulon")
 include(":kdenticon")
 include(":swirl")
-include(":depricated-java-json")
+include(":library:bitshares-kit")
+include(":library:deprecated-bitshares-kit")
+include(":library:depricated-java-json")
+include(":library:modulon")

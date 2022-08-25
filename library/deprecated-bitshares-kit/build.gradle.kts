@@ -101,9 +101,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.1")
-    implementation(project(":depricated-java-json"))
+    implementation(project(":library:depricated-java-json"))
 
-    implementation(project(":bitshares-kit"))
+    implementation(project(":library:bitshares-kit"))
 
     implementation("org.bouncycastle:bcpkix-jdk15on:1.65")
 

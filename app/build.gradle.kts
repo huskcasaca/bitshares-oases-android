@@ -147,16 +147,16 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
     // project libs
-    implementation(project(":bitshares-kit"))
-    implementation(project(":modulon"))
+    implementation(project(":library:bitshares-kit"))
+    implementation(project(":library:modulon"))
     implementation(project(":kdenticon"))
     implementation(project(":swirl"))
 
 }
 
 dependencies {
-    implementation(project(":depricated-java-json"))
-    implementation(project(":deprecated-bitshares-kit"))
+    implementation(project(":library:depricated-java-json"))
+    implementation(project(":library:deprecated-bitshares-kit"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
     testImplementation("com.github.bilthon:graphenej:0.4.6")
     testImplementation("junit:junit:4.13.2")
