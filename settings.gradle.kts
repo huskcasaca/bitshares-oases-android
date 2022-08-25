@@ -57,11 +57,13 @@ dependencyResolutionManagement {
     }
 }
 
-
 include(":app")
 include(":kdenticon")
 include(":swirl")
 include(":library:bitshares-kit")
-include(":library:deprecated-bitshares-kit")
-include(":library:depricated-java-json")
+include(":library:bitshares-kit:core")
 include(":library:modulon")
+
+// deprecated
+include(":library:deprecated-bitshares-kit")
+include(":library:deprecated-java-json")

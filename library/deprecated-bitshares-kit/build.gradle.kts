@@ -6,84 +6,23 @@ plugins {
 }
 
 android {
-    compileSdkVersion = "android-31"
+    compileSdk = 32
+    namespace = "bitshareskit"
     defaultConfig {
         minSdk = 23
-        targetSdk = 31
+        targetSdk = 32
         multiDexEnabled = true
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
-//        signingConfig = signingConfigs.debug
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    packagingOptions {
-        resources.excludes.addAll(
-            listOf(
-                "DebugProbesKt.bin",
-                "/META-INF/proguard/androidx-annotations.pro",
-                "/META-INF/*.version",
-                "/META-INF/*.kotlin_module",
-                "/META-INF/services/**",
-                "/META-INF/native/**",
-                "/META-INF/native-image/**",
-                "/META-INF/INDEX.LIST",
-//                    "**/kotlin/**",
-//                    "**/javax/**",
-                "**/bouncycastle/**",
-//                    "**/*.kotlin_*",
-//                    "com/**",
-//                    "org/**",
-//                    "**/*.java",
-//                    "**/*.proto"
-            )
-        )
-    }
-    configurations.all {
-        resolutionStrategy.eachDependency {
-            if (requested.group == "org.jetbrains.kotlin" && requested.name.contains("reflect") ) {
-                useVersion("1.7.10")
-            }
-        }
-        exclude(group = "androidx.fragment", module = "fragment")
-//            exclude(group = "androidx.fragment", module = "fragment-ktx")
-        exclude(group = "androidx.activity", module = "activity")
-//            exclude(group = "androidx.activity", module = "activity-ktx")
-//            exclude(group = "androidx.activity", module = "activity-compose")
-    }
-}
-android {
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-        getByName("debug") {
-            isMinifyEnabled = false
-        }
-    }
-    lint {
-        checkReleaseBuilds = false
-    }
-    namespace = "bitshareskit"
-}
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     // Kotlin
     implementation("androidx.savedstate:savedstate:1.1.0")
     implementation("androidx.savedstate:savedstate-ktx:1.1.0")
-}
-dependencies {
     implementation("androidx.room:room-ktx:2.4.3")
-}
-dependencies {
     val ktor_version = "2.0.0"
     implementation("io.ktor:ktor-client-core:$ktor_version")
 //        implementation("io.ktor:ktor-serialization:$ktor_version")
@@ -94,18 +33,19 @@ dependencies {
 //        implementation("io.ktor:ktor-client-android:$ktor_version")
     implementation("io.ktor:ktor-client-okhttp:$ktor_version")
     implementation("io.ktor:ktor-client-cio:$ktor_version")
-}
-dependencies {
+
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
     implementation("org.jetbrains.kotlinx:kotlinx-io-jvm:0.1.16")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.1")
-    implementation(project(":library:depricated-java-json"))
+    implementation(project(":library:deprecated-java-json"))
 
-    implementation(project(":library:bitshares-kit"))
+    implementation(project(":library:bitshares-kit:core"))
 
     implementation("org.bouncycastle:bcpkix-jdk15on:1.65")
+}
+dependencies {
 
     // test libs
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")

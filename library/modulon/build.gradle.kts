@@ -4,10 +4,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion = "android-31"
+    namespace = "modulon"
+    compileSdk = 32
     defaultConfig {
         minSdk = 23
-        targetSdk = 31
+        targetSdk = 32
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -17,28 +18,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    packagingOptions {
-        resources.excludes.addAll(
-            listOf(
-                "DebugProbesKt.bin",
-                "/META-INF/proguard/androidx-annotations.pro",
-                "/META-INF/*.version",
-                "/META-INF/*.kotlin_module",
-                "/META-INF/services/**",
-                "/META-INF/native/**",
-                "/META-INF/native-image/**",
-                "/META-INF/INDEX.LIST",
-//                    "**/kotlin/**",
-//                    "**/javax/**",
-                "**/bouncycastle/**",
-//                    "**/*.kotlin_*",
-//                    "com/**",
-//                    "org/**",
-//                    "**/*.java",
-//                    "**/*.proto"
-            )
-        )
-    }
     configurations.all {
         resolutionStrategy.eachDependency {
             if (requested.group == "org.jetbrains.kotlin" && requested.name.contains("reflect") ) {
@@ -46,27 +25,8 @@ android {
             }
         }
         exclude(group = "androidx.fragment", module = "fragment")
-//            exclude(group = "androidx.fragment", module = "fragment-ktx")
         exclude(group = "androidx.activity", module = "activity")
-//            exclude(group = "androidx.activity", module = "activity-ktx")
-//            exclude(group = "androidx.activity", module = "activity-compose")
     }
-}
-
-android {
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-        getByName("debug") {
-            isMinifyEnabled = false
-        }
-    }
-    lint {
-        checkReleaseBuilds = false
-    }
-    namespace = "modulon"
 }
 
 dependencies {
@@ -112,9 +72,6 @@ dependencies {
 }
 // androidx activity
 dependencies {
-//    implementation("androidx.activity:activity:1.4.0")
-//    implementation("androidx.activity:activity-ktx:1.4.0")
-//    implementation("androidx.activity:activity-compose:1.4.0")
     api(files("${rootProject.projectDir}/library/androidx/activity/activity-debug.aar"))
     api(files("${rootProject.projectDir}/library/androidx/activity/activity-ktx-debug.aar"))
     api(files("${rootProject.projectDir}/library/androidx/activity/activity-compose-debug.aar"))
@@ -122,8 +79,6 @@ dependencies {
 
 // androidx fragment
 dependencies {
-//    implementation("androidx.fragment:fragment:1.4.1")
-//    implementation("androidx.fragment:fragment-ktx:1.4.1")
     api(files("${rootProject.projectDir}/library/androidx/fragment/fragment-debug.aar"))
     api(files("${rootProject.projectDir}/library/androidx/fragment/fragment-ktx-debug.aar"))
 }

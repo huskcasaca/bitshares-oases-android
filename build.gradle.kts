@@ -15,7 +15,6 @@ tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
 
-
 //allprojects {
-//    apply("${rootProject.projectDir}/all-projects.gradle.kts")
+//    apply("${rootProject.projectDir}/common.gradle.kts")
 //}

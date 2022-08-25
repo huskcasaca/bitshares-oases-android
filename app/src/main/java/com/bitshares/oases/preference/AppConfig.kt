@@ -1,6 +1,5 @@
 package com.bitshares.oases.preference
 
-import Constants
 import com.bitshares.oases.R
 
 object AppConfig {
