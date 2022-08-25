@@ -63,10 +63,10 @@ include(":core")
 include(":kdenticon")
 include(":swirl")
 
-include(":library:bitshares-kit")
-include(":library:bitshares-kit:core")
-include(":library:modulon")
+include(":include:bitshares-kit")
+include(":include:bitshares-kit:core")
+include(":include:modulon")
 
 // deprecated
-include(":library:deprecated-bitshares-kit")
-include(":library:deprecated-java-json")
+include(":include:deprecated-bitshares-kit")
+include(":include:deprecated-java-json")
