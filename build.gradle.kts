@@ -1,20 +1,21 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 buildscript {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
+
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.20")
+        classpath("com.android.tools.build", "gradle", "7.2.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
     }
-    //    dependencies {
-//        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Constants.KOTLIN_VERSION}")
-//        classpath("com.android.tools.build:gradle:7.0.4")
-//        classpath(kotlin("gradle-plugin", Constants.KOTLIN_VERSION))
-//    }
 }
 
-allprojects {
-    apply("${rootProject.projectDir}/all-projects.gradle.kts")
+tasks.register("clean", Delete::class) {
+    delete(rootProject.buildDir)
 }
+
+
+//allprojects {
+//    apply("${rootProject.projectDir}/all-projects.gradle.kts")
+//}

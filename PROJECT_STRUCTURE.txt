@@ -1,0 +1,27 @@
+Project Dictionay
+
+com.bitshares.oases
+    security        [:core-security] // Provide account and keys save [:core-database] [:core-datastore]
+    network         [:core-network]  // Provide network api access [:core-database] [:core-datastore]
+    persistence
+        dao         [:core-database]
+        model       [:core-database]
+        util        [:core-database]
+        datastore   [:core-datastore]
+
+   ?model           [:core] [:core-security] [:core-network]
+    repository      [:core-security] [:core-network]
+    di
+
+
+    ui              [:app]
+        base
+        home
+        account
+        theme
+
+
+graphene.           [:library:graphene]
+
+
+

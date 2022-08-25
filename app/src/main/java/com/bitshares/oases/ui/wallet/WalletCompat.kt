@@ -554,6 +554,7 @@ fun Union.showWalletBackupDialog() = showBottomDialog {
                 message = context.getString(R.string.wallet_settings_backup_dialog_failed_message)
             }
             DialogState.PENDING -> hideSoftKeyboard()
+            else -> {}
         }
         messageView.isVisible = it == DialogState.EMPTY
     }

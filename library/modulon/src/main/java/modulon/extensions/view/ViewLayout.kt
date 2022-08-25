@@ -1,2 +1,0 @@
-package modulon.extensions.view
-

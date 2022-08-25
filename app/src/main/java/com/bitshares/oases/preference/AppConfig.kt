@@ -6,8 +6,8 @@ import com.bitshares.oases.R
 object AppConfig {
 
     const val APP_NAME = "BitShares Oases"
-    const val APP_PACKAGE_NAME = Constants.PROJECT_PACKAGE_NAME
-    const val APP_VERSION = "${Constants.PROJECT_VERSION} (${Constants.PROJECT_VERSION_CODE})"
+    const val APP_PACKAGE_NAME = "com.bitshares.oases"
+    const val APP_VERSION = "1.0.2-alpha (102)"
     const val AUTHOR = "huskcasaca"
 
     const val PROJECT_SOURCE_CODE_URL = "https://github.com/huskcasaca/bitshares-oases-android"

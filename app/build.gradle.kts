@@ -2,14 +2,135 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
-    kotlin("plugin.serialization") version Constants.KOTLIN_VERSION
+    kotlin("plugin.serialization") version "1.7.10"
 }
 
-application()
+configurations.all {
+    resolutionStrategy {
+        force("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
+    }
+}
+android {
+    compileSdkVersion = "android-31"
+    defaultConfig {
+        minSdk = 23
+        targetSdk = 31
+        multiDexEnabled = true
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+//        signingConfig = signingConfigs.debug
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    packagingOptions {
+        resources.excludes.addAll(
+            listOf(
+                "DebugProbesKt.bin",
+                "/META-INF/proguard/androidx-annotations.pro",
+                "/META-INF/*.version",
+                "/META-INF/*.kotlin_module",
+                "/META-INF/services/**",
+                "/META-INF/native/**",
+                "/META-INF/native-image/**",
+                "/META-INF/INDEX.LIST",
+//                    "**/kotlin/**",
+//                    "**/javax/**",
+                "**/bouncycastle/**",
+//                    "**/*.kotlin_*",
+//                    "com/**",
+//                    "org/**",
+//                    "**/*.java",
+//                    "**/*.proto"
+            )
+        )
+    }
+    configurations.all {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "org.jetbrains.kotlin" && requested.name.contains("reflect") ) {
+                useVersion("1.7.10")
+            }
+        }
+        exclude(group = "androidx.fragment", module = "fragment")
+//            exclude(group = "androidx.fragment", module = "fragment-ktx")
+        exclude(group = "androidx.activity", module = "activity")
+//            exclude(group = "androidx.activity", module = "activity-ktx")
+//            exclude(group = "androidx.activity", module = "activity-compose")
+    }
+    lintOptions {
+//            isShowAll = true
+//            isCheckAllWarnings = true
+        isCheckReleaseBuilds = false
+//            isWarningsAsErrors = true
+//            textOutput = project.file("build/lint.txt")
+//            htmlOutput = project.file("build/lint.html")
+    }
+}
+android {
+    defaultConfig {
+        applicationId = "com.bitshares.oases"
+        versionCode = 102
+        versionName = "1.0.2-alpha"
+    }
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+            isShrinkResources = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        getByName("debug") {
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
+    }
+}
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
+}
 
 dependencies {
-//    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Constants.KOTLIN_VERSION}")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:${Constants.KOTLIN_VERSION}")
+    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.appcompat:appcompat:1.4.1")
+    // Kotlin
+    implementation("androidx.savedstate:savedstate:1.1.0")
+    implementation("androidx.savedstate:savedstate-ktx:1.1.0")
+}
+dependencies {
+    val lifecycle_version = "2.4.0"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+//        implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version")
+
+    // optional - helpers for implementing LifecycleOwner in a Service
+    implementation("androidx.lifecycle:lifecycle-service:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-process:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version")
+}
+dependencies {
+    implementation("androidx.room:room-ktx:2.4.3")
+    kapt("androidx.room:room-compiler:2.4.3")
+}
+
+dependencies {
+    val ktor_version = "2.0.0"
+    implementation("io.ktor:ktor-client-core:$ktor_version")
+//        implementation("io.ktor:ktor-serialization:$ktor_version")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+
+    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+    implementation("io.ktor:ktor-client-serialization:$ktor_version")
+//        implementation("io.ktor:ktor-client-android:$ktor_version")
+    implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+    implementation("io.ktor:ktor-client-cio:$ktor_version")
+}
+dependencies {
+//    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
     implementation("org.jetbrains.kotlinx:kotlinx-io-jvm:0.1.16")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
@@ -26,18 +147,16 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
     // project libs
-    implementation(project(":library:bitshares-kit"))
-    implementation(project(":library:bitshares-kit-old"))
-    implementation(project(":library:modulon"))
-    implementation(project(":library:kdenticon"))
-    implementation(project(":library:swirl"))
+    implementation(project(":bitshares-kit"))
+    implementation(project(":modulon"))
+    implementation(project(":kdenticon"))
+    implementation(project(":swirl"))
 
-    implementation(project(":external:java-json"))
-
-    implementation(fileTree("${project.rootDir}/buildSrc/build/"))
 }
 
 dependencies {
+    implementation(project(":depricated-java-json"))
+    implementation(project(":deprecated-bitshares-kit"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
     testImplementation("com.github.bilthon:graphenej:0.4.6")
     testImplementation("junit:junit:4.13.2")
@@ -49,10 +168,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 }
 
-repositories {
-    mavenCentral()
-    maven {
-        url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
-        name = "ktor-eap"
-    }
+android {
+    namespace = "com.bitshares.oases"
 }

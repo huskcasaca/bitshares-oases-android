@@ -1,17 +1,9 @@
 rootProject.extra.apply {
-    set("pluginVersion", "7.0.4")
-    set("kotlinVersion", "1.6.20")
-//    val androidPluginVersion = rootProject.extra["androidPluginVersion"].toString()
-//    val kotlinVersion = rootProject.extra["kotlinVersion"].toString()
+    set("pluginVersion", "7.2.0")
+    set("kotlinVersion", "1.7.10")
 }
 
 repositories {
     google()
     mavenCentral()
 }
-
-//tasks.withType<KotlinCompile>().all {
-//    kotlinOptions {
-//        freeCompilerArgs = freeCompilerArgs + "-Xuse-experimental=kotlin.ExperimentalUnsignedTypes" + "-Xuse-experimental=kotlin.contracts.ExperimentalContracts" + "-Xopt-in=kotlin.ExperimentalStdlibApi"
-//    }
-//}

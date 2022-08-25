@@ -180,6 +180,7 @@ class VotingFragment_Tabs : ContainerFragment() {
                         viewModel.standbyWorkerFiltered.observe(viewLifecycleOwner) { isVisible = it.isNotEmpty() }
                     }
                 }
+                else -> {}
             }
         }
     }
