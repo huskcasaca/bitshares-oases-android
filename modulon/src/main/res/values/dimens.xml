@@ -1,0 +1,71 @@
+<resources>
+
+    <!-- actionbar -->
+    <dimen name="action_bar_height_vertical">64dp</dimen>
+
+    <!-- switch -->
+    <dimen name="switch_thumb_radius">8dp</dimen>
+    <dimen name="switch_track_width">18dp</dimen>
+    <dimen name="switch_ripple_radius">18dp</dimen>
+
+    <dimen name="button_radius">6dp</dimen>
+    <!-- alert dialog -->
+
+    <dimen name="dialog_padding_top">32dp</dimen>
+    <dimen name="dialog_padding_vertical">28dp</dimen>
+
+    <dimen name="dialog_button_height">56dp</dimen>
+    <dimen name="dialog_button_width_min">56dp</dimen>
+    <dimen name="dialog_button_radius">6dp</dimen>
+
+    <dimen name="dialog_radius">10dp</dimen>
+
+
+    <!-- base cell -->
+    <dimen name="cell_padding_start">18dp</dimen>
+    <dimen name="cell_padding_top">13dp</dimen>
+    <dimen name="cell_padding_end">18dp</dimen>
+    <dimen name="cell_padding_bottom">13dp</dimen>
+
+
+    <!-- component cell -->
+    <dimen name="component_offset">16dp</dimen>
+
+    <dimen name="icon_size_tiny">24dp</dimen>
+    <dimen name="icon_size_small">32dp</dimen>
+    <dimen name="icon_size_normal">40dp</dimen>
+    <dimen name="icon_size_large">48dp</dimen>
+    <dimen name="icon_size_epic">56dp</dimen>
+
+    <dimen name="icon_size_1">12dp</dimen>
+    <dimen name="icon_size_3">36dp</dimen>
+    <dimen name="icon_size_5">60dp</dimen>
+    <dimen name="icon_size_7">84dp</dimen>
+    <dimen name="icon_size_9">108dp</dimen>
+
+    <dimen name="icon_size_component_0">44dp</dimen>
+    <dimen name="icon_size_component_1">54dp</dimen>
+
+
+    <!-- navigation drawer -->
+    <dimen name="navigation_drawer_width">320dp</dimen>
+    <dimen name="navigation_drawer_padding_start">20dp</dimen>
+    <dimen name="navigation_drawer_padding_top">0dp</dimen>
+    <dimen name="navigation_drawer_padding_end">20dp</dimen>
+    <dimen name="navigation_drawer_padding_bottom">0dp</dimen>
+
+    <dimen name="navigation_drawer_padding_vertical">24dp</dimen>
+
+    <dimen name="navigation_drawer_top_offset">12dp</dimen>
+
+
+    <!-- global -->
+<!--    <dimen name="corner_radius">14dp</dimen>-->
+    <dimen name="global_spacer_size">16dp</dimen>
+
+    <dimen name="global_corner_shader_indent">6dp</dimen>
+    <dimen name="global_corner_shader">8dp</dimen>
+
+
+
+</resources>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Components    -->
+    <color name="primary">#ff121212</color>
+    <color name="primary_dark">#ff000000</color>
+    <color name="status_bar">#66ffffff</color>
+
+    <color name="background">#ff131313</color>
+    <color name="background_dark">#ff282828</color>
+    <color name="background_cover">#0dffffff</color>
+    <color name="background_cover_1">#1cffffff</color>
+    <color name="background_component">#ff1f1f1f</color>
+
+    <color name="background_dialog">#ff3f3f3f</color>
+
+    <color name="background_component_light">#08344A</color>
+
+    <color name="component_separator">#ff1e1e1e</color>
+
+    <color name="shader_end">@color/background</color>
+    <color name="shader_center">#181818</color>
+    <color name="shader_center_floating">#ff282828</color>
+
+    <color name="shader_end_alpha">#00000000</color>
+    <color name="shader_start_alpha">#14000000</color>
+
+    <color name="component">@color/light_blue_700</color>
+    <color name="component_light">@color/light_blue_800</color>
+    <color name="component_dark">@color/light_blue_600</color>
+    <color name="component_error">@color/red_600</color>
+    <color name="component_warning">@color/orange_700</color>
+    <color name="component_active">@color/green_a700</color>
+    <color name="component_inactive">@color/grey_500</color>
+    <color name="component_disabled">@color/grey_700</color>
+    <color name="component_dark_gray">@color/grey_500</color>
+    <color name="component_light_gray">@color/grey_700</color>
+    <color name="component_cover">#4b000000</color>
+
+
+    <color name="tag_default">@color/background_cover</color>
+
+    <color name="tag_component">@color/component</color>
+    <color name="tag_component_dark">@color/component_dark</color>
+
+    <color name="tag_component_inactive">@color/grey_700</color>
+
+
+    <color name="tag_red">@color/red_a200</color>
+    <color name="tag_pink">@color/pink_a200</color>
+    <color name="tag_purple">@color/purple_a200</color>
+    <color name="tag_deep_purple">@color/deep_purple_a200</color>
+    <color name="tag_indigo">@color/indigo_a200</color>
+    <color name="tag_blue">@color/blue_a200</color>
+    <color name="tag_light_blue">@color/light_blue_a200</color>
+    <color name="tag_cyan">@color/cyan_500</color>
+    <color name="tag_teal">@color/teal_50</color>
+    <color name="tag_lime">@color/lime_50</color>
+
+
+    <color name="tag_green">@color/green_a400</color>
+    <color name="tag_light_green">@color/light_green_a200</color>
+
+    <color name="tag_yellow">@color/yellow_a200</color>
+    <color name="tag_amber">@color/amber_a200</color>
+    <color name="tag_orange">@color/orange_a200</color>
+    <color name="tag_deep_orange">@color/deep_orange_a200</color>
+    <color name="tag_brown">@color/brown_600</color>
+    <color name="tag_blue_grey">@color/blue_grey_600</color>
+
+
+    <color name="tag_light_grey">@color/grey_300</color>
+    <color name="tag_dark_grey">@color/grey_500</color>
+
+
+    <!--    Span    -->
+
+    <color name="tag_normal">#ff202020</color>
+    <color name="tag_normal_dark">#ff2b2b2b</color>
+
+    <color name="tag_simple_background">#26666666</color>
+    <color name="tag_simple_default">#267c7c7c</color>
+
+    <!--    operations    -->
+
+
+
+
+
+
+    <!--    Text    -->
+    <color name="text_primary">@color/grey_100</color>
+    <color name="text_primary_inverted">@color/grey_900</color>
+    <color name="text_secondary">@color/grey_500</color>
+    <color name="text_secondary_inverted">@color/grey_850</color>
+    <color name="text_normal">@color/grey_400</color>
+    <color name="text_link">@color/blue_100</color>
+
+    <color name="text_hint_normal">@color/grey_600</color>
+    <color name="text_hint_disabled">@color/grey_800</color>
+    <color name="text_hint_background">@color/grey_850</color>
+
+    <color name="text_white">@color/text_primary</color>
+    <color name="text_black">@color/text_primary_inverted</color>
+
+    <color name="tag_text_default">@color/grey_200</color>
+    <color name="tag_text_inverted">@color/grey_900</color>
+
+    <color name="tag_text_primary">@color/text_primary</color>
+    <color name="tag_text_secondary">@color/cell_text_secondary</color>
+
+    <color name="title">@color/text_primary</color>
+    <color name="subtitle">@color/text_secondary</color>
+
+    <color name="drawer_icon">@color/grey_300</color>
+    <color name="drawer_text">@color/grey_50</color>
+    <color name="drawer_divider">#ff161616</color>
+    <color name="drawer_background">@color/background_component</color>
+    <color name="drawer_background_header">#ff181818</color>
+    <color name="drawer_background_avatar">#0dffffff</color>
+    <!--    TODO   -->
+    <color name="drawer_background_avatar_e">#33EF5350</color>
+
+    <color name="dialog_background">@color/background</color>
+    <color name="dialog_button_normal">@color/component</color>
+    <color name="dialog_button_accent">@color/component_error</color>
+
+    <color name="dialog_title">@color/title</color>
+    <color name="dialog_subtitle">@color/subtitle</color>
+
+
+    <color name="cell_background">@color/background</color>
+
+    <color name="cell_title">@color/component</color>
+    <color name="cell_text_primary">@color/grey_200</color>
+    <color name="cell_text_secondary">@color/component_dark_gray</color>
+    <color name="cell_text_hint">@color/grey_800</color>
+
+    <color name="field_text_indicator">#ff181818</color>
+
+
+    <color name="light_0">@color/black_1000</color>
+    <color name="dark_0">@color/white_0</color>
+
+
+</resources>
