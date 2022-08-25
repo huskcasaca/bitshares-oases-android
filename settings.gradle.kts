@@ -58,8 +58,11 @@ dependencyResolutionManagement {
 }
 
 include(":app")
+include(":core")
+
 include(":kdenticon")
 include(":swirl")
+
 include(":library:bitshares-kit")
 include(":library:bitshares-kit:core")
 include(":library:modulon")
