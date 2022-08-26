@@ -14,7 +14,6 @@ configurations.all {
 android {
     compileSdk = 32
     namespace = "com.bitshares.oases"
-
     defaultConfig {
         minSdk = 23
         targetSdk = 32
@@ -22,6 +21,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 //        signingConfig = signingConfigs.debug
+
+
+        applicationId = "com.bitshares.oases"
+        versionCode = 102
+        versionName = "1.0.2-alpha"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -69,12 +73,6 @@ android {
 //            textOutput = project.file("build/lint.txt")
 //            htmlOutput = project.file("build/lint.html")
     }
-
-    defaultConfig {
-        applicationId = "com.bitshares.oases"
-        versionCode = 102
-        versionName = "1.0.2-alpha"
-    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -88,49 +86,45 @@ android {
     }
 }
 dependencies {
+
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.appcompat:appcompat:1.5.0")
     // Kotlin
-    implementation("androidx.savedstate:savedstate:1.1.0")
-    implementation("androidx.savedstate:savedstate-ktx:1.1.0")
+    implementation("androidx.savedstate:savedstate:1.2.0")
+    implementation("androidx.savedstate:savedstate-ktx:1.2.0")
 
-    val lifecycle_version = "2.4.0"
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
-    // alternately - if using Java8, use the following instead of lifecycle-compiler
-//        implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version")
-
-    // optional - helpers for implementing LifecycleOwner in a Service
-    implementation("androidx.lifecycle:lifecycle-service:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-process:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version")
+    val lifecycleVersion = "2.5.1"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-service:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-process:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycleVersion")
 
     implementation("androidx.room:room-ktx:2.4.3")
     kapt("androidx.room:room-compiler:2.4.3")
 
 
-    val ktor_version = "2.0.0"
-    implementation("io.ktor:ktor-client-core:$ktor_version")
+    val ktorVersion = "2.1.0"
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
 //        implementation("io.ktor:ktor-serialization:$ktor_version")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
-
-    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
-    implementation("io.ktor:ktor-client-serialization:$ktor_version")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-client-serialization:$ktorVersion")
 //        implementation("io.ktor:ktor-client-android:$ktor_version")
-    implementation("io.ktor:ktor-client-okhttp:$ktor_version")
-    implementation("io.ktor:ktor-client-cio:$ktor_version")
+    implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
 
 
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
     implementation("org.jetbrains.kotlinx:kotlinx-io-jvm:0.1.16")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
 
     // third party libs
@@ -140,7 +134,7 @@ dependencies {
 
     // TODO: 2022/2/8 upgrade to okhttp4
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
     // project libs
     implementation(project(":include:bitshares-kit:core"))
