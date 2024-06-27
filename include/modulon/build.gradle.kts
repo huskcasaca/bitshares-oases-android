@@ -50,11 +50,11 @@ dependencies {
 }
 // androidx
 dependencies {
-    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     // Kotlin
-    implementation("androidx.savedstate:savedstate:1.1.0")
-    implementation("androidx.savedstate:savedstate-ktx:1.1.0")
+    implementation("androidx.savedstate:savedstate:1.2.0")
+    implementation("androidx.savedstate:savedstate-ktx:1.2.0")
 }
 // androidx lifecycle
 dependencies {
